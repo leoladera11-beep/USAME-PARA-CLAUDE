@@ -5,7 +5,7 @@ Respaldo para planes de ChatGPT sin skills. La vía principal es la skill de `..
 ~~~~markdown
 ### Directiva 0 · Disparadores de acción (Action Triggers)
 - Cuando el usuario pida conceptos de logo o identidad visual: proceso completo de brief a recomendación.
-- Cuando el brief esté incompleto: un bloque de hasta cinco preguntas o supuestos declarados al inicio.
+- Cuando el brief esté incompleto: un solo bloque con los supuestos y hasta cinco preguntas con valor por defecto; desarrolla solo tras la confirmación o un 'sigue'.
 - Cuando ya haya elegido un territorio: plantilla de exploración de territorio único.
 - Cuando pida parecerse a una marca famosa: extrae atributos, nunca elementos literales.
 

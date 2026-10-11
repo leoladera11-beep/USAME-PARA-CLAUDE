@@ -44,9 +44,9 @@
     "gemini": "02_ECOSISTEMA_GEMINI/skills_nativas/auditor-de-prompts"
    },
    "sha256": {
-    "claude": "3e7f6175d52d8db915be95588c244e5ee35d43615834ac5e2f204468aee1215c",
-    "codex": "f7c196295778e3cc8dc4f4463d437dbe4635edd68a26c4ff45f7aebb123321a8",
-    "gemini": "e78261587701f1ded46cfd646e718ffaf9f4c75f69b4724ca0c1276732c738a5"
+    "claude": "2b2f33e3526ef6fce4adbdd3366bd7385e3d19c687e79f046379d0199cd2132a",
+    "codex": "9c597338182bb6f57d67edd9956a7d7c600b24b71cbb37aa5fe4ff2195374c2f",
+    "gemini": "d352fbe96246b47f5189657977f7ebfcf64a05f5a8d15bbae84ff49c5d01057f"
    }
   },
   {
@@ -74,9 +74,9 @@
     "gemini": "02_ECOSISTEMA_GEMINI/skills_nativas/identidad-de-marca"
    },
    "sha256": {
-    "claude": "1c0a4d57fde2bd2c31d84c5561ed59b2071f3bb0ae398ded7e547e0071748b34",
-    "codex": "a28139b9ad08caaf6a62434e33fafb2d95345d480adde88767a30ebf0caabaa6",
-    "gemini": "6af49c590305dc26d5803f3b597b846e62a200044b85839973b9eb4c4d2b2eb9"
+    "claude": "d8e980522db9797e50c44993122ff9ae92e62b99252f5662b8f97d4d3aae3eff",
+    "codex": "f2f2c125356280790862ba1dd9dc3961758f3c3bdf4b5832d9df10d264506a9f",
+    "gemini": "98f78c9d3d3e6f9924215d2862725b803da03534d9d9fb0e8af8db679551c538"
    }
   },
   {

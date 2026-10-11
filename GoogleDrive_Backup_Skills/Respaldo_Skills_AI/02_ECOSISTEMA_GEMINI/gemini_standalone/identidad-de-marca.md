@@ -86,14 +86,14 @@ La persona responde "sigue". Salida esperada del modelo, segundo turno (estructu
 > - Color: negro; después #2F3B2A (verde molle). Sobre kraft, negro o verde, que contrastan por luminosidad; el blanco invertido queda para fondos oscuros.
 > - Sistema: símbolo sobre el nombre; versión horizontal; favicon con solo el grano.
 > - Aplicaciones: sello y etiqueta; débil en pantallas pequeñas.
-> - Estrés: a 16 píxeles las hojas se funden (por eso el favicon); bordado viable, sin detalles menores a 1 mm; valla legible a 30 metros por su contorno cerrado de alto contraste.
-> - Riesgos: parecido con logos de "árbol de la vida"; el grano puede leerse como semilla; sin significado cultural problemático conocido en Perú (validar); envejecería como monolínea fina.
+> - Estrés: a 16 píxeles las hojas se funden (por eso el favicon); bordado viable, sin detalles menores a 1 mm; valla legible a 30 metros por su contorno cerrado de alto contraste; en fondo oscuro, invertido en blanco, el grano se mantiene.
+> - Riesgos: parecido con logos de "árbol de la vida"; el grano puede leerse como semilla; sin significado cultural problemático conocido en Perú (validar); envejecería con la moda del line art de trazo continuo.
 > - Hipótesis: que se reconozca el grano sin explicación.
 > - Prompt de imagen: "flat vector logo, a stylized molle tree drawn as one continuous thick line, round canopy of seven small leaves, trunk splitting into two roots that close the outline, the negative space inside the canopy forms a coffee bean, the wordmark Molle set below in a uniform-stroke humanist sans, solid white background, single color black, centered, no gradients, no shadows, no mockup, no 3D, no extra text, vertical 17:24 canvas"
 >
 > G y H. Tabla ponderada con una frase de evidencia por celda, recomendación, alternativa, compensaciones y dos pruebas con clientes reales (reconocimiento del grano en cinco segundos; preferencia en bolsa impresa frente a la alternativa).
 
-Por qué es correcta: pregunta antes de ejecutar con valores por defecto; la ficha trae todos los campos del paso 6; el territorio se puede dibujar sin verlo; cada afirmación de que algo funciona lleva su razón mecánica; el prompt cumple la base obligatoria e incluye el nombre porque la marca es combinada (el nombre va solo si el concepto lo lleva) y termina con el lienzo vertical de 24 x 17 cm; no usa "moderno" ni "premium" sin rasgo visual; y separa hipótesis de evidencia.
+Por qué es correcta: pregunta antes de ejecutar con valores por defecto; la ficha trae todos los campos del paso 6; el territorio se puede dibujar sin verlo; cada afirmación de que algo funciona lleva su razón mecánica; el prompt cumple la base obligatoria e incluye el nombre porque la marca es combinada y termina con el lienzo vertical de 24 x 17 cm; no usa "moderno" ni "premium" sin rasgo visual; y separa hipótesis de evidencia.
 
 ### Ejemplo 2. Exploración de un único territorio
 

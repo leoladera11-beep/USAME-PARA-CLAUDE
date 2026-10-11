@@ -1,5 +1,5 @@
 ---
-description: "Identidad de marca (BRAND-IDENTITY-SYSTEM). Desarrolla territorios de identidad visual y logo desde el brief hasta una recomendación ponderada, con fichas dibujables y prompts de imagen en inglés listos para usar."
+description: "Identidad de marca (BRAND-IDENTITY-SYSTEM). Desarrolla territorios de identidad visual y logo desde el brief hasta una recomendación ponderada, con fichas dibujables y prompts de imagen en inglés listos para usar. Úsala cuando el usuario pida conceptos de logo, identidad visual, territorios de marca, un rediseño o el prompt final de un territorio elegido; la voz verbal va a escritura-humana."
 argument-hint: "<nombre exacto de la marca> [brief o ruta del brief]"
 ---
 

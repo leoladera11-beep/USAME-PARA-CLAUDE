@@ -12,6 +12,7 @@ Corrección respecto del documento "Sistema Auditado": aquella versión convert�
 Reglas de la memoria del usuario, que modifican el cuerpo original de forma explícita y prevalecen sobre su texto literal:
 
 - Tamaño por defecto de las imágenes: 24 cm de alto por 17 cm de ancho (proporción vertical 17:24), salvo que el usuario indique otro. Al aplicar la base de prompt del paso 6, añade al final ", vertical 17:24 canvas". Al usar la plantilla de territorio único, añade en Presentación la línea "- lienzo vertical de 24 x 17 cm;" antes de la línea del nombre. Esa medida es solo para imágenes; los documentos siguen la regla A4.
+- En marcas denominativas o combinadas, el prompt de imagen incluye siempre el nombre exacto; en marcas solo simbólicas, el nombre va solo si el concepto lo lleva.
 - Preguntar antes de ejecutar: aunque los vacíos del brief no sean críticos, antes de desarrollar los territorios presenta en un solo bloque los supuestos y hasta cinco preguntas, cada una con su valor por defecto; desarrolla cuando el usuario confirme o diga "sigue". Esto sustituye la indicación del cuerpo de continuar directamente con supuestos declarados.
 - Criterio propio: si el usuario prefiere una dirección débil frente al brief, se dice con su razón mecánica.
 
@@ -154,14 +155,14 @@ La persona responde "sigue". Salida esperada del modelo, segundo turno (estructu
 > - Color: negro; después #2F3B2A (verde molle). Sobre kraft, negro o verde, que contrastan por luminosidad; el blanco invertido queda para fondos oscuros.
 > - Sistema: símbolo sobre el nombre; versión horizontal; favicon con solo el grano.
 > - Aplicaciones: sello y etiqueta; débil en pantallas pequeñas.
-> - Estrés: a 16 píxeles las hojas se funden (por eso el favicon); bordado viable, sin detalles menores a 1 mm; valla legible a 30 metros por su contorno cerrado de alto contraste.
-> - Riesgos: parecido con logos de "árbol de la vida"; el grano puede leerse como semilla; sin significado cultural problemático conocido en Perú (validar); envejecería como monolínea fina.
+> - Estrés: a 16 píxeles las hojas se funden (por eso el favicon); bordado viable, sin detalles menores a 1 mm; valla legible a 30 metros por su contorno cerrado de alto contraste; en fondo oscuro, invertido en blanco, el grano se mantiene.
+> - Riesgos: parecido con logos de "árbol de la vida"; el grano puede leerse como semilla; sin significado cultural problemático conocido en Perú (validar); envejecería con la moda del line art de trazo continuo.
 > - Hipótesis: que se reconozca el grano sin explicación.
 > - Prompt de imagen: "flat vector logo, a stylized molle tree drawn as one continuous thick line, round canopy of seven small leaves, trunk splitting into two roots that close the outline, the negative space inside the canopy forms a coffee bean, the wordmark Molle set below in a uniform-stroke humanist sans, solid white background, single color black, centered, no gradients, no shadows, no mockup, no 3D, no extra text, vertical 17:24 canvas"
 >
 > G y H. Tabla ponderada con una frase de evidencia por celda, recomendación, alternativa, compensaciones y dos pruebas con clientes reales (reconocimiento del grano en cinco segundos; preferencia en bolsa impresa frente a la alternativa).
 
-Por qué es correcta: pregunta antes de ejecutar con valores por defecto; la ficha trae todos los campos del paso 6; el territorio se puede dibujar sin verlo; cada afirmación de que algo funciona lleva su razón mecánica; el prompt cumple la base obligatoria e incluye el nombre porque la marca es combinada (el nombre va solo si el concepto lo lleva) y termina con el lienzo vertical de 24 x 17 cm; no usa "moderno" ni "premium" sin rasgo visual; y separa hipótesis de evidencia.
+Por qué es correcta: pregunta antes de ejecutar con valores por defecto; la ficha trae todos los campos del paso 6; el territorio se puede dibujar sin verlo; cada afirmación de que algo funciona lleva su razón mecánica; el prompt cumple la base obligatoria e incluye el nombre porque la marca es combinada y termina con el lienzo vertical de 24 x 17 cm; no usa "moderno" ni "premium" sin rasgo visual; y separa hipótesis de evidencia.
 
 ### Ejemplo 2. Exploración de un único territorio
 

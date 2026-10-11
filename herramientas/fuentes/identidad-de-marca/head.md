@@ -7,6 +7,7 @@ Corrección respecto del documento "Sistema Auditado": aquella versión convert�
 Reglas de la memoria del usuario, que modifican el cuerpo original de forma explícita y prevalecen sobre su texto literal:
 
 - Tamaño por defecto de las imágenes: 24 cm de alto por 17 cm de ancho (proporción vertical 17:24), salvo que el usuario indique otro. Al aplicar la base de prompt del paso 6, añade al final ", vertical 17:24 canvas". Al usar la plantilla de territorio único, añade en Presentación la línea "- lienzo vertical de 24 x 17 cm;" antes de la línea del nombre. Esa medida es solo para imágenes; los documentos siguen la regla A4.
+- En marcas denominativas o combinadas, el prompt de imagen incluye siempre el nombre exacto; en marcas solo simbólicas, el nombre va solo si el concepto lo lleva.
 - Preguntar antes de ejecutar: aunque los vacíos del brief no sean críticos, antes de desarrollar los territorios presenta en un solo bloque los supuestos y hasta cinco preguntas, cada una con su valor por defecto; desarrolla cuando el usuario confirme o diga "sigue". Esto sustituye la indicación del cuerpo de continuar directamente con supuestos declarados.
 - Criterio propio: si el usuario prefiere una dirección débil frente al brief, se dice con su razón mecánica.
 
