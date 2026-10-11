@@ -59,9 +59,9 @@
     "gemini": "02_ECOSISTEMA_GEMINI/skills_nativas/preparador-de-clases"
    },
    "sha256": {
-    "claude": "360589d9213020e4a51fe99be3ffd6042ea6b0d7ad66effbb70c68a675b472e3",
-    "codex": "8b6b9334e9a33f229524b6267646ff65a5aaa6ea9009a22693c91de89f0e57db",
-    "gemini": "c1e60a23ef0072cee3fc2fe55aa6082d166054c9c3eca31b7647d357642f2929"
+    "claude": "220263fa24f294b530ad76cab70e5f5e17005900ef26ca08046913bb00b3d519",
+    "codex": "4c5c914baf73b2d5b33f91dff18d246b166c76f0800ec1959a1e026f22a83695",
+    "gemini": "7568854a1e486da9390d5a4229fb04cef90d2c47786bfffc88a48444f46d8f95"
    }
   },
   {

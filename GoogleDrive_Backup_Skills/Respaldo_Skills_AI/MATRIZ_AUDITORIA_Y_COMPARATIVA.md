@@ -177,7 +177,7 @@ Cada manual incluye: modos y enrutamiento; reglas con su excepción; casos de us
 | `chatgpt_standalone/identidad-de-marca.md` | 6452 |
 | `chatgpt_standalone/maquetacion-pdf-documentos.md` | 5823 |
 | `chatgpt_standalone/motor-pedagogico.md` | 7987 |
-| `chatgpt_standalone/preparador-de-clases.md` | 6398 |
+| `chatgpt_standalone/preparador-de-clases.md` | 6486 |
 
 ## 9. Guía de importación paso a paso
 

@@ -383,7 +383,7 @@ El usuario responde "sigue". Salida esperada del modelo:
 >
 > Análisis pedagógico: los estudiantes deben reconocer que dos fracciones distintas pueden representar la misma cantidad. La dificultad real en 4.º es comparar numeradores y denominadores por separado ("2/4 es más grande que 1/2 porque tiene números más grandes"). La evidencia sin ambigüedad es la tabla de pares equivalentes que registran tras doblar tiras. Estrategia: material concreto antes que símbolos, porque los recursos son manipulables y el tiempo es corto.
 >
-> 1. Datos generales: "Doblamos y comparamos", Matemática, 4.º de primaria, 45 min, 28 estudiantes.
+> 1. Datos generales: "Doblamos y comparamos", Matemática, 4.º de primaria, 45 min, 28 estudiantes; fecha: SUPUESTO: sin fecha.
 > 2. Propósitos: competencia "Resuelve problemas de cantidad"; capacidad "Comunica su comprensión sobre los números y las operaciones"; desempeño PROPUESTO: "Representa fracciones equivalentes con tiras de papel y registra al menos dos pares en una tabla, explicando por qué representan la misma cantidad" (verificar en el programa curricular); criterios: 1) representa fracciones equivalentes con material concreto; 2) explica la equivalencia comparando la parte marcada; evidencia: tabla de pares en el cuaderno; instrumento: lista de cotejo. Para el estudiante: "Hoy vamos a aprender a encontrar fracciones que valen lo mismo, y lo sabremos porque podremos mostrarlo doblando tiras".
 > 3, 4 y 8 (fusionadas para uso propio): enfoque de orientación al bien común, observable cuando las parejas comparten y cuidan las tiras; preparar 56 tiras y dibujar en la pizarra la tabla modelo; errores previstos: comparar solo numeradores (respuesta: superponer las tiras), creer que más partes es más cantidad (respuesta: comparar el largo marcado); plan B si faltan tiras (barras dibujadas en el cuaderno) y si se pierden 15 minutos (se acorta la formalización, nunca el boleto de salida).
 > 5. Secuencia:
@@ -405,6 +405,8 @@ El usuario responde "sigue". Salida esperada del modelo:
 > |---|---|---|---|---|---|
 > | 1 | (nombre) | | | | |
 >
+> Retroalimentación: en la fila 5, cada pareja que expone recibe en el momento una pregunta sobre su propia superposición ("Muéstrame dónde termina la parte marcada en cada tira"), y la clase ve cómo se corrige el error de comparar solo numeradores. En la fila 7, el docente recorre las filas mientras escriben y, a quien compara solo los números, le dice: "Dibuja las dos fracciones del mismo largo y mira si cubren lo mismo". Quien queda con "no" en el ítem 2 recibe al inicio de la siguiente clase de Matemática su cuaderno con la pregunta escrita "¿Qué parte de la tira cubre tu fracción?" y la responde antes de empezar el tema nuevo.
+>
 > 7. Diferenciación: andamio (tira ya dividida en 4 para quien no logra partes iguales en la fila 3); extensión (tres equivalentes de 1/2 para quien termina antes). DUA: representación, fila 3 (la consigna se dice en voz alta y el docente dobla una tira frente a la clase mientras la tabla modelo queda en la pizarra); acción y expresión, fila 5 (explican superponiendo las tiras, señalando o con una frase, sin exigir solo explicación oral); implicación, fila 7 (cada estudiante elige dibujar su fracción como tira o como círculo partido).
 > 9. Anexo: tabla modelo (dibujada en la pizarra y copiada en el cuaderno en la fila 3):
 >
@@ -412,11 +414,14 @@ El usuario responde "sigue". Salida esperada del modelo:
 > |---|---|---|---|
 > | 1 | 2/4 | ___/8 | |
 > | 2 | 1/4 | ___/8 | |
+>
+> Preguntas de monitoreo para la fila 5: 1) "Si ponen la tira de 2/4 sobre la de 4/8, ¿dónde termina cada parte marcada?"; 2) "¿Por qué la tira de 8 partes necesita más partes marcadas para cubrir el mismo largo?"; 3) "Si tuviéramos una tira de 16 partes, ¿cuántas marcarían para cubrir lo mismo que 1/2?".
+>
 > 10. Preguntas para mejorar la siguiente versión: ¿qué vieron antes sobre fracciones? ¿Hay estudiantes con NEE o que necesiten apoyo de lectura?
 >
 > Veredicto: LISTA.
 
-Por qué es correcta: pregunta antes de ejecutar, en un solo mensaje y con máximo tres preguntas, y solo asume tras el "sigue" (el área no se pregunta porque el tema la fija); los tiempos suman 45 con las anclas 8/28/9 (8; 4 + 10 + 2 + 6 + 6 = 28; 5 + 4 = 9) y la transición es una fila propia; usa los recursos declarados y marca como SUPUESTO el cuaderno personal, que no se declaró; la lista de cotejo tiene un indicador observable por criterio ligado a su fila, y la tabla del anexo registra los dos pares que pide el desempeño; hay una acción DUA por principio con su fila; el cierre tiene evidencia, metacognición y transferencia; el desarrollo sigue los procesos didácticos de Matemática; el desempeño va marcado PROPUESTO sin códigos inventados; están las secciones 3, 4 y 8 fusionadas y la 10.
+Por qué es correcta: pregunta antes de ejecutar, en un solo mensaje y con máximo tres preguntas, y solo asume tras el "sigue" (el área no se pregunta porque el tema la fija); los tiempos suman 45 con las anclas 8/28/9 (8; 4 + 10 + 2 + 6 + 6 = 28; 5 + 4 = 9) y la transición es una fila propia; usa los recursos declarados y marca como SUPUESTO el cuaderno personal, que no se declaró; la lista de cotejo tiene un indicador observable por criterio ligado a su fila, y la tabla del anexo registra los dos pares que pide el desempeño; hay una acción DUA por principio con su fila; el cierre tiene evidencia, metacognición y transferencia, y la retroalimentación dice cómo y cuándo la recibe cada estudiante, ligada a las filas 5 y 7; las tres preguntas de monitoreo de la fila 5 están escritas en el anexo; la fecha no declarada va como SUPUESTO; la prosa fuera de tablas cumple la extensión de uso propio (600 a 900 palabras); el desarrollo sigue los procesos didácticos de Matemática; el desempeño va marcado PROPUESTO sin códigos inventados; están las secciones 3, 4 y 8 fusionadas y la 10.
 
 ### Ejemplo 2. Modo ADAPTAR
 
@@ -435,12 +440,12 @@ Salida esperada del modelo (extracto):
 > | 3 | Desarrollo: organizador en pares | 14 | Dos monitores de 4.º apoyan a 3.º durante 10 minutos |
 > | 4 | Transición | 2 | Fila nueva |
 > | 5 | Cierre: galería de organizadores | 4 | Sustituye la coevaluación entre grupos |
-> | 6 | Cierre: boleto de salida oral ("Di la idea principal y un detalle que la sostiene") | 3 | Sustituye el plenario; evidencia del criterio 2 |
+> | 6 | Cierre: boleto de salida oral por parejas ("Di la idea principal y los dos detalles que la sostienen") | 3 | Sustituye el plenario; cada estudiante se lo dice a su compañero y el docente escucha a algunas parejas y registra en la lista; el criterio 2 se registra en el organizador del reverso |
 > | 7 | Cierre: metacognición ("¿Qué pista del texto te ayudó a distinguir la idea principal de un detalle?") | 2 | Fila nueva |
 >
-> Qué se sacrificó y por qué: la dramatización (12 minutos que no aportaban a ningún criterio), la lectura en voz alta del docente (15 minutos de escucha que no producen evidencia; la lectura en pares con preguntas en la pizarra trabaja el criterio 1 en menos tiempo), la segunda lectura (se conserva el fragmento clave dentro de la lectura en pares) y la coevaluación entre grupos (el boleto de salida cubre el criterio 2 en menos tiempo).
+> Qué se sacrificó y por qué: la dramatización (12 minutos que no aportaban a ningún criterio), la lectura en voz alta del docente (15 minutos de escucha que no producen evidencia; la lectura en pares con preguntas en la pizarra trabaja el criterio 1 en menos tiempo), la segunda lectura (se conserva el fragmento clave dentro de la lectura en pares) y la coevaluación entre grupos (el organizador y el boleto por parejas cubren el criterio 2 en menos tiempo).
 
-Por qué es correcta: la entrada trae la sesión, así que nada se inventa y el único supuesto (el soporte del organizador) va declarado; conserva propósito, criterios y evidencia; cambia solo lo que obligan el tiempo y el multigrado; los minutos suman 45 (8; 12 + 14 + 2 = 28; 4 + 3 + 2 = 9); el cierre conserva evidencia y metacognición con pregunta literal; usa solo los recursos declarados (las preguntas diferenciadas van en la pizarra y el organizador en el reverso de las copias, sin materiales nuevos); y lista cada actividad sacrificada con su motivo.
+Por qué es correcta: la entrada trae la sesión, así que nada se inventa y el único supuesto (el soporte del organizador) va declarado; conserva propósito, criterios y evidencia; cambia solo lo que obligan el tiempo y el multigrado; los minutos suman 45 (8; 12 + 14 + 2 = 28; 4 + 3 + 2 = 9); el boleto pide lo mismo que el criterio 2 (los dos detalles) y es viable: en 3 minutos hablan las 15 parejas a la vez, el docente escucha solo a algunas y la evidencia completa del criterio 2 queda escrita en el organizador de cada pareja; el cierre conserva evidencia y metacognición con pregunta literal; usa solo los recursos declarados (las preguntas diferenciadas van en la pizarra y el organizador en el reverso de las copias, sin materiales nuevos); y lista cada actividad sacrificada con su motivo.
 
 ## 14. Antipatrones
 
