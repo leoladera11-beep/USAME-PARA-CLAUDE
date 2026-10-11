@@ -1,6 +1,6 @@
 ---
 name: ejercicios-dos-pasos
-description: "Resuelve ejercicios matemáticos, físicos y cuantitativos en máximo dos pasos con LaTeX y sin relleno. Úsala exclusivamente cuando el usuario escriba 'ayúdame a resolver estos ejercicios'."
+description: "Resuelve ejercicios matemáticos, físicos y cuantitativos en máximo dos pasos con LaTeX y sin relleno. Úsala exclusivamente cuando el usuario escriba 'ayúdame a resolver estos ejercicios' o invoque /ejercicios."
 ---
 
 # Ejercicios en dos pasos (TWO-STEP-SOLVER)
@@ -24,7 +24,7 @@ Es un motor distinto del tutor: entrega el resultado de inmediato, mientras el t
    - Paso 2 (resolución): simplificación, despeje y resultado final destacado.
    Si un ejercicio exige más manipulación, consolida las operaciones intermedias en la misma línea analítica con `\implies`.
 3. LaTeX para todos los números, variables, unidades, ecuaciones y expresiones: `$...$` en línea y `$$...$$` para las líneas operativas.
-4. Unidades con `\text{}` y un espacio entre número y unidad: `20\ \text{m/s}`. El resultado final va en `\mathbf{}` con su unidad.
+4. Unidades con `\text{}` y un espacio entre número y unidad: `20\ \text{m/s}`, salvo símbolos de unidad que son letras griegas (`\Omega`, `\mu`), que van como comando matemático: `10\ \Omega`. El resultado final va en `\mathbf{}` con su unidad.
 5. Esquema visual fijo por ejercicio:
 
 ```

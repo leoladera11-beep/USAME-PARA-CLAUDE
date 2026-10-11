@@ -1,6 +1,6 @@
 # Catálogo humanizer en español
 
-Anexo del motor `escritura-humana`. Traduce y condensa los 26 patrones de la skill original `humanizer`, basada en "Signs of AI writing" (WikiProject AI Cleanup, Wikipedia). La columna "Motor" indica el patrón equivalente del catálogo principal. Los patrones 1 a 5 justifican una edición con una sola aparición; los marcados como débiles necesitan la compañía de otras señales en el mismo pasaje antes de actuar.
+Anexo de `escritura-humana-core` (versión modular). Traduce y condensa los 26 patrones de la skill original `humanizer`, basada en "Signs of AI writing" (WikiProject AI Cleanup, Wikipedia). La columna "Motor" indica el patrón equivalente del catálogo principal. Los patrones 1 a 5 justifican una edición con una sola aparición; los marcados como débiles necesitan la compañía de otras señales en el mismo pasaje antes de actuar.
 
 Cambio de criterio respecto del original: la regla 8 de `humanizer` permitía rayas si la muestra del usuario las usaba. En este sistema la raya está prohibida sin excepción (módulo `escritura-humana-vocabulario`).
 
@@ -62,4 +62,4 @@ Cambio de criterio respecto del original: la regla 8 de `humanizer` permitía ra
 
 ## Cuándo no actuar
 
-Deja intacta una frase vigilada dentro de una cita, un título, un nombre propio o un pasaje que habla de la frase en vez de usarla. Saludos y despedidas de una carta son anteriores a los chatbots. Un texto escrito antes del 30 de noviembre de 2022 no es de IA. Conserva los detalles que llevan la voz del autor: un dato inusual y específico, sentimientos mezclados sin resolver, referencias de época, una elección en primera persona que el autor puede explicar y un inciso o autocorrección genuinos.
+Deja intacta una frase vigilada dentro de una cita, un título, un nombre propio o un pasaje que habla de la frase en vez de usarla. Saludos y despedidas de una carta son anteriores a los chatbots. Un texto anterior al 30 de noviembre de 2022 (lanzamiento de ChatGPT) muy probablemente no es de IA, aunque ya existían modelos generativos. Conserva los detalles que llevan la voz del autor: un dato inusual y específico, sentimientos mezclados sin resolver, referencias de época, una elección en primera persona que el autor puede explicar y un inciso o autocorrección genuinos.

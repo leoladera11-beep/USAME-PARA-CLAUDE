@@ -1,8 +1,8 @@
 # Ejemplos antes y después
 
-Anexo del motor `escritura-humana`. Origen: escritura-humana-core/references/pattern-examples.md (serie A) y escritura-humana/references/ejemplos.md (serie B) (skills originales del usuario). Las referencias a módulos antiguos se actualizaron a las secciones del motor.
+Anexo de `escritura-humana-core` (versión modular). Origen: escritura-humana-core/references/pattern-examples.md (serie A) y escritura-humana/references/ejemplos.md (serie B) (skills originales del usuario). Las remisiones llevan a los módulos de la familia.
 
-## Serie A. Patrones del núcleo (numeración P1 a P9 del motor y sobrecorrección)
+## Serie A. Patrones del núcleo (numeración P1 a P9 del núcleo y sobrecorrección)
 
 Cada ejemplo indica el material disponible. El texto "después" solo usa ese material, de acuerdo con la regla cero de veracidad. Cuando no hay material, se muestra la versión con hueco marcado. Ningún ejemplo usa la raya.
 
@@ -51,7 +51,7 @@ Contenido:
 **Antes:** "Sumérgete en una experiencia sonora que actúa como un faro en tu día a día."
 **Después:** "Cancelan el ruido exterior y duran unas 30 horas por carga."
 
-Nota: la versión "Cancela el ruido. Eso es todo. Lo hace bien." también se rechaza, porque es staccato (ver P10 en el manual).
+Nota: la versión "Cancela el ruido. Eso es todo. Lo hace bien." también se rechaza, porque es staccato (ver P10 en el núcleo).
 
 ---
 

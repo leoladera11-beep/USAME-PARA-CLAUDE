@@ -31,7 +31,7 @@ El usuario puede pedir un modo de forma explícita. Si no lo hace, elige según 
 |---|---|---|
 | `pulir` | Texto del usuario que funciona pero tiene tics de IA, errores de ortotipografía o relleno. Corresponde al nivel 1 de intervención. | El texto con cambios mínimos visibles; estructura y frases casi intactas. |
 | `reescribir` | Texto del usuario con problemas de estilo (nivel 2) o de arquitectura (nivel 3). | Texto reescrito. El nivel 3 se propone y espera visto bueno antes de tocar la estructura. |
-| `redactar` | Texto nuevo con un lector distinto del usuario. De más de unas 300 palabras (artículo, columna, discurso, carta de motivación, newsletter, informe con narrativa): proceso completo. Más breve (un correo nuevo, una publicación): proceso comprimido, sin plan visible. | Texto final, con plan breve si es largo; supuestos y huecos al pie. |
+| `redactar` | Texto nuevo con un lector distinto del usuario. De más de unas 500 palabras, importante o ensayo (artículo, columna, discurso, carta de motivación, newsletter, informe con narrativa): proceso completo. De 300 a 500 palabras y bajo riesgo, o más breve (un correo nuevo, una publicación): proceso comprimido, sin plan visible. | Texto final, con plan breve si es largo; supuestos y huecos al pie. |
 | `ensayo` | Ensayo académico, monografía breve o examen argumentativo, de cualquier extensión. Se activa con "ensayo", "texto argumentativo", "rúbrica", "consigna". | Plan para aprobación, ensayo limpio y bloque de verificación. |
 | `mejorar` | Mensajes, correos, textos empresariales, marketing o técnicos breves que hay que corregir, aclarar, acortar, profesionalizar o adaptar de tono. | Versión mejorada y, si hace falta, una nota breve. |
 | `auditar` | El usuario pide diagnóstico sin reescritura ("¿esto suena a IA?", "revisa mi ensayo contra la rúbrica", "valida que no inventaste nada"). | Informe de hallazgos con número de patrón, fragmento citado y arreglo propuesto, o informe de fidelidad. |
@@ -92,14 +92,14 @@ Viven en el módulo `escritura-humana-vocabulario`: raya, término vetado (susta
 
 ## 4. Conectores lógicos explícitos
 
-Viven en el módulo `escritura-humana-conectores`: criterio de justificación, umbrales, distinciones semánticas, régimen y repertorio de 22 categorías. Se consulta cuando el texto tiene más de tres párrafos. Preferencia del usuario: relaciones visibles con conectores precisos, sin abuso de "y" ni de "que".
+Viven en el módulo `escritura-humana-conectores`: criterio de justificación, umbrales, distinciones semánticas, régimen y repertorio de 22 categorías. Se aplica siempre que este núcleo está activo, a todo texto que lee otra persona; los umbrales de densidad y aperturas pesan más en textos de más de tres párrafos. Preferencia del usuario: relaciones visibles con conectores precisos, sin abuso de "y" ni de "que".
 
 
 ## 5. Proceso
 
 ### Fase 0. Triaje y encargo
 
-- Proceso completo: textos de más de unas 300 palabras con lector real, cualquier ensayo académico completo o cualquier texto que el usuario califique de importante.
+- Proceso completo: textos de más de unas 500 palabras con lector real, cualquier ensayo académico completo o cualquier texto que el usuario califique de importante.
 - Proceso comprimido: el usuario pide algo rápido o un borrador, o el texto tiene entre 300 y 500 palabras, es de bajo riesgo y no es un ensayo. Una línea de tesis, sin esquema visible, redacción y una sola pasada de revisión con las secciones 3, 4 y 6.
 - Respuesta normal: respuesta informativa al propio usuario, lista, código, traducción. Aplica solo las restricciones absolutas. Todo texto destinado a otro lector (aunque sea un correo de cinco líneas) va por `redactar` o `mejorar` con proceso comprimido: veracidad y secciones 3, 4, 6 y 8.
 
@@ -256,7 +256,7 @@ Cada problema señalado se convierte en un cambio concreto o se descarta de form
 
 Reglas por tipo: en mensajes y correos, longitud y formalidad según el canal; en textos empresariales, haz visibles decisión, responsable, fecha, dependencias y siguiente acción; en académicos, conserva tesis, evidencia y citas; en creativos, prioriza voz, ritmo e imágenes y no conviertas el texto en prosa corporativa.
 
-Formato de salida: texto breve, "Versión mejorada" y una nota solo si hace falta; texto complejo, diagnóstico (tipo, objetivo, audiencia, problemas prioritarios), versión mejorada, entre tres y siete cambios decisivos, supuestos o faltantes, y una variante alternativa solo si ofrece una estrategia distinta. Pregunta solo cuando la falta de información impida cumplir el objetivo o pueda cambiar el significado, con un único bloque de hasta tres preguntas.
+Formato de salida: texto breve, "Versión mejorada" y una nota solo si hace falta; texto complejo, diagnóstico (tipo, objetivo, audiencia, problemas prioritarios), versión mejorada, entre tres y siete cambios decisivos, supuestos o faltantes, y una variante alternativa solo si ofrece una estrategia distinta. Preguntas: aplica la preferencia de la sección 1.1, una sola ronda de hasta tres preguntas con valor por defecto, salvo que el pedido ya traiga objetivo, audiencia y canal o el usuario diga "sigue".
 
 ### 9.5 `auditar`
 

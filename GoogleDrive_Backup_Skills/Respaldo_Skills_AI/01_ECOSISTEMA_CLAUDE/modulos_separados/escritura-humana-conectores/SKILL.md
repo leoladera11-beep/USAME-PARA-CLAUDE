@@ -1,15 +1,15 @@
 ---
 name: escritura-humana-conectores
-description: "Módulo de la familia escritura-humana: cuándo un conector lógico está justificado o es mecánico, distinciones semánticas, régimen, aperturas de párrafo y repertorio de 22 categorías, sin abuso de \"y\" ni de \"que\". Se aplica junto con escritura-humana-core cuando el texto tiene más de tres párrafos o al revisar conectores."
+description: "Módulo de la familia escritura-humana: cuándo un conector lógico está justificado o es mecánico, distinciones semánticas, régimen, aperturas de párrafo y repertorio de 22 categorías, sin abuso de \"y\" ni de \"que\". Se aplica siempre junto con escritura-humana-core, a todo texto que lee otra persona, y al revisar conectores."
 ---
 
 # Escritura humana: conectores (versión modular)
 
-Módulo de la familia escritura-humana. Se aplica junto con `escritura-humana-core` cuando el texto tiene más de tres párrafos o cuando se revisa el uso de conectores en un ensayo, artículo o informe. Reúne en un solo archivo, sin carpeta de referencias, el criterio para decidir cuándo un conector está justificado y el repertorio completo de 22 categorías.
+Módulo de la familia escritura-humana. Se aplica siempre junto con `escritura-humana-core`, a todo texto que lee otra persona (aunque sea un correo de cinco líneas), y también cuando se revisa el uso de conectores en un ensayo, artículo o informe. Los umbrales de densidad y de aperturas pesan más en textos de más de tres párrafos. La numeración 4.x coincide con las remisiones del núcleo. Reúne en un solo archivo, sin carpeta de referencias, el criterio para decidir cuándo un conector está justificado y el repertorio completo de 22 categorías.
 
 El usuario también pidió no abusar de "y", de "que" ni de otras palabras que se repiten mucho, sobre todo en las introducciones de los ensayos, y variar con conectores elegidos por su función lógica y con construcciones distintas.
 
-## Conectores lógicos explícitos
+## 4. Conectores lógicos explícitos
 
 Preferencia expresa del usuario: las relaciones entre ideas se hacen visibles con conectores cuando aportan claridad. La naturalidad no se mide por la ausencia de conectores. Reducirlos de forma indiscriminada para "sonar humano" es un error, igual que insertarlos por cuota. Objetivo: conexión generosa pero funcional, variedad disponible pero no obligatoria.
 
@@ -26,9 +26,9 @@ El marcador parece elegido por una plantilla antes que por la relación real. Se
 ### 4.3 Umbrales unificados
 
 - Densidad: en prosa expositiva o argumentativa, un párrafo de tres oraciones o más con ideas relacionadas y menos de dos relaciones marcadas se revisa. Revisar no significa insertar por obligación.
-- Aperturas de párrafo: dos aperturas consecutivas de la misma categoría son señal de revisión; tres o más son mecánicas por defecto, salvo listas, procedimientos o comparaciones paralelas. No obligues a que los párrafos empiecen con conector ni sin él.
+- Aperturas de párrafo: dos aperturas consecutivas de la misma categoría son señal de revisión; tres o más son mecánicas por defecto, salvo listas, procedimientos o comparaciones paralelas. No obligues a que los párrafos empiecen con conector ni sin él. Si una apertura resulta mecánica, elige entre eliminarla, integrarla dentro de la oración, sustituirla por una referencia concreta al contenido anterior, reformular la relación o reorganizar el párrafo; no te limites a buscar un sinónimo.
 - Repetición: los conectores simples y frecuentes (pero, porque, aunque, si, también) pueden repetirse cuando su función lo pide. Los marcadores (sin embargo, por consiguiente, no obstante) no se repiten dentro del mismo párrafo ni en párrafos consecutivos.
-- Yuxtaposición: no unas solo con puntos dos o más oraciones cortas cuando existe una relación entre ellas ("Es rápido. Es barato. Funciona.").
+- Yuxtaposición: no unas solo con puntos dos o más oraciones cortas cuando existe una relación entre ellas ("Es rápido. Es barato. Funciona."). A la inversa, un punto puede separar dos oraciones muy conectadas; si hace falta, conserva el enlace explícito después del punto.
 - Andamiaje: "en primer lugar", "por último", "en conclusión", "en resumen" no son el esqueleto del texto; los ordinales se admiten en procedimientos reales. Un resumen parcial que orienta dentro de un desarrollo extenso es legítimo, pero nunca cierra el texto completo.
 
 ### 4.4 Distinciones semánticas obligatorias
@@ -45,6 +45,10 @@ El marcador parece elegido por una plantilla antes que por la relación real. Se
 ### 4.5 Régimen y puntuación
 
 "Debido a" pide grupo nominal ("debido a que" + oración); "para" + infinitivo y "para que" + oración; "de ahí que" va con subjuntivo; "no solo... sino también" exige paralelismo; "aunque", "porque" y "si" no se aíslan automáticamente entre comas; nunca se separa sujeto y predicado con una coma por añadir un enlace. Al reemplazar un conector, revisa toda la construcción afectada y comprueba el antecedente de "esto", "ello" o "lo anterior"; si hay varios posibles, nombra el relevante.
+
+### 4.6 Revisión final de conectores
+
+En proporción a la longitud del texto, comprueba: si cada conector expresa una relación respaldada por el contenido; si se conservó la prosa explícitamente conectada; si hay redundancias entre marcadores próximos; si las aperturas responden al argumento y no a una plantilla; si la variedad mantiene el significado y el registro; si las referencias tienen antecedente claro; si la sintaxis y la puntuación son correctas; si conviene dividir alguna oración sin perder sus enlaces; y si el cierre cumple una función en vez de repetir por costumbre. Esta lista no se muestra al usuario salvo que pida la explicación de la revisión.
 
 El repertorio completo está más abajo, en «Repertorio completo en 22 categorías».
 
@@ -146,7 +150,7 @@ Precauciones: un balance puede incluir una valoración. No cierres por rutina co
 
 ### Parte B. Lista de 22 categorías (índice secundario)
 
-La lista se conserva tal como venía en la skill original. Algunas entradas mezclan funciones (por ejemplo, en Concesión aparecen marcadores de contraste) o vienen abreviadas; ante la duda rigen la parte A y la sección 4 del manual. La categoría de introducción no autoriza metacomentario (patrón P8).
+La lista se conserva tal como venía en la skill original. Algunas entradas mezclan funciones (por ejemplo, en Concesión aparecen marcadores de contraste) o vienen abreviadas; ante la duda rigen la parte A y los apartados 4.1 a 4.6 de este módulo. La categoría de introducción no autoriza metacomentario (patrón P8).
 
 #### Aclaración, repetición
 Proporcionan mayor claridad y énfasis a una idea.

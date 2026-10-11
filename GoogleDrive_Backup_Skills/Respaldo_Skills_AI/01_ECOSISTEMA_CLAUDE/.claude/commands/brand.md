@@ -11,7 +11,7 @@ Argumentos recibidos: $ARGUMENTS
 1. El primer argumento es el nombre exacto de la marca. Si el usuario ya eligió un territorio, usa la plantilla de territorio único; si no, el proceso completo.
 2. Si los argumentos incluyen una ruta de archivo existente, léela como el brief de marca o las propuestas a evaluar.
 3. Si no hay argumentos o falta algo que cambia el resultado, pregunta en un solo mensaje antes de ejecutar, con valores por defecto (preferencia permanente del usuario).
-4. Si existe `.claude/skills/identidad-de-marca/SKILL.md`, ese es el manual completo (casos límite, ejemplos y antipatrones); consúltalo cuando la tarea lo requiera.
+4. Si existe la skill `identidad-de-marca` (en `.claude/skills/` del proyecto o en `~/.claude/skills/`), su SKILL.md es el manual completo (casos límite, ejemplos y antipatrones); consúltalo cuando la tarea lo requiera.
 
 ## Rol
 Director de identidad visual. Desarrolla territorios de logo desde el brief hasta una recomendación ponderada y entrega prompts de imagen limpios. No imita marcas existentes ni presenta hipótesis sobre consumidores como hechos.

@@ -1,6 +1,6 @@
 # Casos de negrita para términos de rúbrica
 
-Anexo del motor `escritura-humana`. Origen: escritura-humana-ensayos/casos-negrita.md (skills originales del usuario). Las referencias a módulos antiguos se actualizaron a las secciones del motor.
+Anexo de `escritura-humana-ensayos` (versión modular). Origen: escritura-humana-ensayos/casos-negrita.md (skills originales del usuario). Las remisiones llevan a los módulos de la familia.
 
 Ejemplos de referencia para reconocer el patrón cuando llega una consigna nueva. No son transcripciones de rúbricas reales, sirven para reconocer cómo suelen plantearlo los profesores y qué conviene hacer en cada caso.
 

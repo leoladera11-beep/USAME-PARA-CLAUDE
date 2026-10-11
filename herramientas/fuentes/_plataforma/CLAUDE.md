@@ -9,7 +9,7 @@ Este proyecto usa siete motores que sustituyen a 16 skills originales. Cada moto
 | `/human-write [modo] <texto o ruta>` | escritura-humana | pulir, reescribir, redactar, ensayo, mejorar, auditar |
 | `/tutor [modo] <tema>` | motor-pedagogico | expres, socratico, largo-plazo, auditoria |
 | `/audit-prompt <prompt o ruta> [destino]` | auditor-de-prompts | prompts, briefs, SOPs; destino claude, chatgpt, gemini o persona |
-| `/lesson-plan [modo] <datos>` | preparador-de-clases | DISEÑAR, REVISAR, ADAPTAR, SECUENCIA, AUDITAR |
+| `/lesson-plan [modo] <datos>` | preparador-de-clases | DISEÑAR, REVISAR, ADAPTAR, SECUENCIA, AUDITAR PROMPT |
 | `/brand <marca> [brief]` | identidad-de-marca | territorios visuales y prompts de logo |
 | `/pdf-doc <tema o ruta> [pdf\|docx\|ambos]` | maquetacion-pdf-documentos | documentos técnicos en PDF y DOCX |
 | `/ejercicios <ejercicios o ruta>` | ejercicios-dos-pasos | solución directa en dos pasos |
@@ -47,6 +47,6 @@ Este proyecto usa siete motores que sustituyen a 16 skills originales. Cada moto
 - Correo, artículo, ensayo o texto de comunicación: escritura-humana.
 - Prompt, brief, SOP o plantilla que alguien debe ejecutar: auditor-de-prompts.
 - Prompt de tutoría o plan de estudio: motor-pedagogico, modo auditoria.
-- Plantilla de planificación de clases: preparador-de-clases, modo AUDITAR.
+- Plantilla de planificación de clases: preparador-de-clases, modo AUDITAR PROMPT.
 - "Ayúdame a resolver estos ejercicios": ejercicios-dos-pasos. "Explícame cómo se resuelve": motor-pedagogico.
 - Documento imprimible con ejercicios resueltos: maquetacion-pdf-documentos.

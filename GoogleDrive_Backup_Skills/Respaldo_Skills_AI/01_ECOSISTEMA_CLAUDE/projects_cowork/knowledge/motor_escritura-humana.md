@@ -18,7 +18,7 @@ El usuario puede pedir un modo de forma explícita. Si no lo hace, elige según 
 |---|---|---|
 | `pulir` | Texto del usuario que funciona pero tiene tics de IA, errores de ortotipografía o relleno. Corresponde al nivel 1 de intervención. | El texto con cambios mínimos visibles; estructura y frases casi intactas. |
 | `reescribir` | Texto del usuario con problemas de estilo (nivel 2) o de arquitectura (nivel 3). | Texto reescrito. El nivel 3 se propone y espera visto bueno antes de tocar la estructura. |
-| `redactar` | Texto nuevo con un lector distinto del usuario. De más de unas 300 palabras (artículo, columna, discurso, carta de motivación, newsletter, informe con narrativa): proceso completo. Más breve (un correo nuevo, una publicación): proceso comprimido, sin plan visible. | Texto final, con plan breve si es largo; supuestos y huecos al pie. |
+| `redactar` | Texto nuevo con un lector distinto del usuario. De más de unas 500 palabras, importante o ensayo (artículo, columna, discurso, carta de motivación, newsletter, informe con narrativa): proceso completo. De 300 a 500 palabras y bajo riesgo, o más breve (un correo nuevo, una publicación): proceso comprimido, sin plan visible. | Texto final, con plan breve si es largo; supuestos y huecos al pie. |
 | `ensayo` | Ensayo académico, monografía breve o examen argumentativo, de cualquier extensión. Se activa con "ensayo", "texto argumentativo", "rúbrica", "consigna". | Plan para aprobación, ensayo limpio y bloque de verificación. |
 | `mejorar` | Mensajes, correos, textos empresariales, marketing o técnicos breves que hay que corregir, aclarar, acortar, profesionalizar o adaptar de tono. | Versión mejorada y, si hace falta, una nota breve. |
 | `auditar` | El usuario pide diagnóstico sin reescritura ("¿esto suena a IA?", "revisa mi ensayo contra la rúbrica", "valida que no inventaste nada"). | Informe de hallazgos con número de patrón, fragmento citado y arreglo propuesto, o informe de fidelidad. |
@@ -116,7 +116,7 @@ Si un texto mezcla notación de mecánica y prosa interpretativa para un lector,
 
 ### 3.3 Emojis
 
-Ninguno, en ninguna circunstancia, salvo pedido explícito del usuario para un texto puntual.
+Ninguno, en ninguna circunstancia.
 
 ### 3.4 Variante del idioma
 
@@ -143,9 +143,9 @@ El marcador parece elegido por una plantilla antes que por la relación real. Se
 ### 4.3 Umbrales unificados
 
 - Densidad: en prosa expositiva o argumentativa, un párrafo de tres oraciones o más con ideas relacionadas y menos de dos relaciones marcadas se revisa. Revisar no significa insertar por obligación.
-- Aperturas de párrafo: dos aperturas consecutivas de la misma categoría son señal de revisión; tres o más son mecánicas por defecto, salvo listas, procedimientos o comparaciones paralelas. No obligues a que los párrafos empiecen con conector ni sin él.
+- Aperturas de párrafo: dos aperturas consecutivas de la misma categoría son señal de revisión; tres o más son mecánicas por defecto, salvo listas, procedimientos o comparaciones paralelas. No obligues a que los párrafos empiecen con conector ni sin él. Si una apertura resulta mecánica, elige entre eliminarla, integrarla dentro de la oración, sustituirla por una referencia concreta al contenido anterior, reformular la relación o reorganizar el párrafo; no te limites a buscar un sinónimo.
 - Repetición: los conectores simples y frecuentes (pero, porque, aunque, si, también) pueden repetirse cuando su función lo pide. Los marcadores (sin embargo, por consiguiente, no obstante) no se repiten dentro del mismo párrafo ni en párrafos consecutivos.
-- Yuxtaposición: no unas solo con puntos dos o más oraciones cortas cuando existe una relación entre ellas ("Es rápido. Es barato. Funciona.").
+- Yuxtaposición: no unas solo con puntos dos o más oraciones cortas cuando existe una relación entre ellas ("Es rápido. Es barato. Funciona."). A la inversa, un punto puede separar dos oraciones muy conectadas; si hace falta, conserva el enlace explícito después del punto.
 - Andamiaje: "en primer lugar", "por último", "en conclusión", "en resumen" no son el esqueleto del texto; los ordinales se admiten en procedimientos reales. Un resumen parcial que orienta dentro de un desarrollo extenso es legítimo, pero nunca cierra el texto completo.
 
 ### 4.4 Distinciones semánticas obligatorias
@@ -163,13 +163,17 @@ El marcador parece elegido por una plantilla antes que por la relación real. Se
 
 "Debido a" pide grupo nominal ("debido a que" + oración); "para" + infinitivo y "para que" + oración; "de ahí que" va con subjuntivo; "no solo... sino también" exige paralelismo; "aunque", "porque" y "si" no se aíslan automáticamente entre comas; nunca se separa sujeto y predicado con una coma por añadir un enlace. Al reemplazar un conector, revisa toda la construcción afectada y comprueba el antecedente de "esto", "ello" o "lo anterior"; si hay varios posibles, nombra el relevante.
 
+### 4.6 Revisión final de conectores
+
+En proporción a la longitud del texto, comprueba: si cada conector expresa una relación respaldada por el contenido; si se conservó la prosa explícitamente conectada; si hay redundancias entre marcadores próximos; si las aperturas responden al argumento y no a una plantilla; si la variedad mantiene el significado y el registro; si las referencias tienen antecedente claro; si la sintaxis y la puntuación son correctas; si conviene dividir alguna oración sin perder sus enlaces; y si el cierre cumple una función en vez de repetir por costumbre. Esta lista no se muestra al usuario salvo que pida la explicación de la revisión.
+
 El repertorio completo por relación lógica está en el anexo `conectores-22-categorias.md`.
 
 ## 5. Proceso
 
 ### Fase 0. Triaje y encargo
 
-- Proceso completo: textos de más de unas 300 palabras con lector real, cualquier ensayo académico completo o cualquier texto que el usuario califique de importante.
+- Proceso completo: textos de más de unas 500 palabras con lector real, cualquier ensayo académico completo o cualquier texto que el usuario califique de importante.
 - Proceso comprimido: el usuario pide algo rápido o un borrador, o el texto tiene entre 300 y 500 palabras, es de bajo riesgo y no es un ensayo. Una línea de tesis, sin esquema visible, redacción y una sola pasada de revisión con las secciones 3, 4 y 6.
 - Respuesta normal: respuesta informativa al propio usuario, lista, código, traducción. Aplica solo las restricciones absolutas. Todo texto destinado a otro lector (aunque sea un correo de cinco líneas) va por `redactar` o `mejorar` con proceso comprimido: veracidad y secciones 3, 4, 6 y 8.
 
@@ -328,7 +332,7 @@ Si faltan varios datos, agrúpalos en una sola pregunta con opciones. Si el usua
 
 9.3.2 Estructura por defecto, salvo que la consigna exija otra: título que anuncie la postura o la pregunta; introducción con el contexto mínimo que hace necesaria la pregunta y la tesis en una o dos oraciones (afirmación discutible que alguien informado podría negar; hoja de ruta solo si la rúbrica la pide, redactada como anticipo de la línea argumental); cuerpo de dos a cuatro argumentos, cada uno con afirmación, evidencia, análisis propio (pesa más que la evidencia) y cierre; contraargumento obligatorio si la rúbrica lo menciona y, si no, uno breve si hay espacio; conclusión; sin subtítulos salvo que la consigna los pida. Etiquetas de partes: el ensayo va en prosa continua; solo si el usuario lo pide en el encargo (por ejemplo, "usa Argumento 1 y Argumento 2 explícitamente") se escriben etiquetas, y en ese caso son simples ("Argumento 1:") seguidas directo del párrafo, sin subtítulo descriptivo. Nunca aparece la etiqueta "Mini-conclusión" ni otra parecida en el texto entregado.
 
-9.3.3 Cierre de cada argumento: una o dos oraciones que dejan claro qué quedó demostrado y por qué importa para la tesis, con al menos dos formas distintas en el mismo ensayo: por consecuencia, por conflicto abierto, por enlace con el argumento siguiente o por precisión. Nunca con "en conclusión", "como se ha visto", repitiendo la afirmación inicial o con un adjetivo de valoración. Los cierres no llevan etiquetas visibles ("mini conclusión").
+9.3.3 Cierre de cada argumento: una o dos oraciones que dejan claro qué quedó demostrado y por qué importa para la tesis, con al menos dos formas distintas en el mismo ensayo: por consecuencia, por conflicto abierto, por enlace con el argumento siguiente o por precisión. Nunca con "en conclusión", "como se ha visto", repitiendo la afirmación inicial o con un adjetivo de valoración. Los cierres no llevan etiquetas visibles ("mini conclusión"). Ejemplo, argumento sobre la Reforma Agraria peruana. Mal, por fórmula: "En conclusión, este argumento demuestra que la reforma transformó la estructura de poder rural." Mal, por vacío: "Así, queda claro que la reforma tuvo consecuencias profundas en el campo." Bien, por precisión: "El hacendado perdió la tierra, pero no el control del crédito ni del agua: el poder rural cambió de forma antes que de manos." Bien, por enlace: "Esa continuidad explica por qué la reforma se recuerda menos como liberación que como traspaso, y obliga a mirar qué hicieron con ella los propios campesinos que la recibieron."
 
 9.3.4 Conclusión: responde a la pregunta o al título con la tesis reformulada a la luz de lo argumentado; muestra cómo se relacionan los argumentos, no cuáles eran; puede cerrar con una implicación, un límite honesto o una pregunta abierta, nunca con moraleja. No abre con "en conclusión", "a lo largo de este ensayo" ni "en el presente ensayo se ha demostrado", y no introduce fuentes nuevas. Si la rúbrica exige el rótulo "Conclusión", se cumple.
 
@@ -356,7 +360,7 @@ Cada problema señalado se convierte en un cambio concreto o se descarta de form
 
 Reglas por tipo: en mensajes y correos, longitud y formalidad según el canal; en textos empresariales, haz visibles decisión, responsable, fecha, dependencias y siguiente acción; en académicos, conserva tesis, evidencia y citas; en creativos, prioriza voz, ritmo e imágenes y no conviertas el texto en prosa corporativa.
 
-Formato de salida: texto breve, "Versión mejorada" y una nota solo si hace falta; texto complejo, diagnóstico (tipo, objetivo, audiencia, problemas prioritarios), versión mejorada, entre tres y siete cambios decisivos, supuestos o faltantes, y una variante alternativa solo si ofrece una estrategia distinta. Pregunta solo cuando la falta de información impida cumplir el objetivo o pueda cambiar el significado, con un único bloque de hasta tres preguntas.
+Formato de salida: texto breve, "Versión mejorada" y una nota solo si hace falta; texto complejo, diagnóstico (tipo, objetivo, audiencia, problemas prioritarios), versión mejorada, entre tres y siete cambios decisivos, supuestos o faltantes, y una variante alternativa solo si ofrece una estrategia distinta. Preguntas: aplica la preferencia de la sección 1.1, una sola ronda de hasta tres preguntas con valor por defecto, salvo que el pedido ya traiga objetivo, audiencia y canal o el usuario diga "sigue".
 
 ### 9.5 `auditar`
 

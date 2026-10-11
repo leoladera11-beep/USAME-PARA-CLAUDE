@@ -1,8 +1,8 @@
 # Validador independiente de fidelidad
 
-Anexo del motor `escritura-humana`. Origen: escritura-humana-core/references/validador-independiente.md (skills originales del usuario). Las referencias a módulos antiguos se actualizaron a las secciones del motor.
+Anexo de `escritura-humana-core` (versión modular). Origen: escritura-humana-core/references/validador-independiente.md (skills originales del usuario). Las remisiones llevan a los módulos de la familia.
 
-Segunda revisión cuya única tarea es detectar alteraciones y afirmaciones no respaldadas. No mejora el estilo y no reescribe. Se usa como paso final de `escritura-humana`, ya sea como pasada interna o pegando el prompt en una conversación nueva (más fiable, porque quien valida no es quien redactó).
+Segunda revisión cuya única tarea es detectar alteraciones y afirmaciones no respaldadas. No mejora el estilo y no reescribe. Se usa como paso final de `escritura-humana-core` (fase 5), ya sea como pasada interna o pegando el prompt en una conversación nueva (más fiable, porque quien valida no es quien redactó).
 
 ## Cuándo usarlo
 

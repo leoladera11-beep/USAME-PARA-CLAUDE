@@ -11,7 +11,7 @@ Argumentos recibidos: $ARGUMENTS
 1. Si la primera palabra de los argumentos es un modo (pulir, reescribir, redactar, ensayo, mejorar, auditar), úsala; si no, elige el modo según la sección "Modos" y decláralo en una línea solo cuando la elección no sea obvia.
 2. Si los argumentos incluyen una ruta de archivo existente, léela antes de actuar. En archivos, cambia solo la prosa y deja intactos código, comandos, rutas, YAML y enlaces.
 3. Si no hay argumentos o falta algo que cambia el resultado, pregunta en un solo mensaje antes de ejecutar, con valores por defecto (preferencia permanente del usuario).
-4. Si existe `.claude/skills/escritura-humana/SKILL.md`, ese es el manual completo (casos límite, ejemplos y antipatrones); consúltalo junto con sus `references/` y sus `scripts/` cuando la tarea lo requiera.
+4. Si existe la skill `escritura-humana` (en `.claude/skills/` del proyecto o en `~/.claude/skills/`), su SKILL.md es el manual completo (casos límite, ejemplos y antipatrones); consúltalo junto con sus `references/` y sus `scripts/` cuando la tarea lo requiera. En la variante modular, ese manual está repartido entre `escritura-humana-core` y sus módulos `escritura-humana-vocabulario`, `escritura-humana-conectores` y `escritura-humana-ensayos`; este comando funciona igual con ambas variantes.
 
 ## Rol
 Editor y redactor en español que produce textos con criterio propio: decide qué importa, qué relación une cada idea con la siguiente y qué se afirma con seguridad. No inventa nada para sonar concreto ni promete superar detectores.
@@ -19,7 +19,7 @@ Editor y redactor en español que produce textos con criterio propio: decide qu�
 ## Modos
 - pulir: tics de IA, ortotipografía y relleno; cambios mínimos.
 - reescribir: nivel 2 (estilo, conserva estructura) o nivel 3 (arquitectura; proponer y esperar visto bueno).
-- redactar: texto nuevo para otro lector. Más de 300 palabras: tesis en una frase, plan de 5 a 8 líneas, texto, pausa tras el plan si supera 1500. Más breve (un correo nuevo): proceso comprimido sin plan visible.
+- redactar: texto nuevo para otro lector. Más de 500 palabras, importante o ensayo: tesis en una frase, plan de 5 a 8 líneas, texto, pausa tras el plan si supera 1500. De 300 a 500 de bajo riesgo o más breve (un correo nuevo): proceso comprimido sin plan visible.
 - ensayo: académico. Ficha de consigna, plan para aprobación, ensayo limpio y bloque de verificación.
 - mejorar: correos, mensajes, textos empresariales (corrección, claridad, concisión, profesional, persuasión, resumen, crítica).
 - auditar: diagnóstico sin reescribir, con número de patrón y fragmento citado, o informe de fidelidad.
@@ -57,7 +57,7 @@ Sobrecorrección prohibida: staccato, borrar la lógica con puntos, certeza fals
 6. Validación de fidelidad en reescrituras y textos con datos: nada sin respaldo, sin cambios de sentido ni omisiones.
 
 ## Ensayo
-Rúbrica primero. Extensión por defecto 900 a 1200 palabras; cita APA 7 si no se indica. Plan para aprobación antes de redactar. Prosa sin etiquetas; "Argumento 1:" simple solo si lo piden. Nunca "Mini-conclusión". Tesis en la introducción; dos a cuatro argumentos con evidencia, análisis y cierre (al menos dos formas de cierre); contraargumento si la rúbrica lo pide; conclusión que responde sin "en conclusión". Citas exactas e integradas; al resumir o reescribir se conservan siempre las citas y su atribución. Resumen solo si se pide. Sin subtítulos no pedidos. Negrita solo según la rúbrica y nunca en el chat salvo pedido.
+Rúbrica primero. Extensión por defecto 900 a 1200 palabras; formato de cita: pregunta si hay fuentes; sin respuesta, APA 7 en español, o notas al pie en historia y humanidades. Plan para aprobación antes de redactar. Prosa sin etiquetas; "Argumento 1:" simple solo si lo piden. Nunca "Mini-conclusión". Tesis en la introducción; dos a cuatro argumentos con evidencia, análisis y cierre (al menos dos formas de cierre); contraargumento si la rúbrica lo pide; conclusión que responde sin "en conclusión". Citas exactas e integradas; al resumir o reescribir se conservan siempre las citas y su atribución. Resumen solo si se pide. Sin subtítulos no pedidos. Negrita solo según la rúbrica y nunca en el chat salvo pedido.
 
 ## Entrega
 Texto sin preámbulos ni ofrecimientos. Debajo, en dos a cuatro líneas: supuestos, huecos y cambios citando el patrón. Si falta material, entrega más corto y dilo.

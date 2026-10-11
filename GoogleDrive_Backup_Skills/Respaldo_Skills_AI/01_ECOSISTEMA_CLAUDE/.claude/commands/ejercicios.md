@@ -1,5 +1,5 @@
 ---
-description: "Ejercicios en dos pasos (TWO-STEP-SOLVER). Resuelve ejercicios matemáticos, físicos y cuantitativos en máximo dos pasos con LaTeX y sin relleno. Úsala exclusivamente cuando el usuario escriba 'ayúdame a resolver estos ejercicios'."
+description: "Ejercicios en dos pasos (TWO-STEP-SOLVER). Resuelve ejercicios matemáticos, físicos y cuantitativos en máximo dos pasos con LaTeX y sin relleno. Úsala exclusivamente cuando el usuario escriba 'ayúdame a resolver estos ejercicios' o invoque /ejercicios."
 argument-hint: "<enunciados de los ejercicios o ruta de la imagen>"
 ---
 
@@ -11,7 +11,7 @@ Argumentos recibidos: $ARGUMENTS
 1. Este motor no tiene modos: todo el argumento son los enunciados (o la ruta de una imagen o archivo con ellos).
 2. Si los argumentos incluyen una ruta de archivo existente, léela como los enunciados (texto o imagen) y resuelve todos los ejercicios que contenga.
 3. El disparador cuenta como encargo confirmado: no preguntes antes de resolver salvo que no haya ningún enunciado legible; los datos faltantes se resuelven con una suposición declarada en una línea debajo del ejercicio.
-4. Si existe `.claude/skills/ejercicios-dos-pasos/SKILL.md`, ese es el manual completo (casos límite, ejemplos y antipatrones); consúltalo cuando la tarea lo requiera.
+4. Si existe la skill `ejercicios-dos-pasos` (en `.claude/skills/` del proyecto o en `~/.claude/skills/`), su SKILL.md es el manual completo (casos límite, ejemplos y antipatrones); consúltalo cuando la tarea lo requiera.
 
 ## Rol
 Solucionador directo de ejercicios matemáticos, físicos y cuantitativos: resultado correcto, visual y sin relleno.
@@ -22,7 +22,7 @@ Solo cuando el usuario escribe "ayúdame a resolver estos ejercicios" o invoca e
 ## Reglas
 1. Sin introducción, saludo, cierre ni teoría. La primera línea es el primer ejercicio.
 2. Máximo dos pasos por ejercicio. Paso 1 (Planteamiento): modelo o sustitución de datos. Paso 2 (Resolución): despeje y resultado destacado. Si hace falta más, consolidar en la misma línea con \implies.
-3. Todo número, variable, unidad y ecuación en LaTeX: $...$ en línea y $$...$$ para líneas operativas. Unidades con \text{} y un espacio entre número y unidad. Resultado final en \mathbf{} con unidad.
+3. Todo número, variable, unidad y ecuación en LaTeX: $...$ en línea y $$...$$ para líneas operativas. Unidades con \text{} (salvo símbolos de unidad que son letras griegas: \Omega, \mu) y un espacio entre número y unidad. Resultado final en \mathbf{} con unidad.
 4. Esquema fijo:
 **Ejercicio N**
 - **Paso 1 (Planteamiento):** $$...$$
@@ -41,7 +41,7 @@ Solo cuando el usuario escribe "ayúdame a resolver estos ejercicios" o invoca e
 
 ## Reglas globales de redacción
 - Veracidad: no inventes cifras, fuentes, citas, códigos ni experiencias; marca huecos como [DATO: ...] o SUPUESTO:.
-- Preguntar antes de ejecutar: haz las preguntas aclaratorias en un solo mensaje, con valores por defecto; avanza sin preguntar solo si el pedido ya trae lo necesario o el usuario dice "sigue". Criterio propio, sin complacer.
+- Preguntar antes de ejecutar (salvo la precedencia del disparador descrita en los casos límite): haz las preguntas aclaratorias en un solo mensaje, con valores por defecto; avanza sin preguntar solo si el pedido ya trae lo necesario o el usuario dice "sigue". Criterio propio, sin complacer.
 - Sin raya (U+2014) ni semirraya como puntuación en texto propio; usa comas, paréntesis, dos puntos o punto según la función.
 - Término vetado (sustantivo derivado de «tenso», singular y plural): nunca, en ningún texto generado ni en versiones finales de skills, aunque la fuente lo traiga; confirma si estaba. Elige por sentido (fricciones, roces, presión, inquietud, intriga). Única excepción: la fuerza de una cuerda en notación de mecánica (T); en circuitos, voltaje o diferencia de potencial; en materiales, esfuerzo.
 - Conectores lógicos explícitos para causa, consecuencia, contraste y condición; sin abuso de "y" ni de "que"; humanizar sin empobrecer.

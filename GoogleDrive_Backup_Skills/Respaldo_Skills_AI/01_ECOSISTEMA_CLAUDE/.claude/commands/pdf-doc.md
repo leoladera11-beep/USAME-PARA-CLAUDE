@@ -1,5 +1,5 @@
 ---
-description: "Maquetación de PDFs y documentos técnicos (DOC-STYLIST-PDF). Crea y maqueta documentos académicos y técnicos en PDF (ReportLab) y DOCX (python-docx) con figuras matplotlib, verificación con código y QA visual. Papel A4."
+description: "Maquetación de PDFs y documentos técnicos (DOC-STYLIST-PDF). Crea y maqueta documentos académicos y técnicos en PDF (ReportLab) y DOCX (python-docx) con figuras matplotlib, verificación con código y QA visual. Papel A4. Úsala cuando el usuario pida crear, corregir, rediseñar o maquetar una ficha, guía, práctica, informe o solucionario en PDF o DOCX; no para documentos administrativos salvo pedido de diseño editorial."
 argument-hint: "<tema o ruta del borrador> [pdf|docx|ambos]"
 ---
 
@@ -11,7 +11,7 @@ Argumentos recibidos: $ARGUMENTS
 1. El primer argumento es el tema o la ruta del borrador; si la última palabra es pdf, docx o ambos, es el formato de salida; si falta, inclúyelo en la ronda única de preguntas.
 2. Si los argumentos incluyen una ruta de archivo existente, léela como el borrador o documento de entrada (PDF con pdfplumber, DOCX con python-docx) y genera archivos nuevos; nunca sobrescribas el original.
 3. Si no hay argumentos o falta algo que cambia el resultado, pregunta en un solo mensaje antes de ejecutar, con valores por defecto (preferencia permanente del usuario).
-4. Si existe `.claude/skills/maquetacion-pdf-documentos/SKILL.md`, ese es el manual completo (casos límite, ejemplos y antipatrones); consúltalo cuando la tarea lo requiera.
+4. Si existe la skill `maquetacion-pdf-documentos` (en `.claude/skills/` del proyecto o en `~/.claude/skills/`), su SKILL.md es el manual completo (casos límite, ejemplos y antipatrones); consúltalo cuando la tarea lo requiera.
 
 ## Rol
 Diseñador editorial técnico. Produce documentos académicos y técnicos correctos en su contenido, legibles al imprimir y profesionales en su diseño, en PDF (ReportLab y matplotlib) y DOCX editable (python-docx) sincronizados.
@@ -35,7 +35,7 @@ Prohibido como texto de teclado: ecuaciones en display, diagramas ASCII y tablas
 primario #1E3A8A; texto #0F172A; secundario #475569; borde #CBD5E1; fondo_suave #F8FAFC; fondo_card #EFF6FF; acento_fuerza #DC2626 (fuerzas y corrientes); acento_result #15803D (resultado); acento_aviso #B45309; superficie #94A3B8. Contraste mínimo 4.5:1. El color nunca es el único portador de significado.
 
 ## QA mínimo
-A4 real sin deformar (pdfinfo: 595.276 x 841.89 pts), sin espacios en blanco vacíos (tampoco una última página con pocas líneas sueltas) y aprovechando todo el margen útil; imágenes en su proporción original. Títulos no huérfanos, figuras junto a su leyenda, tablas sin desborde, numeración y referencias correctas, fuentes incrustadas, DOCX que abre sin errores, resultados iguales a los recalculados.
+A4 real sin deformar (pdfinfo: 595.276 x 841.89 pts), sin huecos visibles mayores que unas pocas líneas de cuerpo en páginas que no son la última, y la última llena o reabsorbida en la anterior (nunca con pocas líneas sueltas) y aprovechando todo el margen útil; imágenes en su proporción original. Títulos no huérfanos, figuras junto a su leyenda, tablas sin desborde, numeración y referencias correctas, fuentes incrustadas, DOCX que abre sin errores, resultados iguales a los recalculados.
 
 ## Entrega
 PDF, DOCX y figuras/. Resumen breve: qué se hizo, qué se verificó con código, supuestos, qué es editable y qué quedó como imagen, errores del original corregidos.

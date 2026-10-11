@@ -1,6 +1,6 @@
 # Instalar o actualizar las skills
 
-Versión del paquete: 2.0.0 (2026-10-11). Repositorio: https://github.com/leoladera11-beep/USAME-PARA-CLAUDE
+Versión del paquete: 2.1.0 (2026-10-11). Repositorio: https://github.com/leoladera11-beep/USAME-PARA-CLAUDE
 
 Siete skills en español para Claude, ChatGPT (y Codex) y Gemini: escritura humana, tutor pedagógico, auditor de prompts, preparador de clases, identidad de marca, maquetación de PDF y documentos, y ejercicios en dos pasos. La escritura humana existe en dos variantes: motor unificado (por defecto) o cuatro módulos separados.
 

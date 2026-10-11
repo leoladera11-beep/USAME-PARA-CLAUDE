@@ -24,7 +24,7 @@ Es un motor distinto del tutor: entrega el resultado de inmediato, mientras el t
    - Paso 2 (resolución): simplificación, despeje y resultado final destacado.
    Si un ejercicio exige más manipulación, consolida las operaciones intermedias en la misma línea analítica con `\implies`.
 3. LaTeX para todos los números, variables, unidades, ecuaciones y expresiones: `$...$` en línea y `$$...$$` para las líneas operativas.
-4. Unidades con `\text{}` y un espacio entre número y unidad: `20\ \text{m/s}`. El resultado final va en `\mathbf{}` con su unidad.
+4. Unidades con `\text{}` y un espacio entre número y unidad: `20\ \text{m/s}`, salvo símbolos de unidad que son letras griegas (`\Omega`, `\mu`), que van como comando matemático: `10\ \Omega`. El resultado final va en `\mathbf{}` con su unidad.
 5. Esquema visual fijo por ejercicio:
 
 ```
@@ -111,4 +111,4 @@ Salida esperada del modelo:
 - Matemáticas: ChatGPT muestra las fórmulas en línea con `\( ... \)` y en bloque con `\[ ... \]` o `$$ ... $$`. No uses `$...$` simple en línea porque no siempre se muestra; en ChatGPT esta regla sustituye cualquier indicación de usar `$...$` en línea.
 - Memoria e instrucciones personalizadas: las reglas de esta skill ganan a recuerdos o instrucciones que las contradigan (por ejemplo, una preferencia antigua por usar rayas). Si hay conflicto, sigue la skill y avísalo en una línea.
 - Búsqueda web: solo si el usuario quiere fuentes externas o datos recientes, y con cada fuente citada con su enlace.
-- Reglas del sistema que no se negocian: preguntar antes de ejecutar (avanza sin preguntar solo si el pedido ya trae lo necesario o el usuario dice "sigue"); criterio propio, sin complacer; humanizar sin empobrecer; imágenes independientes de 24 cm de alto por 17 de ancho por defecto y documentos A4 sin espacios vacíos; sin raya ni semirraya; nunca el término vetado (sustantivo derivado de «tenso») en ningún texto ni en versiones finales, con la única excepción de la fuerza de una cuerda en notación de mecánica; conectores lógicos explícitos sin abuso de "y" ni "que"; sin emojis; español latinoamericano neutro.
+- Reglas del sistema que no se negocian: preguntar antes de ejecutar, salvo la precedencia del disparador descrita en los casos límite (avanza sin preguntar solo si el pedido ya trae lo necesario o el usuario dice "sigue"); criterio propio, sin complacer; humanizar sin empobrecer; imágenes independientes de 24 cm de alto por 17 de ancho por defecto y documentos A4 sin espacios vacíos; sin raya ni semirraya; nunca el término vetado (sustantivo derivado de «tenso») en ningún texto ni en versiones finales, con la única excepción de la fuerza de una cuerda en notación de mecánica; conectores lógicos explícitos sin abuso de "y" ni "que"; sin emojis; español latinoamericano neutro.

@@ -113,7 +113,7 @@ La memoria exportada por el usuario se integró en todas las plataformas. Cada f
 
 | Regla de la memoria | Dónde se aplicó |
 |---|---|
-| Preguntar antes de ejecutar | Sección 1.1 del motor de escritura; comandos de Claude Code (punto 3 de la interpretación de argumentos); `CLAUDE.md`, instrucciones de Project, Gemini y GPT; cabeceras de preparador, identidad, maquetación y auditor |
+| Preguntar antes de ejecutar | Sección 1.1 del motor de escritura; comandos de Claude Code (punto 3 de la interpretación de argumentos); `CLAUDE.md`, instrucciones de Project, Gemini, skills de ChatGPT y prompts de respaldo de ChatGPT; cabeceras de preparador, identidad, maquetación y auditor |
 | Sin emojis; sin raya | Ya vigentes; validación automática en el generador |
 | Término vetado: nunca en versiones finales de skills, aunque la fuente lo use; confirmar si estaba | El término no aparece escrito en ningún archivo generado (validación automática que hace fallar el generador); se nombra como "el término vetado (sustantivo derivado de «tenso»)" y los ejemplos usan `[término vetado]`; el cuerpo original de maquetación se corrige al copiarlo; los motores confirman de forma explícita al entregar si la fuente lo traía |
 | Excepción técnica solo para la fuerza de una cuerda en mecánica | Motor de escritura (3.2), ejercicios, maquetación y reglas globales; en circuitos, voltaje; en materiales, esfuerzo |
@@ -165,19 +165,19 @@ Cada manual incluye: modos y enrutamiento; reglas con su excepción; casos de us
 - Rayas (U+2014) y semirrayas (U+2013): 0 en todos los archivos nuevos. El único ejemplo que necesitaba mostrar una raya del usuario la representa como `[raya]`.
 - Emojis: 0.
 - Frontmatter YAML: válido en todas las skills y comandos.
-- Caracteres de los prompts de respaldo de ChatGPT (límite de 8000 de las instrucciones de un Project):
 - El término vetado no aparece escrito en ningún archivo generado; el generador falla si aparece.
 - El instalador se probó en una carpeta personal temporal: instalación, estado, reejecución sin cambios, actualización con respaldo, cambio a la variante modular, alcance de proyecto y desinstalación.
+- Caracteres de los prompts de respaldo (límite de 8000 de las instrucciones de un Project o un Gem):
 
 | Archivo | Caracteres |
 |---|---|
 | `chatgpt_standalone/auditor-de-prompts.md` | 6601 |
-| `chatgpt_standalone/ejercicios-dos-pasos.md` | 4285 |
-| `chatgpt_standalone/escritura-humana.md` | 6788 |
+| `chatgpt_standalone/ejercicios-dos-pasos.md` | 4443 |
+| `chatgpt_standalone/escritura-humana.md` | 6928 |
 | `chatgpt_standalone/identidad-de-marca.md` | 6428 |
-| `chatgpt_standalone/maquetacion-pdf-documentos.md` | 5712 |
-| `chatgpt_standalone/motor-pedagogico.md` | 7949 |
-| `chatgpt_standalone/preparador-de-clases.md` | 6399 |
+| `chatgpt_standalone/maquetacion-pdf-documentos.md` | 5830 |
+| `chatgpt_standalone/motor-pedagogico.md` | 7936 |
+| `chatgpt_standalone/preparador-de-clases.md` | 6398 |
 
 ## 9. Guía de importación paso a paso
 
@@ -252,13 +252,14 @@ Crea un Project, pega `chatgpt_standalone/<motor>.md` (el bloque interior) en la
 
 ## 12. Versión e historial de cambios
 
-Versión actual: 2.0.0. Para publicar una versión nueva, cambia `VERSION` en el generador, regenera y sube los cambios; el instalador detecta por suma SHA-256 qué skills cambiaron.
+Versión actual: 2.1.0. Para publicar una versión nueva, cambia `VERSION` en el generador, regenera y sube los cambios; el instalador detecta por suma SHA-256 qué skills cambiaron.
 
 | Versión | Cambios |
 |---|---|
 | 1.0.0 | Consolidación de 16 skills en 7 motores; respaldo original; versiones para Claude, Gemini y ChatGPT; matriz de auditoría. |
 | 1.1.0 | Skills para ChatGPT y Codex en formato Agent Skills; zips para claude.ai y ChatGPT; script `revisar_texto.py`. |
-| 2.0.0 | Memoria del usuario integrada (sección 5); el término vetado desaparece de todas las versiones finales; excepción técnica solo para la fuerza de una cuerda; módulos separados de escritura para comparar; archivos `.skill` instalables; correcciones de dos rondas de jueces externos; se retiran los Custom GPTs por decisión del usuario (OpenAI los va a eliminar) y quedan skills en las tres plataformas; instalador `instalar_skills.py`, `manifest.json` e `INSTALAR.md` para instalar o actualizar con solo el enlace. |
+| 2.0.0 | Memoria del usuario integrada (sección 5); el término vetado desaparece de todas las versiones finales; excepción técnica solo para la fuerza de una cuerda; módulos separados de escritura para comparar; archivos `.skill` instalables; correcciones de dos rondas de jueces externos; se retiran los Custom GPTs por decisión del usuario (que indica que OpenAI prevé retirarlos) y quedan skills en las tres plataformas; instalador `instalar_skills.py`, `manifest.json` e `INSTALAR.md` para instalar o actualizar con solo el enlace. |
+| 2.1.0 | Ronda final de seis jueces externos: módulo de conectores activo con todo texto para otro lector; ejemplos de cierre de argumento recuperados; revisión final de conectores (4.6); detector de emojis ampliado y rangos numéricos en `revisar_texto.py`; ejemplos corregidos en auditor, identidad, tutor, preparador y maquetación; QA de maquetación sin tolerancia de espacios vacíos; comandos que encuentran el manual en `~/.claude/skills/`; instalador con respaldos sin colisiones, estado por suma SHA-256, enlaces simbólicos y carpeta `~/.agents/skills` de Codex. |
 
 ## 13. Árbol generado
 

@@ -368,9 +368,13 @@ Entrada del usuario:
 
 > Prepárame una clase de 45 minutos de fracciones equivalentes para 4.º de primaria. Son 28 estudiantes. Tengo pizarra, tiras de papel de colores y el cuaderno de trabajo.
 
-Salida esperada del modelo (la entrada trae casi todos los mínimos, así que no se pregunta; los supuestos se declaran):
+Salida esperada del modelo (primer mensaje, antes de ejecutar; el área no se pregunta porque el tema la fija sin ambigüedad):
 
-> SUPUESTO: área Matemática (inferida del tema). SUPUESTO: propósito no declarado, se trata como "?" y se propone un desempeño. SUPUESTO: uso propio (versión compacta), sesión aislada. SUPUESTO: dos tiras por estudiante (56) y útiles personales básicos (lápiz) y tiza o plumón de la pizarra.
+> Antes de diseñar: 1) ¿qué propósito o desempeño quieres trabajar? Si no lo tienes, escribe "?" y propongo uno. 2) Además del cuaderno de trabajo, ¿cada estudiante tiene su cuaderno personal? 3) ¿La sesión es para ti o para entregarla a la dirección? Si respondes "sigue", asumo propósito "?", cuaderno personal para cada estudiante y versión compacta de uso propio.
+
+El usuario responde "sigue". Salida esperada del modelo:
+
+> SUPUESTO: área Matemática (inferida del tema). SUPUESTO: propósito "?", se propone un desempeño. SUPUESTO: uso propio (versión compacta), sesión aislada. SUPUESTO: dos tiras por estudiante (56), útiles personales básicos (lápiz) y tiza o plumón de la pizarra. SUPUESTO: cuaderno personal de cada estudiante (28); el cuaderno de trabajo no se usa en esta sesión.
 >
 > Análisis pedagógico: los estudiantes deben reconocer que dos fracciones distintas pueden representar la misma cantidad. La dificultad real en 4.º es comparar numeradores y denominadores por separado ("2/4 es más grande que 1/2 porque tiene números más grandes"). La evidencia sin ambigüedad es la tabla de pares equivalentes que registran tras doblar tiras. Estrategia: material concreto antes que símbolos, porque los recursos son manipulables y el tiempo es corto.
 >
@@ -383,19 +387,31 @@ Salida esperada del modelo (la entrada trae casi todos los mínimos, así que no
 > |---|---|---|---|---|---|---|---|
 > | 1 | Inicio: saberes previos y propósito | 8 | "Si parto una pizza en 2 y me como 1 parte, y tú partes otra igual en 4 y te comes 2, ¿quién comió más?" Luego lee el propósito. | Responden y justifican a mano alzada | Plenario | Pizarra | Ideas registradas en pizarra |
 > | 2 | Desarrollo: familiarización | 4 | "¿Qué tendríamos que comparar para saber quién comió más?" | Reformulan el problema con sus palabras | Parejas | Ninguno | Escucha de tres parejas |
-> | 3 | Desarrollo: búsqueda y ejecución de estrategias | 10 | "Doblen una tira en 4 partes iguales y marquen 2. Doblen la otra en 8 y marquen las que cubran el mismo largo." | Doblan, marcan con lápiz y copian en el cuaderno la tabla de la pizarra con ambas fracciones | Parejas | Tiras, cuaderno | Criterio 1, lista de cotejo ítem 1 |
+> | 3 | Desarrollo: búsqueda y ejecución de estrategias | 10 | "Doblen una tira en 4 partes iguales y marquen 2. Doblen la otra en 8 y marquen las que cubran el mismo largo. Luego busquen cuántos octavos cubren 1/4." | Doblan, marcan con lápiz y completan en el cuaderno las dos filas de la tabla modelo (anexo) | Parejas | Tiras, cuaderno | Criterio 1, lista de cotejo ítem 1 |
 > | 4 | Transición | 2 | "Una pareja por fila pase a mostrar sus tiras." | Se organizan | Parejas | Ninguno | |
 > | 5 | Desarrollo: socialización de representaciones | 6 | "¿Por qué 2/4 y 4/8 cubren lo mismo?" | Superponen las tiras frente a la clase y explican | Plenario | Tiras | Monitoreo con tres preguntas preparadas |
 > | 6 | Desarrollo: reflexión y formalización | 6 | Escribe 1/2 = 2/4 = 4/8 y pregunta: "¿Qué pasa con las partes y con el tamaño de cada parte?" | Completan la regla en el cuaderno | Individual | Pizarra, cuaderno | Si más de la mitad no lo logra, vuelve a doblar una tira en público |
 > | 7 | Cierre: boleto de salida | 5 | "Dibuja una fracción que valga lo mismo que 1/3 y explica por qué en una línea." | Responden en el cuaderno | Individual | Cuaderno | Criterio 2, lista de cotejo ítem 2 |
 > | 8 | Cierre: metacognición y transferencia | 4 | "¿Qué hiciste con la tira para saber que 2/4 y 4/8 valen lo mismo? ¿Dónde más podrías usarlo?" | Responden dos o tres estudiantes | Plenario | Ninguno | Registro anecdótico |
 >
-> 6, 7 y 9: lista de cotejo con un ítem por criterio; andamio (tira ya dividida en 4) y extensión (tres equivalentes de 1/2); acción DUA por principio integrada en las filas 3, 5 y 7; anexo con la tabla modelo.
+> 6. Lista de cotejo (una fila por estudiante, 28 filas). Ítem 1 (criterio 1, fila 3): "Dobla las tiras en partes iguales y marca en la segunda las partes que cubren el mismo largo que 2/4". Ítem 2 (criterio 2, fila 7): "Explica la equivalencia con 1/3 comparando la parte marcada, no solo los números".
+>
+> | N.º | Estudiante | Ítem 1: sí | Ítem 1: no | Ítem 2: sí | Ítem 2: no |
+> |---|---|---|---|---|---|
+> | 1 | (nombre) | | | | |
+>
+> 7. Diferenciación: andamio (tira ya dividida en 4 para quien no logra partes iguales en la fila 3); extensión (tres equivalentes de 1/2 para quien termina antes). DUA: representación, fila 3 (la consigna se dice en voz alta y el docente dobla una tira frente a la clase mientras la tabla modelo queda en la pizarra); acción y expresión, fila 5 (explican superponiendo las tiras, señalando o con una frase, sin exigir solo explicación oral); implicación, fila 7 (cada estudiante elige dibujar su fracción como tira o como círculo partido).
+> 9. Anexo: tabla modelo (dibujada en la pizarra y copiada en el cuaderno en la fila 3):
+>
+> | Par | Tira de 4 partes | Tira de 8 partes | ¿Cubren el mismo largo? (sí/no) |
+> |---|---|---|---|
+> | 1 | 2/4 | ___/8 | |
+> | 2 | 1/4 | ___/8 | |
 > 10. Preguntas para mejorar la siguiente versión: ¿qué vieron antes sobre fracciones? ¿Hay estudiantes con NEE o que necesiten apoyo de lectura?
 >
 > Veredicto: LISTA.
 
-Por qué es correcta: los tiempos suman 45 con las anclas 8/28/9 (8; 4 + 10 + 2 + 6 + 6 = 28; 5 + 4 = 9) y la transición es una fila propia; solo usa los recursos declarados y marca como SUPUESTO lo que no se declaró; el cierre tiene evidencia, metacognición y transferencia; el desarrollo sigue los procesos didácticos de Matemática; el desempeño va marcado PROPUESTO sin códigos inventados; están las secciones 3, 4 y 8 fusionadas y la 10.
+Por qué es correcta: pregunta antes de ejecutar, en un solo mensaje y con máximo tres preguntas, y solo asume tras el "sigue" (el área no se pregunta porque el tema la fija); los tiempos suman 45 con las anclas 8/28/9 (8; 4 + 10 + 2 + 6 + 6 = 28; 5 + 4 = 9) y la transición es una fila propia; usa los recursos declarados y marca como SUPUESTO el cuaderno personal, que no se declaró; la lista de cotejo tiene un indicador observable por criterio ligado a su fila, y la tabla del anexo registra los dos pares que pide el desempeño; hay una acción DUA por principio con su fila; el cierre tiene evidencia, metacognición y transferencia; el desarrollo sigue los procesos didácticos de Matemática; el desempeño va marcado PROPUESTO sin códigos inventados; están las secciones 3, 4 y 8 fusionadas y la 10.
 
 ### Ejemplo 2. Modo ADAPTAR
 
@@ -405,7 +421,7 @@ Entrada del usuario:
 
 Salida esperada del modelo (extracto):
 
-> Se mantienen el propósito, los dos criterios y la evidencia. Nueva distribución 8/28/9:
+> Se mantienen el propósito, los dos criterios y la evidencia. SUPUESTO: el organizador se hace en el reverso de la copia del texto, una por pareja, porque no se declararon hojas ni cuadernos. Nueva distribución 8/28/9:
 >
 > | N.º | Momento | Min | Cambio frente al original |
 > |---|---|---|---|
@@ -413,11 +429,13 @@ Salida esperada del modelo (extracto):
 > | 2 | Desarrollo: lectura en pares | 12 | Una sola lectura; 3.º con preguntas literales y 4.º con una inferencial, escritas en la pizarra |
 > | 3 | Desarrollo: organizador en pares | 14 | Dos monitores de 4.º apoyan a 3.º durante 10 minutos |
 > | 4 | Transición | 2 | Fila nueva |
-> | 5 | Cierre: galería de organizadores y boleto de salida oral | 9 | Sustituye coevaluación y plenario |
+> | 5 | Cierre: galería de organizadores | 4 | Sustituye la coevaluación entre grupos |
+> | 6 | Cierre: boleto de salida oral ("Di la idea principal y un detalle que la sostiene") | 3 | Sustituye el plenario; evidencia del criterio 2 |
+> | 7 | Cierre: metacognición ("¿Qué pista del texto te ayudó a distinguir la idea principal de un detalle?") | 2 | Fila nueva |
 >
-> Qué se sacrificó y por qué: la dramatización (12 minutos que no aportaban a ningún criterio), la segunda lectura (se conserva el fragmento clave dentro de la primera) y la coevaluación entre grupos (el boleto de salida cubre el criterio 2 en menos tiempo).
+> Qué se sacrificó y por qué: la dramatización (12 minutos que no aportaban a ningún criterio), la lectura en voz alta del docente (15 minutos de escucha que no producen evidencia; la lectura en pares con preguntas en la pizarra trabaja el criterio 1 en menos tiempo), la segunda lectura (se conserva el fragmento clave dentro de la lectura en pares) y la coevaluación entre grupos (el boleto de salida cubre el criterio 2 en menos tiempo).
 
-Por qué es correcta: la entrada trae la sesión, así que nada se inventa; conserva propósito, criterios y evidencia; cambia solo lo que obligan el tiempo y el multigrado; los minutos suman 45 (8; 12 + 14 + 2 = 28; 9); usa solo los recursos declarados (las preguntas diferenciadas van en la pizarra, sin copias nuevas); y lista lo sacrificado con su motivo.
+Por qué es correcta: la entrada trae la sesión, así que nada se inventa y el único supuesto (el soporte del organizador) va declarado; conserva propósito, criterios y evidencia; cambia solo lo que obligan el tiempo y el multigrado; los minutos suman 45 (8; 12 + 14 + 2 = 28; 4 + 3 + 2 = 9); el cierre conserva evidencia y metacognición con pregunta literal; usa solo los recursos declarados (las preguntas diferenciadas van en la pizarra y el organizador en el reverso de las copias, sin materiales nuevos); y lista cada actividad sacrificada con su motivo.
 
 ## 14. Antipatrones
 

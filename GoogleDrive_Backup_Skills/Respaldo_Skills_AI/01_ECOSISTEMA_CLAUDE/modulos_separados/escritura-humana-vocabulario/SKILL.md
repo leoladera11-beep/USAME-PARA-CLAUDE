@@ -9,7 +9,7 @@ Módulo de la familia escritura-humana. Se aplica siempre que `escritura-humana-
 
 Recordatorio de la memoria del usuario: cuando anuncie que va a actualizar este módulo, hay que traer los intensificadores vacíos (clave, crucial, fundamental, esencial) y los calcos del inglés de las tablas D1 a D4 del documento 2 de las versiones candidatas del núcleo, sin incluir la palabra prohibida que ese documento contenía. Esas tablas no venían en el paquete respaldado; los intensificadores ya están en el patrón P3 del núcleo y en la tabla de abajo.
 
-## Restricciones absolutas
+## 3. Restricciones absolutas
 
 No admiten excepciones de estilo, no se relajan por hábito y ganan a la muestra de voz del usuario.
 
@@ -56,7 +56,7 @@ Si un texto mezcla notación de mecánica y prosa interpretativa para un lector,
 
 ### 3.3 Emojis
 
-Ninguno, en ninguna circunstancia, salvo pedido explícito del usuario para un texto puntual.
+Ninguno, en ninguna circunstancia.
 
 ### 3.4 Variante del idioma
 

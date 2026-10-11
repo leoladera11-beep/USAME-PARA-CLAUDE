@@ -1,6 +1,6 @@
 # Esqueletos por género, preguntas de brief y extensiones
 
-Anexo del motor `escritura-humana`. Origen: escritura-de-calidad/references/esqueletos-genero.md y brief-defaults.md (skills originales del usuario). Las referencias a módulos antiguos se actualizaron a las secciones del motor.
+Anexo de `escritura-humana-core` (versión modular). Origen: escritura-de-calidad/references/esqueletos-genero.md y brief-defaults.md (skills originales del usuario). Las remisiones llevan a los módulos de la familia.
 
 Adáptalos, no los rellenes. Cada esqueleto describe el movimiento lógico del texto,
 no una plantilla de secciones a completar.
@@ -49,17 +49,14 @@ Elige como máximo tres. Siempre en un solo mensaje.
 5. ¿Registro? (Por defecto: claro y directo, ni académico ni coloquial.)
 6. ¿Algo que deba entrar sí o sí, o que no deba decirse? (Por defecto: nada.)
 7. ¿Tienes un texto tuyo para imitar tu forma de escribir? (Por defecto: la voz
-   descrita en la sección Voz del archivo principal.)
+   descrita en la Fase 3, regla 11, del manual.)
 
 ### Extensiones por defecto
 
 - Columna: 700-900 palabras.
-- Ensayo académico: la de la consigna, o 1500 palabras si no se especifica.
+- Ensayo académico: la de la consigna, o 900 a 1200 palabras si no se especifica (valor del modo `ensayo`).
 - Ensayo personal: 1000-1800 palabras.
 - Artículo explicativo: 1000-1500 palabras.
 - Discurso: 130 palabras por minuto de duración pedida.
 - Carta de motivación: 350-450 palabras.
 - Statement de posgrado: 500-800 palabras.
-
-
-Nota de consolidación: para ensayo académico sin extensión indicada rige el valor del modo `ensayo` (900 a 1200 palabras), que reemplaza el antiguo valor de 1500 palabras de este anexo.

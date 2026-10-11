@@ -1,6 +1,6 @@
 ---
 name: maquetacion-pdf-documentos
-description: "Crea, corrige y maqueta documentos académicos y técnicos listos para usar en PDF (ReportLab) y DOCX editable (python-docx) con figuras matplotlib: guías, fichas, prácticas, informes y solucionarios de física, circuitos, matemáticas y ciencias. Verifica el contenido con código antes de maquetar y hace QA visual. Papel A4. No para documentos administrativos salvo pedido de diseño editorial."
+description: "Crea, corrige y maqueta documentos académicos y técnicos listos para usar en PDF (ReportLab) y DOCX editable (python-docx) con figuras matplotlib: guías, fichas, prácticas, informes y solucionarios de física, circuitos, matemáticas y ciencias. Verifica el contenido con código antes de maquetar y hace QA visual. Papel A4. No para documentos administrativos salvo pedido de diseño editorial. Úsala cuando el usuario pida crear, corregir, rediseñar o maquetar una ficha, guía, práctica, informe o solucionario en PDF o DOCX."
 ---
 
 # Maquetación editorial de PDFs y documentos técnicos (DOC-STYLIST-PDF)
@@ -347,7 +347,9 @@ def sombrear(celda, color_hex):
     shd.set(qn("w:fill"), color_hex.lstrip("#"))
     # orden del esquema OOXML: w:shd va antes de estos elementos
     tc_pr.insert_element_before(shd, "w:noWrap", "w:tcMar", "w:textDirection",
-                                "w:tcFitText", "w:vAlign", "w:hideMark")
+                                "w:tcFitText", "w:vAlign", "w:hideMark",
+                                "w:headers", "w:cellIns", "w:cellDel",
+                                "w:cellMerge", "w:tcPrChange")
 ```
 
 - Caja destacada: tabla de una celda sombreada con `sombrear`, etiqueta en negrita y contenido en texto real.
@@ -358,7 +360,7 @@ def sombrear(celda, color_hex):
 1. Rasteriza: `pdftoppm -r 110 -png documento.pdf qa/pagina` e inspecciona cada página.
 2. Prueba de fotocopia: `pdftoppm -gray -r 110 -png documento.pdf qa/gris`; la información no puede depender solo del color.
 3. Revisa: títulos huérfanos al pie, figuras partidas o separadas de su leyenda, tablas desbordadas, texto cortado en celdas, numeración y referencias cruzadas, cuerpo nunca menor de 9 pt, márgenes de al menos 12.7 mm.
-4. Aprovechamiento de la hoja: ninguna página con espacio en blanco vacío (más de un tercio de página libre), ningún hueco entre bloques por un `KeepTogether` mal usado, y tampoco una última página con unas pocas líneas sueltas; si aparece, reordena bloques, ajusta el ancho de las figuras a la rejilla o los espacios para recoger esas líneas en la página anterior o completar la última. Comprueba que ninguna imagen esté deformada (proporción original) y que el PDF sea A4 real (`pdfinfo documento.pdf` muestra `Page size: 595.276 x 841.89 pts (A4)`).
+4. Aprovechamiento de la hoja: en las páginas que no son la última, ningún hueco visible mayor que unas pocas líneas de cuerpo (tampoco entre bloques por un `KeepTogether` mal usado); la última página queda llena o se reabsorbe en la anterior, nunca con unas pocas líneas sueltas; si aparece un hueco, reordena bloques, ajusta el ancho de las figuras a la rejilla o los espacios para recoger esas líneas en la página anterior o completar la última. Comprueba que ninguna imagen esté deformada (proporción original) y que el PDF sea A4 real (`pdfinfo documento.pdf` muestra `Page size: 595.276 x 841.89 pts (A4)`).
 5. Fuentes incrustadas: `pdffonts documento.pdf`; todas con `emb` en `yes` (si aparece Helvetica sin incrustar, falta el `canvas_basefontname` de 4.1 o un `fontName` en algún estilo).
 6. DOCX: vuelve a abrirlo con python-docx (o conviértelo con LibreOffice en modo headless si está disponible) para comprobar que no está corrupto y que tablas y figuras aparecen.
 7. Contenido: compara cada resultado numérico del documento con los recalculados en la fase 3.
@@ -406,7 +408,7 @@ El usuario responde "sigue". Salida esperada del modelo (resumen de entrega):
 >
 > Figuras: fig01_dcl_bloque_plano.png (peso desde el centro de masa, normal perpendicular al plano, eje x a lo largo del plano), eq01_segunda_ley.png (tarjeta de fórmula), panel01_plano_pasos.png (datos, planteamiento, desarrollo y resultado).
 >
-> QA: dos páginas revisadas en color y en grises; ningún título huérfano; fuentes incrustadas.
+> QA: dos páginas revisadas en color y en grises; A4 real (pdfinfo 595.276 x 841.89 pts); figuras en su proporción original; sin espacios vacíos ni última página con líneas sueltas; ningún título huérfano; fuentes incrustadas.
 >
 > Archivos: ficha_plano_inclinado.pdf, ficha_plano_inclinado.docx y figuras/. En el DOCX, el enunciado, las tablas y el solucionario son texto editable; el DCL y las ecuaciones en display son imágenes, con su LaTeX en una nota para el docente.
 

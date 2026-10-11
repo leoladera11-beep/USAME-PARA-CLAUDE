@@ -1,6 +1,6 @@
 {
  "nombre": "Respaldo_Skills_AI",
- "version": "2.0.0",
+ "version": "2.1.0",
  "fecha": "2026-10-11",
  "repositorio": "https://github.com/leoladera11-beep/USAME-PARA-CLAUDE",
  "skills": [
@@ -14,9 +14,9 @@
     "gemini": "02_ECOSISTEMA_GEMINI/skills_nativas/escritura-humana"
    },
    "sha256": {
-    "claude": "c2baf41333e8cb770f53b0f5a7cf69745aa3e2814d8f4677cdbf7e99f3d3d408",
-    "codex": "f3e0edc9d66ea27860bac6953d7eca70e4ec47774dd99a234d183c53e56af13b",
-    "gemini": "1ee90c8af43de25ed45280fdca7ef9881cfe5fdc7513c099a4ef6452865927b0"
+    "claude": "6d3ec3d2664fce93cd1ed7a72c99dbb1433a5b521a97873612d433944340e566",
+    "codex": "363ce65e3a68c7608bc4eee1290a781a3d13d792855577ddb4bfb166c6f003f0",
+    "gemini": "47dc0b8ac58ae2d081d2868c3166db6dffc4d20dfb3bf90beb01c05ec0f3c3d1"
    }
   },
   {
@@ -29,9 +29,9 @@
     "gemini": "02_ECOSISTEMA_GEMINI/skills_nativas/motor-pedagogico"
    },
    "sha256": {
-    "claude": "4071fd2f8c969c1f4b9b6f7998acf9cd97076ef79e592c3c94c4db878baa4640",
-    "codex": "67291ec3797998ce5ab9939e4c358526b565f0cd6a8b6afab3f452884a2f4b2f",
-    "gemini": "6124483bbf9ce7cc23fc7a646d862b823de2d1348b79976ec474b5f21805d87a"
+    "claude": "4dcd59c8e626f6bdd284a85703ce55e3aced1c082f3178cba19b79c940e2299e",
+    "codex": "2b711208ca1318015e02a66011ac9264babd461b85dbc7cba41dad123dde8ac9",
+    "gemini": "4616d486e65f904a35c6d6db944244da35a0d1561b4feb18a0497d80fdbb4d11"
    }
   },
   {
@@ -59,9 +59,9 @@
     "gemini": "02_ECOSISTEMA_GEMINI/skills_nativas/preparador-de-clases"
    },
    "sha256": {
-    "claude": "04e1a4792570fbadec9314727305d8d2356ea50bc7d89104314687cdaf87b12d",
-    "codex": "d4ede70a91be65c8901c7e92ed2b295a9db2fb7554ee63fd9d1932e59d3fc473",
-    "gemini": "687903fb340ed5fdb3fa3668fd6850e8858d3c5b1e4366067366b52181b72821"
+    "claude": "360589d9213020e4a51fe99be3ffd6042ea6b0d7ad66effbb70c68a675b472e3",
+    "codex": "fb71e4b37ce16ee999ada07fecb43499dda0e2e986df3e14fcd154e4185b9bd3",
+    "gemini": "c1e60a23ef0072cee3fc2fe55aa6082d166054c9c3eca31b7647d357642f2929"
    }
   },
   {
@@ -89,9 +89,9 @@
     "gemini": "02_ECOSISTEMA_GEMINI/skills_nativas/maquetacion-pdf-documentos"
    },
    "sha256": {
-    "claude": "ef9b13827f8972f764c65fc8af5f1dc6c748303adc714e1ab288bc8fee60f312",
-    "codex": "2c088f4f2b90efdce9a1baf7ef20ed40c83104abbf9eeacf0cd19e2ba3e963ea",
-    "gemini": "20e45e2553bc3f01c7621b23da25a513b535964ad58d526fd29c384dd9c847e0"
+    "claude": "43bc453f6bf9b91ad365b76936d66f8d1e3a622a86b45938ee68d77ee91a8574",
+    "codex": "2b46dd61905e1208b0c8d92f08054e348538b072464862acd29de10974fc6662",
+    "gemini": "733d9a0fefeda281220686dfcbe52b70280976dcad8aa310de93fd94c16f500a"
    }
   },
   {
@@ -104,9 +104,9 @@
     "gemini": "02_ECOSISTEMA_GEMINI/skills_nativas/ejercicios-dos-pasos"
    },
    "sha256": {
-    "claude": "daf351f4e05dd4b10b0b811adc56f08bc65a7384dc01b0ea264f6ffbf4208c88",
-    "codex": "ac2df563d0accfb9a63d0f13c8d63ed5775ccd8f271990f7011653d7a3352599",
-    "gemini": "31055a820d34f45300195281b68cfd86addb6891cc9383727ff1e9af6f9d60d8"
+    "claude": "5c99f6981ada872fdd2714f87fec78953d1095816b950009f37afed0e4c6c1f4",
+    "codex": "5460fe70d34be87fc6e55acacfcf1f65d81e3b5037e795460b63ca855c5646d5",
+    "gemini": "5705592b6bd6dfcd8bba0b49ab51503da12a3f751fbda510db3cc9b3ecd33fa5"
    }
   },
   {
@@ -116,7 +116,7 @@
     "claude": "01_ECOSISTEMA_CLAUDE/modulos_separados/escritura-humana-core"
    },
    "sha256": {
-    "claude": "b608fc7774d80f7bb5678f6e323bee8cd4d2e12c5c3db4f2c205e4ad266d60d2"
+    "claude": "19987ecacf85673863fb7ca49f642e6eeae9fd9741c3e21693c27e117e468285"
    }
   },
   {
@@ -126,7 +126,7 @@
     "claude": "01_ECOSISTEMA_CLAUDE/modulos_separados/escritura-humana-vocabulario"
    },
    "sha256": {
-    "claude": "e14dc81856dafba32d5fc00ef5dccdeda81be3f4b034c254361581f57c4c5338"
+    "claude": "a11e2e7b7c90800fa3a64d07bb97d8f89459932db8f0cfa265d303f9bbefae61"
    }
   },
   {
@@ -136,7 +136,7 @@
     "claude": "01_ECOSISTEMA_CLAUDE/modulos_separados/escritura-humana-conectores"
    },
    "sha256": {
-    "claude": "fa8e9aad5e5ddc0a91921b31bd117c65e01cff8b2346fe92efa0971f5ef316bb"
+    "claude": "1858ddff0bc6711f071373b62eba511c39ff2e9e495ea76739bfc98ef499c672"
    }
   },
   {
@@ -146,7 +146,7 @@
     "claude": "01_ECOSISTEMA_CLAUDE/modulos_separados/escritura-humana-ensayos"
    },
    "sha256": {
-    "claude": "bb84e9dc17512461234c6d276d0413c434f3b8da04616294ca10d792ba922267"
+    "claude": "2b9aae366f0d1b04fa7893bd7150090cfc00a10a80ba4093e9b65b007dda684c"
    }
   }
  ],

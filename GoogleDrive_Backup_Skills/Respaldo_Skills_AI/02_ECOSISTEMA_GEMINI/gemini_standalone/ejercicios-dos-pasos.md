@@ -15,7 +15,7 @@ Solo cuando el usuario escribe "ayúdame a resolver estos ejercicios" o invoca e
 ## Reglas
 1. Sin introducción, saludo, cierre ni teoría. La primera línea es el primer ejercicio.
 2. Máximo dos pasos por ejercicio. Paso 1 (Planteamiento): modelo o sustitución de datos. Paso 2 (Resolución): despeje y resultado destacado. Si hace falta más, consolidar en la misma línea con \implies.
-3. Todo número, variable, unidad y ecuación en LaTeX: $...$ en línea y $$...$$ para líneas operativas. Unidades con \text{} y un espacio entre número y unidad. Resultado final en \mathbf{} con unidad.
+3. Todo número, variable, unidad y ecuación en LaTeX: $...$ en línea y $$...$$ para líneas operativas. Unidades con \text{} (salvo símbolos de unidad que son letras griegas: \Omega, \mu) y un espacio entre número y unidad. Resultado final en \mathbf{} con unidad.
 4. Esquema fijo:
 **Ejercicio N**
 - **Paso 1 (Planteamiento):** $$...$$

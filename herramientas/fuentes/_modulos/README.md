@@ -6,7 +6,7 @@ Versión modular de la familia escritura-humana, para comparar con el motor unif
 |---|---|---|
 | `escritura-humana-core` | Veracidad, preferencias permanentes, proceso, nueve reglas (P1 a P9) y señales ampliadas, calibración por género, modos, validación de fidelidad | Cualquier texto en español que se redacta o edita |
 | `escritura-humana-vocabulario` | Raya, término vetado, emojis, variante, formato y tabla de léxico inflado (un solo archivo, sin carpeta de referencias) | Siempre junto con el núcleo |
-| `escritura-humana-conectores` | Criterio de conectores y repertorio de 22 categorías (un solo archivo, sin carpeta de referencias) | Textos de más de tres párrafos o revisión de conectores |
+| `escritura-humana-conectores` | Criterio de conectores y repertorio de 22 categorías (un solo archivo, sin carpeta de referencias) | Siempre junto con el núcleo; revisión de conectores |
 | `escritura-humana-ensayos` | Ensayo académico completo | "ensayo", "rúbrica", "consigna" |
 
 Instalación en claude.ai: sube los cuatro archivos de `../skills_instalables/modulos_separados/*.skill`. No los instales junto con `escritura-humana.skill` (el motor unificado): se activarían a la vez y duplicarían reglas en el contexto.
