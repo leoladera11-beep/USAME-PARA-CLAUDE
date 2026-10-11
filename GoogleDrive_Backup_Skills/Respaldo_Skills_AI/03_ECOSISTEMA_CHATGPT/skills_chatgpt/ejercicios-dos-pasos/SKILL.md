@@ -41,7 +41,7 @@ Antes de escribir cada resultado, verifícalo: si hay herramienta de ejecución 
 
 ## 4. Convenciones técnicas
 
-- En mecánica, la fuerza de una cuerda, cable o polea conserva su nombre técnico estándar («tensión», $T$); en circuitos, el voltaje también («tensión eléctrica», $V$). En resistencia de materiales se usa «esfuerzo» ($\sigma$). La prohibición del término vetado rige solo para textos de comunicación.
+- En mecánica, la fuerza que ejerce una cuerda, cable o polea conserva su nombre técnico estándar (símbolo $T$); es la única excepción a la prohibición del término vetado y vale solo para esa notación. En circuitos se escribe voltaje o diferencia de potencial ($V$); en resistencia de materiales, esfuerzo ($\sigma$). La prohibición rige para todo texto de comunicación.
 - $g = 9.8\ \text{m/s}^2$ salvo que el enunciado indique otro valor.
 - Cifras significativas coherentes con los datos (2 o 3 por defecto).
 - Separador decimal: el del enunciado.
@@ -67,7 +67,7 @@ Antes de escribir cada resultado, verifícalo: si hay herramienta de ejecución 
 
 Entrada del usuario:
 
-> Ayúdame a resolver estos ejercicios: 1) Un auto a 20 m/s frena con una desaceleración de 5 m/s². ¿Qué distancia recorre hasta detenerse? 2) Un bloque de 5 kg cuelga en reposo de una cuerda. ¿Cuál es la tensión de la cuerda?
+> Ayúdame a resolver estos ejercicios: 1) Un auto a 20 m/s frena con una desaceleración de 5 m/s². ¿Qué distancia recorre hasta detenerse? 2) Un bloque de 5 kg cuelga en reposo de una cuerda. ¿Qué fuerza ejerce la cuerda sobre el bloque?
 
 Salida esperada del modelo:
 
@@ -106,9 +106,9 @@ Salida esperada del modelo:
 - Entregar un resultado sin verificarlo.
 
 ## Calibración para ChatGPT (skills)
-- Herramientas: usa la herramienta de Python para cálculos, verificaciones y para generar archivos (DOCX, PDF, figuras). Usa la búsqueda web solo si el usuario quiere fuentes externas, y cita cada fuente con su enlace. Usa la generación de imágenes solo cuando el motor lo indique (prompts de logo).
+- Usa la herramienta de Python para verificar en silencio cada resultado; no muestres el código.
+- Formato en ChatGPT: las líneas operativas van en bloque con `\[ ... \]` o `$$ ... $$` y los valores en línea con `\( ... \)`.
 - Matemáticas: ChatGPT muestra las fórmulas en línea con `\( ... \)` y en bloque con `\[ ... \]` o `$$ ... $$`. No uses `$...$` simple en línea porque no siempre se muestra; en ChatGPT esta regla sustituye cualquier indicación de usar `$...$` en línea.
-- Textos largos: si el usuario trabaja en el lienzo (canvas), entrega allí el texto final y deja en el chat solo supuestos y huecos.
 - Memoria e instrucciones personalizadas: las reglas de esta skill ganan a recuerdos o instrucciones que las contradigan (por ejemplo, una preferencia antigua por usar rayas). Si hay conflicto, sigue la skill y avísalo en una línea.
-- Archivos de la skill: lee `references/` solo cuando la tarea lo necesite y ejecuta los scripts de `scripts/` con la herramienta de Python cuando existan.
-- Reglas del sistema que no se negocian: sin raya ni semirraya; nunca el término vetado en textos de comunicación (con la excepción técnica de mecánica, circuitos y resistencia de materiales); conectores lógicos explícitos; sin emojis; español latinoamericano neutro.
+- Búsqueda web: solo si el usuario quiere fuentes externas o datos recientes, y con cada fuente citada con su enlace.
+- Reglas del sistema que no se negocian: preguntar antes de ejecutar; sin raya ni semirraya; nunca el término vetado (sustantivo derivado de «tenso») en textos ni en versiones finales, con la única excepción de la fuerza de una cuerda en notación de mecánica; conectores lógicos explícitos sin abuso de "y" ni "que"; sin emojis; español latinoamericano neutro.

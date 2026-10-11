@@ -1,6 +1,6 @@
 # Matriz de auditoría y comparativa
 
-Respaldo generado el 2026-10-11 en `GoogleDrive_Backup_Skills/Respaldo_Skills_AI`. Contiene las 16 skills originales sin alterar, siete motores consolidados y sus versiones calibradas para Claude, Gemini y ChatGPT (126 archivos Markdown nuevos, además del respaldo original).
+Respaldo generado el 2026-10-11 en `GoogleDrive_Backup_Skills/Respaldo_Skills_AI`. Contiene las 16 skills originales sin alterar, siete motores consolidados y sus versiones calibradas para Claude, Gemini y ChatGPT (136 archivos Markdown nuevos, además del respaldo original).
 
 ## 1. Resumen
 
@@ -11,7 +11,7 @@ Respaldo generado el 2026-10-11 en `GoogleDrive_Backup_Skills/Respaldo_Skills_AI
 | Una plataforma (Claude) | Tres plataformas, con skills nativas en las tres y formatos adicionales (comandos, Gems, Custom GPTs, prompts autosuficientes) |
 | Sin ejemplos de entrada y salida en la mayoría de las skills | Cada motor con casos típicos, casos límite, dos ejemplos completos y antipatrones |
 
-Fase 1 (detección de Google Drive): el sistema donde se ejecutó la tarea es un contenedor Linux sin ninguna unidad de Google Drive montada; se revisaron `G:\Mi unidad`, `G:\My Drive`, `~/Google Drive`, `~/Library/CloudStorage/GoogleDrive*`, `/Volumes/GoogleDrive*` y equivalentes. Por eso el destino es la carpeta local `GoogleDrive_Backup_Skills/Respaldo_Skills_AI/`, lista para subir a Drive (sección 9).
+Fase 1 (detección de Google Drive): el sistema donde se ejecutó la tarea es un contenedor Linux sin ninguna unidad de Google Drive montada; se revisaron `G:\Mi unidad`, `G:\My Drive`, `~/Google Drive`, `~/Library/CloudStorage/GoogleDrive*`, `/Volumes/GoogleDrive*` y equivalentes. Por eso el destino es la carpeta local `GoogleDrive_Backup_Skills/Respaldo_Skills_AI/`, lista para subir a Drive (sección 10).
 
 ## 2. Herramientas originales frente a herramientas consolidadas
 
@@ -79,7 +79,7 @@ Resultado: de 16 skills a 7 motores.
 | 7 | Espaciado: 1, 3, 7, 14, 30 días (`principios`) frente a día 1, día 3, semana 1, semana 3 (`tutor-comprension-profunda`) | Escala de `principios`, comprimida según los días disponibles |
 | 8 | Longitud de turno del tutor: 250 palabras (original) frente a 180 (Sistema Auditado) | 250 palabras como tope y una pregunta conceptual por turno |
 | 9 | "Sin negritas en el chat" frente al esquema en negrita de `ejercicios-dos-pasos` | La regla rige para prosa de comunicación; la notación técnica queda fuera |
-| 10 | Prohibición del término vetado frente a la notación de mecánica y circuitos en `maquetacion` y `ejercicios` | Excepción técnica explícita, igual en los tres motores |
+| 10 | Prohibición del término vetado frente a la notación técnica en `maquetacion` y `ejercicios` (la skill de vocabulario también exceptuaba el voltaje de circuitos) | Por la memoria del usuario y su respuesta en esta sesión: única excepción, la fuerza de una cuerda en mecánica; en circuitos, voltaje o diferencia de potencial; en materiales, esfuerzo. Además, el término no aparece escrito en ninguna versión final |
 | 11 | Descripciones en inglés (`humanizer`, `-conectores`, `-vocabulario`) en un sistema en español | Todas las descripciones en español |
 
 ### 3.4 Defectos de las skills originales
@@ -107,16 +107,47 @@ Se adoptó su arquitectura de macromotores y sus nombres de comando. Estas propu
 | `CLAUDE.md` con la palabra "sin省略ciones" | Caracteres chinos por error | Corregido en el nuevo `CLAUDE.md` |
 | `/audit-prompt` limitado a prompts pedagógicos con puntuación sobre 25 | Dejaba fuera briefs, SOPs y prompts generales del `mejorador-de-textos` | Auditor general de 10 ejes con enrutamiento; los prompts pedagógicos van al motor pedagógico |
 
-## 5. Enriquecimiento aplicado a cada motor
+## 5. Integración de la memoria del usuario
+
+La memoria exportada por el usuario se integró en todas las plataformas. Cada fila indica dónde quedó aplicada.
+
+| Regla de la memoria | Dónde se aplicó |
+|---|---|
+| Preguntar antes de ejecutar | Sección 1.1 del motor de escritura; comandos de Claude Code (punto 3 de la interpretación de argumentos); `CLAUDE.md`, instrucciones de Project, Gemini y GPT; cabeceras de preparador, identidad, maquetación y auditor |
+| Sin emojis; sin raya | Ya vigentes; validación automática en el generador |
+| Término vetado: nunca en versiones finales de skills, aunque la fuente lo use; confirmar si estaba | El término no aparece escrito en ningún archivo generado (validación automática que hace fallar el generador); se nombra como "el término vetado (sustantivo derivado de «tenso»)" y los ejemplos usan `[término vetado]`; el cuerpo original de maquetación se corrige al copiarlo; los motores confirman de forma explícita al entregar si la fuente lo traía |
+| Excepción técnica solo para la fuerza de una cuerda en mecánica | Motor de escritura (3.2), ejercicios, maquetación y reglas globales; en circuitos, voltaje; en materiales, esfuerzo |
+| "Ansiedad" entre las alternativas emocionales | Añadida a la tabla, con la precaución de no usarla como reemplazo automático |
+| Nueve reglas contra la escritura de máquina | P1 a P9 se identifican como las nueve reglas del usuario; P10 a P12 como señales ampliadas |
+| Español latinoamericano neutro; tratamiento como campo del brief | Sección 3.4; "vos" solo por pedido explícito de un texto |
+| Ensayos: estructura por defecto, sin "Mini-conclusión", texto limpio en el chat, resumen solo si se pide, citas conservadas, plan antes del texto completo | Modo `ensayo` y módulo de ensayos |
+| Etiquetas "Argumento 1:" sin subtítulo descriptivo | Por la respuesta del usuario en esta sesión: prosa continua por defecto; etiquetas simples solo si el encargo las pide |
+| Preguntar antes de corregir datos dudosos en ensayos y textos con datos | Secciones 1.1, 9.1 y 9.3.9 del motor de escritura; módulo de ensayos (ejemplo 2) |
+| No abusar de "y", "que" ni de palabras repetidas | Regla 6 bis de la fase 3, antipatrones y señal automática en `scripts/revisar_texto.py` |
+| Humanizar sin empobrecer | Sección 1.1 y antipatrones del motor de escritura |
+| Criterio propio, sin sicofancia | Reglas globales y principios del motor pedagógico |
+| Textos ajenos: siempre texto y dudas la primera vez | Sección 9.1 del motor de escritura |
+| Intensificadores vacíos (incluido "esencial") | Patrón P3; las tablas D1 a D4 del documento 2 no venían en el paquete y el recordatorio quedó en el módulo de vocabulario |
+| Imágenes de 24 cm de alto por 17 cm de ancho por defecto (no documentos) | Identidad de marca: cada prompt termina con "vertical 17:24 canvas"; reglas globales |
+| A4 sin deformaciones, sin espacios vacíos, aprovechando el margen | Maquetación: cabecera, QA (punto 4) y antipatrones; preparador para anexos imprimibles |
+| Temas del tutor casi siempre para exámenes en pocos días | Motor pedagógico: por defecto modo socrático con ritmo rápido, declarado en una línea |
+| Skills terminadas como archivo .skill instalable | `01_ECOSISTEMA_CLAUDE/skills_instalables/` (7 motores) y `skills_instalables/modulos_separados/` (4 módulos) |
+| Módulos separados (decisión previa) frente a motor unificado (encargo actual) | Por la respuesta del usuario: se entregan las dos versiones en `01_ECOSISTEMA_CLAUDE` para compararlas; no deben instalarse juntas |
+
+No se integró: la contraseña que aparece en la memoria (dato sensible, ajeno a las skills) ni las preferencias de reels, que no corresponden a ninguna skill del paquete. La memoria menciona módulos `escritura-humana-fluidez` y `escritura-humana-deteccion` y la skill `checklist-ingreso-skills`, que no venían en el paquete.
+
+## 6. Enriquecimiento aplicado a cada motor
 
 Cada manual incluye: modos y enrutamiento; reglas con su excepción; casos de uso típicos; casos límite; dos ejemplos completos de entrada del usuario y salida esperada, con la explicación de por qué la salida es correcta; y antipatrones. Los ejemplos cumplen las mismas reglas que enseñan (sin datos inventados, sin raya y sin el término vetado fuera de la notación técnica).
 
-## 6. Cambios de arquitectura por plataforma
+## 7. Cambios de arquitectura por plataforma
 
 | Plataforma | Carpeta | Formato | Calibración |
 |---|---|---|---|
 | Claude Code | `01_ECOSISTEMA_CLAUDE/.claude/commands/` | Slash commands con frontmatter `description` y `argument-hint`, cuerpo que lee `$ARGUMENTS`, detecta modo y ruta de archivo | Reglas operativas completas en el comando; remite a la skill para tablas y ejemplos |
 | Claude Code | `01_ECOSISTEMA_CLAUDE/.claude/skills/` | Skills con `name` y `description` y carpeta `references/` | Se activan solas por su descripción; también sirven para subir como skill en claude.ai |
+| Claude (claude.ai) | `01_ECOSISTEMA_CLAUDE/skills_instalables/` | Archivos `.skill` instalables, uno por motor, y cuatro módulos separados de escritura | Preferencia del usuario: las skills terminadas se entregan como `.skill` |
+| Claude (comparación) | `01_ECOSISTEMA_CLAUDE/modulos_separados/` | Núcleo, vocabulario, conectores y ensayos como skills independientes | Misma regla que el motor unificado, en módulos; vocabulario y conectores en un solo archivo sin referencias |
 | Claude Code | `01_ECOSISTEMA_CLAUDE/CLAUDE.md` | Directivas globales, política de terminal, formato y enrutamiento | Conciso: solo lo que debe valer en todo el proyecto |
 | Claude Projects y Cowork | `01_ECOSISTEMA_CLAUDE/projects_cowork/` | `instrucciones_proyecto.md` (operativo, en XML) y `knowledge/` (manuales y anexos) | Separación de instrucciones y conocimiento estático para ahorrar ventana de contexto |
 | Claude chat | `01_ECOSISTEMA_CLAUDE/chat_standalone/` | Un prompt por motor, en etiquetas XML, con ejemplos | Autosuficiente; no necesita archivos |
@@ -128,7 +159,7 @@ Cada manual incluye: modos y enrutamiento; reglas con su excepción; casos de us
 | ChatGPT y Codex | `03_ECOSISTEMA_CHATGPT/skills_chatgpt/` | Skills en formato Agent Skills: `SKILL.md`, `references/`, `scripts/` y `agents/openai.yaml`; zips listos en `skills_chatgpt_zip/` | Sección de calibración: herramienta de Python, búsqueda con citas, lienzo, generación de imágenes, notación `\( \)` y `\[ \]`, prioridad de la skill sobre la memoria |
 | ChatGPT | `03_ECOSISTEMA_CHATGPT/chatgpt_standalone/` | System prompt autosuficiente por motor | Para Projects o chat, sin Knowledge |
 
-## 7. Validación automática
+## 8. Validación automática
 
 - Rayas (U+2014) y semirrayas (U+2013): 0 en todos los archivos nuevos. El único ejemplo que necesitaba mostrar una raya del usuario la representa como `[raya]`.
 - Emojis: 0.
@@ -137,67 +168,67 @@ Cada manual incluye: modos y enrutamiento; reglas con su excepción; casos de us
 
 | Archivo | Caracteres |
 |---|---|
-| `chatgpt_standalone/auditor-de-prompts.md` | 4078 |
-| `chatgpt_standalone/ejercicios-dos-pasos.md` | 3222 |
-| `chatgpt_standalone/escritura-humana.md` | 5800 |
-| `chatgpt_standalone/identidad-de-marca.md` | 5148 |
-| `chatgpt_standalone/maquetacion-pdf-documentos.md` | 4301 |
-| `chatgpt_standalone/motor-pedagogico.md` | 6062 |
-| `chatgpt_standalone/preparador-de-clases.md` | 5386 |
-| `custom_gpts/00_gpt_unificado/instrucciones.md` | 2627 |
-| `custom_gpts/auditor-de-prompts/instrucciones.md` | 4362 |
-| `custom_gpts/ejercicios-dos-pasos/instrucciones.md` | 3508 |
-| `custom_gpts/escritura-humana/instrucciones.md` | 6386 |
-| `custom_gpts/identidad-de-marca/instrucciones.md` | 5433 |
-| `custom_gpts/maquetacion-pdf-documentos/instrucciones.md` | 4594 |
-| `custom_gpts/motor-pedagogico/instrucciones.md` | 6345 |
-| `custom_gpts/preparador-de-clases/instrucciones.md` | 5673 |
+| `chatgpt_standalone/auditor-de-prompts.md` | 4610 |
+| `chatgpt_standalone/ejercicios-dos-pasos.md` | 3724 |
+| `chatgpt_standalone/escritura-humana.md` | 6416 |
+| `chatgpt_standalone/identidad-de-marca.md` | 5720 |
+| `chatgpt_standalone/maquetacion-pdf-documentos.md` | 4939 |
+| `chatgpt_standalone/motor-pedagogico.md` | 7034 |
+| `chatgpt_standalone/preparador-de-clases.md` | 5819 |
+| `custom_gpts/00_gpt_unificado/instrucciones.md` | 3020 |
+| `custom_gpts/auditor-de-prompts/instrucciones.md` | 4894 |
+| `custom_gpts/ejercicios-dos-pasos/instrucciones.md` | 4010 |
+| `custom_gpts/escritura-humana/instrucciones.md` | 7002 |
+| `custom_gpts/identidad-de-marca/instrucciones.md` | 6005 |
+| `custom_gpts/maquetacion-pdf-documentos/instrucciones.md` | 5232 |
+| `custom_gpts/motor-pedagogico/instrucciones.md` | 7317 |
+| `custom_gpts/preparador-de-clases/instrucciones.md` | 6106 |
 
-## 8. Guía de importación paso a paso
+## 9. Guía de importación paso a paso
 
-### 8.1 Claude Code
+### 9.1 Claude Code
 
 1. Copia `01_ECOSISTEMA_CLAUDE/.claude/` y `01_ECOSISTEMA_CLAUDE/CLAUDE.md` a la raíz del proyecto donde trabajarás. Si ya existe un `CLAUDE.md`, añade su contenido al final.
 2. Para tenerlos en todos tus proyectos, copia `commands/` a `~/.claude/commands/` y `skills/` a `~/.claude/skills/`.
 3. Abre Claude Code en ese proyecto y escribe `/` para ver los comandos (`/human-write`, `/tutor`, `/audit-prompt`, `/lesson-plan`, `/brand`, `/pdf-doc`, `/ejercicios`).
 4. Uso: `/human-write pulir docs/informe.md` o `/tutor socratico derivadas`. Sin comando, las skills se activan solas cuando la petición coincide con su descripción.
 
-### 8.2 Claude Projects (claude.ai)
+### 9.2 Claude Projects (claude.ai)
 
 1. Crea un Project nuevo.
 2. En las instrucciones del Project pega el contenido de `projects_cowork/instrucciones_proyecto.md`.
 3. En el conocimiento del Project sube los archivos de `projects_cowork/knowledge/`. Si quieres ahorrar espacio, sube solo los manuales de los motores que usarás (`motor_<nombre>.md`) y, para escritura, sus anexos.
 4. Prueba con: "Usa el motor pedagógico en modo socrático para explicarme el principio de Le Chatelier".
 
-### 8.3 Claude Cowork y skills de claude.ai
+### 9.3 Claude Cowork y skills de claude.ai
 
-1. Usa los `.zip` ya preparados de `01_ECOSISTEMA_CLAUDE/skills_zip/` (uno por motor, con la carpeta y su `SKILL.md` en la raíz).
+1. Usa los archivos `.skill` de `01_ECOSISTEMA_CLAUDE/skills_instalables/` (uno por motor). Para probar la versión modular de escritura, usa en su lugar los cuatro de `skills_instalables/modulos_separados/` y no subas `escritura-humana.skill`.
 2. En claude.ai abre la configuración de capacidades, sección Skills, y sube cada `.zip` (requiere un plan con Skills habilitadas).
-3. Las skills activadas en tu cuenta quedan disponibles para Cowork y para los chats; si prefieres trabajar por proyecto, usa la guía 8.2.
+3. Las skills activadas en tu cuenta quedan disponibles para Cowork y para los chats; si prefieres trabajar por proyecto, usa la guía 9.2.
 
-### 8.4 Claude chat sin Project
+### 9.4 Claude chat sin Project
 
 Abre un chat nuevo y pega como primer mensaje el bloque del archivo del motor en `chat_standalone/`.
 
-### 8.5 Gemini: Gems (gemini.google.com)
+### 9.5 Gemini: Gems (gemini.google.com)
 
 1. Abre el gestor de Gems y crea un Gem nuevo.
 2. En Instrucciones pega `system_instructions/<motor>.md` (un Gem por motor) o `system_instructions/00_sistema_unificado.md` (un solo Gem para todo).
 3. En Conocimiento sube `skills_nativas/<motor>/SKILL.md` y los archivos de su carpeta `references/`.
 4. Guarda y prueba con uno de los casos de uso del manual.
 
-### 8.6 Gemini: Google AI Studio
+### 9.6 Gemini: Google AI Studio
 
 1. Crea un prompt nuevo y pega `system_instructions/<motor>.md` en "System instructions".
 2. Para `ejercicios-dos-pasos` y `maquetacion-pdf-documentos`, activa la herramienta de ejecución de código.
 3. Si quieres respuestas con fuentes web, activa la búsqueda de Google como herramienta de grounding.
 
-### 8.7 Gemini CLI y chat de Gemini
+### 9.7 Gemini CLI y chat de Gemini
 
 1. Si tu versión de Gemini CLI admite Agent Skills, copia las carpetas de `skills_nativas/` a `~/.gemini/skills/` (o a `.gemini/skills/` dentro del proyecto). Si no las admite, pega `system_instructions/00_sistema_unificado.md` en el archivo de contexto `GEMINI.md` del proyecto.
 2. En el chat de Gemini sin Gem, pega como primer mensaje el archivo del motor en `gemini_standalone/`.
 
-### 8.8 ChatGPT: Custom GPTs
+### 9.8 ChatGPT: Custom GPTs
 
 1. En chatgpt.com abre la sección GPTs, elige Crear y pasa a la pestaña Configurar.
 2. Rellena nombre, descripción e iniciadores de conversación con los datos de `custom_gpts/<motor>/configuracion.md`.
@@ -206,30 +237,30 @@ Abre un chat nuevo y pega como primer mensaje el bloque del archivo del motor en
 5. Activa Code Interpreter en los GPT de ejercicios y maquetación; activa la generación de imágenes en el de identidad de marca si quieres probar los prompts de logo.
 6. Alternativa de un solo GPT: `custom_gpts/00_gpt_unificado/` con los siete manuales en Knowledge.
 
-### 8.9 ChatGPT y Codex: skills
+### 9.9 ChatGPT y Codex: skills
 
-1. En ChatGPT, abre la sección de Skills, elige Crear y sube cada `.zip` de `03_ECOSISTEMA_CHATGPT/skills_chatgpt_zip/`. Según la documentación pública, las skills personales están en planes Business, Enterprise y Edu; si tu plan no las tiene, usa la guía 8.8 o 8.10.
+1. En ChatGPT, abre la sección de Skills, elige Crear y sube cada `.zip` de `03_ECOSISTEMA_CHATGPT/skills_chatgpt_zip/`. Según la documentación pública, las skills personales están en planes Business, Enterprise y Edu; si tu plan no las tiene, usa la guía 9.8 o 9.10.
 2. En Codex, copia las carpetas de `03_ECOSISTEMA_CHATGPT/skills_chatgpt/` a la carpeta de skills de tu instalación (`~/.codex/skills/`, `~/.agents/skills/` o `.agents/skills/` del repositorio) e invócalas con `$nombre` o `/skills`.
 3. Detalles en `03_ECOSISTEMA_CHATGPT/skills_chatgpt/README.md`.
 
-### 8.10 ChatGPT: Projects y chat
+### 9.10 ChatGPT: Projects y chat
 
 Crea un Project, pega `chatgpt_standalone/<motor>.md` (el bloque interior) en las instrucciones del Project y, si quieres más detalle, añade el manual del motor como archivo. En un chat suelto, pega el mismo bloque como primer mensaje.
 
-## 9. Cómo llevar este respaldo a Google Drive
+## 10. Cómo llevar este respaldo a Google Drive
 
 1. En drive.google.com elige Nuevo, Subir carpeta, y selecciona `Respaldo_Skills_AI`.
 2. Con Google Drive para escritorio, copia `Respaldo_Skills_AI` dentro de `Mi unidad` (por ejemplo, `G:\Mi unidad\` en Windows o `~/Library/CloudStorage/GoogleDrive-<cuenta>/Mi unidad/` en macOS).
 3. Si ejecutas `python3 herramientas/construir_respaldo.py` (en el repositorio) en un equipo con Drive montado, el generador detectará la ruta y escribirá directamente en `<Mi unidad>/Respaldo_Skills_AI/`.
 
-## 10. Mantenimiento
+## 11. Mantenimiento
 
 - Generador: `herramientas/construir_respaldo.py` reconstruye todo el árbol desde `herramientas/fuentes/` (manuales, versiones compactas y piezas de plataforma) y el zip original, y repite las validaciones (rayas, emojis, límite de 8000 caracteres). Edita las fuentes y vuelve a ejecutarlo en lugar de editar las 110 copias a mano.
 - Fuente de verdad: el manual de cada motor (`knowledge/motor_<nombre>.md`, idéntico a `skills/<nombre>/SKILL.md` sin frontmatter). Las versiones compactas de comandos, Gems y GPT se derivan de él.
 - Si cambias una regla absoluta (raya, término vetado, conectores), cámbiala en el manual del motor de escritura y en los bloques de reglas globales de `CLAUDE.md`, `instrucciones_proyecto.md`, `00_sistema_unificado.md` y el GPT unificado.
 - Restauración: `00_BACKUP_ORIGINAL_RAW/` conserva las 16 skills byte a byte, el paquete `para_claude_projects/`, el zip original y el documento "Sistema Auditado"; las sumas SHA-256 están en su `README.md`.
 
-## 11. Árbol generado
+## 12. Árbol generado
 
 ```text
 Respaldo_Skills_AI/
@@ -256,18 +287,30 @@ Respaldo_Skills_AI/
 │   │   ├── maquetacion-pdf-documentos.md
 │   │   ├── motor-pedagogico.md
 │   │   └── preparador-de-clases.md
+│   ├── modulos_separados/
+│   │   ├── escritura-humana-conectores/
+│   │   │   └── (1 archivo)
+│   │   ├── escritura-humana-core/
+│   │   │   └── (6 archivos)
+│   │   ├── escritura-humana-ensayos/
+│   │   │   └── (2 archivos)
+│   │   ├── escritura-humana-vocabulario/
+│   │   │   └── (1 archivo)
+│   │   └── README.md
 │   ├── projects_cowork/
 │   │   ├── knowledge/
 │   │   │   └── (14 archivos)
 │   │   └── instrucciones_proyecto.md
-│   ├── skills_zip/
-│   │   ├── auditor-de-prompts.zip
-│   │   ├── ejercicios-dos-pasos.zip
-│   │   ├── escritura-humana.zip
-│   │   ├── identidad-de-marca.zip
-│   │   ├── maquetacion-pdf-documentos.zip
-│   │   ├── motor-pedagogico.zip
-│   │   └── preparador-de-clases.zip
+│   ├── skills_instalables/
+│   │   ├── modulos_separados/
+│   │   │   └── (4 archivos)
+│   │   ├── auditor-de-prompts.skill
+│   │   ├── ejercicios-dos-pasos.skill
+│   │   ├── escritura-humana.skill
+│   │   ├── identidad-de-marca.skill
+│   │   ├── maquetacion-pdf-documentos.skill
+│   │   ├── motor-pedagogico.skill
+│   │   └── preparador-de-clases.skill
 │   └── CLAUDE.md
 ├── 02_ECOSISTEMA_GEMINI/
 │   ├── gemini_standalone/

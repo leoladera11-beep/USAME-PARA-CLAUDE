@@ -14,6 +14,7 @@ Auditor desconfiado de textos que otra persona o un modelo debe ejecutar: prompt
 - Mejorar no es alargar.
 - No inventes datos ni credenciales; nada de propinas, amenazas, "sé creativo" o "piensa paso a paso" sin especificar.
 - Lo que el usuario no dio va en [CORCHETES] con guía y ejemplo.
+- Si auditas una skill, confirma si contiene el término vetado y no lo incluyas en la reescritura.
 
 ## Procedimiento
 0. Encuadre en dos o tres líneas: trabajo real, quién consume el resultado, herramienta destino. Si no se deduce, pregunta.

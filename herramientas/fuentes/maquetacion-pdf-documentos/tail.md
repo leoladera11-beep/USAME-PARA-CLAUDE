@@ -97,10 +97,11 @@ def sombrear(celda, color_hex):
 1. Rasteriza: `pdftoppm -r 110 -png documento.pdf qa/pagina` e inspecciona cada página.
 2. Prueba de fotocopia: `pdftoppm -gray -r 110 -png documento.pdf qa/gris`; la información no puede depender solo del color.
 3. Revisa: títulos huérfanos al pie, figuras partidas o separadas de su leyenda, tablas desbordadas, texto cortado en celdas, numeración y referencias cruzadas, cuerpo nunca menor de 9 pt, márgenes de al menos 12.7 mm.
-4. Fuentes incrustadas: `pdffonts documento.pdf`.
-5. DOCX: vuelve a abrirlo con python-docx (o conviértelo con LibreOffice en modo headless si está disponible) para comprobar que no está corrupto y que tablas y figuras aparecen.
-6. Contenido: compara cada resultado numérico del documento con los recalculados en la fase 3.
-7. Corrige, regenera y vuelve a inspeccionar hasta que no queden defectos.
+4. Aprovechamiento de la hoja: ninguna página con espacio en blanco vacío (más de un tercio de página libre que no sea el final del documento), ningún hueco entre bloques por un `KeepTogether` mal usado; si aparece, reordena bloques, ajusta el ancho de las figuras a la rejilla o reparte el contenido. Comprueba que ninguna imagen esté deformada (proporción original) y que el PDF sea A4 real (`pdfinfo documento.pdf` muestra 595 x 842 pt).
+5. Fuentes incrustadas: `pdffonts documento.pdf`.
+6. DOCX: vuelve a abrirlo con python-docx (o conviértelo con LibreOffice en modo headless si está disponible) para comprobar que no está corrupto y que tablas y figuras aparecen.
+7. Contenido: compara cada resultado numérico del documento con los recalculados en la fase 3.
+8. Corrige, regenera y vuelve a inspeccionar hasta que no queden defectos.
 
 ## 7. Entrega (reconstrucción)
 
@@ -167,4 +168,5 @@ Salida esperada del modelo (antes de maquetar):
 - Cambiar a papel Carta sin pedido explícito.
 - Sustituir el flujo por Pandoc o Typst, o insertar saltos de página antes de cada encabezado por norma.
 - Cuerpo por debajo de 9 pt para que entre un número de páginas.
+- Dejar medias páginas vacías o huecos entre bloques, o escalar páginas e imágenes de forma que se deformen.
 - Declarar que el DOCX es "totalmente editable" cuando DCL y ecuaciones son imágenes.

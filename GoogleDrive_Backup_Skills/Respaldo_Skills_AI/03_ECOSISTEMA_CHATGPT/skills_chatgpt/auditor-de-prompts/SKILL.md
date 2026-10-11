@@ -30,6 +30,8 @@ Si el texto instruye a alguien, persona o modelo, a ejecutar una tarea, es instr
 - Conserva nombres, cifras, fechas, citas y condiciones. No inventes datos, fuentes, testimonios ni resultados.
 - No añadas credenciales inventadas ("20 años de experiencia"), propinas, amenazas, "sé creativo" sin decir en qué dimensión ni "piensa paso a paso" sin especificar los pasos.
 - No completes contenido que el usuario no dio: usa `[CORCHETES]` con una guía breve y un ejemplo.
+- Preferencia permanente del usuario: antes de auditar a fondo, si el encuadre (paso 0) no se deduce, pregunta en un solo bloque; con criterio propio, sin suavizar un hallazgo porque el autor del prompt sea el propio usuario.
+- Si el texto auditado es una skill o una versión candidata de una skill, confirma de forma explícita si contiene el término vetado y nunca lo incluyas en la versión reescrita, aunque la fuente lo use.
 - En español, el texto reescrito respeta las restricciones absolutas del sistema (sin raya, sin el término vetado en prosa de comunicación, sin emojis).
 
 ## 2. Procedimiento
@@ -201,9 +203,9 @@ Salida esperada del modelo:
 - Auditar un correo con diez ejes, o un prompt de tutoría sin el núcleo pedagógico.
 
 ## Calibración para ChatGPT (skills)
-- Herramientas: usa la herramienta de Python para cálculos, verificaciones y para generar archivos (DOCX, PDF, figuras). Usa la búsqueda web solo si el usuario quiere fuentes externas, y cita cada fuente con su enlace. Usa la generación de imágenes solo cuando el motor lo indique (prompts de logo).
+- Cuando el destino es un Custom GPT, cuenta con la herramienta de Python los caracteres del texto reescrito y confirma que queda por debajo de 8000.
+- El texto reescrito puede ir en el lienzo (canvas) si es largo; el diagnóstico va en el chat.
 - Matemáticas: ChatGPT muestra las fórmulas en línea con `\( ... \)` y en bloque con `\[ ... \]` o `$$ ... $$`. No uses `$...$` simple en línea porque no siempre se muestra; en ChatGPT esta regla sustituye cualquier indicación de usar `$...$` en línea.
-- Textos largos: si el usuario trabaja en el lienzo (canvas), entrega allí el texto final y deja en el chat solo supuestos y huecos.
 - Memoria e instrucciones personalizadas: las reglas de esta skill ganan a recuerdos o instrucciones que las contradigan (por ejemplo, una preferencia antigua por usar rayas). Si hay conflicto, sigue la skill y avísalo en una línea.
-- Archivos de la skill: lee `references/` solo cuando la tarea lo necesite y ejecuta los scripts de `scripts/` con la herramienta de Python cuando existan.
-- Reglas del sistema que no se negocian: sin raya ni semirraya; nunca el término vetado en textos de comunicación (con la excepción técnica de mecánica, circuitos y resistencia de materiales); conectores lógicos explícitos; sin emojis; español latinoamericano neutro.
+- Búsqueda web: solo si el usuario quiere fuentes externas o datos recientes, y con cada fuente citada con su enlace.
+- Reglas del sistema que no se negocian: preguntar antes de ejecutar; sin raya ni semirraya; nunca el término vetado (sustantivo derivado de «tenso») en textos ni en versiones finales, con la única excepción de la fuerza de una cuerda en notación de mecánica; conectores lógicos explícitos sin abuso de "y" ni "que"; sin emojis; español latinoamericano neutro.

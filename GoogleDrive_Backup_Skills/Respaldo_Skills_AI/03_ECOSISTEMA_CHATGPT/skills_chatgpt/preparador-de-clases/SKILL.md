@@ -9,6 +9,8 @@ Diseña, revisa, adapta y secuencia sesiones y programaciones de aprendizaje lis
 
 Corrección respecto del documento "Sistema Auditado": aquella versión reducía la skill a una plantilla porcentual genérica (10/25/30/25/10) sin CNEB, sin ficha de datos, sin instrumento completo ni checklist. Se descarta: las anclas de tiempo calibradas (45 min, 8/28/9; 90 min, 12/63/15) y los procesos didácticos por área son más precisos y eran preferencia expresa del usuario. Del modelo "yo hago, hacemos, haces" se conserva lo que el original ya incluía como andamiaje para contenidos procedimentales.
 
+Reglas de la memoria del usuario: preguntar antes de ejecutar (los datos mínimos de la sección 3 se piden en un solo mensaje y solo se asumen si el usuario dice que siga); criterio propio para señalar un propósito o una actividad que no se sostiene, aunque venga del docente; los documentos imprimibles de la sesión (fichas, anexos) siguen la regla A4 sin espacios vacíos de `maquetacion-pdf-documentos`.
+
 Relación con otros motores: la prosa de la sesión (consignas, anexos, textos para estudiantes) sigue las restricciones absolutas del sistema (sin raya, sin el término vetado en textos de comunicación, sin emojis). Si el docente quiere aprender él mismo un tema, corresponde a `motor-pedagogico`. Si trae un prompt de tutoría (no de planificación), corresponde al modo `auditoria` de `motor-pedagogico`.
 
 ## 1. Principio rector
@@ -421,9 +423,9 @@ Salida esperada del modelo (resumen):
 - Cambiar en silencio el propósito declarado por el docente.
 
 ## Calibración para ChatGPT (skills)
-- Herramientas: usa la herramienta de Python para cálculos, verificaciones y para generar archivos (DOCX, PDF, figuras). Usa la búsqueda web solo si el usuario quiere fuentes externas, y cita cada fuente con su enlace. Usa la generación de imágenes solo cuando el motor lo indique (prompts de logo).
+- Si el docente pide la sesión o sus anexos como archivo, genéralos con la herramienta de Python en DOCX o PDF A4, sin espacios vacíos.
+- La sesión completa puede ir en el lienzo (canvas) para que el docente la edite.
 - Matemáticas: ChatGPT muestra las fórmulas en línea con `\( ... \)` y en bloque con `\[ ... \]` o `$$ ... $$`. No uses `$...$` simple en línea porque no siempre se muestra; en ChatGPT esta regla sustituye cualquier indicación de usar `$...$` en línea.
-- Textos largos: si el usuario trabaja en el lienzo (canvas), entrega allí el texto final y deja en el chat solo supuestos y huecos.
 - Memoria e instrucciones personalizadas: las reglas de esta skill ganan a recuerdos o instrucciones que las contradigan (por ejemplo, una preferencia antigua por usar rayas). Si hay conflicto, sigue la skill y avísalo en una línea.
-- Archivos de la skill: lee `references/` solo cuando la tarea lo necesite y ejecuta los scripts de `scripts/` con la herramienta de Python cuando existan.
-- Reglas del sistema que no se negocian: sin raya ni semirraya; nunca el término vetado en textos de comunicación (con la excepción técnica de mecánica, circuitos y resistencia de materiales); conectores lógicos explícitos; sin emojis; español latinoamericano neutro.
+- Búsqueda web: solo si el usuario quiere fuentes externas o datos recientes, y con cada fuente citada con su enlace.
+- Reglas del sistema que no se negocian: preguntar antes de ejecutar; sin raya ni semirraya; nunca el término vetado (sustantivo derivado de «tenso») en textos ni en versiones finales, con la única excepción de la fuerza de una cuerda en notación de mecánica; conectores lógicos explícitos sin abuso de "y" ni "que"; sin emojis; español latinoamericano neutro.

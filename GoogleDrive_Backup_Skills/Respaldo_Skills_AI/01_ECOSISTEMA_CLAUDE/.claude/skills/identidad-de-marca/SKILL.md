@@ -9,6 +9,8 @@ Desarrolla territorios de identidad visual para una marca, desde el brief hasta 
 
 Corrección respecto del documento "Sistema Auditado": aquella versión convertía esta skill en un sistema de voz verbal (arquetipos, matriz de tono, palabras de poder). Ese no era el alcance original, que es identidad visual y logo. La voz verbal de una marca, si se necesita, se resuelve con `escritura-humana` en modo `redactar` o `mejorar`, usando el brief de marca como muestra de voz. Esta skill no la sustituye.
 
+Reglas de la memoria del usuario que esta skill aplica siempre: tamaño por defecto de las imágenes, 24 cm de alto por 17 cm de ancho (proporción vertical 17:24), salvo que el usuario indique otro; por eso cada prompt de imagen termina con "vertical 17:24 canvas" y la plantilla de territorio único incluye "lienzo vertical de 24 x 17 cm". Esa medida es solo para imágenes; los documentos siguen la regla A4. Antes de ejecutar, preguntar lo esencial en un solo bloque. Criterio propio: si el usuario prefiere una dirección débil frente al brief, se dice con su razón mecánica.
+
 Relación con otros motores: el texto en español sigue las restricciones absolutas del sistema (sin raya, sin el término vetado, sin emojis). Los prompts de imagen van en inglés. La auditoría de un prompt de logo ajeno se hace con `auditor-de-prompts`, usando el estándar de esta skill como referencia de calidad.
 
 ## Estándar
@@ -138,7 +140,7 @@ Salida esperada del modelo (estructura y un territorio desarrollado):
 > - Pruebas de estrés: a 16 píxeles las siete hojas se funden en una masa, por eso el favicon usa solo el grano en negativo; en bordado a una tinta, viable; en valla a 30 metros, legible; sobre fondo oscuro, requiere versión invertida.
 > - Riesgos: parecido genérico con logos de árboles de vida; tendencia que podría envejecerlo: monolínea fina, que se evita con trazo grueso.
 > - Hipótesis por validar: que el público reconozca el grano en el espacio negativo sin explicación.
-> - Prompt de imagen: "flat vector logo, a stylized molle tree drawn as one continuous thick line, round canopy of seven small leaves, trunk splitting into two roots that close the outline, the negative space inside the canopy forms a coffee bean, uniform stroke weight, generous spacing, solid white background, single color black, centered, no gradients, no shadows, no mockup, no 3D, no extra text"
+> - Prompt de imagen: "flat vector logo, a stylized molle tree drawn as one continuous thick line, round canopy of seven small leaves, trunk splitting into two roots that close the outline, the negative space inside the canopy forms a coffee bean, uniform stroke weight, generous spacing, solid white background, single color black, centered, no gradients, no shadows, no mockup, no 3D, no extra text, vertical 17:24 canvas"
 >
 > G y H. Tabla ponderada con una frase de evidencia por celda, recomendación, alternativa, compensaciones y dos pruebas con clientes reales (reconocimiento del grano en cinco segundos; preferencia en bolsa impresa frente a la alternativa).
 
@@ -159,7 +161,7 @@ Salida esperada del modelo:
 > Lenguaje formal: copa circular de siete hojas, tronco que se divide en dos raíces, trazo uniforme, contraste alto.
 > Tipo de marca: combinada.
 >
-> Presentación: una sola propuesta principal; diseño plano, frontal y vectorial; tinta negra sobre fondo blanco; sin mockups; sin objetos decorativos; sin 3D, sombras, brillos, degradados ni texturas; sin eslóganes ni texto adicional; composición limpia y centrada; nombre escrito exactamente como "Molle".
+> Presentación: una sola propuesta principal; diseño plano, frontal y vectorial; tinta negra sobre fondo blanco; sin mockups; sin objetos decorativos; sin 3D, sombras, brillos, degradados ni texturas; sin eslóganes ni texto adicional; composición limpia y centrada; lienzo vertical de 24 x 17 cm; nombre escrito exactamente como "Molle".
 >
 > Debe conservar claridad a tamaño pequeño y evitar similitudes evidentes con marcas conocidas. Esto es una exploración conceptual, no un archivo final ni una validación jurídica.
 

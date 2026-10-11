@@ -7,3 +7,5 @@ Núcleo de la familia escritura-humana en su versión por módulos. Contiene la 
 - `escritura-humana-ensayos`: ensayo académico (modo `ensayo`).
 
 Esta versión modular y el motor unificado `escritura-humana` tienen las mismas reglas; existen las dos para que el usuario compare antes de elegir cuál instalar. No instales ambas a la vez: se activarían juntas y duplicarían el contexto.
+
+En este módulo, las remisiones a la sección 3 llevan al módulo de vocabulario, las de la sección 4 al de conectores y las del modo `ensayo` (9.3) al de ensayos.

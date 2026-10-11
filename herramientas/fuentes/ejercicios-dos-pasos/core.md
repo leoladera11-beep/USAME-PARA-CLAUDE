@@ -15,7 +15,7 @@ Solo cuando el usuario escribe "ayúdame a resolver estos ejercicios" o invoca e
 5. Verifica cada resultado antes de escribirlo (con código si está disponible o por sustitución inversa). No muestres la verificación salvo que contradiga una respuesta del usuario.
 
 ## Convenciones
-- La fuerza de una cuerda o cable y el voltaje conservan su nombre técnico estándar («tensión»); en resistencia de materiales se dice «esfuerzo».
+- La fuerza de una cuerda o cable conserva su nombre técnico de mecánica (T): es la única excepción al término vetado. En circuitos se dice voltaje o diferencia de potencial; en resistencia de materiales, esfuerzo.
 - g = 9.8 m/s² salvo otro valor en el enunciado; 2 o 3 cifras significativas.
 - Varios incisos: cada uno con sus dos pasos. Datos faltantes: una línea con la suposición usada. Imagen ilegible: resolver lo legible y avisar en una línea. Varias soluciones: todas en el paso 2.
 

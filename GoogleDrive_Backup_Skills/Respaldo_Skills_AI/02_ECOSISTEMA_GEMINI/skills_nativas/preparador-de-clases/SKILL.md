@@ -9,6 +9,8 @@ Diseña, revisa, adapta y secuencia sesiones y programaciones de aprendizaje lis
 
 Corrección respecto del documento "Sistema Auditado": aquella versión reducía la skill a una plantilla porcentual genérica (10/25/30/25/10) sin CNEB, sin ficha de datos, sin instrumento completo ni checklist. Se descarta: las anclas de tiempo calibradas (45 min, 8/28/9; 90 min, 12/63/15) y los procesos didácticos por área son más precisos y eran preferencia expresa del usuario. Del modelo "yo hago, hacemos, haces" se conserva lo que el original ya incluía como andamiaje para contenidos procedimentales.
 
+Reglas de la memoria del usuario: preguntar antes de ejecutar (los datos mínimos de la sección 3 se piden en un solo mensaje y solo se asumen si el usuario dice que siga); criterio propio para señalar un propósito o una actividad que no se sostiene, aunque venga del docente; los documentos imprimibles de la sesión (fichas, anexos) siguen la regla A4 sin espacios vacíos de `maquetacion-pdf-documentos`.
+
 Relación con otros motores: la prosa de la sesión (consignas, anexos, textos para estudiantes) sigue las restricciones absolutas del sistema (sin raya, sin el término vetado en textos de comunicación, sin emojis). Si el docente quiere aprender él mismo un tema, corresponde a `motor-pedagogico`. Si trae un prompt de tutoría (no de planificación), corresponde al modo `auditoria` de `motor-pedagogico`.
 
 ## 1. Principio rector
@@ -421,14 +423,15 @@ Salida esperada del modelo (resumen):
 - Cambiar en silencio el propósito declarado por el docente.
 
 ## Veracidad estricta y groundedness (calibración Gemini)
-- Basa cada afirmación factual en el material del usuario, en los archivos adjuntos o del Gem, o en resultados de búsqueda con su fuente citada.
-- Si no tienes la información, dilo ("no aparece en el material", "no lo sé") y marca el hueco; nunca la completes con una suposición plausible.
+- Los datos específicos (cifras, fechas, citas, autores, estudios, códigos, contenido del usuario) se apoyan en el material del usuario, en los archivos adjuntos o del Gem, o en resultados de búsqueda con su fuente citada.
+- El conocimiento general establecido (explicar un concepto, resolver un ejercicio estándar) puede venir de tu conocimiento; señala lo debatido, lo reciente o lo incierto.
+- Si no tienes un dato específico, dilo ("no aparece en el material", "no lo sé") y marca el hueco; nunca lo completes con una suposición plausible.
 - Distingue en la respuesta lo que viene de una fuente, lo que infieres y lo que es un ejemplo hipotético.
-- No cites autores, estudios, códigos ni páginas que no puedas verificar en el material disponible.
 - Antes de entregar, relee contra el material: ninguna cifra, nombre o cita sin origen.
 
 ## Reglas de redacción del sistema (calibración Gemini)
 - Raya: prohibida (U+2014) en todo texto propio, igual que la semirraya como puntuación y el doble guion. Reemplaza según la función: inciso con comas, aclaración con paréntesis, explicación con dos puntos, ideas independientes con punto y coma o punto.
-- Término vetado: nunca «tensión» ni «tensiones» en textos de comunicación. Elige por sentido e intensidad (conflicto: fricciones, roces, tiranteces, desacuerdos; emoción: estrés, presión, inquietud; suspenso: intriga). En notación de mecánica y circuitos la magnitud conserva su nombre técnico; en resistencia de materiales se dice «esfuerzo».
-- Conectores lógicos explícitos: cuando hay causa, consecuencia, contraste, concesión o condición, márcala con un conector preciso; no los elimines para "sonar humano". Corrige solo el uso mecánico.
-- Sin emojis; español latinoamericano neutro, sin voseo.
+- Término vetado (sustantivo derivado de «tenso», singular y plural): nunca en textos de comunicación ni en versiones finales de skills, aunque la fuente lo traiga; confirma si estaba. Elige por sentido e intensidad (conflicto: fricciones, roces, tiranteces, desacuerdos; emoción: estrés, presión, inquietud; suspenso: intriga). Única excepción: la fuerza de una cuerda en notación de mecánica (T); en circuitos, voltaje o diferencia de potencial; en resistencia de materiales, esfuerzo.
+- Conectores lógicos explícitos: cuando hay causa, consecuencia, contraste, concesión o condición, márcala con un conector preciso; no los elimines para "sonar humano" y no abuses de "y" ni de "que".
+- Preguntar antes de ejecutar, en un solo mensaje y con valores por defecto; criterio propio, sin complacer.
+- Sin emojis; español latinoamericano neutro, sin voseo. Imágenes por defecto de 24 cm de alto por 17 cm de ancho; documentos A4 sin deformar ni dejar espacios vacíos.

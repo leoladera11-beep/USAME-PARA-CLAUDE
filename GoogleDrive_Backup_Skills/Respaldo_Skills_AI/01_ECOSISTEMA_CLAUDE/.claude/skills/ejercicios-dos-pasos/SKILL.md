@@ -41,7 +41,7 @@ Antes de escribir cada resultado, verifícalo: si hay herramienta de ejecución 
 
 ## 4. Convenciones técnicas
 
-- En mecánica, la fuerza de una cuerda, cable o polea conserva su nombre técnico estándar («tensión», $T$); en circuitos, el voltaje también («tensión eléctrica», $V$). En resistencia de materiales se usa «esfuerzo» ($\sigma$). La prohibición del término vetado rige solo para textos de comunicación.
+- En mecánica, la fuerza que ejerce una cuerda, cable o polea conserva su nombre técnico estándar (símbolo $T$); es la única excepción a la prohibición del término vetado y vale solo para esa notación. En circuitos se escribe voltaje o diferencia de potencial ($V$); en resistencia de materiales, esfuerzo ($\sigma$). La prohibición rige para todo texto de comunicación.
 - $g = 9.8\ \text{m/s}^2$ salvo que el enunciado indique otro valor.
 - Cifras significativas coherentes con los datos (2 o 3 por defecto).
 - Separador decimal: el del enunciado.
@@ -67,7 +67,7 @@ Antes de escribir cada resultado, verifícalo: si hay herramienta de ejecución 
 
 Entrada del usuario:
 
-> Ayúdame a resolver estos ejercicios: 1) Un auto a 20 m/s frena con una desaceleración de 5 m/s². ¿Qué distancia recorre hasta detenerse? 2) Un bloque de 5 kg cuelga en reposo de una cuerda. ¿Cuál es la tensión de la cuerda?
+> Ayúdame a resolver estos ejercicios: 1) Un auto a 20 m/s frena con una desaceleración de 5 m/s². ¿Qué distancia recorre hasta detenerse? 2) Un bloque de 5 kg cuelga en reposo de una cuerda. ¿Qué fuerza ejerce la cuerda sobre el bloque?
 
 Salida esperada del modelo:
 

@@ -6,6 +6,8 @@ Hallazgo de auditoría: el archivo original termina en la sección 2.7 aunque re
 
 Corrección respecto del documento "Sistema Auditado": aquella versión cambiaba el flujo a Pandoc y Typst e insertaba saltos de página antes de cada encabezado. Se descarta porque el usuario ya tiene un flujo pdflatex para documentos solo PDF (sección 0.1) y esta skill existe para el caso PDF más DOCX sincronizados con figuras propias. El papel A4 fijo se mantiene.
 
+Reglas de la memoria del usuario que esta skill aplica siempre: papel A4 original, sin deformaciones (ninguna página escalada ni figura estirada: las imágenes conservan su proporción), sin espacios en blanco vacíos (ni medias páginas libres al final de una sección ni huecos entre bloques) y aprovechando todo el margen útil de la hoja. Antes de ejecutar, preguntar lo esencial en un solo mensaje. En el cuerpo original (sección 1, fase 3), la fuerza a lo largo de la cuerda en un DCL se nombra como "fuerza de la cuerda ($T$)", sin el término vetado.
+
 Relación con otros motores: la prosa del documento sigue las restricciones absolutas del sistema; en la notación de mecánica y circuitos, la magnitud conserva su nombre técnico (ver motor `escritura-humana`, sección 3.2). Si el usuario solo quiere resolver ejercicios en el chat, corresponde a `ejercicios-dos-pasos`.
 
 ## 0. Propósito y alcance
@@ -64,7 +66,7 @@ No saltes fases. Cada una tiene una salida verificable.
 Un documento hermoso con un error técnico es peor que un texto plano correcto. Verifica y **recalcula con código** (Python/SymPy/NumPy) todo resultado numérico.
 
 **Física / mecánica**
-- Cada DCL muestra **solo fuerzas reales aplicadas sobre el cuerpo aislado**: peso (desde el centro de masa), normal (perpendicular a la superficie), tensión (a lo largo de la cuerda, hacia afuera del cuerpo), fricción (paralela a la superficie, opuesta al movimiento relativo o a su tendencia), fuerzas aplicadas. Nunca "fuerza centrífuga" en marco inercial, nunca la fuerza que el cuerpo ejerce sobre otro, nunca velocidades ni aceleraciones dibujadas como fuerzas (si se dibuja $\vec{a}$, va fuera del cuerpo y con estilo distinto).
+- Cada DCL muestra **solo fuerzas reales aplicadas sobre el cuerpo aislado**: peso (desde el centro de masa), normal (perpendicular a la superficie), fuerza de la cuerda, $T$ (a lo largo de la cuerda, hacia afuera del cuerpo), fricción (paralela a la superficie, opuesta al movimiento relativo o a su tendencia), fuerzas aplicadas. Nunca "fuerza centrífuga" en marco inercial, nunca la fuerza que el cuerpo ejerce sobre otro, nunca velocidades ni aceleraciones dibujadas como fuerzas (si se dibuja $\vec{a}$, va fuera del cuerpo y con estilo distinto).
 - Sistema de coordenadas dibujado y **coherente con las ecuaciones** (si el eje x va a lo largo del plano inclinado, las componentes del peso son $mg\sin\theta$ y $mg\cos\theta$ respecto de ese eje).
 - Ecuaciones por eje: $\sum F_x = ma_x$, $\sum F_y = ma_y$; en estática $=0$; en rotación $\sum \tau = I\alpha$.
 - Unidades propagadas en cada paso; resultado con **cifras significativas coherentes con los datos** (regla práctica: 2-3 c.s. salvo que los datos indiquen otra cosa); $g = 9.8\ \mathrm{m/s^2}$ o $9.81$ según el currículo del usuario, y decirlo.
@@ -326,10 +328,11 @@ def sombrear(celda, color_hex):
 1. Rasteriza: `pdftoppm -r 110 -png documento.pdf qa/pagina` e inspecciona cada página.
 2. Prueba de fotocopia: `pdftoppm -gray -r 110 -png documento.pdf qa/gris`; la información no puede depender solo del color.
 3. Revisa: títulos huérfanos al pie, figuras partidas o separadas de su leyenda, tablas desbordadas, texto cortado en celdas, numeración y referencias cruzadas, cuerpo nunca menor de 9 pt, márgenes de al menos 12.7 mm.
-4. Fuentes incrustadas: `pdffonts documento.pdf`.
-5. DOCX: vuelve a abrirlo con python-docx (o conviértelo con LibreOffice en modo headless si está disponible) para comprobar que no está corrupto y que tablas y figuras aparecen.
-6. Contenido: compara cada resultado numérico del documento con los recalculados en la fase 3.
-7. Corrige, regenera y vuelve a inspeccionar hasta que no queden defectos.
+4. Aprovechamiento de la hoja: ninguna página con espacio en blanco vacío (más de un tercio de página libre que no sea el final del documento), ningún hueco entre bloques por un `KeepTogether` mal usado; si aparece, reordena bloques, ajusta el ancho de las figuras a la rejilla o reparte el contenido. Comprueba que ninguna imagen esté deformada (proporción original) y que el PDF sea A4 real (`pdfinfo documento.pdf` muestra 595 x 842 pt).
+5. Fuentes incrustadas: `pdffonts documento.pdf`.
+6. DOCX: vuelve a abrirlo con python-docx (o conviértelo con LibreOffice en modo headless si está disponible) para comprobar que no está corrupto y que tablas y figuras aparecen.
+7. Contenido: compara cada resultado numérico del documento con los recalculados en la fase 3.
+8. Corrige, regenera y vuelve a inspeccionar hasta que no queden defectos.
 
 ## 7. Entrega (reconstrucción)
 
@@ -396,4 +399,5 @@ Salida esperada del modelo (antes de maquetar):
 - Cambiar a papel Carta sin pedido explícito.
 - Sustituir el flujo por Pandoc o Typst, o insertar saltos de página antes de cada encabezado por norma.
 - Cuerpo por debajo de 9 pt para que entre un número de páginas.
+- Dejar medias páginas vacías o huecos entre bloques, o escalar páginas e imágenes de forma que se deformen.
 - Declarar que el DOCX es "totalmente editable" cuando DCL y ecuaciones son imágenes.

@@ -17,11 +17,15 @@ Este proyecto usa siete motores que sustituyen a 16 skills originales. Cada moto
 ## Reglas globales (ganan a cualquier preferencia de estilo)
 
 1. Veracidad: no inventes cifras, fuentes, citas, códigos curriculares ni experiencias. Marca huecos como `[DATO: ...]`, `[CITA]` o `SUPUESTO:`.
-2. Sin raya (U+2014) ni semirraya como puntuación en texto propio, ni en commits, comentarios o documentación. Usa comas, paréntesis, dos puntos o punto según la función.
-3. Nunca «tensión» ni «tensiones» en textos de comunicación; en notación de mecánica y circuitos la magnitud conserva su nombre técnico, y en resistencia de materiales se dice «esfuerzo».
-4. Conectores lógicos explícitos cuando hay causa, consecuencia, contraste o condición. No los elimines como "marca de IA"; corrige solo el uso mecánico.
-5. Sin emojis. Español latinoamericano neutro, sin voseo. Responde en el idioma del usuario.
-6. Matemáticas en LaTeX: `$...$` en línea y `$$...$$` en bloque.
+2. Preguntar antes de ejecutar: ante un encargo, haz primero las preguntas aclaratorias necesarias en un solo mensaje, con valor por defecto; avanza sin preguntar solo si el pedido ya trae lo necesario o el usuario dice "sigue".
+3. Criterio propio, sin complacer: si algo que pide el usuario empeora el resultado o contradice una regla suya, dilo con respeto y explica por qué.
+4. Sin raya (U+2014) ni semirraya como puntuación en texto propio, ni en commits, comentarios o documentación. Usa comas, paréntesis, dos puntos o punto según la función.
+5. Término vetado (el sustantivo derivado de «tenso», singular y plural): nunca en textos de comunicación ni en la versión final de una skill, aunque la fuente lo use; al revisar una skill o un texto, confirma de forma explícita si estaba. Única excepción: la fuerza de una cuerda en notación de mecánica (símbolo T). En circuitos se dice voltaje o diferencia de potencial; en resistencia de materiales, esfuerzo.
+6. Conectores lógicos explícitos cuando hay causa, consecuencia, contraste o condición; no los elimines como "marca de IA" y no abuses de "y" ni de "que". Humanizar sin empobrecer: evalúa un recurso valioso antes de quitarlo.
+7. Sin emojis. Español latinoamericano neutro, sin voseo. Responde en el idioma del usuario.
+8. Matemáticas en LaTeX: `$...$` en línea y `$$...$$` en bloque.
+9. Imágenes: 24 cm de alto por 17 cm de ancho por defecto. Documentos: A4 sin deformaciones, sin espacios en blanco vacíos y aprovechando todo el margen.
+10. Skills terminadas: se entregan empaquetadas como archivo `.skill` instalable, no solo como `.md`.
 
 ## Política de comandos de terminal
 

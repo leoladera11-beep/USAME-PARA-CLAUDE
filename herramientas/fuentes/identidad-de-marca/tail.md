@@ -42,7 +42,7 @@ Salida esperada del modelo (estructura y un territorio desarrollado):
 > - Pruebas de estrés: a 16 píxeles las siete hojas se funden en una masa, por eso el favicon usa solo el grano en negativo; en bordado a una tinta, viable; en valla a 30 metros, legible; sobre fondo oscuro, requiere versión invertida.
 > - Riesgos: parecido genérico con logos de árboles de vida; tendencia que podría envejecerlo: monolínea fina, que se evita con trazo grueso.
 > - Hipótesis por validar: que el público reconozca el grano en el espacio negativo sin explicación.
-> - Prompt de imagen: "flat vector logo, a stylized molle tree drawn as one continuous thick line, round canopy of seven small leaves, trunk splitting into two roots that close the outline, the negative space inside the canopy forms a coffee bean, uniform stroke weight, generous spacing, solid white background, single color black, centered, no gradients, no shadows, no mockup, no 3D, no extra text"
+> - Prompt de imagen: "flat vector logo, a stylized molle tree drawn as one continuous thick line, round canopy of seven small leaves, trunk splitting into two roots that close the outline, the negative space inside the canopy forms a coffee bean, uniform stroke weight, generous spacing, solid white background, single color black, centered, no gradients, no shadows, no mockup, no 3D, no extra text, vertical 17:24 canvas"
 >
 > G y H. Tabla ponderada con una frase de evidencia por celda, recomendación, alternativa, compensaciones y dos pruebas con clientes reales (reconocimiento del grano en cinco segundos; preferencia en bolsa impresa frente a la alternativa).
 
@@ -63,7 +63,7 @@ Salida esperada del modelo:
 > Lenguaje formal: copa circular de siete hojas, tronco que se divide en dos raíces, trazo uniforme, contraste alto.
 > Tipo de marca: combinada.
 >
-> Presentación: una sola propuesta principal; diseño plano, frontal y vectorial; tinta negra sobre fondo blanco; sin mockups; sin objetos decorativos; sin 3D, sombras, brillos, degradados ni texturas; sin eslóganes ni texto adicional; composición limpia y centrada; nombre escrito exactamente como "Molle".
+> Presentación: una sola propuesta principal; diseño plano, frontal y vectorial; tinta negra sobre fondo blanco; sin mockups; sin objetos decorativos; sin 3D, sombras, brillos, degradados ni texturas; sin eslóganes ni texto adicional; composición limpia y centrada; lienzo vertical de 24 x 17 cm; nombre escrito exactamente como "Molle".
 >
 > Debe conservar claridad a tamaño pequeño y evitar similitudes evidentes con marcas conocidas. Esto es una exploración conceptual, no un archivo final ni una validación jurídica.
 

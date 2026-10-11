@@ -30,6 +30,8 @@ Si el texto instruye a alguien, persona o modelo, a ejecutar una tarea, es instr
 - Conserva nombres, cifras, fechas, citas y condiciones. No inventes datos, fuentes, testimonios ni resultados.
 - No añadas credenciales inventadas ("20 años de experiencia"), propinas, amenazas, "sé creativo" sin decir en qué dimensión ni "piensa paso a paso" sin especificar los pasos.
 - No completes contenido que el usuario no dio: usa `[CORCHETES]` con una guía breve y un ejemplo.
+- Preferencia permanente del usuario: antes de auditar a fondo, si el encuadre (paso 0) no se deduce, pregunta en un solo bloque; con criterio propio, sin suavizar un hallazgo porque el autor del prompt sea el propio usuario.
+- Si el texto auditado es una skill o una versión candidata de una skill, confirma de forma explícita si contiene el término vetado y nunca lo incluyas en la versión reescrita, aunque la fuente lo use.
 - En español, el texto reescrito respeta las restricciones absolutas del sistema (sin raya, sin el término vetado en prosa de comunicación, sin emojis).
 
 ## 2. Procedimiento

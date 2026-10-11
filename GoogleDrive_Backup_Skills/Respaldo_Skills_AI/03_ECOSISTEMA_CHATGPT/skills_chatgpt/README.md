@@ -32,4 +32,4 @@ Diferencias frente a las skills de Claude y Gemini: cada `SKILL.md` termina con 
 python3 escritura-humana/scripts/revisar_texto.py escritura-humana/SKILL.md
 ```
 
-El script informa como ABSOLUTO las apariciones del término vetado; dentro de las skills todas corresponden a la definición de la regla o a notación técnica, que es su uso permitido.
+Las skills no contienen el término vetado (el generador lo comprueba), así que el script no debería informar ningún ABSOLUTO; los REVISAR corresponden a las listas de palabras vigiladas que la propia skill enseña.

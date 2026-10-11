@@ -7,10 +7,11 @@ Uso:
 
 Detecta lo que se puede detectar sin entender el texto:
   ABSOLUTO  raya (U+2014), semirraya (U+2013), doble guion, emojis y el término vetado.
-  REVISAR   léxico inflado, fórmulas de contraste, andamiaje y muletillas.
+  REVISAR   léxico inflado, fórmulas de contraste, andamiaje, muletillas y párrafos
+            con abuso de "y" o "que" (más de cuatro en menos de 120 palabras).
 Los bloques de código entre ``` o ~~~ se ignoran. Las apariciones del término vetado se
-informan con la línea completa: en notación de mecánica o circuitos son legítimas y la
-decisión es humana (o del modelo, leyendo el contexto).
+informan con la línea completa: solo son legítimas en notación de mecánica (la fuerza de
+una cuerda, cable o polea) y la decisión es humana (o del modelo, leyendo el contexto).
 
 Código de salida: 1 si hay hallazgos ABSOLUTO, 0 en otro caso. Solo biblioteca estándar.
 """
@@ -57,6 +58,22 @@ def revisar(nombre, texto):
         for etiqueta, patron in REVISAR:
             for m in patron.finditer(limpia):
                 revisar_.append((n, etiqueta, m.group(0), linea.strip()))
+    parrafo, inicio = [], None
+    bloques = []
+    for n, linea in list(lineas_de_prosa(texto)) + [(None, "")]:
+        if linea.strip():
+            inicio = inicio or n
+            parrafo.append(linea)
+        elif parrafo:
+            bloques.append((inicio, " ".join(parrafo)))
+            parrafo, inicio = [], None
+    for inicio, p in bloques:
+        palabras = re.findall(r"\w+", p.lower())
+        if 0 < len(palabras) < 120:
+            for w in ("y", "que"):
+                c = palabras.count(w)
+                if c > 4:
+                    revisar_.append((inicio, f"abuso de \"{w}\" en el párrafo ({c} veces en {len(palabras)} palabras)", w, p[:120]))
     print(f"== {nombre}")
     for titulo, lista in (("ABSOLUTO", absolutos), ("REVISAR", revisar_)):
         print(f"{titulo}: {len(lista)}")
