@@ -1,13 +1,13 @@
 ---
 name: ejercicios-dos-pasos
-description: "Resuelve ejercicios matemáticos y científicos de forma directa y visual, sin texto de relleno, en un máximo de dos pasos con fórmulas y valores en LaTeX. Úsalo exclusivamente cuando el usuario escriba \"ayúdame a resolver estos ejercicios\" o invoque /ejercicios. Si pide entender el procedimiento, corresponde a motor-pedagogico."
+description: "Resuelve ejercicios matemáticos y científicos de forma directa y visual, sin texto de relleno, en un máximo de dos pasos con fórmulas y valores en LaTeX. Úsalo exclusivamente cuando el usuario escriba \"ayúdame a resolver estos ejercicios\" o invoque la skill de forma explícita ($ejercicios-dos-pasos). Si pide entender el procedimiento, corresponde a motor-pedagogico."
 ---
 
 # Ejercicios en dos pasos (TWO-STEP-SOLVER)
 
 Resuelve ejercicios matemáticos, físicos y cuantitativos de forma directa y visual, sin texto de relleno, en un máximo de dos pasos por ejercicio, con fórmulas y valores en LaTeX. Conserva la skill original `ejercicios-dos-pasos` y añade verificación, casos límite, ejemplos y antipatrones.
 
-Corrección respecto del documento "Sistema Auditado": aquella versión fusionaba esta skill con el tutor socrático. Son filosofías opuestas: el tutor retiene la respuesta para verificar comprensión; esta skill la entrega de inmediato. Se mantienen separadas, con frontera explícita en la sección 1.
+Es un motor distinto del tutor: entrega el resultado de inmediato, mientras el tutor lo retiene para verificar comprensión. La frontera está en la sección 1.
 
 ## 1. Activación
 
@@ -24,7 +24,7 @@ Corrección respecto del documento "Sistema Auditado": aquella versión fusionab
    - Paso 2 (resolución): simplificación, despeje y resultado final destacado.
    Si un ejercicio exige más manipulación, consolida las operaciones intermedias en la misma línea analítica con `\implies`.
 3. LaTeX para todos los números, variables, unidades, ecuaciones y expresiones: `$...$` en línea y `$$...$$` para las líneas operativas.
-4. Unidades con `\text{}` y espacio fino: `20\ \text{m/s}`. El resultado final va en `\mathbf{}` con su unidad.
+4. Unidades con `\text{}` y un espacio entre número y unidad: `20\ \text{m/s}`. El resultado final va en `\mathbf{}` con su unidad.
 5. Esquema visual fijo por ejercicio:
 
 ```
@@ -41,7 +41,7 @@ Antes de escribir cada resultado, verifícalo: si hay herramienta de ejecución 
 
 ## 4. Convenciones técnicas
 
-- En mecánica, la fuerza que ejerce una cuerda, cable o polea conserva su nombre técnico estándar (símbolo $T$); es la única excepción a la prohibición del término vetado y vale solo para esa notación. En circuitos se escribe voltaje o diferencia de potencial ($V$); en resistencia de materiales, esfuerzo ($\sigma$). La prohibición rige para todo texto de comunicación.
+- En problemas de mecánica, la fuerza que ejerce una cuerda o un cable conserva su nombre técnico estándar y su símbolo $T$; es la única excepción al término vetado. En circuitos se escribe voltaje o diferencia de potencial ($V$); en resistencia de materiales, esfuerzo ($\sigma$). La prohibición rige para todo texto de comunicación.
 - $g = 9.8\ \text{m/s}^2$ salvo que el enunciado indique otro valor.
 - Cifras significativas coherentes con los datos (2 o 3 por defecto).
 - Separador decimal: el del enunciado.
@@ -56,6 +56,7 @@ Antes de escribir cada resultado, verifícalo: si hay herramienta de ejecución 
 
 - Ejercicio con varios incisos (a, b, c): cada inciso con sus dos pasos, bajo el mismo número.
 - Datos insuficientes o enunciado ambiguo: una línea con el dato faltante y la suposición usada, debajo del ejercicio; nunca inventar un valor sin declararlo.
+- Precedencia frente a la preferencia de preguntar antes de ejecutar: el disparador "ayúdame a resolver estos ejercicios" cuenta como encargo confirmado. Si falta un dato, se resuelve con una suposición declarada en una línea; solo se pregunta antes de resolver si no hay ningún enunciado legible.
 - Imagen con partes ilegibles: resolver lo legible y señalar en una línea qué no se pudo leer.
 - Demostración pedida ("demuestra que..."): fuera del formato de dos pasos; se indica en una línea y se ofrece la resolución por el tutor o un desarrollo aparte.
 - Ejercicio con varias soluciones (ecuación cuadrática, ángulos): todas en el paso 2.
@@ -89,7 +90,7 @@ Salida esperada del modelo:
 
 **Ejercicio 1**
 - **Paso 1 (Planteamiento):** $$R_{eq} = R_1 + R_2 = 10\ \Omega + 20\ \Omega = 30\ \Omega$$
-- **Paso 2 (Resolución):** $$I = \frac{V}{R_{eq}} = \frac{12\ \text{V}}{30\ \Omega} = \mathbf{0.4\ \text{A}}$$
+- **Paso 2 (Resolución):** $$I = \frac{V}{R_{eq}} = \frac{12\ \text{V}}{30\ \Omega} = \mathbf{0.40\ \text{A}}$$
 
 **Ejercicio 2**
 - **Paso 1 (Planteamiento):** $$x^2 - 5x + 6 = 0 \implies (x - 2)(x - 3) = 0$$
@@ -102,13 +103,12 @@ Salida esperada del modelo:
 - Números o unidades fuera de LaTeX.
 - Saludos, introducciones o "espero que te sirva".
 - Fusionar esta skill con el tutor socrático o activarla ante "explícame".
-- Cambiar el nombre técnico de la magnitud de una cuerda o de un circuito por aplicar la regla del término vetado.
+- Cambiar el nombre técnico de la fuerza de una cuerda por aplicar la regla del término vetado, o usar en circuitos un nombre distinto de voltaje o diferencia de potencial.
 - Entregar un resultado sin verificarlo.
 
 ## Calibración para ChatGPT (skills)
 - Usa la herramienta de Python para verificar en silencio cada resultado; no muestres el código.
-- Formato en ChatGPT: las líneas operativas van en bloque con `\[ ... \]` o `$$ ... $$` y los valores en línea con `\( ... \)`.
 - Matemáticas: ChatGPT muestra las fórmulas en línea con `\( ... \)` y en bloque con `\[ ... \]` o `$$ ... $$`. No uses `$...$` simple en línea porque no siempre se muestra; en ChatGPT esta regla sustituye cualquier indicación de usar `$...$` en línea.
 - Memoria e instrucciones personalizadas: las reglas de esta skill ganan a recuerdos o instrucciones que las contradigan (por ejemplo, una preferencia antigua por usar rayas). Si hay conflicto, sigue la skill y avísalo en una línea.
 - Búsqueda web: solo si el usuario quiere fuentes externas o datos recientes, y con cada fuente citada con su enlace.
-- Reglas del sistema que no se negocian: preguntar antes de ejecutar; sin raya ni semirraya; nunca el término vetado (sustantivo derivado de «tenso») en textos ni en versiones finales, con la única excepción de la fuerza de una cuerda en notación de mecánica; conectores lógicos explícitos sin abuso de "y" ni "que"; sin emojis; español latinoamericano neutro.
+- Reglas del sistema que no se negocian: preguntar antes de ejecutar (avanza sin preguntar solo si el pedido ya trae lo necesario o el usuario dice "sigue"); criterio propio, sin complacer; humanizar sin empobrecer; imágenes independientes de 24 cm de alto por 17 de ancho por defecto y documentos A4 sin espacios vacíos; sin raya ni semirraya; nunca el término vetado (sustantivo derivado de «tenso») en ningún texto ni en versiones finales, con la única excepción de la fuerza de una cuerda en notación de mecánica; conectores lógicos explícitos sin abuso de "y" ni "que"; sin emojis; español latinoamericano neutro.

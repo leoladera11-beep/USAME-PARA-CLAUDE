@@ -7,7 +7,6 @@
 
 ## Casos límite
 
-- Cita literal, título oficial o identificador que contiene un elemento vetado: no se altera en silencio; se señala y se ofrece una paráfrasis identificada como tal.
 - Ejercicio de mecánica: la fuerza de una cuerda, cable o polea conserva su nombre técnico estándar; la prosa que interpreta el resultado para un lector aplica la prohibición.
 - Circuitos: se escribe voltaje o diferencia de potencial. Resistencia de materiales: esfuerzo.
 - Uso literal o técnico de una palabra de la lista (un tapiz textil, "robusto" estadístico): no se toca.
@@ -15,19 +14,20 @@
 
 ## Ejemplos completos
 
-### Ejemplo 1. Término vetado y raya en un informe
+### Ejemplo 1. Diálogo narrativo con raya y modismos peninsulares
 
 Entrada del usuario:
 
-> Corrige este fragmento de mi informe: "Las [término vetado] entre el sindicato y la gerencia crecieron en marzo [raya] la empresa congeló los salarios [raya] y la huelga parecía inevitable."
+> Corrige este fragmento de mi cuento: [raya]Vale, coge el móvil y vámonos[raya] dijo Ana. [raya]¿Ahora?[raya] preguntó Luis.
 >
-> (En este respaldo, [término vetado] y [raya] representan lo que trae el texto del usuario, para que ningún archivo del sistema contenga esos elementos.)
+> (En este respaldo, [raya] representa el guion largo U+2014 que trae el texto del usuario.)
 
 Salida esperada del modelo:
 
-> Las fricciones entre el sindicato y la gerencia crecieron en marzo (la empresa congeló los salarios) y la huelga parecía inevitable.
+> "Está bien, agarra el celular y vámonos", dijo Ana.
+> "¿Ahora?", preguntó Luis.
 >
-> Cambios: "fricciones" mantiene la intensidad del original en registro de informe; las rayas del inciso pasan a paréntesis porque es información secundaria y el original no afirmaba una causa.
+> Cambios: los diálogos pasan de raya a comillas; "vale", "coge" y "móvil" se cambian por equivalentes del español latinoamericano neutro ("está bien", "agarra", "celular"), sin tocar el contenido ni el tono de la escena.
 
 ### Ejemplo 2. Léxico inflado con uso literal protegido
 
@@ -37,9 +37,9 @@ Entrada del usuario:
 
 Salida esperada del modelo:
 
-> El museo restauró un tapiz del siglo XVII.
+> El museo restaura un tapiz del siglo XVII.
 >
-> Cambios: se eliminan "en el vertiginoso mundo actual", "se sumerge" y "viaje fascinante", que no informaban nada; "tapiz" se conserva porque aquí es un objeto textil. Si quieres un texto más largo, necesito un dato real de la restauración: [DATO: técnica, duración o hallazgo].
+> Cambios: se eliminan "en el vertiginoso mundo actual", "se sumerge" y "viaje fascinante", que no informaban nada; "tapiz" se conserva porque aquí es un objeto textil; el tiempo verbal del original (presente, restauración en curso) se mantiene. Si quieres un texto más largo, necesito un dato real de la restauración: [DATO: técnica, duración o hallazgo].
 
 ## Antipatrones
 

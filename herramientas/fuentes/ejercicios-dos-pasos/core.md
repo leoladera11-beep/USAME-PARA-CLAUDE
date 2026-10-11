@@ -7,7 +7,7 @@ Solo cuando el usuario escribe "ayúdame a resolver estos ejercicios" o invoca e
 ## Reglas
 1. Sin introducción, saludo, cierre ni teoría. La primera línea es el primer ejercicio.
 2. Máximo dos pasos por ejercicio. Paso 1 (Planteamiento): modelo o sustitución de datos. Paso 2 (Resolución): despeje y resultado destacado. Si hace falta más, consolidar en la misma línea con \implies.
-3. Todo número, variable, unidad y ecuación en LaTeX: $...$ en línea y $$...$$ para líneas operativas. Unidades con \text{} y espacio fino. Resultado final en \mathbf{} con unidad.
+3. Todo número, variable, unidad y ecuación en LaTeX: $...$ en línea y $$...$$ para líneas operativas. Unidades con \text{} y un espacio entre número y unidad. Resultado final en \mathbf{} con unidad.
 4. Esquema fijo:
 **Ejercicio N**
 - **Paso 1 (Planteamiento):** $$...$$
@@ -17,7 +17,7 @@ Solo cuando el usuario escribe "ayúdame a resolver estos ejercicios" o invoca e
 ## Convenciones
 - La fuerza de una cuerda o cable conserva su nombre técnico de mecánica (T): es la única excepción al término vetado. En circuitos se dice voltaje o diferencia de potencial; en resistencia de materiales, esfuerzo.
 - g = 9.8 m/s² salvo otro valor en el enunciado; 2 o 3 cifras significativas.
-- Varios incisos: cada uno con sus dos pasos. Datos faltantes: una línea con la suposición usada. Imagen ilegible: resolver lo legible y avisar en una línea. Varias soluciones: todas en el paso 2.
+- Varios incisos: cada uno con sus dos pasos. Datos faltantes: una línea con la suposición usada (el disparador cuenta como encargo confirmado; solo se pregunta si no hay ningún enunciado legible). Imagen ilegible: resolver lo legible y avisar en una línea. Varias soluciones: todas en el paso 2.
 
 ## Ejemplo
 **Ejercicio 1**

@@ -5,15 +5,15 @@ description: "Crea, corrige y maqueta documentos académicos y técnicos listos 
 
 # Maquetación editorial de PDFs y documentos técnicos (DOC-STYLIST-PDF)
 
-Metodología, sistema de diseño y estándares técnicos para crear, mejorar, corregir y maquetar documentos académicos y técnicos en PDF (ReportLab) y DOCX editable (python-docx), con figuras en matplotlib. Conserva íntegras las secciones 0 a 2 de la skill original `maquetacion-pdf-documentos`.
+Metodología, sistema de diseño y estándares técnicos para crear, mejorar, corregir y maquetar documentos académicos y técnicos en PDF (ReportLab) y DOCX editable (python-docx), con figuras en matplotlib. Conserva las secciones 0 a 2 de la skill original `maquetacion-pdf-documentos`, con un único reemplazo terminológico en la fase 3.
 
 Hallazgo de auditoría: el archivo original termina en la sección 2.7 aunque remite a las secciones 3 a 7 (figuras, PDF, DOCX, QA y entrega) y a apartados como 4.1, 4.8 y 5.5. Esas secciones faltaban en el paquete. Aquí se reconstruyen de forma compacta a partir de las referencias internas del propio original, marcadas como reconstrucción, para que la skill vuelva a ser ejecutable de principio a fin. Si existe una versión completa del original fuera de este respaldo, conviene contrastarla.
 
 Corrección respecto del documento "Sistema Auditado": aquella versión cambiaba el flujo a Pandoc y Typst e insertaba saltos de página antes de cada encabezado. Se descarta porque el usuario ya tiene un flujo pdflatex para documentos solo PDF (sección 0.1) y esta skill existe para el caso PDF más DOCX sincronizados con figuras propias. El papel A4 fijo se mantiene.
 
-Reglas de la memoria del usuario que esta skill aplica siempre: papel A4 original, sin deformaciones (ninguna página escalada ni figura estirada: las imágenes conservan su proporción), sin espacios en blanco vacíos (ni medias páginas libres al final de una sección ni huecos entre bloques) y aprovechando todo el margen útil de la hoja. Antes de ejecutar, preguntar lo esencial en un solo mensaje. En el cuerpo original (sección 1, fase 3), la fuerza a lo largo de la cuerda en un DCL se nombra como "fuerza de la cuerda ($T$)", sin el término vetado.
+Reglas de la memoria del usuario que esta skill aplica siempre: papel A4 original, sin deformaciones (ninguna página escalada ni figura estirada: las imágenes conservan su proporción), sin espacios en blanco vacíos (ni medias páginas libres al final de una sección ni huecos entre bloques) y aprovechando todo el margen útil de la hoja. Antes de ejecutar, preguntar lo esencial en un solo mensaje. En el cuerpo original (sección 1, fase 3), la fuerza a lo largo de la cuerda en un DCL se nombra como "fuerza de la cuerda, $T$", sin el término vetado.
 
-Relación con otros motores: la prosa del documento sigue las restricciones absolutas del sistema; en la notación de mecánica y circuitos, la magnitud conserva su nombre técnico (ver motor `escritura-humana`, sección 3.2). Si el usuario solo quiere resolver ejercicios en el chat, corresponde a `ejercicios-dos-pasos`.
+Relación con otros motores: la prosa del documento sigue las restricciones absolutas del sistema; en la notación de mecánica, la fuerza de una cuerda conserva su nombre técnico, y en circuitos se dice voltaje o diferencia de potencial (ver motor `escritura-humana`, sección 3.2). Si el usuario solo quiere resolver ejercicios en el chat, corresponde a `ejercicios-dos-pasos`.
 
 ## 0. Propósito y alcance
 
@@ -239,6 +239,8 @@ Figuras se colocan en anchos de rejilla; dos figuras lado a lado van en una `Tab
 
 ## 3. Figuras con matplotlib (reconstrucción)
 
+### 3.1 Configuración global
+
 ```python
 import matplotlib
 matplotlib.use("Agg")
@@ -249,9 +251,15 @@ plt.rcParams.update({
     "mathtext.fontset": "stix",
     "font.size": 10,
     "savefig.dpi": 300,
-    "savefig.bbox": "tight",
+    "figure.constrained_layout.use": True,
 })
+# figsize en pulgadas desde la rejilla de 2.7 (en puntos): ancho = REJILLA["half"] / 72
+fig, ax = plt.subplots(figsize=(REJILLA["half"] / 72, 55 * mm / 72))
 ```
+
+Sin `bbox_inches="tight"`: ese recorte cambia el tamaño del PNG, y al insertarlo al ancho de rejilla el texto de la figura deja de medir lo mismo que el cuerpo. El diseño ajustado lo resuelve `constrained_layout` sin alterar el tamaño de la figura.
+
+### 3.2 Reglas de cada figura
 
 - Una función por figura, determinista (sin aleatoriedad o con semilla fija), que recibe datos y devuelve la ruta del PNG en `figuras/`.
 - Colores tomados solo de `PALETA` (2.4) con su rol fijo: fuerzas y corrientes en `acento_fuerza`, resultado en `acento_result`, superficies en `superficie`.
@@ -284,16 +292,29 @@ addMapping("LibSerif", 0, 0, "LibSerif")
 addMapping("LibSerif", 1, 0, "LibSerif-B")
 addMapping("LibSerif", 0, 1, "LibSerif-I")
 addMapping("LibSerif", 1, 1, "LibSerif-BI")
+
+import reportlab.rl_config as rl_config
+rl_config.canvas_basefontname = "LibSerif"  # evita que el lienzo declare Helvetica sin incrustar
 ```
 
-Las fuentes TrueType registradas cubren Ω, μ, ², ° y los caracteres del español; las fuentes base de ReportLab no.
+Las fuentes base de ReportLab (Helvetica, Times) no cubren Ω ni la μ griega (U+03BC); las TrueType registradas cubren todo lo necesario. Todo `ParagraphStyle` declara `fontName="LibSerif"`, porque el valor por defecto es Helvetica.
 
 ### 4.2 a 4.7 Estructura
 
 - `SimpleDocTemplate` o `BaseDocTemplate` con `PAPEL`, márgenes de 2.7 y encabezado y pie dibujados en `onPage` dentro de los márgenes.
 - Estilos de párrafo derivados de la tabla 2.6, con `keepWithNext=1` en H1 y H2 para evitar títulos huérfanos al pie de página.
 - Tablas reales (`Table`) con cabecera en `primario` y texto blanco en negrita, zebra en `fondo_suave`, bordes en `borde`, `repeatRows=1` en tablas largas.
-- Figuras como `Image` al ancho de rejilla, con leyenda numerada debajo ("Figura 3. ..."); figura y leyenda juntas en `KeepTogether`.
+- Figuras como `Image` al ancho de rejilla, con el alto calculado desde la proporción del PNG; nunca se fijan ancho y alto de forma independiente; tampoco se pasa solo `width` (ReportLab deja entonces el alto nativo en píxeles y la figura se deforma):
+
+  ```python
+  from reportlab.lib.utils import ImageReader
+  from reportlab.platypus import Image
+  def figura(ruta, ancho):
+      w, h = ImageReader(ruta).getSize()
+      return Image(ruta, width=ancho, height=ancho * h / w)
+  ```
+
+  Leyenda numerada debajo ("Figura 3. ..."); figura y leyenda juntas en `KeepTogether`.
 - Ejercicio resuelto: enunciado, figura y panel de pasos agrupados en `KeepTogether` cuando quepan en una página.
 - Numeración secuencial de figuras, tablas, ecuaciones y ejercicios, con referencias cruzadas en el texto.
 
@@ -307,7 +328,7 @@ Las fuentes TrueType registradas cubren Ω, μ, ², ° y los caracteres del espa
 - Mismo contenido estructurado que el PDF; un script lee la misma fuente de datos para que ambos queden sincronizados.
 - Página A4 y márgenes de 2.7 en `section.page_width`, `page_height` y márgenes.
 - Estilos Normal, Heading 1 y Heading 2 con Liberation Serif y los tamaños de 2.6; `keep_with_next` en los títulos.
-- Tablas reales con cabecera sombreada y texto editable; figuras con `add_picture` al ancho útil.
+- Tablas reales con cabecera sombreada y texto editable; figuras con `add_picture(ruta, width=...)` al ancho útil, con solo el ancho: python-docx calcula el alto sin alterar la proporción.
 - Fórmulas en display como PNG, o como ecuación OMML si son simples; siempre con el LaTeX en texto alternativo o en una nota para el docente.
 
 ### 5.5 Sombreado, cajas y checklist
@@ -318,11 +339,15 @@ from docx.oxml.ns import qn
 
 def sombrear(celda, color_hex):
     tc_pr = celda._tc.get_or_add_tcPr()
+    for previo in tc_pr.findall(qn("w:shd")):  # un solo w:shd por celda
+        tc_pr.remove(previo)
     shd = OxmlElement("w:shd")
     shd.set(qn("w:val"), "clear")
     shd.set(qn("w:color"), "auto")
     shd.set(qn("w:fill"), color_hex.lstrip("#"))
-    tc_pr.append(shd)
+    # orden del esquema OOXML: w:shd va antes de estos elementos
+    tc_pr.insert_element_before(shd, "w:noWrap", "w:tcMar", "w:textDirection",
+                                "w:tcFitText", "w:vAlign", "w:hideMark")
 ```
 
 - Caja destacada: tabla de una celda sombreada con `sombrear`, etiqueta en negrita y contenido en texto real.
@@ -333,8 +358,8 @@ def sombrear(celda, color_hex):
 1. Rasteriza: `pdftoppm -r 110 -png documento.pdf qa/pagina` e inspecciona cada página.
 2. Prueba de fotocopia: `pdftoppm -gray -r 110 -png documento.pdf qa/gris`; la información no puede depender solo del color.
 3. Revisa: títulos huérfanos al pie, figuras partidas o separadas de su leyenda, tablas desbordadas, texto cortado en celdas, numeración y referencias cruzadas, cuerpo nunca menor de 9 pt, márgenes de al menos 12.7 mm.
-4. Aprovechamiento de la hoja: ninguna página con espacio en blanco vacío (más de un tercio de página libre que no sea el final del documento), ningún hueco entre bloques por un `KeepTogether` mal usado; si aparece, reordena bloques, ajusta el ancho de las figuras a la rejilla o reparte el contenido. Comprueba que ninguna imagen esté deformada (proporción original) y que el PDF sea A4 real (`pdfinfo documento.pdf` muestra 595 x 842 pt).
-5. Fuentes incrustadas: `pdffonts documento.pdf`.
+4. Aprovechamiento de la hoja: ninguna página con espacio en blanco vacío (más de un tercio de página libre), ningún hueco entre bloques por un `KeepTogether` mal usado, y tampoco una última página con unas pocas líneas sueltas; si aparece, reordena bloques, ajusta el ancho de las figuras a la rejilla o los espacios para recoger esas líneas en la página anterior o completar la última. Comprueba que ninguna imagen esté deformada (proporción original) y que el PDF sea A4 real (`pdfinfo documento.pdf` muestra `Page size: 595.276 x 841.89 pts (A4)`).
+5. Fuentes incrustadas: `pdffonts documento.pdf`; todas con `emb` en `yes` (si aparece Helvetica sin incrustar, falta el `canvas_basefontname` de 4.1 o un `fontName` en algún estilo).
 6. DOCX: vuelve a abrirlo con python-docx (o conviértelo con LibreOffice en modo headless si está disponible) para comprobar que no está corrupto y que tablas y figuras aparecen.
 7. Contenido: compara cada resultado numérico del documento con los recalculados en la fase 3.
 8. Corrige, regenera y vuelve a inspeccionar hasta que no queden defectos.
@@ -369,13 +394,17 @@ Entrada del usuario:
 
 > Ficha de práctica de plano inclinado sin fricción para 5.º de secundaria: un bloque de 4 kg en un plano de 30°. PDF y DOCX.
 
-Salida esperada del modelo (resumen de entrega):
+Salida esperada del modelo (antes de ejecutar, en un solo mensaje):
+
+> Antes de generar: ¿usas g = 9.8 o 9.81 m/s²? ¿El solucionario va al final o en un documento aparte para el docente? Si respondes "sigue", uso 9.8 m/s² y lo pongo al final.
+
+El usuario responde "sigue". Salida esperada del modelo (resumen de entrega):
 
 > Supuestos: g = 9.8 m/s²; A4; densidad visual alta; solucionario al final.
 >
 > Contenido verificado con código: normal N = mg cos 30° = 33.9 N; aceleración a = g sen 30° = 4.9 m/s² a lo largo del plano, hacia abajo.
 >
-> Figuras: fig01_dcl_bloque_plano.png (peso desde el centro de masa, normal perpendicular al plano, ejes x a lo largo del plano), eq01_segunda_ley.png (tarjeta de fórmula), panel01_plano_pasos.png (datos, planteamiento, desarrollo y resultado).
+> Figuras: fig01_dcl_bloque_plano.png (peso desde el centro de masa, normal perpendicular al plano, eje x a lo largo del plano), eq01_segunda_ley.png (tarjeta de fórmula), panel01_plano_pasos.png (datos, planteamiento, desarrollo y resultado).
 >
 > QA: dos páginas revisadas en color y en grises; ningún título huérfano; fuentes incrustadas.
 >
@@ -404,5 +433,5 @@ Salida esperada del modelo (antes de maquetar):
 - Cambiar a papel Carta sin pedido explícito.
 - Sustituir el flujo por Pandoc o Typst, o insertar saltos de página antes de cada encabezado por norma.
 - Cuerpo por debajo de 9 pt para que entre un número de páginas.
-- Dejar medias páginas vacías o huecos entre bloques, o escalar páginas e imágenes de forma que se deformen.
+- Dejar medias páginas vacías o huecos entre bloques, o escalar páginas e imágenes de forma que se deformen (por ejemplo, `Image(ruta, width=...)` de ReportLab sin el alto proporcional).
 - Declarar que el DOCX es "totalmente editable" cuando DCL y ecuaciones son imágenes.

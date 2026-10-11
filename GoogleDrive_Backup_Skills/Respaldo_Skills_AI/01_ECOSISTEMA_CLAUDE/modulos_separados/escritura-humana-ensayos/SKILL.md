@@ -11,7 +11,7 @@ Reglas permanentes del usuario que este módulo aplica sin que las pida: estruct
 
 ## Método
 
-Prioridad interna: consigna o rúbrica del profesor, después este modo, después el resto del motor. Si la rúbrica exige algo que el motor desaconseja (conectores de orden, subtítulos), la rúbrica manda y se cumple de la forma menos mecánica posible.
+Prioridad interna: consigna o rúbrica del profesor, después este módulo, después el núcleo. Si la rúbrica exige algo que el motor desaconseja (conectores de orden, subtítulos), la rúbrica manda y se cumple de la forma menos mecánica posible.
 
 1. Ficha de consigna, que complementa el brief y sigue vigente en los turnos siguientes del mismo ensayo:
 
@@ -22,7 +22,7 @@ Prioridad interna: consigna o rúbrica del profesor, después este modo, despué
 | Fuentes obligatorias del curso | Usar solo las que dio el usuario. |
 | Formato de cita | Preguntar si hay fuentes; sin respuesta, APA 7 en español, salvo que la disciplina sea clara (notas al pie en historia y humanidades). |
 | Términos que deben aparecer | Ninguno. |
-| Contraargumento exigido | Ver 9.3.2. |
+| Contraargumento exigido | Ver el punto 2. |
 | Título | Siempre poner uno. |
 
 Si faltan varios datos, agrúpalos en una sola pregunta con opciones. Si el usuario dice "hazlo nomás", asume los valores por defecto y decláralos al entregar.
@@ -33,15 +33,15 @@ Si faltan varios datos, agrúpalos en una sola pregunta con opciones. Si el usua
 
 4. Conclusión: responde a la pregunta o al título con la tesis reformulada a la luz de lo argumentado; muestra cómo se relacionan los argumentos, no cuáles eran; puede cerrar con una implicación, un límite honesto o una pregunta abierta, nunca con moraleja. No abre con "en conclusión", "a lo largo de este ensayo" ni "en el presente ensayo se ha demostrado", y no introduce fuentes nuevas. Si la rúbrica exige el rótulo "Conclusión", se cumple.
 
-5. Fuentes y citas: no se inventan fuentes, autores, títulos, años, páginas, cifras, fechas ni citas. Si un argumento necesita sustento sin fuente, se escribe y se marca `[FUENTE NECESARIA: tipo de dato]`. La cita textual se copia exacta, sin acortar, corregir ni modernizar, integrada en la sintaxis con un verbo de atribución preciso y variado (sostiene, matiza, plantea, cuestiona, advierte, postula), nunca suelta; más de 40 palabras (o el límite de la norma) va en bloque. La paráfrasis conserva la atribución pegada a la idea. Las fuentes etiquetadas por el curso (Fuente A, Documento 3) se citan con esa etiqueta exacta. Las fuentes primarias se presentan con autor y fecha la primera vez y se analizan como documento (quién habla, desde dónde, para quién). En APA en español: "y" en lugar de "&", "p." y "pp.", "citado en". Alterna cita integrada, cita parentética y autor como sujeto.
+5. Fuentes y citas: no se inventan fuentes, autores, títulos, años, páginas, cifras, fechas ni citas. Si un argumento necesita sustento sin fuente, se escribe y se marca `[FUENTE NECESARIA: tipo de dato]`. La cita textual se copia exacta, sin acortar, corregir ni modernizar, integrada en la sintaxis con un verbo de atribución preciso y variado (sostiene, matiza, plantea, cuestiona, advierte, postula), nunca suelta; más de 40 palabras (o el límite de la norma) va en bloque. La paráfrasis conserva la atribución pegada a la idea. Las fuentes etiquetadas por el curso (Fuente A, Documento 3) se citan con esa etiqueta exacta. Las fuentes primarias se presentan con autor y fecha la primera vez y se analizan como documento (quién habla, desde dónde, para quién). En APA en español: "y" en lugar de "&", "p." y "pp.", "citado en". Alterna cita integrada, cita parentética y autor como sujeto. Si una cita textual es demasiado larga para el ensayo, se propone al usuario qué fragmento usar; no se recorta por cuenta propia.
 
 6. Contexto académico y temporal: evita el anacronismo; usa las categorías propias del campo, la región y el periodo (por ejemplo, gamonalismo o clientelismo en historia peruana) con significado correcto; elige el aparato crítico habitual de la disciplina.
 
 7. Términos de rúbrica: cada término aparece al menos una vez con su significado correcto dentro del argumento, repartidos entre introducción, cuerpo y conclusión; al entregar se reporta en qué párrafo quedó cada uno.
 
-8. Negrita adaptativa: no hay un valor único. Revisa los patrones del anexo `casos-negrita.md` (rúbrica que pide negrita, rúbrica con términos sin formato, consigna sin términos, pedido directo del usuario, documento final frente a revisión en el chat). Si el caso no calza, pregunta. El criterio fijado para un curso o ensayo se mantiene en las revisiones siguientes. Dentro del chat, la negrita solo se aplica si el usuario pide verla ahí.
+8. Negrita adaptativa: no hay un valor único. Revisa los patrones del `references/casos-negrita.md` (rúbrica que pide negrita, rúbrica con términos sin formato, consigna sin términos, pedido directo del usuario, documento final frente a revisión en el chat). Si el caso no calza, pregunta. El criterio fijado para un curso o ensayo se mantiene en las revisiones siguientes. Dentro del chat, la negrita solo se aplica si el usuario pide verla ahí.
 
-9. Modos internos: escribir desde cero; editar borrador (mejora prosa y cumplimiento sin cambiar la tesis ni eliminar argumentos sin avisar; las citas del usuario se conservan; si hay datos que conviene verificar o corregir, pregunta antes de entregar la versión corregida); acortar (solo con pedido explícito; confirmar si quiere ensayo más corto o resumen; recortar en este orden: evidencia secundaria, extensión del análisis, contexto de la introducción, contraargumento no exigido y, solo si aun así no entra, un argumento completo avisándolo; nunca se recorta la tesis, los cierres que sobreviven, la conclusión, las citas de los argumentos que quedan ni las referencias); evaluar contra rúbrica (no reescribe: reporta criterio por criterio qué cumple, qué no y dónde, citando fragmentos).
+9. Modos internos: escribir desde cero; editar borrador (mejora prosa y cumplimiento sin cambiar la tesis ni eliminar argumentos sin avisar; las citas del usuario se conservan; si hay datos que conviene verificar o corregir, pregunta antes de entregar la versión corregida); acortar (solo con pedido explícito; confirmar si quiere ensayo más corto o resumen; el resumen conserva las citas cardinales y las referencias y condensa solo el desarrollo; si al eliminar un argumento se pierde una fuente exigida, se reubica en otro o se avisa; recortar en este orden: evidencia secundaria, extensión del análisis, contexto de la introducción, contraargumento no exigido y, solo si aun así no entra, un argumento completo avisándolo; nunca se recorta la tesis, los cierres que sobreviven, la conclusión, las citas de los argumentos que quedan ni las referencias); evaluar contra rúbrica (no reescribe: reporta criterio por criterio qué cumple, qué no y dónde, citando fragmentos).
 
 10. Antiplantilla de ensayo: párrafos del cuerpo con el mismo esqueleto y longitud; cada argumento abre con "en primer lugar", "en segundo lugar", "finalmente" sin que la rúbrica lo pida; la conclusión repite la introducción en pasado; cada cita entra con "como señala" o "según"; siempre tres argumentos; hedging uniforme o ausencia total de modalización en afirmaciones interpretativas.
 

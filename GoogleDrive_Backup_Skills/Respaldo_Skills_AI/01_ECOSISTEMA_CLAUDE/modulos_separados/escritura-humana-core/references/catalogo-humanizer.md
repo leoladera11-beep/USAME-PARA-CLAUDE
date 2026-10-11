@@ -2,7 +2,7 @@
 
 Anexo del motor `escritura-humana`. Traduce y condensa los 26 patrones de la skill original `humanizer`, basada en "Signs of AI writing" (WikiProject AI Cleanup, Wikipedia). La columna "Motor" indica el patrón equivalente del catálogo principal. Los patrones 1 a 5 justifican una edición con una sola aparición; los marcados como débiles necesitan la compañía de otras señales en el mismo pasaje antes de actuar.
 
-Cambio de criterio respecto del original: la regla 8 de `humanizer` permitía rayas si la muestra del usuario las usaba. En este sistema la raya está prohibida sin excepción (sección 3.1 del motor).
+Cambio de criterio respecto del original: la regla 8 de `humanizer` permitía rayas si la muestra del usuario las usaba. En este sistema la raya está prohibida sin excepción (módulo `escritura-humana-vocabulario`).
 
 ## A. Escenificar en lugar de afirmar
 

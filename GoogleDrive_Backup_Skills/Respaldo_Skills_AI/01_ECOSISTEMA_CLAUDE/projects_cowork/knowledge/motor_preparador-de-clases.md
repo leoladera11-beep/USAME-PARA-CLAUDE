@@ -2,11 +2,11 @@
 
 Diseña, revisa, adapta y secuencia sesiones y programaciones de aprendizaje listas para aplicar en aula, en inicial, primaria, secundaria, superior y técnico, para cualquier área y marco curricular, con CNEB Perú por defecto. Conserva íntegro el método de la skill original `preparador-de-clases` (secciones 1 a 10) y añade casos de uso, casos límite, ejemplos y antipatrones (secciones 11 a 14).
 
-Corrección respecto del documento "Sistema Auditado": aquella versión reducía la skill a una plantilla porcentual genérica (10/25/30/25/10) sin CNEB, sin ficha de datos, sin instrumento completo ni checklist. Se descarta: las anclas de tiempo calibradas (45 min, 8/28/9; 90 min, 12/63/15) y los procesos didácticos por área son más precisos y eran preferencia expresa del usuario. Del modelo "yo hago, hacemos, haces" se conserva lo que el original ya incluía como andamiaje para contenidos procedimentales.
+Corrección respecto del documento "Sistema Auditado": aquella versión reducía la skill a una plantilla porcentual genérica (10/25/30/25/10) sin CNEB, sin ficha de datos, sin instrumento completo ni checklist. Se descarta esa plantilla porque las anclas de tiempo calibradas (45 min, 8/28/9; 90 min, 12/63/15) y los procesos didácticos por área son más precisos y eran preferencia expresa del usuario. Del modelo "yo hago, hacemos, haces" se conserva lo que el original ya incluía como andamiaje para contenidos procedimentales.
 
 Reglas de la memoria del usuario: preguntar antes de ejecutar (los datos mínimos de la sección 3 se piden en un solo mensaje y solo se asumen si el usuario dice que siga); criterio propio para señalar un propósito o una actividad que no se sostiene, aunque venga del docente; los documentos imprimibles de la sesión (fichas, anexos) siguen la regla A4 sin espacios vacíos de `maquetacion-pdf-documentos`.
 
-Relación con otros motores: la prosa de la sesión (consignas, anexos, textos para estudiantes) sigue las restricciones absolutas del sistema (sin raya, sin el término vetado en textos de comunicación, sin emojis). Si el docente quiere aprender él mismo un tema, corresponde a `motor-pedagogico`. Si trae un prompt de tutoría (no de planificación), corresponde al modo `auditoria` de `motor-pedagogico`.
+Relación con otros motores: la prosa de la sesión (consignas, anexos, textos para estudiantes) sigue las restricciones absolutas del sistema (sin raya, sin emojis y sin el término vetado en ningún texto de la sesión, con la única excepción de la fuerza de una cuerda en problemas de mecánica). Si el docente quiere aprender él mismo un tema, corresponde a `motor-pedagogico`. Si trae un prompt de tutoría (no de planificación), corresponde al modo `auditoria` de `motor-pedagogico`.
 
 ## 1. Principio rector
 Una sesión está bien preparada cuando otro docente podría dictarla mañana solo con
@@ -368,42 +368,56 @@ Entrada del usuario:
 
 > Prepárame una clase de 45 minutos de fracciones equivalentes para 4.º de primaria. Son 28 estudiantes. Tengo pizarra, tiras de papel de colores y el cuaderno de trabajo.
 
-Salida esperada del modelo (estructura y fragmentos representativos):
+Salida esperada del modelo (la entrada trae casi todos los mínimos, así que no se pregunta; los supuestos se declaran):
 
-> Análisis pedagógico: los estudiantes deben reconocer que dos fracciones distintas pueden representar la misma cantidad. La dificultad real en 4.º es que comparan numeradores y denominadores por separado ("2/4 es más grande que 1/2 porque tiene números más grandes"). La evidencia sin ambigüedad es una tabla donde registran pares equivalentes obtenidos al doblar tiras. Estrategia: material concreto antes que símbolos, porque el grupo trabaja con recursos manipulables y el tiempo es corto.
+> SUPUESTO: área Matemática (inferida del tema). SUPUESTO: propósito no declarado, se trata como "?" y se propone un desempeño. SUPUESTO: uso propio (versión compacta), sesión aislada. SUPUESTO: dos tiras por estudiante (56) y útiles personales básicos (lápiz) y tiza o plumón de la pizarra.
 >
-> SUPUESTO: uso propio, versión compacta. SUPUESTO: sesión aislada, sin datos de la sesión previa.
+> Análisis pedagógico: los estudiantes deben reconocer que dos fracciones distintas pueden representar la misma cantidad. La dificultad real en 4.º es comparar numeradores y denominadores por separado ("2/4 es más grande que 1/2 porque tiene números más grandes"). La evidencia sin ambigüedad es la tabla de pares equivalentes que registran tras doblar tiras. Estrategia: material concreto antes que símbolos, porque los recursos son manipulables y el tiempo es corto.
 >
 > 1. Datos generales: "Doblamos y comparamos", Matemática, 4.º de primaria, 45 min, 28 estudiantes.
-> 2. Propósitos: competencia "Resuelve problemas de cantidad"; capacidad "Comunica su comprensión sobre los números y las operaciones"; desempeño PROPUESTO: "Representa fracciones equivalentes con tiras de papel y registra al menos dos pares en una tabla, explicando por qué representan la misma cantidad" (verificar en el programa curricular); criterios: 1) representa fracciones equivalentes con material concreto; 2) explica la equivalencia comparando la parte pintada; evidencia: tabla del anexo 1 completada; instrumento: lista de cotejo. Para el estudiante: "Hoy vamos a aprender a encontrar fracciones que valen lo mismo, y lo sabremos porque podremos mostrarlo doblando tiras".
-> 4. Antes de la sesión: 56 tiras (dos por estudiante), 28 copias del anexo 1, plumones para pizarra.
-> 5. Secuencia (extracto):
+> 2. Propósitos: competencia "Resuelve problemas de cantidad"; capacidad "Comunica su comprensión sobre los números y las operaciones"; desempeño PROPUESTO: "Representa fracciones equivalentes con tiras de papel y registra al menos dos pares en una tabla, explicando por qué representan la misma cantidad" (verificar en el programa curricular); criterios: 1) representa fracciones equivalentes con material concreto; 2) explica la equivalencia comparando la parte marcada; evidencia: tabla de pares en el cuaderno; instrumento: lista de cotejo. Para el estudiante: "Hoy vamos a aprender a encontrar fracciones que valen lo mismo, y lo sabremos porque podremos mostrarlo doblando tiras".
+> 3, 4 y 8 (fusionadas para uso propio): enfoque de orientación al bien común, observable cuando las parejas comparten y cuidan las tiras; preparar 56 tiras y dibujar en la pizarra la tabla modelo; errores previstos: comparar solo numeradores (respuesta: superponer las tiras), creer que más partes es más cantidad (respuesta: comparar el largo marcado); plan B si faltan tiras (barras dibujadas en el cuaderno) y si se pierden 15 minutos (se acorta la formalización, nunca el boleto de salida).
+> 5. Secuencia:
 >
-> | N.º | Momento | Min | Docente | Estudiantes | Agrupamiento | Evaluación |
-> |---|---|---|---|---|---|---|
-> | 1 | Inicio: saberes previos | 8 | "Si parto una pizza en 2 y me como 1 parte, y tú partes otra igual en 4 y te comes 2, ¿quién comió más?" | Responden y justifican a mano alzada | Plenario | Registro de ideas en pizarra |
-> | 2 | Desarrollo: familiarización | 12 | "Doblen la tira en 4 partes iguales y pinten 2. Doblen la otra en 8 y pinten las que representen la misma cantidad." | Doblan, pintan y registran ambas fracciones en el anexo 1 | Parejas | Criterio 1, lista de cotejo ítem 1 |
-> | 3 | Transición | 2 | Recoge una tira por pareja para la pizarra | Pegan su tira | Parejas | |
-> | ... | ... | ... | ... | ... | ... | ... |
-> | 7 | Cierre: boleto de salida | 9 | "Dibuja una fracción que valga lo mismo que 1/3 y explica por qué en una línea." | Responden individualmente | Individual | Criterio 2, lista de cotejo ítem 2 |
+> | N.º | Momento | Min | Docente | Estudiantes | Agrupamiento | Recursos | Evaluación |
+> |---|---|---|---|---|---|---|---|
+> | 1 | Inicio: saberes previos y propósito | 8 | "Si parto una pizza en 2 y me como 1 parte, y tú partes otra igual en 4 y te comes 2, ¿quién comió más?" Luego lee el propósito. | Responden y justifican a mano alzada | Plenario | Pizarra | Ideas registradas en pizarra |
+> | 2 | Desarrollo: familiarización | 4 | "¿Qué tendríamos que comparar para saber quién comió más?" | Reformulan el problema con sus palabras | Parejas | Ninguno | Escucha de tres parejas |
+> | 3 | Desarrollo: búsqueda y ejecución de estrategias | 10 | "Doblen una tira en 4 partes iguales y marquen 2. Doblen la otra en 8 y marquen las que cubran el mismo largo." | Doblan, marcan con lápiz y copian en el cuaderno la tabla de la pizarra con ambas fracciones | Parejas | Tiras, cuaderno | Criterio 1, lista de cotejo ítem 1 |
+> | 4 | Transición | 2 | "Una pareja por fila pase a mostrar sus tiras." | Se organizan | Parejas | Ninguno | |
+> | 5 | Desarrollo: socialización de representaciones | 6 | "¿Por qué 2/4 y 4/8 cubren lo mismo?" | Superponen las tiras frente a la clase y explican | Plenario | Tiras | Monitoreo con tres preguntas preparadas |
+> | 6 | Desarrollo: reflexión y formalización | 6 | Escribe 1/2 = 2/4 = 4/8 y pregunta: "¿Qué pasa con las partes y con el tamaño de cada parte?" | Completan la regla en el cuaderno | Individual | Pizarra, cuaderno | Si más de la mitad no lo logra, vuelve a doblar una tira en público |
+> | 7 | Cierre: boleto de salida | 5 | "Dibuja una fracción que valga lo mismo que 1/3 y explica por qué en una línea." | Responden en el cuaderno | Individual | Cuaderno | Criterio 2, lista de cotejo ítem 2 |
+> | 8 | Cierre: metacognición y transferencia | 4 | "¿Qué hiciste con la tira para saber que 2/4 y 4/8 valen lo mismo? ¿Dónde más podrías usarlo?" | Responden dos o tres estudiantes | Plenario | Ninguno | Registro anecdótico |
 >
-> 6 a 9: lista de cotejo con un ítem por criterio; andamio (tira ya dividida en 4 para quien se atasque) y extensión (encontrar tres equivalentes de 1/2); dos errores anticipados con respuesta; plan B si faltan tiras (dibujo de barras en el cuaderno) y si se pierden 15 minutos (se recorta la socialización, nunca el boleto de salida); anexo 1 completo.
+> 6, 7 y 9: lista de cotejo con un ítem por criterio; andamio (tira ya dividida en 4) y extensión (tres equivalentes de 1/2); acción DUA por principio integrada en las filas 3, 5 y 7; anexo con la tabla modelo.
+> 10. Preguntas para mejorar la siguiente versión: ¿qué vieron antes sobre fracciones? ¿Hay estudiantes con NEE o que necesiten apoyo de lectura?
 >
 > Veredicto: LISTA.
 
-Por qué es correcta: respeta las anclas 8/28/9 con transiciones como filas; consignas literales; desempeño marcado PROPUESTO sin códigos inventados; solo recursos declarados con cantidades; evidencia producida en la sesión; plan B doble.
+Por qué es correcta: los tiempos suman 45 con las anclas 8/28/9 (8; 4 + 10 + 2 + 6 + 6 = 28; 5 + 4 = 9) y la transición es una fila propia; solo usa los recursos declarados y marca como SUPUESTO lo que no se declaró; el cierre tiene evidencia, metacognición y transferencia; el desarrollo sigue los procesos didácticos de Matemática; el desempeño va marcado PROPUESTO sin códigos inventados; están las secciones 3, 4 y 8 fusionadas y la 10.
 
 ### Ejemplo 2. Modo ADAPTAR
 
 Entrada del usuario:
 
-> Esta sesión de lectura de 90 minutos la tengo que dar en 45 y ahora el aula es multigrado (3.º y 4.º).
+> Adapta esta sesión de lectura de 90 minutos a 45 minutos; ahora el aula es multigrado (3.º y 4.º, 30 estudiantes en total). Sesión original: propósito, identificar la idea principal y dos detalles de un texto expositivo; criterios, 1) identifica la idea principal, 2) selecciona dos detalles que la sostienen; evidencia, organizador gráfico; secuencia, dramatización inicial (12 min), lectura en voz alta del docente (15), segunda lectura (15), organizador en grupos (25), coevaluación entre grupos (13), plenario (10). Recursos: pizarra y 30 copias del texto.
 
-Salida esperada del modelo (resumen):
+Salida esperada del modelo (extracto):
 
-> Se mantienen el propósito, los dos criterios y la evidencia (organizador con la idea principal y dos detalles). Nueva distribución 8/28/9. Cambios obligados por el contexto: la lectura en voz alta del docente se sustituye por lectura en pares con el mismo texto y dos guías diferenciadas (3.º con preguntas literales, 4.º con una inferencial); dos monitores de 4.º apoyan a 3.º durante 10 minutos; el plenario final pasa a una galería de organizadores de 5 minutos.
+> Se mantienen el propósito, los dos criterios y la evidencia. Nueva distribución 8/28/9:
 >
-> Qué se sacrificó y por qué: la dramatización inicial (12 minutos que no aportaban a ningún criterio); la segunda lectura del texto (se conserva solo el fragmento clave); la coevaluación entre grupos (el boleto de salida cubre el criterio 2 en menos tiempo).
+> | N.º | Momento | Min | Cambio frente al original |
+> |---|---|---|---|
+> | 1 | Inicio: propósito y pregunta sobre el título | 8 | Sustituye la dramatización |
+> | 2 | Desarrollo: lectura en pares | 12 | Una sola lectura; 3.º con preguntas literales y 4.º con una inferencial, escritas en la pizarra |
+> | 3 | Desarrollo: organizador en pares | 14 | Dos monitores de 4.º apoyan a 3.º durante 10 minutos |
+> | 4 | Transición | 2 | Fila nueva |
+> | 5 | Cierre: galería de organizadores y boleto de salida oral | 9 | Sustituye coevaluación y plenario |
+>
+> Qué se sacrificó y por qué: la dramatización (12 minutos que no aportaban a ningún criterio), la segunda lectura (se conserva el fragmento clave dentro de la primera) y la coevaluación entre grupos (el boleto de salida cubre el criterio 2 en menos tiempo).
+
+Por qué es correcta: la entrada trae la sesión, así que nada se inventa; conserva propósito, criterios y evidencia; cambia solo lo que obligan el tiempo y el multigrado; los minutos suman 45 (8; 12 + 14 + 2 = 28; 9); usa solo los recursos declarados (las preguntas diferenciadas van en la pizarra, sin copias nuevas); y lista lo sacrificado con su motivo.
 
 ## 14. Antipatrones
 

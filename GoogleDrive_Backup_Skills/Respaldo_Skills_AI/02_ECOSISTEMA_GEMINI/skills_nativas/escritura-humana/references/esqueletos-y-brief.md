@@ -1,6 +1,6 @@
 # Esqueletos por género, preguntas de brief y extensiones
 
-Anexo del motor `escritura-humana`. Origen: escritura-de-calidad/references/esqueletos-genero.md y brief-defaults.md. Las referencias a módulos antiguos se actualizaron a las secciones del motor.
+Anexo del motor `escritura-humana`. Origen: escritura-de-calidad/references/esqueletos-genero.md y brief-defaults.md (skills originales del usuario). Las referencias a módulos antiguos se actualizaron a las secciones del motor.
 
 Adáptalos, no los rellenes. Cada esqueleto describe el movimiento lógico del texto,
 no una plantilla de secciones a completar.
@@ -10,9 +10,9 @@ del más aceptable al más exigente → objeción principal y respuesta → cons
 cierre.
 
 **Ensayo académico**: igual, con tesis explícita al final de la introducción,
-evidencia citada según la norma pedida, contraargumento obligatorio, conclusión que
+evidencia citada según la norma pedida, contraargumento si la rúbrica lo pide (si no, uno breve si hay espacio), conclusión que
 enuncia implicaciones y límites. Señalización permitida pero mínima. Complementar
-siempre con `escritura-humana` (modo ensayo) para miniconclusiones por argumento y manejo
+siempre con `escritura-humana` (modo ensayo) para el cierre de cada argumento y el manejo
 de fuentes.
 
 **Ensayo personal o crónica**: escena → qué pasó → qué significó entonces → qué

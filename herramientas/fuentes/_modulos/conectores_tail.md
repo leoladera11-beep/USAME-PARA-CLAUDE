@@ -22,9 +22,9 @@ Entrada del usuario:
 
 Salida esperada del modelo:
 
-> La empresa redujo el horario de atención y, desde entonces, las quejas aumentaron un 30 %. La gerencia revisará la medida en junio.
+> Antes de unir las ideas necesito un dato: ¿las quejas aumentaron después de la reducción del horario, y la revisión de junio responde a esas quejas? El texto no lo dice, y un conector como "desde entonces" o "por eso" afirmaría un orden o una causa que no está en el original.
 >
-> Nota: uní las dos primeras ideas con una relación temporal; no escribí "por eso" ni "debido a" porque el texto no afirma que la reducción causara las quejas. Si la revisión de junio responde a las quejas, dímelo y lo hago explícito con "por eso".
+> Si respondes que sí a ambas, la versión sería: "La empresa redujo el horario de atención y, desde entonces, las quejas aumentaron un 30 %; por eso, la gerencia revisará la medida en junio." Si no, dejo las tres ideas separadas y solo corrijo la redacción.
 
 ### Ejemplo 2. Aperturas mecánicas y cierre que repite
 

@@ -1,6 +1,6 @@
 # Validador independiente de fidelidad
 
-Anexo del motor `escritura-humana`. Origen: escritura-humana/references/validador-independiente.md. Las referencias a módulos antiguos se actualizaron a las secciones del motor.
+Anexo del motor `escritura-humana`. Origen: escritura-humana-core/references/validador-independiente.md (skills originales del usuario). Las referencias a módulos antiguos se actualizaron a las secciones del motor.
 
 Segunda revisión cuya única tarea es detectar alteraciones y afirmaciones no respaldadas. No mejora el estilo y no reescribe. Se usa como paso final de `escritura-humana`, ya sea como pasada interna o pegando el prompt en una conversación nueva (más fiable, porque quien valida no es quien redactó).
 
@@ -18,7 +18,7 @@ En un texto breve sin datos basta una comprobación rápida de las cinco categor
 - Encargo original.
 - Texto fuente, si hubo reescritura.
 - Hechos aportados por el usuario y fuentes disponibles.
-- Restricciones expresas (incluidas la raya y la palabra vetada de `escritura-humana` (sección 3)).
+- Restricciones expresas (incluidas la raya y la palabra vetada de `escritura-humana-vocabulario`).
 
 ## Prompt para pegar en una conversación aparte
 
@@ -57,7 +57,7 @@ Rechaza el texto si contiene una cifra, fuente, experiencia, caso, cita, prueba 
 - **Afirmaciones sin respaldo.** Cifras, fechas, nombres, estudios, citas, casos y experiencias en primera persona sin origen en el material. También promesas de producto o resultados que nadie confirmó.
 - **Cambios de sentido.** Una posibilidad convertida en certeza, una asociación convertida en causa, una condición eliminada, un beneficio exagerado, una intención alterada, un verbo más fuerte que el original.
 - **Omisiones materiales.** Información del original cuya ausencia cambia la conclusión: una salvedad, una limitación, un denominador, un periodo, una atribución.
-- **Incumplimientos.** Cualquier restricción del encargo que el texto rompe: extensión, formato, variedad, tratamiento, raya, palabra vetada fuera de un ejercicio técnico, citas alteradas.
+- **Incumplimientos.** Cualquier restricción del encargo que el texto rompe: extensión, formato, variedad, tratamiento, raya, término vetado (única excepción: la fuerza de una cuerda en notación de mecánica), citas alteradas.
 - **Certeza excesiva.** Afirmaciones tajantes con evidencia dividida, o apoyadas en "los estudios demuestran" sin identificar ninguno.
 
 ## Criterio de rechazo

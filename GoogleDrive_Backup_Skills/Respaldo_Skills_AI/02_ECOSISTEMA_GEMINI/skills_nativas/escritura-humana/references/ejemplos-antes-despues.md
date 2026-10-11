@@ -1,6 +1,6 @@
 # Ejemplos antes y después
 
-Anexo del motor `escritura-humana`. Origen: escritura-humana/references/pattern-examples.md (serie A) y escritura-humana/references/ejemplos.md (serie B). Las referencias a módulos antiguos se actualizaron a las secciones del motor.
+Anexo del motor `escritura-humana`. Origen: escritura-humana-core/references/pattern-examples.md (serie A) y escritura-humana/references/ejemplos.md (serie B) (skills originales del usuario). Las referencias a módulos antiguos se actualizaron a las secciones del motor.
 
 ## Serie A. Patrones del núcleo (numeración P1 a P9 del motor y sobrecorrección)
 
@@ -35,10 +35,10 @@ Contenido:
 
 ### 2. Tricolon
 
-**Material:** aplicación de facturación que emite facturas desde el móvil y las concilia con el banco. No hay medición de tiempo.
+**Material:** aplicación de facturación que emite facturas desde el celular y las concilia con el banco. No hay medición de tiempo.
 
 **Antes:** "Mejora tu negocio, optimiza tu tiempo y calma tu mente."
-**Después:** "Emite una factura desde el móvil y concíliala con tu banco sin exportar nada."
+**Después:** "Emite una factura desde el celular y concíliala con tu banco sin exportar nada."
 
 **Tres legítimo:** "El formulario pide nombre, correo y número de pedido." (Si pide exactamente eso.)
 
@@ -51,7 +51,7 @@ Contenido:
 **Antes:** "Sumérgete en una experiencia sonora que actúa como un faro en tu día a día."
 **Después:** "Cancelan el ruido exterior y duran unas 30 horas por carga."
 
-Nota: la versión "Cancela el ruido. Eso es todo. Lo hace bien." también se rechaza, porque es staccato (ver sección 10).
+Nota: la versión "Cancela el ruido. Eso es todo. Lo hace bien." también se rechaza, porque es staccato (ver P10 en el manual).
 
 ---
 
@@ -216,7 +216,7 @@ Contraste legítimo (refuta una creencia real, una vez por texto)
 #### P2. Simetría automática y tricolon
 
 - Antes: "Únete, aprende y transforma tu carrera."
-- Después: "Si te apuntas ahora, en seis meses sabrás si este oficio es para ti y, si no lo es, habrás perdido poco."
+- Después: "Si te inscribes ahora, en seis meses sabrás si este oficio es para ti y, si no lo es, habrás perdido poco."
 
 Asunto de correo
 - Antes: "Aumenta tu productividad, reduce el estrés y mejora tus resultados."

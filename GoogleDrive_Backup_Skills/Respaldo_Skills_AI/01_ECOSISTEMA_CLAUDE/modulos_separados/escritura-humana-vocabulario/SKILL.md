@@ -28,7 +28,7 @@ No existe un signo sustituto fijo; identifica primero la relación entre las dos
 | Inciso largo | dividir en dos oraciones |
 | Relación causal o adversativa real | un conector, solo si esa relación está en el original |
 
-Después de corregir, comprueba que no creaste el defecto contrario: punto y coma en casi cada oración, dos puntos en cadena o paréntesis acumulados. Los diálogos de redacción propia, incluso en narrativa, van con comillas o con el nombre del hablante seguido de dos puntos. El guion corto se mantiene en palabras compuestas, listas Markdown, rangos numéricos y como signo menos. Si una cita literal ya trae raya, no la alteres en silencio (sección 1). Las rayas dentro de bloques de código, comandos, rutas y URL no se tocan.
+Después de corregir, comprueba que no creaste el defecto contrario: punto y coma en casi cada oración, dos puntos en cadena o paréntesis acumulados. Los diálogos de redacción propia, incluso en narrativa, van con comillas o con el nombre del hablante seguido de dos puntos. El guion corto se mantiene en palabras compuestas, listas Markdown, rangos numéricos y como signo menos. Si una cita literal ya trae raya, no la alteres en silencio (sección 1 del núcleo). Las rayas dentro de bloques de código, comandos, rutas y URL no se tocan.
 
 ### 3.2 Término vetado
 
@@ -45,7 +45,7 @@ El término vetado es el sustantivo derivado de «tenso», en singular y en plur
 | Conflicto social, político o entre personas | fricciones, roces, tiranteces, disputas, desacuerdos, enfrentamientos, choques, pugna, rivalidad, hostilidades | Fricciones y tiranteces encajan en un informe o un ensayo; roces, desacuerdos y choques, en lo cotidiano. Un desacuerdo cordial no es una hostilidad; en un texto histórico, la intensidad debe coincidir con lo que dicen las fuentes. |
 | Estado emocional | estrés, presión, nerviosismo, inquietud, desasosiego, agobio, ansiedad | "Ansiedad" está permitida, pero no como reemplazo automático: suena clínica y puede subir la intensidad. No añadas síntomas que el original no menciona. |
 | Suspenso narrativo o dramático | suspenso, intriga, expectación | Mantén el grado de la escena. |
-| Físico o mecánico fuera de un ejercicio técnico | tirantez, rigidez, presión, contracción | Nunca "fuerza" cuando la magnitud original está en pascales. |
+| Físico o mecánico (fuera de la notación de la fuerza de una cuerda) | tirantez, rigidez, presión, contracción | Nunca "fuerza" cuando la magnitud original está en pascales. |
 
 Única excepción técnica: en un problema o documento de mecánica (diagrama de cuerpo libre, cuerda, cable, polea), la fuerza que ejerce la cuerda conserva su nombre técnico estándar, con símbolo $T$. Fuera de ese caso no hay excepción:
 
@@ -64,7 +64,7 @@ Español latinoamericano neutro: tuteo o usted según el caso (el tratamiento es
 
 ### 3.5 Negritas, viñetas y formato
 
-Nunca decorativos. Un texto en prosa que se entrega dentro del chat va sin negritas ni asteriscos; la negrita real se reserva para documentos y para los casos de la sección 9.3.8. Las viñetas se usan solo para elementos paralelos e independientes, nunca para argumentar. Los encabezados no se usan en textos de menos de unas 500 palabras salvo que el género los pida. La notación técnica (pasos de un ejercicio, tablas de datos) queda fuera de esta regla.
+Nunca decorativos. Un texto en prosa que se entrega dentro del chat va sin negritas ni asteriscos; la negrita real se reserva para documentos y para los casos del punto 8 (Negrita adaptativa) del módulo `escritura-humana-ensayos`. Las viñetas se usan solo para elementos paralelos e independientes, nunca para argumentar. Los encabezados no se usan en textos de menos de unas 500 palabras salvo que el género los pida. La notación técnica (pasos de un ejercicio, tablas de datos) queda fuera de esta regla.
 
 ## Léxico inflado y tabla de reemplazos
 
@@ -72,7 +72,7 @@ Nunca decorativos. Un texto en prosa que se entrega dentro del chat va sin negri
 
 Antes de sustituir una palabra, entiende qué dice la oración. Corregir no es pasar cada palabra vetada por una lista de sinónimos: es detectar si la oración funciona y, si no funciona, reescribirla con la información real que tiene detrás. Un sinónimo elegido sin ese paso puede seguir sonando raro, cambiar el significado o exagerar lo que el texto dice. Nunca inventes funciones, cifras o resultados para justificar el cambio.
 
-### 1. Vocabulario grandilocuente (P3)
+### Vocabulario grandilocuente (P3)
 
 Prohibido como adorno o relleno:
 - tapiz / rico tapiz; faro de esperanza / faro en la oscuridad; viaje (para procesos);
@@ -85,12 +85,12 @@ Prohibido como adorno o relleno:
 Esta lista marca usos ornamentales, no literales o técnicos. "Tapiz" en un texto sobre textiles, "robusto" como término estadístico o "ecosistema" en biología no están prohibidos. Antes de intervenir pregúntate qué información aporta la palabra.
 
 #### Valoraciones sin respaldo
-Innovador, revolucionario, transformador, disruptivo, excepcional, integral, estratégico, clave, crucial, fundamental, vital. No están prohibidas por sí mismas: se conservan si el texto sostiene la afirmación. Si no la sostiene, describe el rasgo conocido en lugar del adjetivo, sin inventar cifras.
+Innovador, revolucionario, transformador, disruptivo, excepcional, integral, estratégico, clave, crucial, fundamental, esencial, vital. No están prohibidas por sí mismas: se conservan si el texto sostiene la afirmación. Si no la sostiene, describe el rasgo conocido en lugar del adjetivo, sin inventar cifras.
 
 #### Nominalizaciones que ocultan la acción
 "Llevar a cabo la implementación", "proceder a la realización", "efectuar una revisión", "dar cumplimiento". Prefiere el verbo directo (implementar, hacer, revisar, cumplir), salvo en textos jurídicos o técnicos donde la expresión deba conservarse.
 
-### 2. Tabla de reemplazos
+### Tabla de reemplazos
 
 Elige según el contexto y comprueba la oración completa. Los corchetes son marcadores que se completan con datos reales.
 
@@ -114,53 +114,18 @@ Elige según el contexto y comprueba la oración completa. Los corchetes son mar
 | siendo, permitiendo (gerundio inicial) | dos oraciones con verbo conjugado y "porque" o "por eso" |
 | recuerda que el futuro depende de ti | eliminar y terminar en el paso siguiente |
 
-### 3. Palabra vetada (derivada de «tenso»)
+### Casos de prueba de las restricciones absolutas
 
-En cualquier texto de comunicación (ensayo, informe, correo, publicación, narrativa, guion o cualquier texto pensado para un lector) no se usa el sustantivo que deriva de «tenso», ni en singular ni en plural, en ninguna forma gráfica. La regla se aplica de este modo:
+En estos casos, [término vetado] representa el sustantivo derivado de «tenso» que trae el texto del usuario.
 
-Procedimiento antes de elegir una alternativa:
-1. Determina si la oración habla de un conflicto entre personas, de un estado emocional, de un suspenso narrativo o de un fenómeno físico.
-2. Determina la intensidad real que expresa el texto, sin subirla ni bajarla.
-3. Determina el registro (académico, informe o conversación cotidiana).
-4. Comprueba si conviene describir la situación directamente en lugar de buscar un sinónimo.
-5. Elige la alternativa y revisa la oración completa.
-
-Alternativas por contexto:
-- **Conflicto social, político o entre personas:** fricciones, roces, tiranteces, disputas, hostilidades, desacuerdos, enfrentamientos, choques, pugna, rivalidad. El registro decide: fricciones y tiranteces encajan en un informe o un ensayo; roces, desacuerdos y choques suenan a conversación cotidiana. No conviertas un desacuerdo cordial en hostilidad ni una rivalidad estable en un enfrentamiento abierto. En un texto histórico, revisa que la intensidad coincida con lo que describen las fuentes.
-- **Estado emocional:** estrés, presión, nerviosismo, inquietud, desasosiego, agobio. No uses "ansiedad" como sustituto automático (convierte un malestar impreciso en un término clínico) ni añadas síntomas físicos que el original no menciona.
-- **Suspenso narrativo o dramático:** suspenso, intriga, expectación.
-- **Físico o mecánico fuera de un ejercicio técnico:** tirantez, rigidez, presión, contracción. Nunca "fuerza" cuando la magnitud original está en pascales.
-
-#### Uso permitido en ejercicios técnicos
-
-Un ejercicio de física, un diagrama de cuerpo libre, un problema de circuitos o de resistencia de materiales no es un texto de comunicación: es notación técnica con convención propia, y la prohibición no aplica. Distingue tres magnitudes que no son intercambiables:
-- Mecánica (cuerda, cable o polea): la fuerza en newtons conserva su nombre técnico estándar.
-- Circuitos: el voltaje conserva su nombre técnico estándar.
-- Resistencia de materiales: el esfuerzo normal o de tracción, en pascales, se llama «esfuerzo» en la bibliografía latinoamericana.
-Si un ejercicio mezcla notación técnica con prosa dirigida al lector (por ejemplo, un párrafo que interpreta el resultado), aplica la convención técnica a la notación y la prohibición al resto.
-
-#### Verificación con casos de prueba (la palabra vetada se representa como [palabra vetada])
-
-- Entrada: "Hay [palabra vetada] entre los hermanos por el reparto de la herencia." Esperado: "La relación entre los hermanos se ha vuelto tirante por el reparto de la herencia." Inaceptable: "mantienen un enfrentamiento hostil" (sube la intensidad sin base).
-- Entrada, ensayo de historia: "Las [palabra vetada] diplomáticas entre los dos países aumentaron tras el tratado." Esperado: elegir entre fricciones, roces o desacuerdos según lo que describan las fuentes, sin escalar a "hostilidades abiertas" si el hecho no lo sostiene.
-- Entrada, resistencia de materiales: "La [palabra vetada] de tracción se expresa en pascales." Esperado: "El esfuerzo de tracción se expresa en pascales." Inaceptable: "La fuerza de tracción se expresa en pascales" (cambia la unidad implícita).
-- Entrada, mecánica: la fuerza de la cuerda que sostiene un bloque, en newtons. Esperado: se conserva el nombre técnico tal cual, porque es la magnitud misma.
-
-### 4. Raya (guion largo)
-
-Nunca se usa en texto de redacción propia (títulos, tablas, ejemplos, diálogos, listas o explicaciones), ni doble guion ni otro sucedáneo. La regla de puntuación por función está en la sección 3 del SKILL.md. Casos de prueba:
-
-- Entrada: un párrafo con cuatro rayas que cumplen funciones distintas (un inciso, una explicación, una interrupción, una separación entre proposiciones). Esperado: cada una puntuada según su función. Sospechoso: las cuatro convertidas en punto y coma.
-- Entrada: transcripción literal de un fragmento que contiene una raya. Esperado: señalar la incompatibilidad y ofrecer una paráfrasis identificada como tal, sin alterar la cita en silencio.
-- Se mantiene el guion corto en palabras compuestas y en listas Markdown, y no debe confundirse con el signo menos en expresiones matemáticas.
-
-### 5. Verificación final (cada punto es independiente)
-
-1. ¿Queda alguna palabra de la lista grandilocuente sin función literal o técnica?
-2. ¿Aparece la palabra vetada en un texto de comunicación? Si es un ejercicio técnico, ¿la magnitud corresponde (mecánica o circuitos, nombre técnico; materiales, esfuerzo)?
-3. ¿Aparece la raya, el doble guion u otro sucedáneo?
-4. ¿La sustitución elegida cambió la intensidad, inventó un dato o alteró una magnitud técnica?
-5. ¿El párrafo completo, no solo la oración corregida, sigue sonando a la voz del texto?
+- Entrada: "Hay [término vetado] entre los hermanos por el reparto de la herencia." Esperado: "La relación entre los hermanos se ha vuelto tirante por el reparto de la herencia." Inaceptable: "mantienen un enfrentamiento hostil" (sube la intensidad sin base).
+- Entrada, ensayo de historia: "Las [término vetado] diplomáticas entre los dos países aumentaron tras el tratado." Esperado: fricciones, roces o desacuerdos según lo que describan las fuentes, sin escalar a "hostilidades abiertas" si el hecho no lo sostiene.
+- Entrada, resistencia de materiales: "La [término vetado] de tracción se expresa en pascales." Esperado: "El esfuerzo de tracción se expresa en pascales." Inaceptable: "La fuerza de tracción se expresa en pascales" (cambia la unidad implícita).
+- Entrada, circuitos: "La [término vetado] en el nodo A es de 12 voltios." Esperado: "El voltaje en el nodo A es de 12 voltios" o "La diferencia de potencial en el nodo A es de 12 V".
+- Entrada, mecánica: la fuerza de la cuerda que sostiene un bloque, en newtons, dentro de la notación de un problema de física. Esperado: se conserva el nombre técnico estándar de esa fuerza y su símbolo $T$, única excepción de la regla.
+- Entrada: un párrafo con cuatro rayas que cumplen funciones distintas (inciso, explicación, interrupción, separación entre proposiciones). Esperado: cada una puntuada según su función. Sospechoso: las cuatro convertidas en punto y coma.
+- Entrada: transcripción literal de un fragmento que contiene una raya o el término vetado. Esperado: señalar la incompatibilidad y ofrecer una paráfrasis identificada como tal, sin alterar la cita en silencio.
+- Entrada: "Mándame el archivo cuando puedas, lo reviso esta tarde." Esperado: sin cambios.
 
 ## Casos de uso típicos
 
@@ -170,7 +135,6 @@ Nunca se usa en texto de redacción propia (títulos, tablas, ejemplos, diálogo
 
 ## Casos límite
 
-- Cita literal, título oficial o identificador que contiene un elemento vetado: no se altera en silencio; se señala y se ofrece una paráfrasis identificada como tal.
 - Ejercicio de mecánica: la fuerza de una cuerda, cable o polea conserva su nombre técnico estándar; la prosa que interpreta el resultado para un lector aplica la prohibición.
 - Circuitos: se escribe voltaje o diferencia de potencial. Resistencia de materiales: esfuerzo.
 - Uso literal o técnico de una palabra de la lista (un tapiz textil, "robusto" estadístico): no se toca.
@@ -178,19 +142,20 @@ Nunca se usa en texto de redacción propia (títulos, tablas, ejemplos, diálogo
 
 ## Ejemplos completos
 
-### Ejemplo 1. Término vetado y raya en un informe
+### Ejemplo 1. Diálogo narrativo con raya y modismos peninsulares
 
 Entrada del usuario:
 
-> Corrige este fragmento de mi informe: "Las [término vetado] entre el sindicato y la gerencia crecieron en marzo [raya] la empresa congeló los salarios [raya] y la huelga parecía inevitable."
+> Corrige este fragmento de mi cuento: [raya]Vale, coge el móvil y vámonos[raya] dijo Ana. [raya]¿Ahora?[raya] preguntó Luis.
 >
-> (En este respaldo, [término vetado] y [raya] representan lo que trae el texto del usuario, para que ningún archivo del sistema contenga esos elementos.)
+> (En este respaldo, [raya] representa el guion largo U+2014 que trae el texto del usuario.)
 
 Salida esperada del modelo:
 
-> Las fricciones entre el sindicato y la gerencia crecieron en marzo (la empresa congeló los salarios) y la huelga parecía inevitable.
+> "Está bien, agarra el celular y vámonos", dijo Ana.
+> "¿Ahora?", preguntó Luis.
 >
-> Cambios: "fricciones" mantiene la intensidad del original en registro de informe; las rayas del inciso pasan a paréntesis porque es información secundaria y el original no afirmaba una causa.
+> Cambios: los diálogos pasan de raya a comillas; "vale", "coge" y "móvil" se cambian por equivalentes del español latinoamericano neutro ("está bien", "agarra", "celular"), sin tocar el contenido ni el tono de la escena.
 
 ### Ejemplo 2. Léxico inflado con uso literal protegido
 
@@ -200,9 +165,9 @@ Entrada del usuario:
 
 Salida esperada del modelo:
 
-> El museo restauró un tapiz del siglo XVII.
+> El museo restaura un tapiz del siglo XVII.
 >
-> Cambios: se eliminan "en el vertiginoso mundo actual", "se sumerge" y "viaje fascinante", que no informaban nada; "tapiz" se conserva porque aquí es un objeto textil. Si quieres un texto más largo, necesito un dato real de la restauración: [DATO: técnica, duración o hallazgo].
+> Cambios: se eliminan "en el vertiginoso mundo actual", "se sumerge" y "viaje fascinante", que no informaban nada; "tapiz" se conserva porque aquí es un objeto textil; el tiempo verbal del original (presente, restauración en curso) se mantiene. Si quieres un texto más largo, necesito un dato real de la restauración: [DATO: técnica, duración o hallazgo].
 
 ## Antipatrones
 
