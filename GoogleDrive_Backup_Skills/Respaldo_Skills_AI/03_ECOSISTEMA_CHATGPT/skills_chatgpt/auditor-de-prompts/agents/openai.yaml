@@ -1,0 +1,6 @@
+interface:
+  display_name: "Auditor de prompts e instrucciones"
+  short_description: "Audita y reescribe prompts, briefs y SOPs"
+  default_prompt: "¿Este system prompt funciona? [pega el prompt]"
+policy:
+  allow_implicit_invocation: true

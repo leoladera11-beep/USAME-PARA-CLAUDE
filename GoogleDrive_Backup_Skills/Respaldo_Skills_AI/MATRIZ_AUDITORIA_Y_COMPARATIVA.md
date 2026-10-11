@@ -1,6 +1,6 @@
 # Matriz de auditoría y comparativa
 
-Respaldo generado el 2026-10-11 en `GoogleDrive_Backup_Skills/Respaldo_Skills_AI`. Contiene las 16 skills originales sin alterar, siete motores consolidados y sus versiones calibradas para Claude, Gemini y ChatGPT (111 archivos Markdown nuevos, además del respaldo original).
+Respaldo generado el 2026-10-11 en `GoogleDrive_Backup_Skills/Respaldo_Skills_AI`. Contiene las 16 skills originales sin alterar, siete motores consolidados y sus versiones calibradas para Claude, Gemini y ChatGPT (126 archivos Markdown nuevos, además del respaldo original).
 
 ## 1. Resumen
 
@@ -8,7 +8,7 @@ Respaldo generado el 2026-10-11 en `GoogleDrive_Backup_Skills/Respaldo_Skills_AI
 |---|---|
 | 16 skills, cuatro jerarquías de reglas distintas, tres módulos de auditoría de prompts solapados y dependencias en círculo | 7 motores con una sola jerarquía, un dueño por función y un enrutador explícito |
 | Reglas de estilo repetidas en cinco archivos con umbrales que no coincidían | Una fuente de verdad por regla (manual del motor) y anexos de consulta |
-| Una plataforma (Claude) | Tres plataformas, cada una con tres formatos de uso |
+| Una plataforma (Claude) | Tres plataformas, con skills nativas en las tres y formatos adicionales (comandos, Gems, Custom GPTs, prompts autosuficientes) |
 | Sin ejemplos de entrada y salida en la mayoría de las skills | Cada motor con casos típicos, casos límite, dos ejemplos completos y antipatrones |
 
 Fase 1 (detección de Google Drive): el sistema donde se ejecutó la tarea es un contenedor Linux sin ninguna unidad de Google Drive montada; se revisaron `G:\Mi unidad`, `G:\My Drive`, `~/Google Drive`, `~/Library/CloudStorage/GoogleDrive*`, `/Volumes/GoogleDrive*` y equivalentes. Por eso el destino es la carpeta local `GoogleDrive_Backup_Skills/Respaldo_Skills_AI/`, lista para subir a Drive (sección 9).
@@ -125,6 +125,7 @@ Cada manual incluye: modos y enrutamiento; reglas con su excepción; casos de us
 | Gemini | `02_ECOSISTEMA_GEMINI/gemini_standalone/` | Prompt de arranque por motor, con ejemplos | Para pegar al inicio de un chat |
 | ChatGPT | `03_ECOSISTEMA_CHATGPT/custom_gpts/` | `instrucciones.md` (con Action Triggers y encabezados `### Directiva`) y `configuracion.md` por GPT, más un GPT unificado | Todas las instrucciones por debajo de 8000 caracteres; tablas y ejemplos trasladados a Knowledge |
 | ChatGPT | `03_ECOSISTEMA_CHATGPT/knowledge_files/` | Manual completo y anexos de cada motor, con nombres planos | Listos para la sección Knowledge (máximo 20 archivos por GPT) |
+| ChatGPT y Codex | `03_ECOSISTEMA_CHATGPT/skills_chatgpt/` | Skills en formato Agent Skills: `SKILL.md`, `references/`, `scripts/` y `agents/openai.yaml`; zips listos en `skills_chatgpt_zip/` | Sección de calibración: herramienta de Python, búsqueda con citas, lienzo, generación de imágenes, notación `\( \)` y `\[ \]`, prioridad de la skill sobre la memoria |
 | ChatGPT | `03_ECOSISTEMA_CHATGPT/chatgpt_standalone/` | System prompt autosuficiente por motor | Para Projects o chat, sin Knowledge |
 
 ## 7. Validación automática
@@ -170,7 +171,7 @@ Cada manual incluye: modos y enrutamiento; reglas con su excepción; casos de us
 
 ### 8.3 Claude Cowork y skills de claude.ai
 
-1. Comprime cada carpeta de `01_ECOSISTEMA_CLAUDE/.claude/skills/<motor>/` en un `.zip` (la carpeta, con su `SKILL.md` en la raíz).
+1. Usa los `.zip` ya preparados de `01_ECOSISTEMA_CLAUDE/skills_zip/` (uno por motor, con la carpeta y su `SKILL.md` en la raíz).
 2. En claude.ai abre la configuración de capacidades, sección Skills, y sube cada `.zip` (requiere un plan con Skills habilitadas).
 3. Las skills activadas en tu cuenta quedan disponibles para Cowork y para los chats; si prefieres trabajar por proyecto, usa la guía 8.2.
 
@@ -205,7 +206,13 @@ Abre un chat nuevo y pega como primer mensaje el bloque del archivo del motor en
 5. Activa Code Interpreter en los GPT de ejercicios y maquetación; activa la generación de imágenes en el de identidad de marca si quieres probar los prompts de logo.
 6. Alternativa de un solo GPT: `custom_gpts/00_gpt_unificado/` con los siete manuales en Knowledge.
 
-### 8.9 ChatGPT: Projects y chat
+### 8.9 ChatGPT y Codex: skills
+
+1. En ChatGPT, abre la sección de Skills, elige Crear y sube cada `.zip` de `03_ECOSISTEMA_CHATGPT/skills_chatgpt_zip/`. Según la documentación pública, las skills personales están en planes Business, Enterprise y Edu; si tu plan no las tiene, usa la guía 8.8 o 8.10.
+2. En Codex, copia las carpetas de `03_ECOSISTEMA_CHATGPT/skills_chatgpt/` a la carpeta de skills de tu instalación (`~/.codex/skills/`, `~/.agents/skills/` o `.agents/skills/` del repositorio) e invócalas con `$nombre` o `/skills`.
+3. Detalles en `03_ECOSISTEMA_CHATGPT/skills_chatgpt/README.md`.
+
+### 8.10 ChatGPT: Projects y chat
 
 Crea un Project, pega `chatgpt_standalone/<motor>.md` (el bloque interior) en las instrucciones del Project y, si quieres más detalle, añade el manual del motor como archivo. En un chat suelto, pega el mismo bloque como primer mensaje.
 
@@ -240,7 +247,7 @@ Respaldo_Skills_AI/
 │   │   ├── commands/
 │   │   │   └── (7 archivos)
 │   │   └── skills/
-│   │       └── (14 archivos)
+│   │       └── (15 archivos)
 │   ├── chat_standalone/
 │   │   ├── auditor-de-prompts.md
 │   │   ├── ejercicios-dos-pasos.md
@@ -253,6 +260,14 @@ Respaldo_Skills_AI/
 │   │   ├── knowledge/
 │   │   │   └── (14 archivos)
 │   │   └── instrucciones_proyecto.md
+│   ├── skills_zip/
+│   │   ├── auditor-de-prompts.zip
+│   │   ├── ejercicios-dos-pasos.zip
+│   │   ├── escritura-humana.zip
+│   │   ├── identidad-de-marca.zip
+│   │   ├── maquetacion-pdf-documentos.zip
+│   │   ├── motor-pedagogico.zip
+│   │   └── preparador-de-clases.zip
 │   └── CLAUDE.md
 ├── 02_ECOSISTEMA_GEMINI/
 │   ├── gemini_standalone/
@@ -269,7 +284,7 @@ Respaldo_Skills_AI/
 │   │   ├── ejercicios-dos-pasos/
 │   │   │   └── (1 archivo)
 │   │   ├── escritura-humana/
-│   │   │   └── (8 archivos)
+│   │   │   └── (9 archivos)
 │   │   ├── identidad-de-marca/
 │   │   │   └── (1 archivo)
 │   │   ├── maquetacion-pdf-documentos/
@@ -313,11 +328,35 @@ Respaldo_Skills_AI/
 │   │   │   └── (2 archivos)
 │   │   └── preparador-de-clases/
 │   │       └── (2 archivos)
-│   └── knowledge_files/
-│       ├── auditor-de-prompts_manual.md
-│       ├── ejercicios-dos-pasos_manual.md
-│       ├── escritura-humana_casos-negrita.md
-│       ├── escritura-humana_catalogo-humanizer.md
-│       └── ... y 10 archivos más
+│   ├── knowledge_files/
+│   │   ├── auditor-de-prompts_manual.md
+│   │   ├── ejercicios-dos-pasos_manual.md
+│   │   ├── escritura-humana_casos-negrita.md
+│   │   ├── escritura-humana_catalogo-humanizer.md
+│   │   └── ... y 10 archivos más
+│   ├── skills_chatgpt/
+│   │   ├── auditor-de-prompts/
+│   │   │   └── (2 archivos)
+│   │   ├── ejercicios-dos-pasos/
+│   │   │   └── (2 archivos)
+│   │   ├── escritura-humana/
+│   │   │   └── (10 archivos)
+│   │   ├── identidad-de-marca/
+│   │   │   └── (2 archivos)
+│   │   ├── maquetacion-pdf-documentos/
+│   │   │   └── (2 archivos)
+│   │   ├── motor-pedagogico/
+│   │   │   └── (2 archivos)
+│   │   ├── preparador-de-clases/
+│   │   │   └── (2 archivos)
+│   │   └── README.md
+│   └── skills_chatgpt_zip/
+│       ├── auditor-de-prompts.zip
+│       ├── ejercicios-dos-pasos.zip
+│       ├── escritura-humana.zip
+│       ├── identidad-de-marca.zip
+│       ├── maquetacion-pdf-documentos.zip
+│       ├── motor-pedagogico.zip
+│       └── preparador-de-clases.zip
 └── MATRIZ_AUDITORIA_Y_COMPARATIVA.md
 ```

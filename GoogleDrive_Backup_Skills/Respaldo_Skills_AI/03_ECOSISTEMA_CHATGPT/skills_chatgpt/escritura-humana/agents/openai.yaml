@@ -1,0 +1,6 @@
+interface:
+  display_name: "Motor de escritura humana"
+  short_description: "Textos en español que suenan humanos, sin datos inventados"
+  default_prompt: "Esto suena a IA, hazlo natural: [pega tu texto]"
+policy:
+  allow_implicit_invocation: true

@@ -1,0 +1,6 @@
+interface:
+  display_name: "Preparador de clases"
+  short_description: "Sesiones de clase listas para aula (CNEB)"
+  default_prompt: "Prepárame una clase de 45 minutos de [tema] para [grado]"
+policy:
+  allow_implicit_invocation: true

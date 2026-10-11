@@ -1,0 +1,6 @@
+interface:
+  display_name: "Maquetación de PDFs y documentos técnicos"
+  short_description: "Documentos técnicos en PDF y DOCX, A4"
+  default_prompt: "Hazme una ficha de práctica de [tema] en PDF y Word"
+policy:
+  allow_implicit_invocation: true

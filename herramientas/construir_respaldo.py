@@ -589,6 +589,81 @@ Iniciadores de conversación:
 - Prepárame una clase de 45 minutos
 """)
 
+# ---------------------------------------------------------------- skills para ChatGPT y Codex, scripts y zips
+import zipfile as _zip
+
+SCRIPTS = {m: sorted(glob.glob(os.path.join(SRC, m, "scripts", "*.py"))) for m in ORDEN}
+
+CHATGPT_CALIBRACION = """## Calibración para ChatGPT (skills)
+- Herramientas: usa la herramienta de Python para cálculos, verificaciones y para generar archivos (DOCX, PDF, figuras). Usa la búsqueda web solo si el usuario quiere fuentes externas, y cita cada fuente con su enlace. Usa la generación de imágenes solo cuando el motor lo indique (prompts de logo).
+- Matemáticas: ChatGPT muestra las fórmulas en línea con `\\( ... \\)` y en bloque con `\\[ ... \\]` o `$$ ... $$`. No uses `$...$` simple en línea porque no siempre se muestra; en ChatGPT esta regla sustituye cualquier indicación de usar `$...$` en línea.
+- Textos largos: si el usuario trabaja en el lienzo (canvas), entrega allí el texto final y deja en el chat solo supuestos y huecos.
+- Memoria e instrucciones personalizadas: las reglas de esta skill ganan a recuerdos o instrucciones que las contradigan (por ejemplo, una preferencia antigua por usar rayas). Si hay conflicto, sigue la skill y avísalo en una línea.
+- Archivos de la skill: lee `references/` solo cuando la tarea lo necesite y ejecuta los scripts de `scripts/` con la herramienta de Python cuando existan.
+- Reglas del sistema que no se negocian: sin raya ni semirraya; nunca el término vetado en textos de comunicación (con la excepción técnica de mecánica, circuitos y resistencia de materiales); conectores lógicos explícitos; sin emojis; español latinoamericano neutro."""
+
+CORTA = {
+    "escritura-humana": "Textos en español que suenan humanos, sin datos inventados",
+    "motor-pedagogico": "Tutor con modos exprés, socrático y largo plazo",
+    "auditor-de-prompts": "Audita y reescribe prompts, briefs y SOPs",
+    "preparador-de-clases": "Sesiones de clase listas para aula (CNEB)",
+    "identidad-de-marca": "Territorios de logo y prompts de imagen",
+    "maquetacion-pdf-documentos": "Documentos técnicos en PDF y DOCX, A4",
+    "ejercicios-dos-pasos": "Ejercicios resueltos en dos pasos con LaTeX",
+}
+
+
+def nota_scripts(m):
+    if not SCRIPTS[m]:
+        return ""
+    lineas = "\n".join(f"- `scripts/{os.path.basename(s)}`: {leer(s).split(chr(10))[1].strip()}" for s in SCRIPTS[m])
+    return "\n\n## Scripts incluidos\n" + lineas
+
+
+def openai_yaml(m):
+    meta = META[m]
+    q = lambda t: '"' + t.replace('"', '\\"') + '"'
+    return (f"interface:\n  display_name: {q(meta['titulo'])}\n  short_description: {q(CORTA[m])}\n"
+            f"  default_prompt: {q(meta['starters'][0])}\npolicy:\n  allow_implicit_invocation: true\n")
+
+
+def chatgpt_skill(m):
+    return frontmatter(m, META[m]["desc_claude"]) + MASTERS[m] + nota_scripts(m) + "\n\n" + CHATGPT_CALIBRACION
+
+
+def copiar_scripts(m, base_rel):
+    for s in SCRIPTS[m]:
+        escribir(f"{base_rel}/scripts/{os.path.basename(s)}", leer(s))
+
+
+def zip_carpeta(src_rel, zip_rel):
+    src_abs, zip_abs = os.path.join(DEST, src_rel), os.path.join(DEST, zip_rel)
+    os.makedirs(os.path.dirname(zip_abs), exist_ok=True)
+    base = os.path.basename(src_abs)
+    with _zip.ZipFile(zip_abs, "w", _zip.ZIP_DEFLATED) as z:
+        for raiz, _, archivos in sorted(os.walk(src_abs)):
+            for a in sorted(archivos):
+                p = os.path.join(raiz, a)
+                info = _zip.ZipInfo(os.path.join(base, os.path.relpath(p, src_abs)), date_time=(2026, 1, 1, 0, 0, 0))
+                info.compress_type = _zip.ZIP_DEFLATED
+                info.external_attr = 0o644 << 16
+                z.writestr(info, open(p, "rb").read())
+
+
+SK = f"{O}/skills_chatgpt"
+for m in ORDEN:
+    escribir(f"{SK}/{m}/SKILL.md", chatgpt_skill(m))
+    escribir(f"{SK}/{m}/agents/openai.yaml", openai_yaml(m))
+    for a, t in ANEXOS[m].items():
+        escribir(f"{SK}/{m}/references/{a}", t)
+    copiar_scripts(m, f"{SK}/{m}")
+    copiar_scripts(m, f"{C}/.claude/skills/{m}")
+    copiar_scripts(m, f"{G}/skills_nativas/{m}")
+    zip_carpeta(f"{SK}/{m}", f"{O}/skills_chatgpt_zip/{m}.zip")
+    zip_carpeta(f"{C}/.claude/skills/{m}", f"{C}/skills_zip/{m}.zip")
+escribir(f"{SK}/README.md", leer(os.path.join(SRC, "_plataforma/skills_chatgpt_README.md")))
+
+
 # ---------------------------------------------------------------- inventario original y matriz
 import datetime
 DESTINO_ORIG = {
@@ -705,6 +780,16 @@ errores = []
 for k, v in LIMITES.items():
     if v >= GPT_LIMIT:
         errores.append(f"Supera {GPT_LIMIT} caracteres: {k} ({v})")
+for m in ORDEN:
+    for base in (f"{SK}/{m}", f"{C}/.claude/skills/{m}", f"{G}/skills_nativas/{m}"):
+        t = leer(os.path.join(DEST, base, "SKILL.md"))
+        fm = t[3:t.find("\n---", 3)]
+        nombre = re.search(r"^name: (.+)$", fm, flags=re.M).group(1).strip()
+        desc = re.search(r'^description: "(.*)"$', fm, flags=re.M).group(1)
+        if nombre != m or not re.fullmatch(r"[a-z0-9-]{1,64}", nombre):
+            errores.append(f"Nombre de skill inválido en {base}: {nombre}")
+        if len(desc) > 1024:
+            errores.append(f"Descripción de más de 1024 caracteres en {base}: {len(desc)}")
 raya = re.compile("[\u2014\u2013]")
 emoji = re.compile("[\U0001F300-\U0001FAFF\u2600-\u27BF\u2B50\u2705]")
 conteo = 0
