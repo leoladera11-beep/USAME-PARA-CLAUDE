@@ -45,7 +45,7 @@ Elige según el contexto y comprueba la oración completa. Los corchetes son mar
 | es fundamental, es crucial (sin prueba) | "es necesario para [objetivo], ya que [motivo]" |
 | en términos generales, en definitiva | eliminar, o "en concreto" más un dato |
 | potente, intuitiva, escalable | una prueba de uso más una cifra con su muestra |
-| siendo, permitiendo (gerundio inicial) | dos oraciones con verbo conjugado y "porque" o "por eso" |
+| siendo (gerundio inicial), permitiendo (gerundio colgante final) | dos oraciones con verbo conjugado y "porque" o "por eso" |
 | recuerda que el futuro depende de ti | eliminar y terminar en el paso siguiente |
 
 ## 3. Casos de prueba de las restricciones absolutas

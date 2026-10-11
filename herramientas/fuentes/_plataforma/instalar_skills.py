@@ -25,6 +25,7 @@ Las skills de claude.ai y de ChatGPT web no se instalan por script: se suben los
 .zip a mano (ver INSTALAR.md). Solo usa la biblioteca estándar de Python 3.
 """
 import argparse
+import atexit
 import datetime
 import hashlib
 import io
@@ -63,6 +64,7 @@ def descargar_paquete(url, rama):
     with urllib.request.urlopen(zip_url, timeout=60) as r:
         datos = r.read()
     destino = tempfile.mkdtemp(prefix="skills_paquete_")
+    atexit.register(shutil.rmtree, destino, True)  # la descarga temporal se borra al terminar
     with zipfile.ZipFile(io.BytesIO(datos)) as z:
         z.extractall(destino)
     for raiz, _, archivos in os.walk(destino):
@@ -198,6 +200,8 @@ def instalar_carpeta(origen, destino, version, args, respaldo, resumen):
         ajena = retirar_enlace(destino, args, respaldo)
     elif existe and not marca:
         print(f"  AVISO: {destino} existe y no fue instalada por este paquete; se respalda y se reemplaza.")
+    elif existe and suma_carpeta(destino) != marca.get("sha256"):
+        print(f"  AVISO: {destino} tenía cambios locales; quedan en la copia de respaldo ({respaldo}).")
     print(f"  {accion}: {destino}")
     if not args.simular:
         if os.path.lexists(destino):
@@ -294,10 +298,13 @@ def estado_archivo(origen, destino):
         return "no instalado"
     if os.path.islink(destino):
         return "enlace simbólico ajeno (no instalado por este paquete)"
-    situacion = "al día" if suma_archivo(destino) == suma_archivo(origen) else "desactualizado"
     marca = leer_marca(destino)
     if not marca:
+        situacion = "igual al del paquete" if suma_archivo(destino) == suma_archivo(origen) else "distinto del paquete"
         return f"{situacion}, sin marca de este paquete"
+    situacion = "al día" if marca.get("sha256") == suma_archivo(origen) else "desactualizado"
+    if suma_archivo(destino) != marca.get("sha256"):
+        situacion += ", con cambios locales"
     return f"versión {marca.get('version', '?')}, {situacion}"
 
 
@@ -326,7 +333,17 @@ def main():
     with open(os.path.join(paquete, "manifest.json"), encoding="utf-8") as f:
         manifest = json.load(f)
     version = manifest["version"]
-    plataformas = [p.strip() for p in args.plataformas.split(",")] if args.plataformas else detectar_plataformas()
+    if args.plataformas:
+        alias = {"chatgpt": "codex"}
+        plataformas = []
+        for p in args.plataformas.split(","):
+            p = alias.get(p.strip().lower(), p.strip().lower())
+            if p not in ("claude", "codex", "gemini"):
+                sys.exit(f"Plataforma desconocida: {p}. Usa claude, codex (o chatgpt) y gemini, separadas por comas.")
+            if p not in plataformas:
+                plataformas.append(p)
+    else:
+        plataformas = detectar_plataformas()
     print(f"Paquete: {paquete} (versión {version}, {manifest['fecha']})")
     print(f"Plataformas: {', '.join(plataformas)}; alcance: {args.alcance}; escritura: {args.escritura}")
     if args.alcance == "proyecto":

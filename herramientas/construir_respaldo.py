@@ -180,8 +180,8 @@ META = {
                      "humanizar un texto, diga que suena a IA o entregue un ensayo o una rúbrica."),
         triggers=[
             "Cuando el usuario diga que un texto suena a IA o pida hacerlo natural: modo pulir o reescribir.",
-            "Cuando pida escribir un texto nuevo de más de 300 palabras: modo redactar, con tesis y plan antes del texto.",
-            "Cuando mencione ensayo, rúbrica o consigna: modo ensayo; entrega primero el plan para aprobación.",
+            "Cuando pida un texto nuevo de más de unas 500 palabras, importante o un ensayo: modo redactar, con tesis y plan antes del texto; si es más breve y de bajo riesgo, proceso comprimido sin plan visible.",
+            "Cuando mencione ensayo, rúbrica o consigna: modo ensayo; para escribir desde cero, entrega primero el plan para aprobación; para evaluar contra la rúbrica, informa criterio por criterio sin reescribir.",
             "Cuando pida mejorar un correo o mensaje: modo mejorar.",
             "Cuando pida revisar sin reescribir o validar datos: modo auditar.",
             "Cuando pegue un prompt, brief o SOP: indica que corresponde al auditor de prompts.",
@@ -265,7 +265,7 @@ META = {
                      "identidad visual, territorios de marca, un rediseño o el prompt final de un territorio elegido; la voz verbal va a escritura-humana."),
         triggers=[
             "Cuando el usuario pida conceptos de logo o identidad visual: proceso completo de brief a recomendación.",
-            "Cuando el brief esté incompleto: un solo bloque con los supuestos y hasta cinco preguntas con valor por defecto; desarrolla solo tras la confirmación o un 'sigue'.",
+            "Antes de desarrollar (aunque el brief parezca completo): un solo bloque con los supuestos y hasta cinco preguntas con valor por defecto; desarrolla solo tras la confirmación o un 'sigue'.",
             "Cuando ya haya elegido un territorio: plantilla de exploración de territorio único.",
             "Cuando pida parecerse a una marca famosa: extrae atributos, nunca elementos literales.",
         ],
@@ -301,7 +301,7 @@ META = {
                      "dos pasos con fórmulas y valores en LaTeX. Úsalo exclusivamente cuando el usuario escriba \"ayúdame a resolver "
                      "estos ejercicios\" o invoque /ejercicios. Si pide entender el procedimiento, corresponde a motor-pedagogico."),
         desc_gemini=("Resuelve ejercicios matemáticos, físicos y cuantitativos en máximo dos pasos con LaTeX y sin relleno. Úsala "
-                     "exclusivamente cuando el usuario escriba 'ayúdame a resolver estos ejercicios' o invoque /ejercicios."),
+                     "exclusivamente cuando el usuario escriba 'ayúdame a resolver estos ejercicios' o pida de forma explícita el solucionador de dos pasos."),
         triggers=[
             "Cuando el usuario escriba \"ayúdame a resolver estos ejercicios\": resuelve todos en el esquema de dos pasos.",
             "Cuando haya cálculos: verifica con la herramienta de Python (análisis de datos) sin mostrar el código.",
@@ -334,7 +334,7 @@ REEMPLAZOS_ORIGINAL = {
     "maquetacion-pdf-documentos": [
         ("tensi\u00f3n (a lo largo de la cuerda, hacia afuera del cuerpo)",
          "fuerza de la cuerda, $T$ (a lo largo de la cuerda, hacia afuera del cuerpo)"),
-    ],
+    ] + [(f"### Fase {n} - ", f"### Fase {n}. ") for n in range(1, 8)],
 }
 
 
@@ -419,8 +419,14 @@ ANEXO_FIX = {
     "ejemplos-antes-despues.md": [("(ver sección 10)", "(ver P10 en el manual)"),
                                   ("emite facturas desde el móvil", "emite facturas desde el celular"),
                                   ("Emite una factura desde el móvil", "Emite una factura desde el celular"),
-                                  ("Si te apuntas ahora", "Si te inscribes ahora")],
-    "validador-independiente.md": [("palabra vetada fuera de un ejercicio técnico", "término vetado (única excepción: la fuerza de una cuerda en notación de mecánica)")],
+                                  ("Si te apuntas ahora", "Si te inscribes ahora"),
+                                  ("Revisar correos y escribir un informe no piden el mismo tipo de atención.\n\nEl primer paso útil es separar ambas cosas en el calendario, con bloques que no se negocian.\n\nLas aplicaciones, las técnicas y los rituales matutinos vienen después, si hacen falta.\"",
+                                   "Revisar correos y escribir un informe no piden el mismo tipo de atención, por eso el primer paso útil es separar ambas cosas en el calendario, con bloques que no se negocian. Las aplicaciones, las técnicas y los rituales matutinos vienen después, si hacen falta.\""),
+                                  ("los párrafos miden lo que su contenido pide y no hay resumen final.", "las ideas quedan enlazadas en un párrafo con su relación explícita (por eso) y no hay resumen final."),
+                                  ("ver `escritura-humana` (sección 4).", "ver la sección 4 del manual.")],
+    "validador-independiente.md": [("(incluidas la raya y la palabra vetada de `escritura-humana` (sección 3)).",
+                                    "incluidas la raya y el término vetado (sustantivo derivado de «tenso»; única excepción, la fuerza de una cuerda en notación de mecánica)."),
+                                   ("palabra vetada fuera de un ejercicio técnico", "término vetado (única excepción: la fuerza de una cuerda en notación de mecánica)")],
     "esqueletos-y-brief.md": [("contraargumento obligatorio, conclusión que", "contraargumento si la rúbrica lo pide (si no, uno breve si hay espacio), conclusión que"),
                               ("para miniconclusiones por argumento y manejo", "para el cierre de cada argumento y el manejo"),
                               ("o 1500 palabras si no se especifica.", "o 900 a 1200 palabras si no se especifica (valor del modo `ensayo`)."),
@@ -467,6 +473,14 @@ def incluye_reglas(m):
 EXCEPCION_PREGUNTAR = {
     "ejercicios-dos-pasos": ("preguntar antes de ejecutar (", "preguntar antes de ejecutar, salvo la precedencia del disparador descrita en los casos límite ("),
 }
+
+
+def gemini_veracidad(m):
+    t = GEMINI_VERACIDAD
+    if m == "ejercicios-dos-pasos":
+        t = t.replace("Preguntar antes de ejecutar, en un solo mensaje", "Preguntar antes de ejecutar (salvo la precedencia del disparador descrita en los casos límite), en un solo mensaje")
+        t = t.replace("Nunca completes con una suposición plausible.", "Nunca completes con una suposición plausible sin declararla (en este solucionador, el dato faltante se resuelve con una suposición declarada).")
+    return t
 
 
 def reglas_globales(m):
@@ -550,7 +564,7 @@ Confirma en una sola línea que aplicarás estas instrucciones y espera mi prime
 
 
 def gemini_skill(m):
-    cuerpo = MASTERS[m] + "\n\n" + GEMINI_VERACIDAD
+    cuerpo = MASTERS[m] + "\n\n" + gemini_veracidad(m)
     if META[m]["tecnico"]:
         cuerpo += "\n\n" + GEMINI_CODIGO[m]
     return frontmatter(m, META[m]["desc_gemini"]) + cuerpo
@@ -561,7 +575,7 @@ def gemini_system(m):
     cuerpo = f"# Instrucciones de sistema (Gemini): {meta['titulo']}\n\nNota para la persona (no la pegues): este texto va en el campo de instrucciones de un Gem o en \"System instructions\" de Google AI Studio. Si el Gem admite archivos, sube también `skills_nativas/{m}/SKILL.md`" + (" y su carpeta `references/`" if ANEXOS[m] else "") + " como conocimiento. Pega solo lo que está debajo de la línea PEGA DESDE AQUÍ.\n\nPEGA DESDE AQUÍ\n\n" + CORES[m]
     if incluye_reglas(m):
         cuerpo += "\n\n## Reglas globales\n" + reglas_globales(m)
-    cuerpo += "\n\n" + GEMINI_VERACIDAD.split("\n\n## Reglas de redacción")[0]
+    cuerpo += "\n\n" + gemini_veracidad(m).split("\n\n## Reglas de redacción")[0]
     if META[m]["tecnico"]:
         cuerpo += "\n\n" + GEMINI_CODIGO[m]
     return cuerpo
@@ -571,7 +585,7 @@ def gemini_standalone(m):
     meta = META[m]
     ejemplos = extraer_ejemplos(MASTERS[m])
     cuerpo = (f"# Versión directa para el chat de Gemini: {meta['titulo']}\n\nPega todo lo que sigue como primer mensaje de una conversación nueva en Gemini.\n\n---\n\n"
-              f"Durante toda esta conversación actúa con las instrucciones siguientes. No las resumas ni las comentes: confirma con \"Listo\" y espera mi primera petición.\n\n{CORES[m]}\n\n{GEMINI_VERACIDAD}")
+              f"Durante toda esta conversación actúa con las instrucciones siguientes. No las resumas ni las comentes: confirma con \"Listo\" y espera mi primera petición.\n\n{CORES[m]}\n\n{gemini_veracidad(m)}")
     if META[m]["tecnico"]:
         cuerpo += "\n\n" + GEMINI_CODIGO[m]
     if ejemplos:
@@ -638,12 +652,12 @@ CHATGPT_COMUN = [
     "MATEMATICAS: ChatGPT muestra las fórmulas en línea con `\\( ... \\)` y en bloque con `\\[ ... \\]` o `$$ ... $$`. No uses `$...$` simple en línea porque no siempre se muestra; en ChatGPT esta regla sustituye cualquier indicación de usar `$...$` en línea.",
     "Memoria e instrucciones personalizadas: las reglas de esta skill ganan a recuerdos o instrucciones que las contradigan (por ejemplo, una preferencia antigua por usar rayas). Si hay conflicto, sigue la skill y avísalo en una línea.",
     "Búsqueda web: solo si el usuario quiere fuentes externas o datos recientes, y con cada fuente citada con su enlace.",
-    "Reglas del sistema que no se negocian: preguntar antes de ejecutar (avanza sin preguntar solo si el pedido ya trae lo necesario o el usuario dice \"sigue\"); criterio propio, sin complacer; humanizar sin empobrecer; imágenes independientes de 24 cm de alto por 17 de ancho por defecto y documentos A4 sin espacios vacíos; sin raya ni semirraya; nunca el término vetado (sustantivo derivado de «tenso») en ningún texto ni en versiones finales, con la única excepción de la fuerza de una cuerda en notación de mecánica; conectores lógicos explícitos sin abuso de \"y\" ni \"que\"; sin emojis; español latinoamericano neutro.",
+    "Reglas del sistema que no se negocian: preguntar antes de ejecutar (avanza sin preguntar solo si el pedido ya trae lo necesario o el usuario dice \"sigue\"); criterio propio, sin complacer; humanizar sin empobrecer; imágenes independientes de 24 cm de alto por 17 de ancho por defecto y documentos A4 sin espacios vacíos; sin raya ni semirraya; nunca el término vetado (sustantivo derivado de «tenso») en ningún texto ni en versiones finales, con la única excepción de la fuerza de una cuerda en notación de mecánica; conectores lógicos explícitos sin abuso de \"y\" ni \"que\"; sin emojis; español latinoamericano neutro, sin voseo.",
 ]
 CHATGPT_ESPECIFICO = {
     "escritura-humana": [
         "Textos largos: si el usuario trabaja en el lienzo (canvas), entrega allí el texto final y deja en el chat solo supuestos, huecos y la confirmación sobre el término vetado.",
-        "Antes de entregar un texto largo, ejecuta `scripts/revisar_texto.py` con la herramienta de Python sobre el borrador y corrige cada ABSOLUTO; revisa cada REVISAR con criterio, sin empobrecer.",
+        "Antes de entregar un texto largo, ejecuta `scripts/revisar_texto.py` con la herramienta de Python sobre el borrador y corrige cada ABSOLUTO (salvo el término vetado cuando sea la fuerza de una cuerda en notación de mecánica); revisa cada REVISAR con criterio, sin empobrecer.",
         "Consulta `references/` cuando necesites el repertorio de conectores, la tabla de reemplazos, los ejemplos, los casos de negrita o el validador.",
     ],
     "motor-pedagogico": [

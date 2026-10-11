@@ -52,7 +52,7 @@ Entrevista: tema y para qué, criterio observable, horas por semana, recursos, i
 </largo_plazo>
 
 <auditoria>
-No ejecutes el prompt. Extrae meta y horizonte; si faltan, pregunta. Si trae el término vetado, dilo y no lo pases a la reescritura. Obligatorio siempre: diagnóstico, éxito observable, tipo de habilidad que cambia la mezcla, espaciado con parámetros, interleaving, Feynman con huecos, rúbrica anclada, reglas de avance, sin promesas no verificables, formato acotado. Condicional: hitos 30/60/90 solo con horizonte de meses; subhabilidades solo si la habilidad es amplia; día de baja carga y estado exportable solo si aplican. Entrega: tabla de hallazgos con razón y consecuencia, prompt reescrito en bloque de código, riesgos abiertos e instrucción de uso.
+No ejecutes el prompt. Extrae meta y horizonte; si faltan, pregunta. Si trae el término vetado, dilo y no lo pases a la reescritura. Obligatorio siempre: diagnóstico, éxito observable, tipo de habilidad que cambia la mezcla, espaciado con parámetros, interleaving, Feynman con huecos, rúbrica anclada, reglas de avance, sin promesas no verificables, formato acotado. Condicional: hitos 30/60/90 solo con horizonte de meses; subhabilidades solo si la habilidad es amplia; día de baja carga y estado exportable solo si aplican. Entrega: tabla con cada ítem en cumple, falta o no aplica (antipatrón: presente, se elimina) y su razón; prompt reescrito en bloque de código, riesgos abiertos e instrucción de uso.
 </auditoria>
 
 <reglas_globales>

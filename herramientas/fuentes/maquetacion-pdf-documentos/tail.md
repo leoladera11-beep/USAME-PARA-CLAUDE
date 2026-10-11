@@ -40,6 +40,9 @@ Sin `bbox_inches="tight"`: ese recorte cambia el tamaño del PNG, y al insertarl
 ### 4.1 Fuentes
 
 ```python
+import reportlab.rl_config as rl_config
+rl_config.canvas_basefontname = "LibSerif"  # antes de cualquier import de reportlab.platypus o reportlab.lib.styles
+
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.lib.fonts import addMapping
@@ -56,12 +59,9 @@ addMapping("LibSerif", 0, 0, "LibSerif")
 addMapping("LibSerif", 1, 0, "LibSerif-B")
 addMapping("LibSerif", 0, 1, "LibSerif-I")
 addMapping("LibSerif", 1, 1, "LibSerif-BI")
-
-import reportlab.rl_config as rl_config
-rl_config.canvas_basefontname = "LibSerif"  # evita que el lienzo declare Helvetica sin incrustar
 ```
 
-Las fuentes base de ReportLab (Helvetica, Times) no cubren Ω ni la μ griega (U+03BC); las TrueType registradas cubren todo lo necesario. Todo `ParagraphStyle` declara `fontName="LibSerif"`, porque el valor por defecto es Helvetica.
+Las fuentes base de ReportLab (Helvetica, Times) no cubren Ω ni la μ griega (U+03BC); las TrueType registradas cubren todo lo necesario. Todo `ParagraphStyle` declara `fontName="LibSerif"`, porque el valor por defecto es Helvetica. `rl_config.canvas_basefontname` se asigna antes de cualquier import de `reportlab.platypus`, porque platypus y `reportlab.lib.styles` copian ese valor al importarse; asignado después, el lienzo vuelve a declarar Helvetica sin incrustar. Toda `Table` declara `('FONTNAME', (0, 0), (-1, -1), 'LibSerif')` en su `TableStyle` o usa `Paragraph` en sus celdas; si no, el texto plano de las celdas sale en Helvetica y las casillas `□` y `■` del checklist pueden verse como glifos vacíos.
 
 ### 4.2 a 4.7 Estructura
 
@@ -125,7 +125,7 @@ def sombrear(celda, color_hex):
 2. Prueba de fotocopia: `pdftoppm -gray -r 110 -png documento.pdf qa/gris`; la información no puede depender solo del color.
 3. Revisa: títulos huérfanos al pie, figuras partidas o separadas de su leyenda, tablas desbordadas, texto cortado en celdas, numeración y referencias cruzadas, cuerpo nunca menor de 9 pt, márgenes de al menos 12.7 mm.
 4. Aprovechamiento de la hoja: en las páginas que no son la última, ningún hueco visible mayor que unas pocas líneas de cuerpo (tampoco entre bloques por un `KeepTogether` mal usado); la última página queda llena o se reabsorbe en la anterior, nunca con unas pocas líneas sueltas; si aparece un hueco, reordena bloques, ajusta el ancho de las figuras a la rejilla o los espacios para recoger esas líneas en la página anterior o completar la última. Comprueba que ninguna imagen esté deformada (proporción original) y que el PDF sea A4 real (`pdfinfo documento.pdf` muestra `Page size: 595.276 x 841.89 pts (A4)`).
-5. Fuentes incrustadas: `pdffonts documento.pdf`; todas con `emb` en `yes` (si aparece Helvetica sin incrustar, falta el `canvas_basefontname` de 4.1 o un `fontName` en algún estilo).
+5. Fuentes incrustadas: `pdffonts documento.pdf`; todas con `emb` en `yes` (si aparece Helvetica sin incrustar, falta el `canvas_basefontname` de 4.1 asignado antes de importar `reportlab.platypus`, un `fontName` en algún estilo o el `FONTNAME` de alguna `Table` con texto plano en sus celdas; esa última causa también explica casillas del checklist que se ven como glifos vacíos).
 6. DOCX: vuelve a abrirlo con python-docx (o conviértelo con LibreOffice en modo headless si está disponible) para comprobar que no está corrupto y que tablas y figuras aparecen.
 7. Contenido: compara cada resultado numérico del documento con los recalculados en la fase 3.
 8. Corrige, regenera y vuelve a inspeccionar hasta que no queden defectos.
@@ -166,7 +166,7 @@ Salida esperada del modelo (antes de ejecutar, en un solo mensaje):
 
 El usuario responde "sigue". Salida esperada del modelo (resumen de entrega):
 
-> Supuestos: g = 9.8 m/s²; A4; densidad visual alta; solucionario al final.
+> Supuestos: g = 9.8 m/s²; A4; extensión de dos páginas; densidad visual alta; solucionario al final.
 >
 > Contenido verificado con código: normal N = mg cos 30° = 33.9 N; aceleración a = g sen 30° = 4.9 m/s² a lo largo del plano, hacia abajo.
 >
@@ -188,7 +188,7 @@ Salida esperada del modelo (antes de maquetar):
 >
 > Error detectado en el ejercicio 2: 0.4 A corresponde a las resistencias en serie (12 V / 30 Ω). En paralelo, R_eq = (10 · 20)/(10 + 20) = 6.67 Ω, y la corriente total es 12 V / 6.67 Ω = 1.8 A (1.2 A por la de 10 Ω y 0.6 A por la de 20 Ω). Comprobación: potencia entregada 21.6 W, igual a la suma de potencias disipadas, 14.4 W y 7.2 W.
 >
-> ¿Corrijo el resultado a 1.8 A o el enunciado debía decir "en serie"? Con tu respuesta rehago los diagramas en IEC 60617, convierto la tabla en una tabla real y genero el PDF y el DOCX.
+> ¿Corrijo el resultado a 1.8 A o el enunciado debía decir "en serie"? ¿Lo quieres solo en PDF o también en DOCX editable? Si respondes "sigue", corrijo a 1.8 A y genero ambos. Con tus respuestas rehago los diagramas en IEC 60617 y convierto la tabla en una tabla real.
 
 ## 11. Antipatrones
 

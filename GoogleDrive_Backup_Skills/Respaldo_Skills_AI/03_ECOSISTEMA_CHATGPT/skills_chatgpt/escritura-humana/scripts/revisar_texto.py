@@ -28,13 +28,14 @@ Código de salida: 1 si hay hallazgos ABSOLUTO, 0 en otro caso. Solo biblioteca 
 """
 import re
 import sys
+import unicodedata
 
 RAYA = "\u2014"
 SEMIRRAYA = "\u2013"
 
 _VS16 = "\ufe0f"  # selector de presentación emoji
 _EMOJI_BASE = (
-    "[\U0001F000-\U0001FAFF\u2600-\u27bf\u2b50\u2705\u2b06\u2b07\u2934\u2935"
+    "[\U0001F000-\U0001FAFF\u2600-\u2604\u2606-\u260f\u2611-\u2669\u266b-\u2712\u2714-\u27bf\u2b50\u2705\u2b06\u2b07\u2934\u2935"
     "\u231a\u231b\u23e9-\u23f3\u23f8-\u23fa\u25fb-\u25fe\u2b1b\u2b1c\u2b55"
     "\u3030\u303d\u3297\u3299\u20e3]"
 )
@@ -53,7 +54,7 @@ ABSOLUTOS = [
         r"(?:[^\s" + SEMIRRAYA + r"]+\s?)?"
         r"(?:(?<!\d)(?<!\d\s)" + SEMIRRAYA + r"|" + SEMIRRAYA + r"(?!\s?\d))"
         r"(?:\s?[^\s" + SEMIRRAYA + r"]+)?")),
-    ("doble guion como raya", re.compile(r"(?<![-\w])--(?![-\w])")),
+    ("doble guion como raya", re.compile(r"(?<![-\w!])--(?![-\w>])")),
     ("emoji", EMOJI),
     ("término vetado (verificar si es notación de mecánica)", re.compile(r"\btensi(?:ón|ones|on)\b", re.I)),
 ]
@@ -148,6 +149,7 @@ def bloques_de_prosa(texto):
 
 
 def revisar(nombre, texto):
+    texto = unicodedata.normalize("NFC", texto)  # tildes descompuestas cuentan igual
     absolutos, por_revisar = [], []
     for n, linea in lineas_de_prosa(texto):
         limpia = re.sub(r"`[^`]*`", "", linea)  # ignora código en línea

@@ -140,7 +140,7 @@ La persona responde "sigue". Salida esperada del modelo, segundo turno (estructu
 >
 > B. Supuestos confirmados: alusión al árbol de molle; una tinta sobre kraft; mercado peruano; sin elementos previos.
 >
-> C. Criterios y pesos: distintividad frente a competidores 30, viabilidad en sello de una tinta 20, relevancia estratégica 20, memorabilidad 15, riesgo legal y cultural 10, atemporalidad 5.
+> C. Criterios y pesos: distintividad frente a competidores 25, viabilidad en sello de una tinta 20, relevancia estratégica 15, memorabilidad 15, escalabilidad a pantallas pequeñas 10 (la venta por internet la exige), riesgo legal y cultural 10, atemporalidad 5.
 >
 > D. Doce direcciones en una línea cada una; se descartan siete, por ejemplo "grano dentro de un círculo: igual a competidor 2".
 >
@@ -179,7 +179,17 @@ Salida esperada del modelo:
 > Lenguaje formal: copa circular de siete hojas, tronco que se divide en dos raíces, trazo uniforme, contraste alto.
 > Tipo de marca: combinada.
 >
-> Presentación: una sola propuesta principal; diseño plano, frontal y vectorial; tinta negra sobre fondo blanco; sin mockups; sin objetos decorativos; sin 3D, sombras, brillos, degradados ni texturas; sin eslóganes ni texto adicional; composición limpia y centrada; lienzo vertical de 24 x 17 cm; nombre escrito exactamente como "Molle".
+> Presentación:
+> - una sola propuesta principal;
+> - diseño plano, frontal y vectorial;
+> - tinta negra sobre fondo blanco;
+> - sin mockups;
+> - sin objetos decorativos;
+> - sin 3D, sombras, brillos, degradados ni texturas;
+> - sin eslóganes ni texto adicional;
+> - composición limpia y centrada;
+> - lienzo vertical de 24 x 17 cm;
+> - nombre escrito exactamente como "Molle".
 >
 > Debe conservar claridad a tamaño pequeño y evitar similitudes evidentes con marcas conocidas. Esto es una exploración conceptual, no un archivo final ni una validación jurídica.
 
@@ -198,4 +208,4 @@ Salida esperada del modelo:
 - Generación de imágenes: úsala solo si el usuario pide ver un territorio; el prompt en inglés de la ficha es la entrada, con lienzo vertical 17:24 (24 cm de alto por 17 de ancho) salvo otro tamaño pedido, o la proporción vertical más cercana que ofrezca la herramienta, y dilo. Aclara que la imagen es una exploración, no un archivo final.
 - Memoria e instrucciones personalizadas: las reglas de esta skill ganan a recuerdos o instrucciones que las contradigan (por ejemplo, una preferencia antigua por usar rayas). Si hay conflicto, sigue la skill y avísalo en una línea.
 - Búsqueda web: solo si el usuario quiere fuentes externas o datos recientes, y con cada fuente citada con su enlace.
-- Reglas del sistema que no se negocian: preguntar antes de ejecutar (avanza sin preguntar solo si el pedido ya trae lo necesario o el usuario dice "sigue"); criterio propio, sin complacer; humanizar sin empobrecer; imágenes independientes de 24 cm de alto por 17 de ancho por defecto y documentos A4 sin espacios vacíos; sin raya ni semirraya; nunca el término vetado (sustantivo derivado de «tenso») en ningún texto ni en versiones finales, con la única excepción de la fuerza de una cuerda en notación de mecánica; conectores lógicos explícitos sin abuso de "y" ni "que"; sin emojis; español latinoamericano neutro.
+- Reglas del sistema que no se negocian: preguntar antes de ejecutar (avanza sin preguntar solo si el pedido ya trae lo necesario o el usuario dice "sigue"); criterio propio, sin complacer; humanizar sin empobrecer; imágenes independientes de 24 cm de alto por 17 de ancho por defecto y documentos A4 sin espacios vacíos; sin raya ni semirraya; nunca el término vetado (sustantivo derivado de «tenso») en ningún texto ni en versiones finales, con la única excepción de la fuerza de una cuerda en notación de mecánica; conectores lógicos explícitos sin abuso de "y" ni "que"; sin emojis; español latinoamericano neutro, sin voseo.

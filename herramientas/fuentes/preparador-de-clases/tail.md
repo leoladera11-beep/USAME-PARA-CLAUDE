@@ -88,12 +88,12 @@ Salida esperada del modelo (extracto):
 > | 3 | Desarrollo: organizador en pares | 14 | Dos monitores de 4.º apoyan a 3.º durante 10 minutos |
 > | 4 | Transición | 2 | Fila nueva |
 > | 5 | Cierre: galería de organizadores | 4 | Sustituye la coevaluación entre grupos |
-> | 6 | Cierre: boleto de salida oral ("Di la idea principal y un detalle que la sostiene") | 3 | Sustituye el plenario; evidencia del criterio 2 |
+> | 6 | Cierre: boleto de salida oral por parejas ("Di la idea principal y los dos detalles que la sostienen") | 3 | Sustituye el plenario; cada estudiante se lo dice a su compañero y el docente escucha a algunas parejas y registra en la lista; el criterio 2 se registra en el organizador del reverso |
 > | 7 | Cierre: metacognición ("¿Qué pista del texto te ayudó a distinguir la idea principal de un detalle?") | 2 | Fila nueva |
 >
-> Qué se sacrificó y por qué: la dramatización (12 minutos que no aportaban a ningún criterio), la lectura en voz alta del docente (15 minutos de escucha que no producen evidencia; la lectura en pares con preguntas en la pizarra trabaja el criterio 1 en menos tiempo), la segunda lectura (se conserva el fragmento clave dentro de la lectura en pares) y la coevaluación entre grupos (el boleto de salida cubre el criterio 2 en menos tiempo).
+> Qué se sacrificó y por qué: la dramatización (12 minutos que no aportaban a ningún criterio), la lectura en voz alta del docente (15 minutos de escucha que no producen evidencia; la lectura en pares con preguntas en la pizarra trabaja el criterio 1 en menos tiempo), la segunda lectura (se conserva el fragmento clave dentro de la lectura en pares) y la coevaluación entre grupos (el organizador y el boleto por parejas cubren el criterio 2 en menos tiempo).
 
-Por qué es correcta: la entrada trae la sesión, así que nada se inventa y el único supuesto (el soporte del organizador) va declarado; conserva propósito, criterios y evidencia; cambia solo lo que obligan el tiempo y el multigrado; los minutos suman 45 (8; 12 + 14 + 2 = 28; 4 + 3 + 2 = 9); el cierre conserva evidencia y metacognición con pregunta literal; usa solo los recursos declarados (las preguntas diferenciadas van en la pizarra y el organizador en el reverso de las copias, sin materiales nuevos); y lista cada actividad sacrificada con su motivo.
+Por qué es correcta: la entrada trae la sesión, así que nada se inventa y el único supuesto (el soporte del organizador) va declarado; conserva propósito, criterios y evidencia; cambia solo lo que obligan el tiempo y el multigrado; los minutos suman 45 (8; 12 + 14 + 2 = 28; 4 + 3 + 2 = 9); el boleto pide lo mismo que el criterio 2 (los dos detalles) y es viable: en 3 minutos hablan las 15 parejas a la vez, el docente escucha solo a algunas y la evidencia completa del criterio 2 queda escrita en el organizador de cada pareja; el cierre conserva evidencia y metacognición con pregunta literal; usa solo los recursos declarados (las preguntas diferenciadas van en la pizarra y el organizador en el reverso de las copias, sin materiales nuevos); y lista cada actividad sacrificada con su motivo.
 
 ## 14. Antipatrones
 

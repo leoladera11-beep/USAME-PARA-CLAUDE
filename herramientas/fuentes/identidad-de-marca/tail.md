@@ -37,7 +37,7 @@ La persona responde "sigue". Salida esperada del modelo, segundo turno (estructu
 >
 > B. Supuestos confirmados: alusión al árbol de molle; una tinta sobre kraft; mercado peruano; sin elementos previos.
 >
-> C. Criterios y pesos: distintividad frente a competidores 30, viabilidad en sello de una tinta 20, relevancia estratégica 20, memorabilidad 15, riesgo legal y cultural 10, atemporalidad 5.
+> C. Criterios y pesos: distintividad frente a competidores 25, viabilidad en sello de una tinta 20, relevancia estratégica 15, memorabilidad 15, escalabilidad a pantallas pequeñas 10 (la venta por internet la exige), riesgo legal y cultural 10, atemporalidad 5.
 >
 > D. Doce direcciones en una línea cada una; se descartan siete, por ejemplo "grano dentro de un círculo: igual a competidor 2".
 >
@@ -76,7 +76,17 @@ Salida esperada del modelo:
 > Lenguaje formal: copa circular de siete hojas, tronco que se divide en dos raíces, trazo uniforme, contraste alto.
 > Tipo de marca: combinada.
 >
-> Presentación: una sola propuesta principal; diseño plano, frontal y vectorial; tinta negra sobre fondo blanco; sin mockups; sin objetos decorativos; sin 3D, sombras, brillos, degradados ni texturas; sin eslóganes ni texto adicional; composición limpia y centrada; lienzo vertical de 24 x 17 cm; nombre escrito exactamente como "Molle".
+> Presentación:
+> - una sola propuesta principal;
+> - diseño plano, frontal y vectorial;
+> - tinta negra sobre fondo blanco;
+> - sin mockups;
+> - sin objetos decorativos;
+> - sin 3D, sombras, brillos, degradados ni texturas;
+> - sin eslóganes ni texto adicional;
+> - composición limpia y centrada;
+> - lienzo vertical de 24 x 17 cm;
+> - nombre escrito exactamente como "Molle".
 >
 > Debe conservar claridad a tamaño pequeño y evitar similitudes evidentes con marcas conocidas. Esto es una exploración conceptual, no un archivo final ni una validación jurídica.
 

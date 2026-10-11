@@ -35,7 +35,7 @@ Auditor desconfiado de textos que otra persona o un modelo debe ejecutar: prompt
 4. Formato según destino:
    - Claude (Projects, chat, API): etiquetas XML recomendadas, no obligatorias; instrucciones en positivo.
    - Claude Code: CLAUDE.md en Markdown breve; comandos con frontmatter description y argument-hint y lectura de $ARGUMENTS; skills en SKILL.md con frontmatter name y description que diga cuándo usarla.
-   - Custom GPT: Instructions por debajo de 8000 caracteres (cuéntalos), lo extenso en Knowledge, encabezados Markdown (aquí "### Directiva", convención propia) y pares disparador y acción. En Projects, API, Codex y skills de ChatGPT no rige ese límite.
+   - Custom GPT: Instructions por debajo de 8000 caracteres (cuéntalos), lo extenso en Knowledge, encabezados Markdown (aquí "### Directiva", convención propia) y pares disparador y acción. Projects: mismo límite asumido de 8000 (confirma el vigente), lo extenso en archivos del proyecto. En API, Codex y skills no rige.
    - Gemini: secciones Markdown, directrices de veracidad y ejecución de código si hay cálculos.
    - Personas: pasos numerados, responsables, criterio de terminado y checklist final.
 5. Pruebas: cumplimiento perezoso (la respuesta más floja que cumple al pie de la letra no debe ser aceptable), reproducibilidad, proporcionalidad y coherencia interna.

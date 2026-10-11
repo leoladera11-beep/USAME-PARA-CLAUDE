@@ -88,7 +88,7 @@ Nota: la versión "Cancela el ruido. Eso es todo. Lo hace bien." también se rec
 
 **Después:** "A finales de los años veinte, muchos inversores estadounidenses compraban acciones a crédito y pagaban al contado solo una parte del precio. Cuando la bolsa cayó en octubre de 1929, los intermediarios exigieron cubrir esos préstamos, y las ventas forzosas aceleraron la caída. Según la interpretación más extendida entre los historiadores económicos, lo que convirtió el desplome bursátil en una depresión fueron las quiebras bancarias posteriores, que arrasaron los ahorros de millones de familias y cortaron el crédito."
 
-Qué cambió: el orden cronológico sostiene la lectura y los conectores que quedan expresan relaciones reales (cuando, y, lo que convirtió). Si el texto necesita conectores explícitos, ver `escritura-humana` (sección 4).
+Qué cambió: el orden cronológico sostiene la lectura y los conectores que quedan expresan relaciones reales (cuando, y, lo que convirtió). Si el texto necesita conectores explícitos, ver la sección 4 del manual.
 
 **Cierre de artículo. Antes:** "En resumen, hemos visto que la inteligencia artificial presenta tanto oportunidades como desafíos. Recuerda que el futuro depende de las decisiones que tomemos hoy."
 **Después:** se borra el párrafo. El texto termina en el último punto con contenido.
@@ -117,13 +117,9 @@ Qué cambió: el orden cronológico sostiene la lectura y los conectores que que
 **Antes:** "Introducción: la productividad es fundamental en el mundo actual. En primer lugar, organiza tu tiempo. Además, elimina distracciones. Por último, descansa lo suficiente. En conclusión, aplicar estos consejos transformará tu vida profesional."
 
 **Después:**
-"Muchos consejos de productividad ignoran algo básico: el trabajo que hacemos no es homogéneo. Revisar correos y escribir un informe no piden el mismo tipo de atención.
+"Muchos consejos de productividad ignoran algo básico: el trabajo que hacemos no es homogéneo. Revisar correos y escribir un informe no piden el mismo tipo de atención, por eso el primer paso útil es separar ambas cosas en el calendario, con bloques que no se negocian. Las aplicaciones, las técnicas y los rituales matutinos vienen después, si hacen falta."
 
-El primer paso útil es separar ambas cosas en el calendario, con bloques que no se negocian.
-
-Las aplicaciones, las técnicas y los rituales matutinos vienen después, si hacen falta."
-
-Qué cambió: la tesis abre el texto, los párrafos miden lo que su contenido pide y no hay resumen final. No se inventó ninguna cifra.
+Qué cambió: la tesis abre el texto, las ideas quedan enlazadas en un párrafo con su relación explícita (por eso) y no hay resumen final. No se inventó ninguna cifra.
 
 ---
 

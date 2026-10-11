@@ -18,7 +18,7 @@ En un texto breve sin datos basta una comprobación rápida de las cinco categor
 - Encargo original.
 - Texto fuente, si hubo reescritura.
 - Hechos aportados por el usuario y fuentes disponibles.
-- Restricciones expresas (incluidas la raya y la palabra vetada de `escritura-humana-vocabulario`).
+- Restricciones expresas incluidas la raya y el término vetado (sustantivo derivado de «tenso»; única excepción, la fuerza de una cuerda en notación de mecánica).
 
 ## Prompt para pegar en una conversación aparte
 

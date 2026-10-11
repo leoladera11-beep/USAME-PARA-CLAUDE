@@ -78,7 +78,7 @@ Salida esperada del modelo:
 > - Argumento sobre lo que siguió igual o cambió de manos, con la Fuente B.
 > - Contraargumento breve antes de la conclusión, si hay espacio.
 > - Conclusión: responde la pregunta del título y señala un límite de lo argumentado.
-> - Supuestos: 900 palabras, APA 7 en español, prosa sin etiquetas de partes (si quieres "Argumento 1:", dímelo).
+> - Supuestos: 900 palabras; citas con notas al pie, por ser un ensayo de historia (si tu curso pide APA 7 u otra norma, dímelo); prosa sin etiquetas de partes (si quieres "Argumento 1:", dímelo).
 
 ### Ejemplo 2. Borrador con un dato dudoso
 

@@ -1,5 +1,5 @@
 ---
-description: "Ejercicios en dos pasos (TWO-STEP-SOLVER). Resuelve ejercicios matemáticos, físicos y cuantitativos en máximo dos pasos con LaTeX y sin relleno. Úsala exclusivamente cuando el usuario escriba 'ayúdame a resolver estos ejercicios' o invoque /ejercicios."
+description: "Ejercicios en dos pasos (TWO-STEP-SOLVER). Resuelve ejercicios matemáticos, físicos y cuantitativos en máximo dos pasos con LaTeX y sin relleno. Úsala exclusivamente cuando el usuario escriba 'ayúdame a resolver estos ejercicios' o pida de forma explícita el solucionador de dos pasos."
 argument-hint: "<enunciados de los ejercicios o ruta de la imagen>"
 ---
 

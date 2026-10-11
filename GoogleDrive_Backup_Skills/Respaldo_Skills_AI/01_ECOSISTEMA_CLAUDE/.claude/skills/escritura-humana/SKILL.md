@@ -477,4 +477,4 @@ Prueba final: lee el texto como si fuera a firmarlo una persona concreta ante un
 - `validador-independiente.md`: prompt y formato del validador de fidelidad.
 - `esqueletos-y-brief.md`: esqueletos por género, preguntas de brief con valor por defecto y extensiones de referencia.
 
-Herramienta ejecutable (si la plataforma permite ejecutar Python): `scripts/revisar_texto.py` revisa un texto y marca raya, semirraya, doble guion, emojis y apariciones del término vetado como ABSOLUTO, y léxico inflado, contrastes, andamiaje y muletillas como REVISAR. Es un apoyo para la fase 4: no sustituye la lectura, porque no distingue la notación técnica ni el contexto.
+Herramienta ejecutable (si la plataforma permite ejecutar Python): `scripts/revisar_texto.py` revisa un texto y marca raya, semirraya, doble guion, emojis y apariciones del término vetado como ABSOLUTO, y léxico inflado, contrastes, andamiaje, muletillas, revelaciones teatrales, semirrayas en rangos numéricos y abuso de "y" o "que" por párrafo como REVISAR. Es un apoyo para la fase 4: no sustituye la lectura, porque no distingue la notación técnica ni el contexto.

@@ -171,12 +171,12 @@ Cada manual incluye: modos y enrutamiento; reglas con su excepción; casos de us
 
 | Archivo | Caracteres |
 |---|---|
-| `chatgpt_standalone/auditor-de-prompts.md` | 6601 |
+| `chatgpt_standalone/auditor-de-prompts.md` | 6668 |
 | `chatgpt_standalone/ejercicios-dos-pasos.md` | 4443 |
-| `chatgpt_standalone/escritura-humana.md` | 6928 |
-| `chatgpt_standalone/identidad-de-marca.md` | 6428 |
-| `chatgpt_standalone/maquetacion-pdf-documentos.md` | 5830 |
-| `chatgpt_standalone/motor-pedagogico.md` | 7936 |
+| `chatgpt_standalone/escritura-humana.md` | 7123 |
+| `chatgpt_standalone/identidad-de-marca.md` | 6452 |
+| `chatgpt_standalone/maquetacion-pdf-documentos.md` | 5823 |
+| `chatgpt_standalone/motor-pedagogico.md` | 7987 |
 | `chatgpt_standalone/preparador-de-clases.md` | 6398 |
 
 ## 9. Guía de importación paso a paso
