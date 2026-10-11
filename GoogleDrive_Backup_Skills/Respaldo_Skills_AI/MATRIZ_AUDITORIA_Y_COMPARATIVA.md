@@ -1,0 +1,323 @@
+# Matriz de auditoría y comparativa
+
+Respaldo generado el 2026-10-11 en `GoogleDrive_Backup_Skills/Respaldo_Skills_AI`. Contiene las 16 skills originales sin alterar, siete motores consolidados y sus versiones calibradas para Claude, Gemini y ChatGPT (111 archivos Markdown nuevos, además del respaldo original).
+
+## 1. Resumen
+
+| Antes | Después |
+|---|---|
+| 16 skills, cuatro jerarquías de reglas distintas, tres módulos de auditoría de prompts solapados y dependencias en círculo | 7 motores con una sola jerarquía, un dueño por función y un enrutador explícito |
+| Reglas de estilo repetidas en cinco archivos con umbrales que no coincidían | Una fuente de verdad por regla (manual del motor) y anexos de consulta |
+| Una plataforma (Claude) | Tres plataformas, cada una con tres formatos de uso |
+| Sin ejemplos de entrada y salida en la mayoría de las skills | Cada motor con casos típicos, casos límite, dos ejemplos completos y antipatrones |
+
+Fase 1 (detección de Google Drive): el sistema donde se ejecutó la tarea es un contenedor Linux sin ninguna unidad de Google Drive montada; se revisaron `G:\Mi unidad`, `G:\My Drive`, `~/Google Drive`, `~/Library/CloudStorage/GoogleDrive*`, `/Volumes/GoogleDrive*` y equivalentes. Por eso el destino es la carpeta local `GoogleDrive_Backup_Skills/Respaldo_Skills_AI/`, lista para subir a Drive (sección 9).
+
+## 2. Herramientas originales frente a herramientas consolidadas
+
+| # | Skill original | Tamaño | Motor de destino | Qué se conservó | Qué cambió |
+|---|---|---|---|---|---|
+| 1 | `humanizer` | 31.7 KB | `escritura-humana` | Los 26 patrones, en anexo traducido con su equivalencia | Raya prohibida aunque la muestra la use; integrado en el catálogo P1 a P12 |
+| 2 | `ejercicios-dos-pasos` | 2.4 KB | `ejercicios-dos-pasos` | Disparador exclusivo, dos pasos, LaTeX, esquema visual | Verificación silenciosa, convenciones técnicas, casos límite, ejemplos |
+| 3 | `tutor-comprension-profunda` | 8.6 KB | `motor-pedagogico` | Mapa del tema, enseñanza por bloques, controles, cierre | Modo socratico; espaciado unificado; ciclo de dos pasos |
+| 4 | `identidad-de-marca` | 7.8 KB | `identidad-de-marca` | Método completo de territorios y prompts de imagen | Casos, ejemplos y antipatrones; se descarta la versión verbal del Sistema Auditado |
+| 5 | `maquetacion-pdf-documentos` | 19.1 KB | `maquetacion-pdf-documentos` | Secciones 0 a 2 íntegras | Secciones 3 a 7 reconstruidas; ejemplos; calibración Gemini con ejecución de código |
+| 6 | `tutor-adaptativo` | 4.0 KB | `motor-pedagogico` | Entrevista, arquitectura, bloques, sesiones | Modos expres y largo-plazo |
+| 7 | `principios-aprendizaje` | 6.2 KB | `motor-pedagogico` | Todo el núcleo científico | Sección 2 del motor, fuente única; deja de ser dependencia circular |
+| 8 | `escritura-humana-core` | 36.5 KB | `escritura-humana` | Regla cero, fases, 9 patrones, validación de fidelidad | Jerarquía única; patrones renumerados P1 a P12 |
+| 9 | `escritura-humana` | 60.0 KB | `escritura-humana` | 12 patrones, conectores, sobrecorrecciones, rúbrica | Base del manual; se elimina la duplicación con core |
+| 10 | `preparador-de-clases` | 20.2 KB | `preparador-de-clases` | Método completo (secciones 1 a 10) | Casos, ejemplos y antipatrones |
+| 11 | `mejorador-de-textos` | 12.2 KB | `escritura-humana y auditor-de-prompts` | Modos ligeros y auditoría de 10 ejes | Dividido por función: comunicación al motor de escritura, instrucciones al auditor |
+| 12 | `auditor-prompts-aprendizaje` | 4.3 KB | `motor-pedagogico` | Checklist obligatoria y condicional | Modo auditoria |
+| 13 | `escritura-de-calidad` | 18.5 KB | `escritura-humana` | Triaje, brief, tesis, arquitectura, niveles de intervención | Fases 0 a 6 y modos redactar y reescribir; sin voseo |
+| 14 | `escritura-humana-conectores` | 21.6 KB | `escritura-humana` | Criterios, distinciones semánticas, régimen, 22 categorías | Sección 4 y anexo; umbrales unificados |
+| 15 | `escritura-humana-ensayos` | 19.2 KB | `escritura-humana` | Ficha de consigna, estructura, fuentes, negrita adaptativa | Modo ensayo; extensión por defecto unificada |
+| 16 | `escritura-humana-vocabulario` | 11.6 KB | `escritura-humana` | Léxico vetado, término vetado, raya, casos de prueba | Sección 3; añade la categoría de suspenso narrativo |
+
+Resultado: de 16 skills a 7 motores.
+
+| Motor | Nombre de arquitectura | Comando Claude Code | Modos | Skills absorbidas |
+|---|---|---|---|---|
+| `escritura-humana` | HUMAN-WRITER-ENGINE | `/human-write` | pulir, reescribir, redactar, ensayo, mejorar, auditar | 8 (7 completas y el modo ligero de mejorador-de-textos) |
+| `motor-pedagogico` | COGNITIVE-TUTOR-ENGINE | `/tutor` | expres, socratico, largo-plazo, auditoria | 4 |
+| `auditor-de-prompts` | PROMPT-AUDITOR | `/audit-prompt` | completo, compacto; destino claude, chatgpt, gemini o persona | modo profundo de mejorador-de-textos y enrutamiento de las tres auditorías |
+| `preparador-de-clases` | CURRICULUM-ARCHITECT | `/lesson-plan` | DISEÑAR, REVISAR, ADAPTAR, SECUENCIA, AUDITAR PROMPT | 1 |
+| `identidad-de-marca` | BRAND-IDENTITY-SYSTEM | `/brand` | proceso completo, territorio único | 1 |
+| `maquetacion-pdf-documentos` | DOC-STYLIST-PDF | `/pdf-doc` | PDF, DOCX o ambos | 1 (secciones 3 a 7 reconstruidas) |
+| `ejercicios-dos-pasos` | TWO-STEP-SOLVER | `/ejercicios` | único | 1 |
+
+## 3. Diagnóstico del inventario original
+
+### 3.1 Redundancias eliminadas
+
+1. `escritura-humana` (autosuficiente) duplicaba casi por completo a `escritura-humana-core`, `-vocabulario` y `-conectores`, con números de patrón distintos (12 frente a 9) y umbrales distintos.
+2. La lista de léxico inflado aparecía en cinco archivos (`escritura-humana`, `-core`, `-vocabulario`, `humanizer`, `escritura-de-calidad`).
+3. Las reglas de la raya y del término vetado estaban escritas tres veces con matices diferentes (por ejemplo, la categoría "suspenso narrativo" solo existía en una de ellas).
+4. Tres skills tenían un modo de auditoría de prompts: `mejorador-de-textos` (modo profundo), `auditor-prompts-aprendizaje` y `preparador-de-clases` (AUDITAR PROMPT). Ahora cada tipo de prompt tiene un dueño y el auditor general enruta.
+5. `tutor-adaptativo` (modo exprés) y `tutor-comprension-profunda` (ritmo rápido) cubrían el mismo caso con procesos distintos.
+6. El paquete `para_claude_projects/` repetía cada skill con sus anexos combinados; el respaldo lo conserva, pero los motores ya no lo necesitan.
+
+### 3.2 Dependencias circulares resueltas
+
+| Ciclo original | Resolución |
+|---|---|
+| `escritura-humana-core` remite a `-vocabulario`, `-conectores` y `-ensayos`; cada uno remite de vuelta al núcleo | Un solo manual con secciones numeradas; los anexos ya no remiten a otros módulos |
+| `escritura-de-calidad` suma `-ensayos`, y `-ensayos` delega el proceso general en `escritura-de-calidad` | El proceso (fases 0 a 6) y el modo ensayo viven en el mismo manual |
+| `principios-aprendizaje` declara que lo consultan `tutor-adaptativo` y `auditor-prompts-aprendizaje`; ambos lo consultan; el auditor además reescribe "usando tutor-adaptativo" | El núcleo científico es la sección 2 del motor pedagógico y los cuatro modos lo aplican |
+| `tutor-comprension-profunda` deriva a `tutor-adaptativo`, que a su vez cubre el modo exprés | Un enrutador de modos al inicio del motor |
+
+### 3.3 Contradicciones entre skills y decisión tomada
+
+| # | Contradicción | Decisión |
+|---|---|---|
+| 1 | `humanizer` permitía rayas si la muestra del usuario las usaba; el resto las prohibía sin excepción | Prohibición absoluta: es regla del usuario y gana a la muestra de voz |
+| 2 | `escritura-de-calidad` admitía tratamiento "vos"; la familia escritura-humana prohibía el voseo | Sin voseo por defecto; otra variante solo por pedido explícito de una tarea |
+| 3 | Umbral de aperturas mecánicas: "más de dos" (core), "tres o más" (conectores), "dos o más" (escritura-de-calidad) | Dos seguidas, señal de revisión; tres o más, mecánicas por defecto |
+| 4 | `escritura-humana` prohibía repetir un conector en el párrafo; `-conectores` permitía repetir los frecuentes | Los simples y frecuentes pueden repetirse; los marcadores no |
+| 5 | `humanizer` pedía alternar longitudes de frase; `-core` lo prohibía como firma | El ritmo sale del contenido; frase de más de 35 palabras se parte o se justifica |
+| 6 | Extensión por defecto del ensayo: 900 a 1200 (`-ensayos`) frente a 1500 (`brief-defaults`) | 900 a 1200, declarado al entregar |
+| 7 | Espaciado: 1, 3, 7, 14, 30 días (`principios`) frente a día 1, día 3, semana 1, semana 3 (`tutor-comprension-profunda`) | Escala de `principios`, comprimida según los días disponibles |
+| 8 | Longitud de turno del tutor: 250 palabras (original) frente a 180 (Sistema Auditado) | 250 palabras como tope y una pregunta conceptual por turno |
+| 9 | "Sin negritas en el chat" frente al esquema en negrita de `ejercicios-dos-pasos` | La regla rige para prosa de comunicación; la notación técnica queda fuera |
+| 10 | Prohibición del término vetado frente a la notación de mecánica y circuitos en `maquetacion` y `ejercicios` | Excepción técnica explícita, igual en los tres motores |
+| 11 | Descripciones en inglés (`humanizer`, `-conectores`, `-vocabulario`) en un sistema en español | Todas las descripciones en español |
+
+### 3.4 Defectos de las skills originales
+
+- `maquetacion-pdf-documentos` estaba truncada: termina en la sección 2.7 y cita secciones 3 a 7 (y los apartados 4.1, 4.8 y 5.5) que no existen en el paquete. Se reconstruyeron de forma compacta a partir de sus referencias internas y están marcadas como reconstrucción.
+- `ejercicios-dos-pasos` no verificaba los resultados; ahora exige verificación silenciosa (con código cuando la plataforma lo permite).
+- La mayoría de las skills no tenía ejemplos de entrada y salida ni lista de antipatrones.
+
+## 4. Correcciones al documento "Sistema Auditado y Optimizado para Claude"
+
+Se adoptó su arquitectura de macromotores y sus nombres de comando. Estas propuestas se corrigieron porque contradecían las skills originales o las reglas del usuario:
+
+| Propuesta del documento | Problema | Decisión |
+|---|---|---|
+| Prohibir sin excepción "Además", "Por lo tanto", "En resumen" | Contradice la preferencia expresa del usuario por conectores lógicos explícitos | Se corrige solo el uso mecánico |
+| Alternar frases de 3 a 7 y de 18 a 28 palabras | Un ritmo impuesto por norma se convierte en firma de máquina | El ritmo sale del contenido |
+| Omitir la raya y el término vetado en `/human-write` | Eran las dos restricciones absolutas del usuario | Restituidas como sección 3 del motor |
+| Ejemplo de salida "La clave no está en deslumbrarse... sino en medir..." | Es un contraste fabricado (patrón P1) e inventa contenido ("competidores más ágiles") | Ejemplo sustituido por uno que marca el hueco en vez de inventar |
+| Fusionar `ejercicios-dos-pasos` dentro del tutor | Filosofías opuestas: el tutor retiene la respuesta; el solucionador la entrega | Motores separados con frontera explícita |
+| Feynman "para un niño de 12 años" | `principios-aprendizaje` lo prohíbe porque pierde precisión | Explicación a un colega con criterio |
+| Plan de clase con porcentajes 10/25/30/25/10 | Ignora las anclas calibradas (45 min, 8/28/9), el CNEB, la ficha y el checklist | Se conserva el método original completo |
+| `/brand` como sistema de voz verbal | El original es identidad visual y logo | Se conserva el alcance visual; la voz verbal se resuelve con el motor de escritura |
+| `/pdf-doc` con Pandoc y Typst y salto de página antes de cada encabezado | El usuario usa ReportLab y python-docx (y pdflatex para solo PDF) | Se conserva el flujo original |
+| Frontmatter con `parameters:` y variables `$mode`, `$topic` | Claude Code no reconoce ese campo; los comandos reciben `$ARGUMENTS` (o `$1`, `$2`) | Frontmatter con `description` y `argument-hint`, y lectura de `$ARGUMENTS` |
+| `CLAUDE.md` con la palabra "sin省略ciones" | Caracteres chinos por error | Corregido en el nuevo `CLAUDE.md` |
+| `/audit-prompt` limitado a prompts pedagógicos con puntuación sobre 25 | Dejaba fuera briefs, SOPs y prompts generales del `mejorador-de-textos` | Auditor general de 10 ejes con enrutamiento; los prompts pedagógicos van al motor pedagógico |
+
+## 5. Enriquecimiento aplicado a cada motor
+
+Cada manual incluye: modos y enrutamiento; reglas con su excepción; casos de uso típicos; casos límite; dos ejemplos completos de entrada del usuario y salida esperada, con la explicación de por qué la salida es correcta; y antipatrones. Los ejemplos cumplen las mismas reglas que enseñan (sin datos inventados, sin raya y sin el término vetado fuera de la notación técnica).
+
+## 6. Cambios de arquitectura por plataforma
+
+| Plataforma | Carpeta | Formato | Calibración |
+|---|---|---|---|
+| Claude Code | `01_ECOSISTEMA_CLAUDE/.claude/commands/` | Slash commands con frontmatter `description` y `argument-hint`, cuerpo que lee `$ARGUMENTS`, detecta modo y ruta de archivo | Reglas operativas completas en el comando; remite a la skill para tablas y ejemplos |
+| Claude Code | `01_ECOSISTEMA_CLAUDE/.claude/skills/` | Skills con `name` y `description` y carpeta `references/` | Se activan solas por su descripción; también sirven para subir como skill en claude.ai |
+| Claude Code | `01_ECOSISTEMA_CLAUDE/CLAUDE.md` | Directivas globales, política de terminal, formato y enrutamiento | Conciso: solo lo que debe valer en todo el proyecto |
+| Claude Projects y Cowork | `01_ECOSISTEMA_CLAUDE/projects_cowork/` | `instrucciones_proyecto.md` (operativo, en XML) y `knowledge/` (manuales y anexos) | Separación de instrucciones y conocimiento estático para ahorrar ventana de contexto |
+| Claude chat | `01_ECOSISTEMA_CLAUDE/chat_standalone/` | Un prompt por motor, en etiquetas XML, con ejemplos | Autosuficiente; no necesita archivos |
+| Gemini | `02_ECOSISTEMA_GEMINI/skills_nativas/` | `SKILL.md` con `name` y `description` concisos, cuerpo completo y `references/` | Bloques de veracidad estricta y groundedness; ejecución de código Python y SymPy en `ejercicios-dos-pasos` y `maquetacion-pdf-documentos` |
+| Gemini | `02_ECOSISTEMA_GEMINI/system_instructions/` | Instrucciones de sistema por motor y `00_sistema_unificado.md` | Para Gems y Google AI Studio; incluyen raya, término vetado y conectores explícitos |
+| Gemini | `02_ECOSISTEMA_GEMINI/gemini_standalone/` | Prompt de arranque por motor, con ejemplos | Para pegar al inicio de un chat |
+| ChatGPT | `03_ECOSISTEMA_CHATGPT/custom_gpts/` | `instrucciones.md` (con Action Triggers y encabezados `### Directiva`) y `configuracion.md` por GPT, más un GPT unificado | Todas las instrucciones por debajo de 8000 caracteres; tablas y ejemplos trasladados a Knowledge |
+| ChatGPT | `03_ECOSISTEMA_CHATGPT/knowledge_files/` | Manual completo y anexos de cada motor, con nombres planos | Listos para la sección Knowledge (máximo 20 archivos por GPT) |
+| ChatGPT | `03_ECOSISTEMA_CHATGPT/chatgpt_standalone/` | System prompt autosuficiente por motor | Para Projects o chat, sin Knowledge |
+
+## 7. Validación automática
+
+- Rayas (U+2014) y semirrayas (U+2013): 0 en todos los archivos nuevos. El único ejemplo que necesitaba mostrar una raya del usuario la representa como `[raya]`.
+- Emojis: 0.
+- Frontmatter YAML: válido en todas las skills y comandos.
+- Caracteres de las instrucciones de ChatGPT (límite 8000):
+
+| Archivo | Caracteres |
+|---|---|
+| `chatgpt_standalone/auditor-de-prompts.md` | 4078 |
+| `chatgpt_standalone/ejercicios-dos-pasos.md` | 3222 |
+| `chatgpt_standalone/escritura-humana.md` | 5800 |
+| `chatgpt_standalone/identidad-de-marca.md` | 5148 |
+| `chatgpt_standalone/maquetacion-pdf-documentos.md` | 4301 |
+| `chatgpt_standalone/motor-pedagogico.md` | 6062 |
+| `chatgpt_standalone/preparador-de-clases.md` | 5386 |
+| `custom_gpts/00_gpt_unificado/instrucciones.md` | 2627 |
+| `custom_gpts/auditor-de-prompts/instrucciones.md` | 4362 |
+| `custom_gpts/ejercicios-dos-pasos/instrucciones.md` | 3508 |
+| `custom_gpts/escritura-humana/instrucciones.md` | 6386 |
+| `custom_gpts/identidad-de-marca/instrucciones.md` | 5433 |
+| `custom_gpts/maquetacion-pdf-documentos/instrucciones.md` | 4594 |
+| `custom_gpts/motor-pedagogico/instrucciones.md` | 6345 |
+| `custom_gpts/preparador-de-clases/instrucciones.md` | 5673 |
+
+## 8. Guía de importación paso a paso
+
+### 8.1 Claude Code
+
+1. Copia `01_ECOSISTEMA_CLAUDE/.claude/` y `01_ECOSISTEMA_CLAUDE/CLAUDE.md` a la raíz del proyecto donde trabajarás. Si ya existe un `CLAUDE.md`, añade su contenido al final.
+2. Para tenerlos en todos tus proyectos, copia `commands/` a `~/.claude/commands/` y `skills/` a `~/.claude/skills/`.
+3. Abre Claude Code en ese proyecto y escribe `/` para ver los comandos (`/human-write`, `/tutor`, `/audit-prompt`, `/lesson-plan`, `/brand`, `/pdf-doc`, `/ejercicios`).
+4. Uso: `/human-write pulir docs/informe.md` o `/tutor socratico derivadas`. Sin comando, las skills se activan solas cuando la petición coincide con su descripción.
+
+### 8.2 Claude Projects (claude.ai)
+
+1. Crea un Project nuevo.
+2. En las instrucciones del Project pega el contenido de `projects_cowork/instrucciones_proyecto.md`.
+3. En el conocimiento del Project sube los archivos de `projects_cowork/knowledge/`. Si quieres ahorrar espacio, sube solo los manuales de los motores que usarás (`motor_<nombre>.md`) y, para escritura, sus anexos.
+4. Prueba con: "Usa el motor pedagógico en modo socrático para explicarme el principio de Le Chatelier".
+
+### 8.3 Claude Cowork y skills de claude.ai
+
+1. Comprime cada carpeta de `01_ECOSISTEMA_CLAUDE/.claude/skills/<motor>/` en un `.zip` (la carpeta, con su `SKILL.md` en la raíz).
+2. En claude.ai abre la configuración de capacidades, sección Skills, y sube cada `.zip` (requiere un plan con Skills habilitadas).
+3. Las skills activadas en tu cuenta quedan disponibles para Cowork y para los chats; si prefieres trabajar por proyecto, usa la guía 8.2.
+
+### 8.4 Claude chat sin Project
+
+Abre un chat nuevo y pega como primer mensaje el bloque del archivo del motor en `chat_standalone/`.
+
+### 8.5 Gemini: Gems (gemini.google.com)
+
+1. Abre el gestor de Gems y crea un Gem nuevo.
+2. En Instrucciones pega `system_instructions/<motor>.md` (un Gem por motor) o `system_instructions/00_sistema_unificado.md` (un solo Gem para todo).
+3. En Conocimiento sube `skills_nativas/<motor>/SKILL.md` y los archivos de su carpeta `references/`.
+4. Guarda y prueba con uno de los casos de uso del manual.
+
+### 8.6 Gemini: Google AI Studio
+
+1. Crea un prompt nuevo y pega `system_instructions/<motor>.md` en "System instructions".
+2. Para `ejercicios-dos-pasos` y `maquetacion-pdf-documentos`, activa la herramienta de ejecución de código.
+3. Si quieres respuestas con fuentes web, activa la búsqueda de Google como herramienta de grounding.
+
+### 8.7 Gemini CLI y chat de Gemini
+
+1. Si tu versión de Gemini CLI admite Agent Skills, copia las carpetas de `skills_nativas/` a `~/.gemini/skills/` (o a `.gemini/skills/` dentro del proyecto). Si no las admite, pega `system_instructions/00_sistema_unificado.md` en el archivo de contexto `GEMINI.md` del proyecto.
+2. En el chat de Gemini sin Gem, pega como primer mensaje el archivo del motor en `gemini_standalone/`.
+
+### 8.8 ChatGPT: Custom GPTs
+
+1. En chatgpt.com abre la sección GPTs, elige Crear y pasa a la pestaña Configurar.
+2. Rellena nombre, descripción e iniciadores de conversación con los datos de `custom_gpts/<motor>/configuracion.md`.
+3. En Instructions pega `custom_gpts/<motor>/instrucciones.md` completo.
+4. En Knowledge sube los archivos que lista `configuracion.md` desde `knowledge_files/`.
+5. Activa Code Interpreter en los GPT de ejercicios y maquetación; activa la generación de imágenes en el de identidad de marca si quieres probar los prompts de logo.
+6. Alternativa de un solo GPT: `custom_gpts/00_gpt_unificado/` con los siete manuales en Knowledge.
+
+### 8.9 ChatGPT: Projects y chat
+
+Crea un Project, pega `chatgpt_standalone/<motor>.md` (el bloque interior) en las instrucciones del Project y, si quieres más detalle, añade el manual del motor como archivo. En un chat suelto, pega el mismo bloque como primer mensaje.
+
+## 9. Cómo llevar este respaldo a Google Drive
+
+1. En drive.google.com elige Nuevo, Subir carpeta, y selecciona `Respaldo_Skills_AI`.
+2. Con Google Drive para escritorio, copia `Respaldo_Skills_AI` dentro de `Mi unidad` (por ejemplo, `G:\Mi unidad\` en Windows o `~/Library/CloudStorage/GoogleDrive-<cuenta>/Mi unidad/` en macOS).
+3. Si ejecutas `python3 herramientas/construir_respaldo.py` (en el repositorio) en un equipo con Drive montado, el generador detectará la ruta y escribirá directamente en `<Mi unidad>/Respaldo_Skills_AI/`.
+
+## 10. Mantenimiento
+
+- Generador: `herramientas/construir_respaldo.py` reconstruye todo el árbol desde `herramientas/fuentes/` (manuales, versiones compactas y piezas de plataforma) y el zip original, y repite las validaciones (rayas, emojis, límite de 8000 caracteres). Edita las fuentes y vuelve a ejecutarlo en lugar de editar las 110 copias a mano.
+- Fuente de verdad: el manual de cada motor (`knowledge/motor_<nombre>.md`, idéntico a `skills/<nombre>/SKILL.md` sin frontmatter). Las versiones compactas de comandos, Gems y GPT se derivan de él.
+- Si cambias una regla absoluta (raya, término vetado, conectores), cámbiala en el manual del motor de escritura y en los bloques de reglas globales de `CLAUDE.md`, `instrucciones_proyecto.md`, `00_sistema_unificado.md` y el GPT unificado.
+- Restauración: `00_BACKUP_ORIGINAL_RAW/` conserva las 16 skills byte a byte, el paquete `para_claude_projects/`, el zip original y el documento "Sistema Auditado"; las sumas SHA-256 están en su `README.md`.
+
+## 11. Árbol generado
+
+```text
+Respaldo_Skills_AI/
+├── 00_BACKUP_ORIGINAL_RAW/
+│   ├── para_claude_projects/
+│   │   └── (16 archivos)
+│   ├── skills/
+│   │   └── (25 archivos)
+│   ├── README.md
+│   ├── README_paquete_original.md
+│   ├── Sistema_Auditado_y_Optimizado_para_Claude.md
+│   └── mis_skills_claude.zip
+├── 01_ECOSISTEMA_CLAUDE/
+│   ├── .claude/
+│   │   ├── commands/
+│   │   │   └── (7 archivos)
+│   │   └── skills/
+│   │       └── (14 archivos)
+│   ├── chat_standalone/
+│   │   ├── auditor-de-prompts.md
+│   │   ├── ejercicios-dos-pasos.md
+│   │   ├── escritura-humana.md
+│   │   ├── identidad-de-marca.md
+│   │   ├── maquetacion-pdf-documentos.md
+│   │   ├── motor-pedagogico.md
+│   │   └── preparador-de-clases.md
+│   ├── projects_cowork/
+│   │   ├── knowledge/
+│   │   │   └── (14 archivos)
+│   │   └── instrucciones_proyecto.md
+│   └── CLAUDE.md
+├── 02_ECOSISTEMA_GEMINI/
+│   ├── gemini_standalone/
+│   │   ├── auditor-de-prompts.md
+│   │   ├── ejercicios-dos-pasos.md
+│   │   ├── escritura-humana.md
+│   │   ├── identidad-de-marca.md
+│   │   ├── maquetacion-pdf-documentos.md
+│   │   ├── motor-pedagogico.md
+│   │   └── preparador-de-clases.md
+│   ├── skills_nativas/
+│   │   ├── auditor-de-prompts/
+│   │   │   └── (1 archivo)
+│   │   ├── ejercicios-dos-pasos/
+│   │   │   └── (1 archivo)
+│   │   ├── escritura-humana/
+│   │   │   └── (8 archivos)
+│   │   ├── identidad-de-marca/
+│   │   │   └── (1 archivo)
+│   │   ├── maquetacion-pdf-documentos/
+│   │   │   └── (1 archivo)
+│   │   ├── motor-pedagogico/
+│   │   │   └── (1 archivo)
+│   │   └── preparador-de-clases/
+│   │       └── (1 archivo)
+│   └── system_instructions/
+│       ├── 00_sistema_unificado.md
+│       ├── auditor-de-prompts.md
+│       ├── ejercicios-dos-pasos.md
+│       ├── escritura-humana.md
+│       ├── identidad-de-marca.md
+│       ├── maquetacion-pdf-documentos.md
+│       ├── motor-pedagogico.md
+│       └── preparador-de-clases.md
+├── 03_ECOSISTEMA_CHATGPT/
+│   ├── chatgpt_standalone/
+│   │   ├── auditor-de-prompts.md
+│   │   ├── ejercicios-dos-pasos.md
+│   │   ├── escritura-humana.md
+│   │   ├── identidad-de-marca.md
+│   │   ├── maquetacion-pdf-documentos.md
+│   │   ├── motor-pedagogico.md
+│   │   └── preparador-de-clases.md
+│   ├── custom_gpts/
+│   │   ├── 00_gpt_unificado/
+│   │   │   └── (2 archivos)
+│   │   ├── auditor-de-prompts/
+│   │   │   └── (2 archivos)
+│   │   ├── ejercicios-dos-pasos/
+│   │   │   └── (2 archivos)
+│   │   ├── escritura-humana/
+│   │   │   └── (2 archivos)
+│   │   ├── identidad-de-marca/
+│   │   │   └── (2 archivos)
+│   │   ├── maquetacion-pdf-documentos/
+│   │   │   └── (2 archivos)
+│   │   ├── motor-pedagogico/
+│   │   │   └── (2 archivos)
+│   │   └── preparador-de-clases/
+│   │       └── (2 archivos)
+│   └── knowledge_files/
+│       ├── auditor-de-prompts_manual.md
+│       ├── ejercicios-dos-pasos_manual.md
+│       ├── escritura-humana_casos-negrita.md
+│       ├── escritura-humana_catalogo-humanizer.md
+│       └── ... y 10 archivos más
+└── MATRIZ_AUDITORIA_Y_COMPARATIVA.md
+```
