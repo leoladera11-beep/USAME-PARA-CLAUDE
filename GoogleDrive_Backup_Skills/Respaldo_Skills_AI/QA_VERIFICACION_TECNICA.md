@@ -4,19 +4,19 @@ Fecha: 2026-10-12. Paquete: `Respaldo_Skills_AI`. Comando: `python3 herramientas
 
 ## Resultado
 
-10 de 10 pruebas pasan; 987 elementos revisados; 0 fallos.
+10 de 10 pruebas pasan; 993 elementos revisados; 0 fallos.
 
 | N.º | Prueba | Revisados | Fallos | Estado |
 |---|---|---|---|---|
 | 1 | Frontmatter YAML y campos obligatorios | 47 | 0 | PASA |
-| 2 | Raya, semirraya como puntuación y doble guion | 170 | 0 | PASA |
+| 2 | Raya, semirraya como puntuación y doble guion | 171 | 0 | PASA |
 | 3 | Léxico inflado | 161 | 0 | PASA |
-| 4 | Término vetado | 170 | 0 | PASA |
-| 5 | Emojis y caracteres gráficos decorativos | 170 | 0 | PASA |
+| 4 | Término vetado | 171 | 0 | PASA |
+| 5 | Emojis y caracteres gráficos decorativos | 171 | 0 | PASA |
 | 6 | Etiquetas XML huérfanas o mal cerradas | 147 | 0 | PASA |
 | 7 | Casos límite y cumplimiento perezoso | 28 | 0 | PASA |
 | 8 | Integridad del manifest y de los paquetes | 43 | 0 | PASA |
-| 9 | Instalador en carpeta personal temporal | 4 | 0 | PASA |
+| 9 | Instalador en carpeta personal temporal | 7 | 0 | PASA |
 | 10 | Sensibilidad: defectos sembrados detectados | 47 | 0 | PASA |
 
 ## Qué revisa cada prueba
@@ -30,7 +30,8 @@ Fecha: 2026-10-12. Paquete: `Respaldo_Skills_AI`. Comando: `python3 herramientas
 7. Casos límite y cumplimiento perezoso: conectores explícitos en las skills de redacción, recálculo
    por código y LaTeX en las skills cuantitativas, y el script revisar_texto.py frente a textos de prueba.
 8. Integridad: sumas SHA-256 del manifest y .skill/.zip idénticos a sus carpetas.
-9. Instalador: instalación, estado y desinstalación en una carpeta personal temporal.
+9. Instalador: instalación, estado y desinstalación en una carpeta personal temporal, con
+   instalar_skills.py y con instalar_sin_internet.py (sin red).
 10. Sensibilidad: cada defecto conocido (36 casos de las pruebas 1 a 6) se siembra por separado en un
     paquete mínimo y su prueba debe detectarlo, para que el linter no pase por estar vacío; once textos
     legítimos (Arquímedes, faros y tapices literales, una opción de comando y una enumeración de palabras
@@ -44,7 +45,7 @@ Elementos revisados: 47. Fallos: 0.
 
 ### 2. Raya, semirraya como puntuación y doble guion
 
-Elementos revisados: 170. Fallos: 0.
+Elementos revisados: 171. Fallos: 0.
 
 ### 3. Léxico inflado
 
@@ -53,12 +54,12 @@ Elementos revisados: 161. Fallos: 0.
 
 ### 4. Término vetado
 
-Elementos revisados: 170. Fallos: 0.
+Elementos revisados: 171. Fallos: 0.
 - Apariciones en notación de mecánica (admitidas): 0
 
 ### 5. Emojis y caracteres gráficos decorativos
 
-Elementos revisados: 170. Fallos: 0.
+Elementos revisados: 171. Fallos: 0.
 
 ### 6. Etiquetas XML huérfanas o mal cerradas
 
@@ -75,8 +76,9 @@ Elementos revisados: 43. Fallos: 0.
 
 ### 9. Instalador en carpeta personal temporal
 
-Elementos revisados: 4. Fallos: 0.
+Elementos revisados: 7. Fallos: 0.
 - Elementos instalados: 35
+- Elementos instalados con instalar_sin_internet.py: 35
 
 ### 10. Sensibilidad: defectos sembrados detectados
 

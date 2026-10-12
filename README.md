@@ -18,7 +18,9 @@ Pídele a tu agente (Claude Code, Codex, Gemini CLI u otro con terminal):
 
 > Instala (o actualiza) las skills de https://github.com/leoladera11-beep/USAME-PARA-CLAUDE siguiendo su archivo INSTALAR.md.
 
-El agente clona el repositorio y ejecuta `python3 instalar_skills.py`, que detecta tus plataformas, instala o actualiza solo lo que cambió y guarda copia de lo reemplazado. Detalles, opciones e instalación manual en claude.ai, ChatGPT web y Gemini web: [INSTALAR.md](INSTALAR.md).
+El agente clona el repositorio y ejecuta `python3 instalar_skills.py`, que detecta tus plataformas, instala o actualiza solo lo que cambió y guarda copia de lo reemplazado.
+
+Si el entorno del agente no tiene internet (no puede clonar ni descargar), descarga tú [`instalar_sin_internet.py`](https://github.com/leoladera11-beep/USAME-PARA-CLAUDE/raw/main/instalar_sin_internet.py), súbelo al entorno y pídele: "Ejecuta `python3 instalar_sin_internet.py --simular`, muéstrame el resultado y luego instala". Ese único archivo lleva dentro todas las skills. Detalles, opciones e instalación manual en claude.ai, ChatGPT web y Gemini web: [INSTALAR.md](INSTALAR.md).
 
 ## Contenido
 

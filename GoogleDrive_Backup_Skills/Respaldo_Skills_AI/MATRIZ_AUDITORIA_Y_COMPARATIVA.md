@@ -160,7 +160,7 @@ Cada manual incluye: modos y enrutamiento; reglas con su excepción; casos de us
 | ChatGPT (Projects) | `03_ECOSISTEMA_CHATGPT/skills/` | Un archivo Markdown autónomo por skill: frontmatter con `name`, `description`, `triggers` y `compatibility`; manual completo, calibración, anexos y scripts dentro del mismo archivo | Paridad con Claude y Gemini sin el límite de 8000 caracteres: las skills van como archivos del Project, no en un formulario |
 | ChatGPT (Projects) | `03_ECOSISTEMA_CHATGPT/projects_instructions/SISTEMA_MAESTRO_CHATGPT.md` | Enrutador maestro, reglas globales y criterios de invocación | Se pega en las instrucciones del Project |
 | ChatGPT | `03_ECOSISTEMA_CHATGPT/prompts_activacion/disparadores_rapidos.md` | Frases de activación y prompts listos por skill | Invocación explícita |
-| Todas | `manifest.json`, `instalar_skills.py`, `INSTALAR.md` | Versión, rutas y sumas SHA-256 de cada skill; instalador; guía para personas y agentes | Instalar o actualizar con solo el enlace del repositorio |
+| Todas | `manifest.json`, `instalar_skills.py`, `instalar_sin_internet.py`, `INSTALAR.md` | Versión, rutas y sumas SHA-256 de cada skill; instalador; guía para personas y agentes | Instalar o actualizar con solo el enlace del repositorio |
 
 ## 8. Validación automática
 
@@ -273,7 +273,7 @@ Para usar una sola skill sin Project, adjunta su archivo de `skills/` al chat y 
 
 ## 12. Versión e historial de cambios
 
-Versión actual: 2.2.0. Para publicar una versión nueva, cambia `VERSION` en el generador, regenera y sube los cambios; el instalador detecta por suma SHA-256 qué skills cambiaron.
+Versión actual: 2.3.0. Para publicar una versión nueva, cambia `VERSION` en el generador, regenera y sube los cambios; el instalador detecta por suma SHA-256 qué skills cambiaron.
 
 | Versión | Cambios |
 |---|---|
@@ -282,6 +282,7 @@ Versión actual: 2.2.0. Para publicar una versión nueva, cambia `VERSION` en el
 | 2.0.0 | Memoria del usuario integrada (sección 5); el término vetado desaparece de todas las versiones finales; excepción técnica solo para la fuerza de una cuerda; módulos separados de escritura para comparar; archivos `.skill` instalables; correcciones de dos rondas de jueces externos; se retiran los Custom GPTs por decisión del usuario (que indica que OpenAI prevé retirarlos) y quedan skills en las tres plataformas; instalador `instalar_skills.py`, `manifest.json` e `INSTALAR.md` para instalar o actualizar con solo el enlace. |
 | 2.1.0 | Ronda final de seis jueces externos: módulo de conectores activo con todo texto para otro lector; ejemplos de cierre de argumento recuperados; revisión final de conectores (4.6); detector de emojis ampliado y rangos numéricos en `revisar_texto.py`; ejemplos corregidos en auditor, identidad, tutor, preparador y maquetación; QA de maquetación sin tolerancia de espacios vacíos; comandos que encuentran el manual en `~/.claude/skills/`; instalador con respaldos sin colisiones, estado por suma SHA-256, enlaces simbólicos y carpeta `~/.agents/skills` de Codex. |
 | 2.2.0 | ChatGPT pasa a skills modulares: `skills/` con archivos autónomos (frontmatter con `triggers` y `compatibility`, anexos y scripts incluidos), `projects_instructions/SISTEMA_MAESTRO_CHATGPT.md` y `prompts_activacion/disparadores_rapidos.md`; se retiran los prompts de respaldo y el límite de 8000 caracteres. Pipeline determinista `herramientas/verificar_calidad.py` y reporte `QA_VERIFICACION_TECNICA.md`. Tercera ronda de jueces aplicada (plan B del preparador, salvedad del solucionador en Gemini, mensajes del instalador). |
+| 2.3.0 | Instalador sin internet `instalar_sin_internet.py`: un solo archivo con el paquete comprimido dentro, para agentes cuyo entorno no puede clonar ni descargar; sección "Sin internet" en `INSTALAR.md`; se retiran las indicaciones de la rama de trabajo porque el paquete ya está en `main`. |
 
 ## 13. Árbol generado
 
@@ -409,6 +410,7 @@ Respaldo_Skills_AI/
 ├── INSTALAR.md
 ├── MATRIZ_AUDITORIA_Y_COMPARATIVA.md
 ├── QA_VERIFICACION_TECNICA.md
+├── instalar_sin_internet.py
 ├── instalar_skills.py
 └── manifest.json
 ```

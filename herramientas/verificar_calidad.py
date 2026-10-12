@@ -19,7 +19,8 @@ Pruebas:
   7. Casos límite y cumplimiento perezoso: conectores explícitos en las skills de redacción, recálculo
      por código y LaTeX en las skills cuantitativas, y el script revisar_texto.py frente a textos de prueba.
   8. Integridad: sumas SHA-256 del manifest y .skill/.zip idénticos a sus carpetas.
-  9. Instalador: instalación, estado y desinstalación en una carpeta personal temporal.
+  9. Instalador: instalación, estado y desinstalación en una carpeta personal temporal, con
+     instalar_skills.py y con instalar_sin_internet.py (sin red).
   10. Sensibilidad: cada defecto conocido (36 casos de las pruebas 1 a 6) se siembra por separado en un
       paquete mínimo y su prueba debe detectarlo, para que el linter no pase por estar vacío; once textos
       legítimos (Arquímedes, faros y tapices literales, una opción de comando y una enumeración de palabras
@@ -461,6 +462,19 @@ def prueba_instalador(base):
         restos = [os.path.join(dp, f) for dp, _, fs in os.walk(casa) for f in fs if ".skills_respaldo" not in dp]
         if restos:
             t.fallos.append(f"quedaron {len(restos)} archivos tras desinstalar")
+        # Instalador sin internet: un solo archivo con el paquete dentro, ejecutado fuera del repositorio.
+        offline = os.path.join(base, "instalar_sin_internet.py")
+        copia = os.path.join(casa, "instalar_sin_internet.py")
+        shutil.copy(offline, copia)
+        for etiqueta, extra, esperado in (("sin internet: instalación", [], r"instalada"), ("sin internet: estado", ["--estado"], r"al d\u00eda"),
+                                          ("sin internet: desinstalaci\u00f3n", ["--desinstalar"], r"")):
+            t.revisados += 1
+            r = subprocess.run([sys.executable, "-B", copia] + extra, capture_output=True, text=True,
+                               env=dict(entorno, http_proxy="http://0.0.0.0:9", https_proxy="http://0.0.0.0:9"), cwd=casa)
+            if r.returncode != 0 or (esperado and not re.search(esperado, r.stdout)):
+                t.fallos.append(f"{etiqueta}: c\u00f3digo {r.returncode}; {(r.stdout + r.stderr).strip()[-200:]}")
+            if etiqueta == "sin internet: instalaci\u00f3n":
+                t.notas.append("Elementos instalados con instalar_sin_internet.py: " + str(len(re.findall(r"instalada: \S*/", r.stdout))))
     finally:
         shutil.rmtree(casa, ignore_errors=True)
         for raiz, dirs, _ in os.walk(base):

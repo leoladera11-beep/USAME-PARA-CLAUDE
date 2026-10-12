@@ -1,6 +1,6 @@
 # Instalar o actualizar las skills
 
-Versión del paquete: 2.2.0 (2026-10-12). Repositorio: https://github.com/leoladera11-beep/USAME-PARA-CLAUDE
+Versión del paquete: 2.3.0 (2026-10-12). Repositorio: https://github.com/leoladera11-beep/USAME-PARA-CLAUDE
 
 Siete skills en español para Claude, ChatGPT (y Codex) y Gemini: escritura humana, tutor pedagógico, auditor de prompts, preparador de clases, identidad de marca, maquetación de PDF y documentos, y ejercicios en dos pasos. La escritura humana existe en dos variantes: motor unificado (por defecto) o cuatro módulos separados.
 
@@ -8,7 +8,7 @@ Siete skills en español para Claude, ChatGPT (y Codex) y Gemini: escritura huma
 
 Te pidieron instalar o actualizar estas skills. Sigue estos pasos en orden y no inventes rutas:
 
-1. Consigue el paquete en una ubicación estable, para actualizar después con `git -C ~/USAME-PARA-CLAUDE pull`. Si tienes terminal y git: `git clone https://github.com/leoladera11-beep/USAME-PARA-CLAUDE.git ~/USAME-PARA-CLAUDE` (o `git -C ~/USAME-PARA-CLAUDE pull` si ya está clonado). Sin git: descarga `https://github.com/leoladera11-beep/USAME-PARA-CLAUDE/archive/refs/heads/main.zip` y descomprímelo como `~/USAME-PARA-CLAUDE`. Si tras clonar no existe `instalar_skills.py`, el paquete aún está en la rama de trabajo; cámbiate a ella sobre el mismo clon: `git -C ~/USAME-PARA-CLAUDE fetch origin claude/skills-audit-multiplatform-backup-s42slg && git -C ~/USAME-PARA-CLAUDE checkout claude/skills-audit-multiplatform-backup-s42slg` (después, `pull` funciona igual). Sin git, descarga `https://github.com/leoladera11-beep/USAME-PARA-CLAUDE/archive/refs/heads/claude/skills-audit-multiplatform-backup-s42slg.zip` y descomprímelo también como `~/USAME-PARA-CLAUDE`. La opción `--url` solo sirve cuando ya tienes `instalar_skills.py`.
+1. Consigue el paquete en una ubicación estable, para actualizar después con `git -C ~/USAME-PARA-CLAUDE pull`. Si tienes terminal y git: `git clone https://github.com/leoladera11-beep/USAME-PARA-CLAUDE.git ~/USAME-PARA-CLAUDE` (o `git -C ~/USAME-PARA-CLAUDE pull` si ya está clonado). Sin git: descarga `https://github.com/leoladera11-beep/USAME-PARA-CLAUDE/archive/refs/heads/main.zip` y descomprímelo como `~/USAME-PARA-CLAUDE`. Si el entorno no tiene acceso a internet (no puede clonar ni descargar), no insistas: sigue la sección "Sin internet".
 2. Comprueba Python 3 (`python3 --version`).
 3. Muestra al usuario qué va a pasar: `python3 ~/USAME-PARA-CLAUDE/instalar_skills.py --simular`. El script detecta Claude Code (`~/.claude`), Codex (`~/.codex`) y Gemini CLI (`~/.gemini`).
 4. Pregunta al usuario solo lo que cambie el resultado: plataformas (si quiere otras que las detectadas), alcance (usuario o solo este proyecto) y variante de escritura (unificada o modular). Si responde "sigue", usa los valores por defecto.
@@ -17,6 +17,17 @@ Te pidieron instalar o actualizar estas skills. Sigue estos pasos en orden y no 
 7. Para claude.ai, ChatGPT web y Gemini web no hay instalación por script: indica al usuario los archivos que debe subir según la sección "Instalación manual".
 
 Si no tienes terminal (por ejemplo, un chat web), explica al usuario la instalación manual y entrégale los enlaces a los archivos de la sección siguiente.
+
+## Sin internet
+
+Algunos entornos de agentes no pueden clonar repositorios ni descargar archivos. Para ellos existe `instalar_sin_internet.py`, un solo archivo que lleva dentro, comprimido, todo lo que el instalador necesita (skills de Claude, Codex y Gemini, comandos de Claude Code y manifest). No usa la red.
+
+1. El usuario descarga `instalar_sin_internet.py` desde su navegador: `https://github.com/leoladera11-beep/USAME-PARA-CLAUDE/raw/main/instalar_sin_internet.py` (o desde la carpeta `Respaldo_Skills_AI` de su Google Drive) y lo sube al entorno del agente (adjunto o en la carpeta del proyecto).
+2. El agente ejecuta `python3 instalar_sin_internet.py --simular`, muestra el resultado y pregunta lo mismo que en el paso 4.
+3. Instala con `python3 instalar_sin_internet.py` y las opciones elegidas (acepta las mismas que `instalar_skills.py`, por ejemplo `--plataformas codex` o `--alcance proyecto`) y verifica con `python3 instalar_sin_internet.py --estado`.
+4. Para actualizar, el usuario sube la versión nueva del archivo y se repite el paso 3.
+
+Con `python3 instalar_sin_internet.py --extraer CARPETA` solo se descomprime el paquete, por ejemplo para copiar las skills a mano.
 
 ## Instalación automática (Claude Code, Codex, Gemini CLI)
 
@@ -35,7 +46,7 @@ cd <proyecto>
 python3 ~/USAME-PARA-CLAUDE/instalar_skills.py --alcance proyecto
 ```
 
-Opciones: `--plataformas claude,codex,gemini`, `--alcance proyecto` (instala en `./.claude`, `./.agents` y `./.gemini` de la carpeta actual), `--escritura modular`, `--forzar` (reinstala aunque no haya cambios y también restaura las skills y comandos con cambios locales, que sin esta opción se conservan; lo reemplazado queda en `~/.skills_respaldo/`), `--desinstalar` (solo retira lo que instaló este paquete e indica dónde quedó respaldado lo que había antes), `--url https://github.com/leoladera11-beep/USAME-PARA-CLAUDE --rama main` (descarga el paquete sin clonar; si lo pasas, tiene prioridad sobre el paquete local; mientras `main` no tenga el paquete, usa `--rama claude/skills-audit-multiplatform-backup-s42slg`).
+Opciones: `--plataformas claude,codex,gemini`, `--alcance proyecto` (instala en `./.claude`, `./.agents` y `./.gemini` de la carpeta actual), `--escritura modular`, `--forzar` (reinstala aunque no haya cambios y también restaura las skills y comandos con cambios locales, que sin esta opción se conservan; lo reemplazado queda en `~/.skills_respaldo/`), `--desinstalar` (solo retira lo que instaló este paquete e indica dónde quedó respaldado lo que había antes), `--url https://github.com/leoladera11-beep/USAME-PARA-CLAUDE --rama main` (descarga el paquete sin clonar; si lo pasas, tiene prioridad sobre el paquete local).
 
 | Plataforma | Dónde instala |
 |---|---|

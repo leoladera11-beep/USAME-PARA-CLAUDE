@@ -28,7 +28,7 @@ with zipfile.ZipFile(ZIP_ORIGINAL) as z:
     z.extractall(ZIPDIR)
 ORIG = os.path.join(ZIPDIR, "skills")
 WORKSPACE = os.path.dirname(HERE)
-VERSION = "2.2.0"
+VERSION = "2.3.0"
 REPO = "https://github.com/leoladera11-beep/USAME-PARA-CLAUDE"
 
 # ---------------------------------------------------------------- Fase 1
@@ -1023,6 +1023,40 @@ if not EN_DRIVE:  # copias en la raíz del repositorio para instalar con solo el
     for nombre, contenido in (("instalar_skills.py", _instalador), ("INSTALAR.md", _guia)):
         with open(os.path.join(WORKSPACE, nombre), "w", encoding="utf-8") as f:
             f.write(contenido.rstrip() + "\n")
+
+
+# ---------------------------------------------------------------- instalador sin internet (un solo archivo)
+# Para agentes sin acceso a la red (no pueden clonar ni descargar): el usuario sube este único archivo y el
+# agente lo ejecuta. Lleva dentro, comprimido, todo lo que el instalador necesita.
+import base64 as _b64
+import io as _io
+
+
+def paquete_offline():
+    rutas = {"manifest.json", "instalar_skills.py", "INSTALAR.md"} | set(MANIFEST["comandos_claude"])
+    for sk in MANIFEST["skills"]:
+        for r in sk["rutas"].values():
+            for raiz, _, archivos in os.walk(os.path.join(DEST, r)):
+                for a in archivos:
+                    rutas.add(os.path.relpath(os.path.join(raiz, a), DEST))
+    buf = _io.BytesIO()
+    with _zip.ZipFile(buf, "w", _zip.ZIP_DEFLATED, compresslevel=9) as z:
+        for r in sorted(rutas):
+            info = _zip.ZipInfo(r.replace(os.sep, "/"), date_time=(2026, 1, 1, 0, 0, 0))
+            info.compress_type = _zip.ZIP_DEFLATED
+            info.external_attr = 0o644 << 16
+            z.writestr(info, open(os.path.join(DEST, r), "rb").read())
+    datos = _b64.b64encode(buf.getvalue()).decode("ascii")
+    lineas = "\n".join(datos[i:i + 100] for i in range(0, len(datos), 100))
+    return leer(os.path.join(SRC, "_plataforma/instalar_sin_internet_cabecera.py")).replace("{{VERSION}}", VERSION) \
+        + 'PAQUETE = """\n' + lineas + '\n"""\n\n\nif __name__ == "__main__":\n    sys.exit(main())\n'
+
+
+_offline = paquete_offline()
+escribir("instalar_sin_internet.py", _offline)
+if not EN_DRIVE:
+    with open(os.path.join(WORKSPACE, "instalar_sin_internet.py"), "w", encoding="utf-8") as f:
+        f.write(_offline)
 
 # ---------------------------------------------------------------- inventario original y matriz
 import datetime
