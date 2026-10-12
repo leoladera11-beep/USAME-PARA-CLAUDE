@@ -20,9 +20,10 @@ Pruebas:
      por código y LaTeX en las skills cuantitativas, y el script revisar_texto.py frente a textos de prueba.
   8. Integridad: sumas SHA-256 del manifest y .skill/.zip idénticos a sus carpetas.
   9. Instalador: instalación, estado y desinstalación en una carpeta personal temporal.
-  10. Sensibilidad: cada defecto conocido (23 casos de las pruebas 1 a 6) se siembra por separado en un
-      paquete mínimo y su prueba debe detectarlo, para que el linter no pase por estar vacío; tres textos
-      técnicos legítimos (Arquímedes, el faro de un logo, una opción de comando) no deben fallar.
+  10. Sensibilidad: cada defecto conocido (30 casos de las pruebas 1 a 6) se siembra por separado en un
+      paquete mínimo y su prueba debe detectarlo, para que el linter no pase por estar vacío; cinco textos
+      legítimos (Arquímedes, el faro de un logo, un tapiz de lana, una opción de comando y una enumeración de
+      palabras vigiladas) no deben fallar.
 Código de salida: 0 si todas las pruebas pasan, 1 si alguna falla. Requiere PyYAML.
 """
 import argparse
@@ -52,27 +53,36 @@ TEXTO = (".md", ".py", ".yaml", ".json")
 
 RAYA = re.compile("\u2014")
 SEMIRRAYA = re.compile("\u2013")
-DOBLE_GUION = re.compile(r"(?<=[^\W\d_])--(?=[^\W\d_])|(?<=\s)--(?=\s)|^\s*--(?=[^\W\d_])")
+# Doble guion como raya: pegado entre letras, suelto entre espacios, al inicio de línea (diálogo) o como inciso
+# emparejado («equipo --según el informe-- creció»); una opción de comando aislada (--simular) no cuenta.
+DOBLE_GUION = re.compile(r"(?<=[^\W\d_])--(?=[^\W\d_])|(?<=\s)--(?=\s)|^\s*--(?=[^\W\d_])"
+                         r"|(?<=\s)--(?=[^\W\d_])[^\n-]{1,120}?(?<=[^\W\d_])--(?=[\s.,;:])")
 VETADO = re.compile(r"\btensi(?:ón|ones|on)\b", re.I)
 CONTEXTO_MECANICA = re.compile(r"\$T\$|\\\(T\\\)|símbolo T|fuerza de (?:la )?cuerda|fuerza del cable", re.I)
 EMOJI = re.compile(
     "[\U0001F000-\U0001FAFF\u2600-\u2604\u2606-\u260f\u2611-\u2669\u266b-\u2712\u2714-\u27bf"
     "\u2b05-\u2b07\u2934\u2935\u3030\u303d\u3297\u3299\u2b50\u2b55\u2b1b\u2b1c\u231a\u231b\u23e9-\u23f3\u23f8-\u23fa\u20e3\ufe0f]")
 DECORATIVO = re.compile("[\u2605\u2606\u2713\u2714\u2717\u2718\u27a4\u25ba\u25c6\u25c7\u2756\u2726\u2727\u2764]")
-# Raíces del léxico inflado (rico tapiz, faro de esperanza, vertiginoso mundo, sumérgete en, desentrañar,
-# sinergia) con sus flexiones.
-# Raíces con flexiones; «sumergir» y «faro» solo en su uso metafórico, para no marcar un bloque sumergido en agua
-# (Arquímedes) ni el faro de un logo.
-INFLADO_RE = re.compile(
-    r"\b(tapi(?:z|ces)|vertiginos[oa]s?|desentra[ñn]\w*|sinergi\w*|sin[eé]rgic\w*|sum[eé]rgete|sumergirse|sumergirte"
-    r"|sum[eé]rg\w*\s+en\s+(?:el|la|este|esta|nuestro|nuestra|un|una|su|tu|mi)\s+"
-    r"(?!agua\b|l[ií]quido|fluido|aceite|tanque|recipiente|vaso|alcohol|mercurio)\w+"
-    r"|faros?\s+de\s+(?:esperanza|luz|gu[ií]a|inspiraci[oó]n|innovaci[oó]n|la\s+\w+)|es\s+un\s+faro|faro\s+en\s+la\s+oscuridad)\b", re.I)
-# Enumeración real: dos palabras vigiladas separadas solo por coma, barra, punto y coma, «y» u «o».
-ENUMERACION = re.compile(
-    r"\b(?:tapi(?:z|ces)|faros?|vertiginos[oa]s?|sum[eé]rg\w*|desentra[ñn]\w*|sinergi\w*|adentr\w*|hol[ií]stic\w*|robust\w*)\b"
-    r"\s*(?:[,/;]|\s[yo]\s)\s*(?:\w+\s){0,2}?"
-    r"\b(?:tapi(?:z|ces)|faros?|vertiginos[oa]s?|sum[eé]rg\w*|desentra[ñn]\w*|sinergi\w*|adentr\w*|hol[ií]stic\w*|robust\w*)\b", re.I)
+# Léxico inflado (rico tapiz, faro de esperanza, vertiginoso mundo, sumérgete en, desentrañar, sinergia) con sus
+# flexiones. «Tapiz», «faro» y «sumergir» solo cuentan en su uso metafórico, para no marcar un tapiz de lana, el faro
+# de un logo ni un bloque sumergido en agua (Arquímedes).
+_DET = r"(?:el|la|los|las|lo|este|esta|estos|estas|ese|esa|esos|esas|nuestro|nuestra|nuestros|nuestras|un|una|su|sus|tu|tus|mi|mis)"
+_FLUIDOS = r"(?!agua\b|aguas\b|l[ií]quido|fluido|aceite|tanque|recipiente|vaso|alcohol|mercurio)"
+_INFLADO = (
+    r"rico\s+tapiz|tapi(?:z|ces)\s+de\s+(?!lana|seda|algod[oó]n|yute|lino|nudos)\w+"
+    r"|vertiginos\w*|desentra[ñn]\w*|sinergi\w*|sin[eé]rgic\w*"
+    r"|sum[eé]rgete|sumergirse|sumergirte|sumergirnos|sum[eé]rjase|sum[eé]rjanse"
+    r"|sum[eé]r[gj]\w*\s+en\s+" + _DET + r"\s+" + _FLUIDOS + r"\w+"
+    r"|faros?\s+de\s+(?:esperanza|luz|gu[ií]a|inspiraci[oó]n|innovaci[oó]n|la\s+\w+)|es\s+un\s+faro|faro\s+en\s+la\s+oscuridad"
+    r"|(?:en|como)\s+(?:un\s+)?(?:verdadero\s+)?faro\b(?!\s+(?:del?\s+)?(?:auto|carro|coche|puerto|costa|rojo|verde))"
+)
+INFLADO_RE = re.compile(r"\b(" + _INFLADO + r")\b", re.I)
+# Enumeración real: palabras vigiladas separadas solo por coma, barra, punto y coma, «y» u «o», sin palabras
+# intermedias (salvo el complemento fijo de la propia expresión, como «faro de esperanza»). Solo quedan exentas
+# las apariciones que caen dentro del tramo enumerado.
+_VIGILADA = (r"(?:rico\s+)?(?:tapi(?:z|ces)|faros?|vertiginos\w*|sum[eé]r[gj]\w*|desentra[ñn]\w*|sinergi\w*|adentr\w*"
+             r"|hol[ií]stic\w*|robust\w*)(?:\s+(?:de|en)\s+(?:la\s+)?\w+)?")
+ENUMERACION = re.compile(r"\b" + _VIGILADA + r"(?:\s*(?:[,/;]|\s[yo]\s)\s*" + _VIGILADA + r")+\b", re.I)
 # Una aparición es mención (no uso) solo si va entre comillas, cursiva o código, si la línea es una enumeración
 # de palabras vigiladas, si lleva un marcador metalingüístico explícito o si está en una sección que cataloga el
 # léxico (vocabulario, reemplazos, antes y después, antipatrones). Las salidas de los ejemplos no quedan exentas.
@@ -241,7 +251,7 @@ def prueba_inflado(base):
                                   or (antes.endswith(("*", "_")) and despues.startswith(("*", "_"))))
                 if nombre.endswith(".yaml"):
                     entre_comillas = False  # en openai.yaml los valores van entre comillas y se muestran tal cual
-                lista = bool(ENUMERACION.search(linea))
+                lista = any(e.start() <= m.start() < e.end() for e in ENUMERACION.finditer(linea))
                 if (en_codigo or entre_comillas or lista or MARCAS_MENCION.search(linea) or MARCA_P3.search(linea)
                         or SECCION_MENCION.search(seccion)):
                     menciones += 1
@@ -357,6 +367,8 @@ def prueba_casos(base):
         ("texto limpio", "El informe llega el lunes porque el proveedor envió los datos tarde; por eso el cierre se mueve una semana.\n", 0),
         ("rango numérico permitido", "Las páginas 10\u201320 resumen el método.\n", 0),
         ("doble guion pegado", "La empresa--según el informe--creció.\n", 1),
+        ("inciso con doble guion", "El equipo --según el informe-- creció.\n", 1),
+        ("opción de comando", "Ejecuta el instalador con --simular antes de instalar.\n", 0),
     ]
     for etiqueta, texto, esperado in casos:
         t.revisados += 1
@@ -474,6 +486,13 @@ def prueba_sensibilidad(base):
         ("comilla de pulgadas", prueba_inflado, prosa, "La pantalla de 15\" logra sinergia con el teclado.\n"),
         ("doble guion de di\u00e1logo", prueba_rayas, prosa, "--Hola, dijo.\n"),
         ("flecha emoji", prueba_emojis, prosa, "Sube \u2b06\n"),
+        ("dos palabras vigiladas con palabras intermedias", prueba_inflado, prosa, "La sinergia y un ritmo vertiginoso definen al equipo.\n"),
+        ("coma seguida de oraci\u00f3n", prueba_inflado, prosa, "El ritmo es vertiginoso, y la sinergia del equipo lo sostiene.\n"),
+        ("\u00absumergiremos en los\u00bb", prueba_inflado, prosa, "Nos sumergiremos en los detalles del proyecto.\n"),
+        ("\u00absum\u00e9rjase\u00bb (usted)", prueba_inflado, prosa, "Sum\u00e9rjase en el mundo de la marca.\n"),
+        ("\u00abfaro\u00bb metaf\u00f3rico", prueba_inflado, prosa, "La marca se convirti\u00f3 en un faro para la comunidad.\n"),
+        ("\u00abvertiginosamente\u00bb", prueba_inflado, prosa, "Los precios suben vertiginosamente.\n"),
+        ("inciso con doble guion", prueba_rayas, prosa, "El equipo --seg\u00fan el informe-- creci\u00f3.\n"),
         ("t\u00e9rmino vetado", prueba_vetado, prosa, "La tensi\u00f3n del equipo crece.\n"),
         ("t\u00e9rmino vetado con tilde descompuesta", prueba_vetado, prosa, "La tensio\u0301n sube.\n"),
         ("t\u00e9rmino vetado junto a \u00abcuerda\u00bb sin notaci\u00f3n", prueba_vetado, prosa, "Hay tensi\u00f3n en el equipo, como una cuerda floja.\n"),
@@ -500,6 +519,8 @@ def prueba_sensibilidad(base):
     # Falsos positivos: vocabulario t\u00e9cnico legítimo que no debe fallar.
     legitimos = [("bloque sumergido en agua (Arqu\u00edmedes)", prueba_inflado, "Un bloque sumergido en agua recibe un empuje de 9.8 N.\n"),
                  ("faro de un logo", prueba_inflado, "El logo del puerto muestra un faro rojo.\n"),
+                 ("tapiz literal", prueba_inflado, "Usa el tapiz de lana como fondo de la foto.\n"),
+                 ("enumeraci\u00f3n de palabras vigiladas", prueba_inflado, "Evita estas palabras: tapiz, sinergia, desentra\u00f1ar.\n"),
                  ("opci\u00f3n de comando", prueba_rayas, "Ejecuta el instalador con --simular antes de instalar.\n")]
     for etiqueta, fn, contenido in legitimos:
         t.revisados += 1

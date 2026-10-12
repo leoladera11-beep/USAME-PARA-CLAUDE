@@ -177,7 +177,7 @@ Cada manual incluye: modos y enrutamiento; reglas con su excepción; casos de us
 | `projects_instructions/SISTEMA_MAESTRO_CHATGPT.md` | 6281 |
 | `skills/auditor_prompts.md` | 21016 |
 | `skills/ejercicios_dos_pasos.md` | 8681 |
-| `skills/escritura_humana_master.md` | 142732 |
+| `skills/escritura_humana_master.md` | 142907 |
 | `skills/identidad_marca.md` | 19595 |
 | `skills/maquetacion_documentos.md` | 36957 |
 | `skills/preparador_clases.md` | 38448 |

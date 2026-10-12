@@ -1461,8 +1461,9 @@ ABSOLUTOS = [
         r"(?:(?<!\d)(?<!\d\s)" + SEMIRRAYA + r"|" + SEMIRRAYA + r"(?!\s?\d))"
         r"(?:\s?[^\s" + SEMIRRAYA + r"]+)?")),
     # Doble guion suelto ("valor -- creo") o pegado entre letras ("empresa--segun"); no marca
-    # opciones de comando ("--simular" tras espacio o al inicio) ni comentarios HTML.
-    ("doble guion como raya", re.compile(r"(?<![-\w!])--(?![-\w>])|(?<=[^\W\d_])--(?=[^\W\d_])")),
+    # opciones de comando ("--simular" tras espacio o al inicio) ni comentarios HTML; marca el inciso emparejado ("equipo --segun el informe-- crecio").
+    ("doble guion como raya", re.compile(r"(?<![-\w!])--(?![-\w>])|(?<=[^\W\d_])--(?=[^\W\d_])"
+                                         r"|(?<=\s)--(?=[^\W\d_])[^\n-]{1,120}?(?<=[^\W\d_])--(?=[\s.,;:])")),
     ("emoji", EMOJI),
     ("término vetado (verificar si es notación de mecánica)", re.compile(r"\btensi(?:ón|ones|on)\b", re.I)),
 ]
