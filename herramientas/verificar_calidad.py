@@ -20,8 +20,8 @@ Pruebas:
      por código y LaTeX en las skills cuantitativas, y el script revisar_texto.py frente a textos de prueba.
   8. Integridad: sumas SHA-256 del manifest y .skill/.zip idénticos a sus carpetas.
   9. Instalador: instalación, estado y desinstalación en una carpeta personal temporal.
-  10. Sensibilidad: cada defecto conocido (34 casos de las pruebas 1 a 6) se siembra por separado en un
-      paquete mínimo y su prueba debe detectarlo, para que el linter no pase por estar vacío; diez textos
+  10. Sensibilidad: cada defecto conocido (36 casos de las pruebas 1 a 6) se siembra por separado en un
+      paquete mínimo y su prueba debe detectarlo, para que el linter no pase por estar vacío; once textos
       legítimos (Arquímedes, faros y tapices literales, una opción de comando y una enumeración de palabras
       vigiladas) no deben fallar.
 Código de salida: 0 si todas las pruebas pasan, 1 si alguna falla. Requiere PyYAML.
@@ -73,14 +73,14 @@ _ABSTRACTO = (r"(?:fascinante\s+|apasionante\s+|maravillos[oa]\s+|incre[ií]ble\
               r"(?:mundo|universo|historia|tema|cultura|viaje|experiencia|detalles?|ideas?|secretos?|conocimiento|"
               r"aventura|esencia|profundidades|magia|fascinante|apasionante)")
 _INFLADO = (
-    r"rico\s+tapiz|tapi(?:z|ces)\s+de\s+(?:ideas|saberes|matices|culturas|experiencias|voces|emociones|historias|sabores|colores)"
-    r"|(?:un|el)\s+(?:verdadero\s+)?tapiz\s+(?:sonoro|cultural|visual|narrativo|emocional)"
-    r"|vertiginos\w*|desentra[ñn]\w*|sinergi\w*|sin[eé]rgic\w*"
+    r"tapi(?:z|ces)(?!\s+de\s+(?:lana|seda|algod[oó]n|yute|lino|nudos|(?-i:[A-ZÁÉÍÓÚÑ])))"
+    r"|vertiginos\w*|desentra[ñn]\w*|sinergi(?!stas?\b)\w*|sin[eé]rgic\w*"
     r"|sum[eé]rgete|sumergirse|sumergirte|sumergirnos|sumerj[aá]monos|sumerg[aá]monos|sum[eé]rjase|sum[eé]rjanse"
     r"|sum[eé]r[gj]\w*\s+en\s+" + _DET + r"\s+" + _ABSTRACTO + r"\w*"
     r"|faros?\s+de\s+(?:la\s+)?(?:esperanza|luz|gu[ií]a|inspiraci[oó]n|innovaci[oó]n|excelencia|educaci[oó]n|ciencia|cambio|calidad)"
     r"|es\s+un\s+(?:verdadero\s+)?faro\s+(?:para|de\s+(?:esperanza|luz))|faro\s+en\s+la\s+oscuridad"
-    r"|(?:en|como)\s+(?:un\s+)?(?:verdadero\s+)?faro\s+(?:para|de\s+(?:esperanza|luz|gu[ií]a))"
+    r"|(?:en|como)\s+(?:un\s+)?(?:verdadero\s+)?faro\s+(?:para|que|de\s+(?:esperanza|luz|gu[ií]a)|del?\s+(?!la\s+costa|puerto|la\s+bah)\w+)"
+    r"|un\s+mar\s+de\s+(?:datos|informaci[oó]n|posibilidades|dudas|oportunidades)"
 )
 INFLADO_RE = re.compile(r"\b(" + _INFLADO + r")\b", re.I)
 # Enumeración real: palabras vigiladas separadas solo por coma, barra, punto y coma, «y» u «o», sin palabras
@@ -504,6 +504,8 @@ def prueba_sensibilidad(base):
         ("inciso con doble guion y palabra compuesta", prueba_rayas, prosa, "El equipo --seg\u00fan el socio-director-- creci\u00f3.\n"),
         ("\u00abhol\u00edstico y sinergias\u00bb", prueba_inflado, prosa, "Un enfoque hol\u00edstico y sinergias entre \u00e1reas.\n"),
         ("\u00abtapiz sonoro\u00bb", prueba_inflado, prosa, "El audio es un tapiz sonoro.\n"),
+        ("\u00abtapiz de la vida\u00bb", prueba_inflado, prosa, "En el gran tapiz de la vida, cada decisi\u00f3n cuenta.\n"),
+        ("\u00abcomo un faro que gu\u00eda\u00bb", prueba_inflado, prosa, "El docente act\u00faa como un faro que gu\u00eda a sus estudiantes.\n"),
         ("t\u00e9rmino vetado", prueba_vetado, prosa, "La tensi\u00f3n del equipo crece.\n"),
         ("t\u00e9rmino vetado con tilde descompuesta", prueba_vetado, prosa, "La tensio\u0301n sube.\n"),
         ("t\u00e9rmino vetado junto a \u00abcuerda\u00bb sin notaci\u00f3n", prueba_vetado, prosa, "Hay tensi\u00f3n en el equipo, como una cuerda floja.\n"),
@@ -536,6 +538,7 @@ def prueba_sensibilidad(base):
                  ("faro de la costa", prueba_inflado, "El logo se inspira en el faro de la costa de Paracas.\n"),
                  ("faro de la bah\u00eda", prueba_inflado, "Territorio 2: un faro de la bah\u00eda como s\u00edmbolo.\n"),
                  ("tapices de Ayacucho", prueba_inflado, "Tapices de Ayacucho como referencia visual.\n"),
+                 ("m\u00fasculos sinergistas", prueba_inflado, "Los m\u00fasculos agonistas, antagonistas y sinergistas trabajan juntos.\n"),
                  ("enumeraci\u00f3n de palabras vigiladas", prueba_inflado, "Evita estas palabras: tapiz, sinergia, desentra\u00f1ar.\n"),
                  ("opci\u00f3n de comando", prueba_rayas, "Ejecuta el instalador con --simular antes de instalar.\n")]
     for etiqueta, fn, contenido in legitimos:
