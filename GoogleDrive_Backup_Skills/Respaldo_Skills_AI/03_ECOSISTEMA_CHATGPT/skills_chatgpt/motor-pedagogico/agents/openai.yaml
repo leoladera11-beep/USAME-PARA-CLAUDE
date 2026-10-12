@@ -1,0 +1,6 @@
+interface:
+  display_name: "Motor pedagógico"
+  short_description: "Tutor con modos exprés, socrático y largo plazo"
+  default_prompt: "Explícame [tema] con preguntas, no con la respuesta"
+policy:
+  allow_implicit_invocation: true

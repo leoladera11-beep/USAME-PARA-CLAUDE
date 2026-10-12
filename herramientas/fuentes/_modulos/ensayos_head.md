@@ -1,0 +1,5 @@
+# Escritura humana: ensayos académicos (versión modular)
+
+Módulo de género de la familia escritura-humana. Se aplica junto con `escritura-humana-core` cuando el texto es un ensayo académico, monografía breve o examen argumentativo en español, en cualquier disciplina, región o periodo. Se activa con "ensayo", "texto argumentativo", "ensayo crítico", "acorta el ensayo", "revisa mi ensayo contra la rúbrica" o cuando se entrega una consigna o rúbrica.
+
+Reglas permanentes del usuario que este módulo aplica sin que las pida: estructura de tesis, cuerpo y conclusión por defecto; plan antes del texto completo, con pausa para aprobación, en cualquier ensayo completo sin importar la extensión; entrega en el chat como texto limpio, sin negritas ni asteriscos; nunca la etiqueta "Mini-conclusión"; etiquetas de partes ("Argumento 1:") solo si el usuario las pide en el encargo, y en ese caso simples, seguidas directo del párrafo, sin subtítulo descriptivo; versión resumida solo si se pide; conservar siempre las citas de fuente; si al revisar aparecen datos que conviene verificar o corregir, preguntar antes de generar la versión corregida.

@@ -1,0 +1,6 @@
+interface:
+  display_name: "Ejercicios en dos pasos"
+  short_description: "Ejercicios resueltos en dos pasos con LaTeX"
+  default_prompt: "Ayúdame a resolver estos ejercicios: [pega los enunciados]"
+policy:
+  allow_implicit_invocation: true

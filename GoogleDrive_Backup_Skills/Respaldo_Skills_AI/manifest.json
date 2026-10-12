@@ -1,0 +1,166 @@
+{
+ "nombre": "Respaldo_Skills_AI",
+ "version": "2.2.0",
+ "fecha": "2026-10-12",
+ "repositorio": "https://github.com/leoladera11-beep/USAME-PARA-CLAUDE",
+ "skills": [
+  {
+   "nombre": "escritura-humana",
+   "tipo": "motor",
+   "comando_claude": "/human-write",
+   "rutas": {
+    "claude": "01_ECOSISTEMA_CLAUDE/.claude/skills/escritura-humana",
+    "codex": "03_ECOSISTEMA_CHATGPT/skills_chatgpt/escritura-humana",
+    "gemini": "02_ECOSISTEMA_GEMINI/skills_nativas/escritura-humana"
+   },
+   "sha256": {
+    "claude": "2b52bd216bb25c4449e521684a22954c18a2f31c565d0014cff817b00032d019",
+    "codex": "57d7cee9f49af49d3b09fbdecae376a2b2107d15f1aa838944624c5b22b19daf",
+    "gemini": "85869925d8693bd7de3125c53cc9e471e339ad6b3e4007b029ce5c3adbc95ed1"
+   }
+  },
+  {
+   "nombre": "motor-pedagogico",
+   "tipo": "motor",
+   "comando_claude": "/tutor",
+   "rutas": {
+    "claude": "01_ECOSISTEMA_CLAUDE/.claude/skills/motor-pedagogico",
+    "codex": "03_ECOSISTEMA_CHATGPT/skills_chatgpt/motor-pedagogico",
+    "gemini": "02_ECOSISTEMA_GEMINI/skills_nativas/motor-pedagogico"
+   },
+   "sha256": {
+    "claude": "28cd0aa57a49021b71311fc5302a62aa685fbe58da1209e897fd168e3e515759",
+    "codex": "2fe55752aa13b4a2348f60964b9c6b1b5f41b685f8a9cee9d0ac0df3b909d9f5",
+    "gemini": "99b8257792b28f06523d2a0f1a9fb486dd960cf24c9d8e2c80c3d089a11791db"
+   }
+  },
+  {
+   "nombre": "auditor-de-prompts",
+   "tipo": "motor",
+   "comando_claude": "/audit-prompt",
+   "rutas": {
+    "claude": "01_ECOSISTEMA_CLAUDE/.claude/skills/auditor-de-prompts",
+    "codex": "03_ECOSISTEMA_CHATGPT/skills_chatgpt/auditor-de-prompts",
+    "gemini": "02_ECOSISTEMA_GEMINI/skills_nativas/auditor-de-prompts"
+   },
+   "sha256": {
+    "claude": "fca8c3853f7cdae032ee3f40021b86c6d68ce3bd86e7de2995c8b949a74d1962",
+    "codex": "a83674272e156269fa54058ace6e96fc9e15fe7423b075e70e9725d44697aa68",
+    "gemini": "80751e609143b209581b3e106ef285a2cf623fd6bbf42c42ff493438f93958e3"
+   }
+  },
+  {
+   "nombre": "preparador-de-clases",
+   "tipo": "motor",
+   "comando_claude": "/lesson-plan",
+   "rutas": {
+    "claude": "01_ECOSISTEMA_CLAUDE/.claude/skills/preparador-de-clases",
+    "codex": "03_ECOSISTEMA_CHATGPT/skills_chatgpt/preparador-de-clases",
+    "gemini": "02_ECOSISTEMA_GEMINI/skills_nativas/preparador-de-clases"
+   },
+   "sha256": {
+    "claude": "61ab4d21092bc987afec83100aa273ccbda1adeb39ce66497b8f464643383271",
+    "codex": "5c3b44c61a86aaa5065706dedb4f9effd4048204e01da47cacc607e1be5e3d4a",
+    "gemini": "9ec9c6a46f45cb2abf01db17df8735eb74743d54e250b1ca657a88376ede0204"
+   }
+  },
+  {
+   "nombre": "identidad-de-marca",
+   "tipo": "motor",
+   "comando_claude": "/brand",
+   "rutas": {
+    "claude": "01_ECOSISTEMA_CLAUDE/.claude/skills/identidad-de-marca",
+    "codex": "03_ECOSISTEMA_CHATGPT/skills_chatgpt/identidad-de-marca",
+    "gemini": "02_ECOSISTEMA_GEMINI/skills_nativas/identidad-de-marca"
+   },
+   "sha256": {
+    "claude": "fcc9da92556e53b97c46a5e34cdce6c3fc14e6a7ea7fe19bd221795fff0e8b67",
+    "codex": "0c1354784c43633c5ddffc8082bceb2bc3987a3b0c838c13b0a677bf6de92a2a",
+    "gemini": "a47cf06cdd8a9611a1c3438d9381888e53288dd99379ea26f8c9e73eb914986b"
+   }
+  },
+  {
+   "nombre": "maquetacion-pdf-documentos",
+   "tipo": "motor",
+   "comando_claude": "/pdf-doc",
+   "rutas": {
+    "claude": "01_ECOSISTEMA_CLAUDE/.claude/skills/maquetacion-pdf-documentos",
+    "codex": "03_ECOSISTEMA_CHATGPT/skills_chatgpt/maquetacion-pdf-documentos",
+    "gemini": "02_ECOSISTEMA_GEMINI/skills_nativas/maquetacion-pdf-documentos"
+   },
+   "sha256": {
+    "claude": "51950312992ad87b252dceda254e26105f9e880515b37230c41e9060b22ecf5f",
+    "codex": "08fea9fba7497e71edb7d02b2089a665991531d5b2df7d17720e782e02c58441",
+    "gemini": "f20a9f0b8846da2ec5255daea887f293474ac60cfdcc9870c589e23b69155962"
+   }
+  },
+  {
+   "nombre": "ejercicios-dos-pasos",
+   "tipo": "motor",
+   "comando_claude": "/ejercicios",
+   "rutas": {
+    "claude": "01_ECOSISTEMA_CLAUDE/.claude/skills/ejercicios-dos-pasos",
+    "codex": "03_ECOSISTEMA_CHATGPT/skills_chatgpt/ejercicios-dos-pasos",
+    "gemini": "02_ECOSISTEMA_GEMINI/skills_nativas/ejercicios-dos-pasos"
+   },
+   "sha256": {
+    "claude": "5c99f6981ada872fdd2714f87fec78953d1095816b950009f37afed0e4c6c1f4",
+    "codex": "ebe09f568a569f77de3c16f51044946b1cec4faf34ceae6bfd11e07483f6fc2c",
+    "gemini": "e7946b6aea200b429bf431b2e3d8b425aa9f11372debb6137435fda2254f111d"
+   }
+  },
+  {
+   "nombre": "escritura-humana-core",
+   "tipo": "modulo",
+   "rutas": {
+    "claude": "01_ECOSISTEMA_CLAUDE/modulos_separados/escritura-humana-core"
+   },
+   "sha256": {
+    "claude": "feeebffc9315c32e451129fbe208aa1a9419cb2313b8084bfa0845a52aac7d92"
+   }
+  },
+  {
+   "nombre": "escritura-humana-vocabulario",
+   "tipo": "modulo",
+   "rutas": {
+    "claude": "01_ECOSISTEMA_CLAUDE/modulos_separados/escritura-humana-vocabulario"
+   },
+   "sha256": {
+    "claude": "76b1d16c91ab901714b9748f4e98d026ae59f805f484cb06940b0236d2414840"
+   }
+  },
+  {
+   "nombre": "escritura-humana-conectores",
+   "tipo": "modulo",
+   "rutas": {
+    "claude": "01_ECOSISTEMA_CLAUDE/modulos_separados/escritura-humana-conectores"
+   },
+   "sha256": {
+    "claude": "1858ddff0bc6711f071373b62eba511c39ff2e9e495ea76739bfc98ef499c672"
+   }
+  },
+  {
+   "nombre": "escritura-humana-ensayos",
+   "tipo": "modulo",
+   "rutas": {
+    "claude": "01_ECOSISTEMA_CLAUDE/modulos_separados/escritura-humana-ensayos"
+   },
+   "sha256": {
+    "claude": "92f10a46548f1b23f17ea420193a68209a593baf2c36a6b67a440c6a1738baaf"
+   }
+  }
+ ],
+ "comandos_claude": [
+  "01_ECOSISTEMA_CLAUDE/.claude/commands/human-write.md",
+  "01_ECOSISTEMA_CLAUDE/.claude/commands/tutor.md",
+  "01_ECOSISTEMA_CLAUDE/.claude/commands/audit-prompt.md",
+  "01_ECOSISTEMA_CLAUDE/.claude/commands/lesson-plan.md",
+  "01_ECOSISTEMA_CLAUDE/.claude/commands/brand.md",
+  "01_ECOSISTEMA_CLAUDE/.claude/commands/pdf-doc.md",
+  "01_ECOSISTEMA_CLAUDE/.claude/commands/ejercicios.md"
+ ],
+ "instalables": {
+  "claude_ai": "01_ECOSISTEMA_CLAUDE/skills_instalables",
+  "chatgpt_web": "03_ECOSISTEMA_CHATGPT/skills_chatgpt_zip"
+ }
+}
