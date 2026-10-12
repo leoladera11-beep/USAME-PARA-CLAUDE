@@ -14,9 +14,9 @@
     "gemini": "02_ECOSISTEMA_GEMINI/skills_nativas/escritura-humana"
    },
    "sha256": {
-    "claude": "a5df33af5513349ee32eacf5537b736b0fef8a9aaf33bc38909f22769678ddf5",
-    "codex": "8e1e8c497e8567dfa4af707f2dfb40325911828d72bcfa848817c197bfb21a94",
-    "gemini": "d468eba0842808c71ca2496317d72988d978d88fa10a16577b7fb4e7efb0b0c7"
+    "claude": "2b52bd216bb25c4449e521684a22954c18a2f31c565d0014cff817b00032d019",
+    "codex": "57d7cee9f49af49d3b09fbdecae376a2b2107d15f1aa838944624c5b22b19daf",
+    "gemini": "85869925d8693bd7de3125c53cc9e471e339ad6b3e4007b029ce5c3adbc95ed1"
    }
   },
   {
@@ -116,7 +116,7 @@
     "claude": "01_ECOSISTEMA_CLAUDE/modulos_separados/escritura-humana-core"
    },
    "sha256": {
-    "claude": "e915283ce7ec3b02f271f42070dd8573b73939f947137591f743630ad879749c"
+    "claude": "feeebffc9315c32e451129fbe208aa1a9419cb2313b8084bfa0845a52aac7d92"
    }
   },
   {

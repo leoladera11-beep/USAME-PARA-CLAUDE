@@ -4,7 +4,7 @@ Fecha: 2026-10-12. Paquete: `Respaldo_Skills_AI`. Comando: `python3 herramientas
 
 ## Resultado
 
-10 de 10 pruebas pasan; 974 elementos revisados; 0 fallos.
+10 de 10 pruebas pasan; 984 elementos revisados; 0 fallos.
 
 | N.º | Prueba | Revisados | Fallos | Estado |
 |---|---|---|---|---|
@@ -14,10 +14,10 @@ Fecha: 2026-10-12. Paquete: `Respaldo_Skills_AI`. Comando: `python3 herramientas
 | 4 | Término vetado | 170 | 0 | PASA |
 | 5 | Emojis y caracteres gráficos decorativos | 170 | 0 | PASA |
 | 6 | Etiquetas XML huérfanas o mal cerradas | 147 | 0 | PASA |
-| 7 | Casos límite y cumplimiento perezoso | 27 | 0 | PASA |
+| 7 | Casos límite y cumplimiento perezoso | 28 | 0 | PASA |
 | 8 | Integridad del manifest y de los paquetes | 43 | 0 | PASA |
 | 9 | Instalador en carpeta personal temporal | 4 | 0 | PASA |
-| 10 | Sensibilidad: defectos sembrados detectados | 35 | 0 | PASA |
+| 10 | Sensibilidad: defectos sembrados detectados | 44 | 0 | PASA |
 
 ## Qué revisa cada prueba
 
@@ -31,10 +31,10 @@ Fecha: 2026-10-12. Paquete: `Respaldo_Skills_AI`. Comando: `python3 herramientas
    por código y LaTeX en las skills cuantitativas, y el script revisar_texto.py frente a textos de prueba.
 8. Integridad: sumas SHA-256 del manifest y .skill/.zip idénticos a sus carpetas.
 9. Instalador: instalación, estado y desinstalación en una carpeta personal temporal.
-10. Sensibilidad: cada defecto conocido (30 casos de las pruebas 1 a 6) se siembra por separado en un
-    paquete mínimo y su prueba debe detectarlo, para que el linter no pase por estar vacío; cinco textos
-    legítimos (Arquímedes, el faro de un logo, un tapiz de lana, una opción de comando y una enumeración de
-    palabras vigiladas) no deben fallar.
+10. Sensibilidad: cada defecto conocido (34 casos de las pruebas 1 a 6) se siembra por separado en un
+    paquete mínimo y su prueba debe detectarlo, para que el linter no pase por estar vacío; diez textos
+    legítimos (Arquímedes, faros y tapices literales, una opción de comando y una enumeración de palabras
+    vigiladas) no deben fallar.
 
 ## Detalle
 
@@ -49,7 +49,7 @@ Elementos revisados: 170. Fallos: 0.
 ### 3. Léxico inflado
 
 Elementos revisados: 161. Fallos: 0.
-- Menciones metalingüísticas (listas de prohibición, ejemplos de antes y después, regex): 311
+- Menciones metalingüísticas (listas de prohibición, ejemplos de antes y después, regex): 282
 
 ### 4. Término vetado
 
@@ -67,7 +67,7 @@ Elementos revisados: 147. Fallos: 0.
 
 ### 7. Casos límite y cumplimiento perezoso
 
-Elementos revisados: 27. Fallos: 0.
+Elementos revisados: 28. Fallos: 0.
 
 ### 8. Integridad del manifest y de los paquetes
 
@@ -80,9 +80,9 @@ Elementos revisados: 4. Fallos: 0.
 
 ### 10. Sensibilidad: defectos sembrados detectados
 
-Elementos revisados: 35. Fallos: 0.
-- Defectos sembrados, uno por paquete mínimo: campo compatibility ausente; raya; semirraya como inciso; doble guion pegado; «rico tapiz» en prosa; «Sumérgete» en prosa; flexión «desentraña»; flexión «vertiginosa»; «sinergia» tras «Por ejemplo»; «sinergia» tras «evitar»; frase típica con dos palabras vigiladas; «vertiginoso» y «sinergia» en prosa; «no uses» ajeno a la regla; comilla de pulgadas; doble guion de diálogo; flecha emoji; dos palabras vigiladas con palabras intermedias; coma seguida de oración; «sumergiremos en los»; «sumérjase» (usted); «faro» metafórico; «vertiginosamente»; inciso con doble guion; término vetado; término vetado con tilde descompuesta; término vetado junto a «cuerda» sin notación; emoji; carácter decorativo; etiqueta sin cierre; cierre sin apertura
-- Textos legítimos que no deben fallar: bloque sumergido en agua (Arquímedes); faro de un logo; tapiz literal; enumeración de palabras vigiladas; opción de comando
+Elementos revisados: 44. Fallos: 0.
+- Defectos sembrados, uno por paquete mínimo: campo compatibility ausente; raya; semirraya como inciso; doble guion pegado; «rico tapiz» en prosa; «Sumérgete» en prosa; flexión «desentraña»; flexión «vertiginosa»; «sinergia» tras «Por ejemplo»; «sinergia» tras «evitar»; frase típica con dos palabras vigiladas; «vertiginoso» y «sinergia» en prosa; «no uses» ajeno a la regla; comilla de pulgadas; doble guion de diálogo; flecha emoji; dos palabras vigiladas con palabras intermedias; coma seguida de oración; «sumergiremos en los»; «sumérjase» (usted); «faro» metafórico; «vertiginosamente»; inciso con doble guion; inciso con doble guion al final de línea; inciso con doble guion y palabra compuesta; «holístico y sinergias»; «tapiz sonoro»; término vetado; término vetado con tilde descompuesta; término vetado junto a «cuerda» sin notación; emoji; carácter decorativo; etiqueta sin cierre; cierre sin apertura
+- Textos legítimos que no deben fallar: bloque sumergido en agua (Arquímedes); faro de un logo; tapiz literal; cubo que se sumerge en el mar; esfera sumergida en una solución; faro de la costa; faro de la bahía; tapices de Ayacucho; enumeración de palabras vigiladas; opción de comando
 
 ## Ciclo de pruebas: errores detectados y correcciones
 
@@ -97,6 +97,6 @@ Cada ciclo combinó las validaciones del generador (`construir_respaldo.py`), es
 | Ronda final 2 (cuatro jueces) | Guía con comando de rama que fallaba sobre un clon existente; salvedad del solucionador ausente en Gemini; límite de Projects afirmado sin matiz; disparadores de ChatGPT con el umbral antiguo; boleto de salida que no evidenciaba su criterio; tildes descompuestas que evadían el detector | `git fetch` y `checkout` sobre el mismo clon; `gemini_veracidad()`; límite matizado; disparadores con 300/500; boleto por parejas con dos detalles; normalización NFC |
 | Ronda final 3 (cuatro jueces) | Plan B del preparador que no recuperaba 15 minutos; mensajes del instalador con un diccionario en lugar de una ruta; doble guion pegado a palabras sin detectar | Recortes que suman 15; ruta legible y aviso de cambios locales; patrón ampliado |
 | Pivote de ChatGPT (versión 2.2.0) | Arquitectura de Custom GPTs y límite de 8000 caracteres | Skills autónomas para Projects con `triggers` y `compatibility`, sistema maestro y disparadores; este pipeline como verificación final |
-| Juez del pivote de ChatGPT (tres rondas) | La adaptación a archivo único alteraba la tabla de plataformas del auditor; el linter de léxico inflado tenía una errata («súmergete»), no cubría flexiones, eximía prosa por palabras corrientes («ejemplo», «evitar») y por tener dos palabras vigiladas en la misma frase; sin normalización NFC; flechas emoji, doble guion de diálogo y doble guion de inciso («equipo --según el informe-- creció», también en `revisar_texto.py`) sin detectar; enumeraciones que eximían prosa con palabras intermedias; «sumérjase» y determinantes plurales fuera del patrón; falsos positivos posibles con «sumergido en agua» o «faro» | Adaptación limitada a los archivos propios de la skill, con aserción; raíces con flexiones y uso metafórico de «sumergir» y «faro»; mención solo por comillas, cursiva, código, enumeración real, marcadores explícitos o secciones de catálogo; NFC en el pipeline y en el generador; inciso emparejado en el pipeline y en el script; prueba 10 con 30 defectos sembrados y 5 textos legítimos que no deben fallar |
+| Juez del pivote de ChatGPT (cuatro rondas) | La adaptación a archivo único alteraba la tabla de plataformas del auditor; el linter de léxico inflado tenía una errata («súmergete»), no cubría flexiones, eximía prosa por palabras corrientes («ejemplo», «evitar») y por tener dos palabras vigiladas en la misma frase; sin normalización NFC; flechas emoji, doble guion de diálogo y doble guion de inciso («equipo --según el informe-- creció», también en `revisar_texto.py`) sin detectar; enumeraciones que eximían prosa con palabras intermedias; «sumérjase» y determinantes plurales fuera del patrón; falsos positivos posibles con «sumergido en agua» o «faro» | Adaptación limitada a los archivos propios de la skill, con aserción; raíces con flexiones y uso metafórico de «sumergir» y «faro»; mención solo por comillas, cursiva, código, enumeración real, marcadores explícitos o secciones de catálogo; NFC en el pipeline y en el generador; inciso emparejado en el pipeline y en el script (también al final de línea, entre paréntesis y con palabras compuestas); metáfora solo con complemento abstracto, para no marcar «se sumerge en el mar», «el faro de la costa» ni «Tapices de Ayacucho»; prueba 10 con 34 defectos sembrados y 10 textos legítimos que no deben fallar |
 
 Nota sobre el término vetado: el pedido de esta versión admite el término en física o circuitos, pero la regla fijada antes por el usuario es más estricta (solo la fuerza de una cuerda en mecánica; en circuitos, voltaje o diferencia de potencial). El pipeline aplica la regla estricta y el paquete tiene 0 apariciones, así que cumple ambas.

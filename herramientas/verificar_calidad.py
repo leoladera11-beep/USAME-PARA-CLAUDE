@@ -20,10 +20,10 @@ Pruebas:
      por código y LaTeX en las skills cuantitativas, y el script revisar_texto.py frente a textos de prueba.
   8. Integridad: sumas SHA-256 del manifest y .skill/.zip idénticos a sus carpetas.
   9. Instalador: instalación, estado y desinstalación en una carpeta personal temporal.
-  10. Sensibilidad: cada defecto conocido (30 casos de las pruebas 1 a 6) se siembra por separado en un
-      paquete mínimo y su prueba debe detectarlo, para que el linter no pase por estar vacío; cinco textos
-      legítimos (Arquímedes, el faro de un logo, un tapiz de lana, una opción de comando y una enumeración de
-      palabras vigiladas) no deben fallar.
+  10. Sensibilidad: cada defecto conocido (34 casos de las pruebas 1 a 6) se siembra por separado en un
+      paquete mínimo y su prueba debe detectarlo, para que el linter no pase por estar vacío; diez textos
+      legítimos (Arquímedes, faros y tapices literales, una opción de comando y una enumeración de palabras
+      vigiladas) no deben fallar.
 Código de salida: 0 si todas las pruebas pasan, 1 si alguna falla. Requiere PyYAML.
 """
 import argparse
@@ -56,7 +56,7 @@ SEMIRRAYA = re.compile("\u2013")
 # Doble guion como raya: pegado entre letras, suelto entre espacios, al inicio de línea (diálogo) o como inciso
 # emparejado («equipo --según el informe-- creció»); una opción de comando aislada (--simular) no cuenta.
 DOBLE_GUION = re.compile(r"(?<=[^\W\d_])--(?=[^\W\d_])|(?<=\s)--(?=\s)|^\s*--(?=[^\W\d_])"
-                         r"|(?<=\s)--(?=[^\W\d_])[^\n-]{1,120}?(?<=[^\W\d_])--(?=[\s.,;:])")
+                         r"|(?<=[\s(\[«])--(?=[^\W\d_])(?:[^\n-]|-(?!-)){1,120}?(?<=[^\W\d_])--(?=[\s.,;:)\]»]|$)")
 VETADO = re.compile(r"\btensi(?:ón|ones|on)\b", re.I)
 CONTEXTO_MECANICA = re.compile(r"\$T\$|\\\(T\\\)|símbolo T|fuerza de (?:la )?cuerda|fuerza del cable", re.I)
 EMOJI = re.compile(
@@ -67,21 +67,27 @@ DECORATIVO = re.compile("[\u2605\u2606\u2713\u2714\u2717\u2718\u27a4\u25ba\u25c6
 # flexiones. «Tapiz», «faro» y «sumergir» solo cuentan en su uso metafórico, para no marcar un tapiz de lana, el faro
 # de un logo ni un bloque sumergido en agua (Arquímedes).
 _DET = r"(?:el|la|los|las|lo|este|esta|estos|estas|ese|esa|esos|esas|nuestro|nuestra|nuestros|nuestras|un|una|su|sus|tu|tus|mi|mis)"
-_FLUIDOS = r"(?!agua\b|aguas\b|l[ií]quido|fluido|aceite|tanque|recipiente|vaso|alcohol|mercurio)"
+# Solo cuenta como metáfora cuando el complemento es abstracto; el uso literal (se sumerge en el mar, el faro de la
+# costa, los tapices de Ayacucho) no se marca.
+_ABSTRACTO = (r"(?:fascinante\s+|apasionante\s+|maravillos[oa]\s+|incre[ií]ble\s+)?"
+              r"(?:mundo|universo|historia|tema|cultura|viaje|experiencia|detalles?|ideas?|secretos?|conocimiento|"
+              r"aventura|esencia|profundidades|magia|fascinante|apasionante)")
 _INFLADO = (
-    r"rico\s+tapiz|tapi(?:z|ces)\s+de\s+(?!lana|seda|algod[oó]n|yute|lino|nudos)\w+"
+    r"rico\s+tapiz|tapi(?:z|ces)\s+de\s+(?:ideas|saberes|matices|culturas|experiencias|voces|emociones|historias|sabores|colores)"
+    r"|(?:un|el)\s+(?:verdadero\s+)?tapiz\s+(?:sonoro|cultural|visual|narrativo|emocional)"
     r"|vertiginos\w*|desentra[ñn]\w*|sinergi\w*|sin[eé]rgic\w*"
-    r"|sum[eé]rgete|sumergirse|sumergirte|sumergirnos|sum[eé]rjase|sum[eé]rjanse"
-    r"|sum[eé]r[gj]\w*\s+en\s+" + _DET + r"\s+" + _FLUIDOS + r"\w+"
-    r"|faros?\s+de\s+(?:esperanza|luz|gu[ií]a|inspiraci[oó]n|innovaci[oó]n|la\s+\w+)|es\s+un\s+faro|faro\s+en\s+la\s+oscuridad"
-    r"|(?:en|como)\s+(?:un\s+)?(?:verdadero\s+)?faro\b(?!\s+(?:del?\s+)?(?:auto|carro|coche|puerto|costa|rojo|verde))"
+    r"|sum[eé]rgete|sumergirse|sumergirte|sumergirnos|sumerj[aá]monos|sumerg[aá]monos|sum[eé]rjase|sum[eé]rjanse"
+    r"|sum[eé]r[gj]\w*\s+en\s+" + _DET + r"\s+" + _ABSTRACTO + r"\w*"
+    r"|faros?\s+de\s+(?:la\s+)?(?:esperanza|luz|gu[ií]a|inspiraci[oó]n|innovaci[oó]n|excelencia|educaci[oó]n|ciencia|cambio|calidad)"
+    r"|es\s+un\s+(?:verdadero\s+)?faro\s+(?:para|de\s+(?:esperanza|luz))|faro\s+en\s+la\s+oscuridad"
+    r"|(?:en|como)\s+(?:un\s+)?(?:verdadero\s+)?faro\s+(?:para|de\s+(?:esperanza|luz|gu[ií]a))"
 )
 INFLADO_RE = re.compile(r"\b(" + _INFLADO + r")\b", re.I)
 # Enumeración real: palabras vigiladas separadas solo por coma, barra, punto y coma, «y» u «o», sin palabras
 # intermedias (salvo el complemento fijo de la propia expresión, como «faro de esperanza»). Solo quedan exentas
 # las apariciones que caen dentro del tramo enumerado.
-_VIGILADA = (r"(?:rico\s+)?(?:tapi(?:z|ces)|faros?|vertiginos\w*|sum[eé]r[gj]\w*|desentra[ñn]\w*|sinergi\w*|adentr\w*"
-             r"|hol[ií]stic\w*|robust\w*)(?:\s+(?:de|en)\s+(?:la\s+)?\w+)?")
+_VIGILADA = (r"(?:rico\s+tapiz|tapi(?:z|ces)|faro\s+de\s+esperanza|faro\s+en\s+la\s+oscuridad|faros?|vertiginos\w*"
+             r"|sum[eé]rgete\s+en|sum[eé]r[gj]\w*|desentra[ñn]\w*|sinergi\w*|sin[eé]rgic\w*)")
 ENUMERACION = re.compile(r"\b" + _VIGILADA + r"(?:\s*(?:[,/;]|\s[yo]\s)\s*" + _VIGILADA + r")+\b", re.I)
 # Una aparición es mención (no uso) solo si va entre comillas, cursiva o código, si la línea es una enumeración
 # de palabras vigiladas, si lleva un marcador metalingüístico explícito o si está en una sección que cataloga el
@@ -368,6 +374,7 @@ def prueba_casos(base):
         ("rango numérico permitido", "Las páginas 10\u201320 resumen el método.\n", 0),
         ("doble guion pegado", "La empresa--según el informe--creció.\n", 1),
         ("inciso con doble guion", "El equipo --según el informe-- creció.\n", 1),
+        ("inciso con doble guion al final", "El equipo creció --según el informe--\n", 1),
         ("opción de comando", "Ejecuta el instalador con --simular antes de instalar.\n", 0),
     ]
     for etiqueta, texto, esperado in casos:
@@ -493,6 +500,10 @@ def prueba_sensibilidad(base):
         ("\u00abfaro\u00bb metaf\u00f3rico", prueba_inflado, prosa, "La marca se convirti\u00f3 en un faro para la comunidad.\n"),
         ("\u00abvertiginosamente\u00bb", prueba_inflado, prosa, "Los precios suben vertiginosamente.\n"),
         ("inciso con doble guion", prueba_rayas, prosa, "El equipo --seg\u00fan el informe-- creci\u00f3.\n"),
+        ("inciso con doble guion al final de l\u00ednea", prueba_rayas, prosa, "El equipo creci\u00f3 --seg\u00fan el informe--\n"),
+        ("inciso con doble guion y palabra compuesta", prueba_rayas, prosa, "El equipo --seg\u00fan el socio-director-- creci\u00f3.\n"),
+        ("\u00abhol\u00edstico y sinergias\u00bb", prueba_inflado, prosa, "Un enfoque hol\u00edstico y sinergias entre \u00e1reas.\n"),
+        ("\u00abtapiz sonoro\u00bb", prueba_inflado, prosa, "El audio es un tapiz sonoro.\n"),
         ("t\u00e9rmino vetado", prueba_vetado, prosa, "La tensi\u00f3n del equipo crece.\n"),
         ("t\u00e9rmino vetado con tilde descompuesta", prueba_vetado, prosa, "La tensio\u0301n sube.\n"),
         ("t\u00e9rmino vetado junto a \u00abcuerda\u00bb sin notaci\u00f3n", prueba_vetado, prosa, "Hay tensi\u00f3n en el equipo, como una cuerda floja.\n"),
@@ -520,6 +531,11 @@ def prueba_sensibilidad(base):
     legitimos = [("bloque sumergido en agua (Arqu\u00edmedes)", prueba_inflado, "Un bloque sumergido en agua recibe un empuje de 9.8 N.\n"),
                  ("faro de un logo", prueba_inflado, "El logo del puerto muestra un faro rojo.\n"),
                  ("tapiz literal", prueba_inflado, "Usa el tapiz de lana como fondo de la foto.\n"),
+                 ("cubo que se sumerge en el mar", prueba_inflado, "El cubo se sumerge en el mar y flota la mitad.\n"),
+                 ("esfera sumergida en una soluci\u00f3n", prueba_inflado, "La esfera sumergida en una soluci\u00f3n salina recibe un empuje de 3 N.\n"),
+                 ("faro de la costa", prueba_inflado, "El logo se inspira en el faro de la costa de Paracas.\n"),
+                 ("faro de la bah\u00eda", prueba_inflado, "Territorio 2: un faro de la bah\u00eda como s\u00edmbolo.\n"),
+                 ("tapices de Ayacucho", prueba_inflado, "Tapices de Ayacucho como referencia visual.\n"),
                  ("enumeraci\u00f3n de palabras vigiladas", prueba_inflado, "Evita estas palabras: tapiz, sinergia, desentra\u00f1ar.\n"),
                  ("opci\u00f3n de comando", prueba_rayas, "Ejecuta el instalador con --simular antes de instalar.\n")]
     for etiqueta, fn, contenido in legitimos:
