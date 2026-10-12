@@ -10,7 +10,7 @@ triggers:
   - "plan de estudio"
   - "quiero aprender en tres meses"
   - "audita este prompt de tutoría"
-compatibility: "ChatGPT con Projects (archivo de proyecto) o la función Skills, en cualquier modelo de ChatGPT con contexto suficiente para el archivo completo; también Codex. Herramienta de Python recomendada para verificar resultados de práctica; lienzo opcional para planes largos."
+compatibility: "ChatGPT Projects (archivo del proyecto) o adjunto en un chat, con cualquier modelo de ChatGPT; para la función Skills de ChatGPT y para Codex usa la carpeta equivalente de skills_chatgpt/ o su zip. Herramienta de Python recomendada para verificar resultados de práctica; lienzo opcional para planes largos."
 ---
 
 > Skill autónoma para ChatGPT. Contiene el manual completo de `motor-pedagogico` y su calibración para ChatGPT. Súbela como archivo de un Project junto con `SISTEMA_MAESTRO_CHATGPT.md` en las instrucciones, o úsala sola. No depende de otros archivos.

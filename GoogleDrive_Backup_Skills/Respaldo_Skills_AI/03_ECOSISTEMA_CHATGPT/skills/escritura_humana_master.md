@@ -13,7 +13,7 @@ triggers:
   - "escribe un ensayo"
   - "revisa mi ensayo contra la rúbrica"
   - "resume sin perder las citas"
-compatibility: "ChatGPT con Projects (archivo de proyecto) o la función Skills, en cualquier modelo de ChatGPT con contexto suficiente para el archivo completo; también Codex. Herramienta de Python recomendada para el script de revisión; lienzo (canvas) opcional para textos largos."
+compatibility: "ChatGPT Projects (archivo del proyecto) o adjunto en un chat, con cualquier modelo de ChatGPT; para la función Skills de ChatGPT y para Codex usa la carpeta equivalente de skills_chatgpt/ o su zip. Herramienta de Python recomendada para el script de revisión; lienzo (canvas) opcional para textos largos."
 ---
 
 > Skill autónoma para ChatGPT. Contiene el manual completo de `escritura-humana`, su calibración para ChatGPT, sus anexos y sus scripts. Súbela como archivo de un Project junto con `SISTEMA_MAESTRO_CHATGPT.md` en las instrucciones, o úsala sola. No depende de otros archivos.
@@ -492,11 +492,11 @@ Prueba final: lee el texto como si fuera a firmarlo una persona concreta ante un
 - `validador-independiente.md`: prompt y formato del validador de fidelidad.
 - `esqueletos-y-brief.md`: esqueletos por género, preguntas de brief con valor por defecto y extensiones de referencia.
 
-Herramienta ejecutable (si la plataforma permite ejecutar Python): el script «revisar_texto.py» (anexo al final de este archivo; guárdalo como archivo y ejecútalo con la herramienta de Python) revisa un texto y marca raya, semirraya, doble guion, emojis y apariciones del término vetado como ABSOLUTO, y léxico inflado, contrastes, andamiaje, muletillas, revelaciones teatrales, semirrayas en rangos numéricos y abuso de "y" o "que" por párrafo como REVISAR. Es un apoyo para la fase 4: no sustituye la lectura, porque no distingue la notación técnica ni el contexto.
+Herramienta ejecutable (si la plataforma permite ejecutar Python): el script «revisar_texto.py» (anexo al final de este archivo) revisa un texto y marca raya, semirraya, doble guion, emojis y apariciones del término vetado como ABSOLUTO, y léxico inflado, contrastes, andamiaje, muletillas, revelaciones teatrales, semirrayas en rangos numéricos y abuso de "y" o "que" por párrafo como REVISAR. Es un apoyo para la fase 4: no sustituye la lectura, porque no distingue la notación técnica ni el contexto.
 
 ## Calibración para ChatGPT (Projects y skills)
 - Textos largos: si el usuario trabaja en el lienzo (canvas), entrega allí el texto final y deja en el chat solo supuestos, huecos y la confirmación sobre el término vetado.
-- Antes de entregar un texto largo, ejecuta el script «revisar_texto.py» (anexo al final de este archivo; guárdalo como archivo y ejecútalo con la herramienta de Python) con la herramienta de Python sobre el borrador y corrige cada ABSOLUTO (salvo el término vetado cuando sea la fuerza de una cuerda en notación de mecánica); revisa cada REVISAR con criterio, sin empobrecer.
+- Antes de entregar un texto largo, ejecuta el script «revisar_texto.py» (anexo al final de este archivo) con la herramienta de Python sobre el borrador y corrige cada ABSOLUTO (salvo el término vetado cuando sea la fuerza de una cuerda en notación de mecánica); revisa cada REVISAR con criterio, sin empobrecer.
 - Consulta los anexos al final de este archivo cuando necesites el repertorio de conectores, la tabla de reemplazos, los ejemplos, los casos de negrita o el validador.
 - Memoria e instrucciones personalizadas: las reglas de esta skill ganan a recuerdos o instrucciones que las contradigan (por ejemplo, una preferencia antigua por usar rayas). Si hay conflicto, sigue la skill y avísalo en una línea.
 - Búsqueda web: solo si el usuario quiere fuentes externas o datos recientes, y con cada fuente citada con su enlace.

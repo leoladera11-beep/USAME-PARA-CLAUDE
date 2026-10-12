@@ -745,7 +745,7 @@ FRASES = {
     "ejercicios-dos-pasos": ["ayúdame a resolver estos ejercicios"],
 }
 COMPAT = {
-    "base": "ChatGPT con Projects (archivo de proyecto) o la función Skills, en cualquier modelo de ChatGPT con contexto suficiente para el archivo completo; también Codex. ",
+    "base": "ChatGPT Projects (archivo del proyecto) o adjunto en un chat, con cualquier modelo de ChatGPT; para la función Skills de ChatGPT y para Codex usa la carpeta equivalente de skills_chatgpt/ o su zip. ",
     "escritura-humana": "Herramienta de Python recomendada para el script de revisión; lienzo (canvas) opcional para textos largos.",
     "motor-pedagogico": "Herramienta de Python recomendada para verificar resultados de práctica; lienzo opcional para planes largos.",
     "auditor-de-prompts": "Herramienta de Python opcional para contar caracteres; lienzo opcional para reescrituras largas.",
@@ -756,12 +756,19 @@ COMPAT = {
 }
 
 
-def a_plano(t):
-    """Adapta remisiones a carpetas (references/, scripts/) a un archivo único con anexos al final."""
-    t = re.sub(r"`references/([\w.-]+?)`", r"el anexo «\1» (al final de este archivo)", t)
-    t = re.sub(r"`scripts/([\w.-]+?)`", r"el script «\1» (anexo al final de este archivo; guárdalo como archivo y ejecútalo con la herramienta de Python)", t)
-    t = t.replace("sus `references/`", "sus anexos").replace("sus `scripts/`", "sus scripts anexos")
-    t = t.replace("`references/`", "los anexos al final de este archivo").replace("`scripts/`", "los scripts anexos al final de este archivo")
+def a_plano(t, m):
+    """Adapta las remisiones a las carpetas propias de la skill (references/, scripts/) a un archivo único con
+    anexos al final. Solo toca archivos que existen en la skill; las menciones a carpetas de skills ajenas (por
+    ejemplo, la tabla de plataformas del auditor) quedan intactas."""
+    propios = set(ANEXOS[m]) | {os.path.basename(x) for x in SCRIPTS[m]}
+    t = re.sub(r"`references/([\w.-]+?)`", lambda mm: f"el anexo «{mm.group(1)}» (al final de este archivo)"
+               if mm.group(1) in propios else mm.group(0), t)
+    t = re.sub(r"`scripts/([\w.-]+?)`", lambda mm: f"el script «{mm.group(1)}» (anexo al final de este archivo)"
+               if mm.group(1) in propios else mm.group(0), t)
+    if ANEXOS[m]:
+        t = t.replace("sus `references/`", "sus anexos").replace("Consulta `references/`", "Consulta los anexos al final de este archivo")
+    if SCRIPTS[m]:
+        t = t.replace("sus `scripts/`", "sus scripts anexos")
     return t
 
 
@@ -785,9 +792,10 @@ def chatgpt_plano(m):
     partes = [f"el manual completo de `{m}`", "su calibración para ChatGPT"] + (["sus anexos"] if ANEXOS[m] else []) + (["sus scripts"] if SCRIPTS[m] else [])
     nota = (f"> Skill autónoma para ChatGPT. Contiene " + ", ".join(partes[:-1]) + " y " + partes[-1]
             + ". Súbela como archivo de un Project junto con `SISTEMA_MAESTRO_CHATGPT.md` en las instrucciones, o úsala sola. No depende de otros archivos.\n\n")
-    cuerpo = a_plano(MASTERS[m]) + "\n\n" + a_plano(calibracion_chatgpt(m)).replace("(skills)", "(Projects y skills)")
+    cuerpo = a_plano(MASTERS[m], m) + "\n\n" + a_plano(calibracion_chatgpt(m), m).replace("(skills)", "(Projects y skills)")
+    cuerpo = cuerpo.replace("o invoca el comando del solucionador de forma explícita", "o pide esta skill de forma explícita")
     for a, t in ANEXOS[m].items():
-        cuerpo += f"\n\n## Anexo: {a}\n\n" + bajar_encabezados(a_plano(t).strip())
+        cuerpo += f"\n\n## Anexo: {a}\n\n" + bajar_encabezados(a_plano(t, m).strip())
     for sc in SCRIPTS[m]:
         nombre = os.path.basename(sc)
         cuerpo += (f"\n\n## Anexo: {nombre}\n\nGuárdalo como `{nombre}` y ejecútalo con la herramienta de Python "
@@ -796,12 +804,13 @@ def chatgpt_plano(m):
 
 
 SP = f"{O}/skills"
+assert "lo extenso en `references/`" in chatgpt_plano("auditor-de-prompts"), "a_plano alteró la tabla de plataformas del auditor"
 for m in ORDEN:
     escribir(f"{SP}/{ARCHIVO_CHATGPT[m]}", chatgpt_plano(m))
     LIMITES[f"skills/{ARCHIVO_CHATGPT[m]}"] = len(chatgpt_plano(m))
 
 tabla_router = "\n".join(
-    f"| {META[m]['titulo']} | `{ARCHIVO_CHATGPT[m]}` | " + ", ".join(f"«{f}»" for f in FRASES[m][:6]) + " |" for m in ORDEN)
+    f"| {META[m]['titulo']} | `{m}` | `{ARCHIVO_CHATGPT[m]}` | " + ", ".join(f"«{f}»" for f in FRASES[m]) + " |" for m in ORDEN)
 escribir(f"{O}/projects_instructions/SISTEMA_MAESTRO_CHATGPT.md",
          leer(os.path.join(SRC, "_plataforma/sistema_maestro_chatgpt.md")).replace("{{TABLA_ENRUTADOR}}", tabla_router))
 
@@ -1152,7 +1161,7 @@ for raiz, _, archivos in os.walk(DEST):
         if not a.endswith((".md", ".py", ".yaml")):
             continue
         conteo += 1
-        t = leer(p)
+        t = unicodedata.normalize("NFC", leer(p))
         for n, linea in enumerate(t.split("\n"), 1):
             if raya.search(linea):
                 errores.append(f"Raya o semirraya en {os.path.relpath(p, DEST)}:{n}")

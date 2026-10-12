@@ -8,7 +8,7 @@ triggers:
   - "guía de práctica en Word"
   - "informe técnico en PDF"
   - "solucionario imprimible"
-compatibility: "ChatGPT con Projects (archivo de proyecto) o la función Skills, en cualquier modelo de ChatGPT con contexto suficiente para el archivo completo; también Codex. Herramienta de Python obligatoria (SymPy, NumPy, matplotlib, reportlab, python-docx) para recalcular, generar y revisar los archivos."
+compatibility: "ChatGPT Projects (archivo del proyecto) o adjunto en un chat, con cualquier modelo de ChatGPT; para la función Skills de ChatGPT y para Codex usa la carpeta equivalente de skills_chatgpt/ o su zip. Herramienta de Python obligatoria (SymPy, NumPy, matplotlib, reportlab, python-docx) para recalcular, generar y revisar los archivos."
 ---
 
 > Skill autónoma para ChatGPT. Contiene el manual completo de `maquetacion-pdf-documentos` y su calibración para ChatGPT. Súbela como archivo de un Project junto con `SISTEMA_MAESTRO_CHATGPT.md` en las instrucciones, o úsala sola. No depende de otros archivos.

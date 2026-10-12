@@ -174,14 +174,14 @@ Cada manual incluye: modos y enrutamiento; reglas con su excepción; casos de us
 
 | Archivo | Caracteres |
 |---|---|
-| `projects_instructions/SISTEMA_MAESTRO_CHATGPT.md` | 5586 |
-| `skills/auditor_prompts.md` | 21000 |
-| `skills/ejercicios_dos_pasos.md` | 8662 |
-| `skills/escritura_humana_master.md` | 142822 |
-| `skills/identidad_marca.md` | 19557 |
-| `skills/maquetacion_documentos.md` | 36919 |
-| `skills/preparador_clases.md` | 38410 |
-| `skills/tutor_aprendizaje_integral.md` | 30419 |
+| `projects_instructions/SISTEMA_MAESTRO_CHATGPT.md` | 6281 |
+| `skills/auditor_prompts.md` | 21016 |
+| `skills/ejercicios_dos_pasos.md` | 8681 |
+| `skills/escritura_humana_master.md` | 142732 |
+| `skills/identidad_marca.md` | 19595 |
+| `skills/maquetacion_documentos.md` | 36957 |
+| `skills/preparador_clases.md` | 38448 |
+| `skills/tutor_aprendizaje_integral.md` | 30457 |
 
 ### 8.1 Paridad funcional entre plataformas
 

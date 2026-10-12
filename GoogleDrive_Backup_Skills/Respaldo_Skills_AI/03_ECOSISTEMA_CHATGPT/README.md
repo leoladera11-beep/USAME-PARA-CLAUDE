@@ -4,7 +4,7 @@ Los Custom GPTs y su límite de 8000 caracteres quedaron fuera. Las siete skills
 
 | Carpeta | Formato | Cuándo usarla |
 |---|---|---|
-| `skills/` | Un archivo Markdown autónomo por skill, con frontmatter (`name`, `description`, `triggers`, `compatibility`) y el manual completo, la calibración para ChatGPT, los anexos y los scripts dentro del mismo archivo. | Projects de ChatGPT, en cualquier plan con Projects: se suben como archivos del proyecto. También sirven sueltos en un chat. |
+| `skills/` | Un archivo Markdown autónomo por skill, con frontmatter (`name`, `description`, `triggers`, `compatibility`) y el manual completo, la calibración para ChatGPT, los anexos y los scripts dentro del mismo archivo. | Projects de ChatGPT: se suben como archivos del proyecto. El número de archivos por Project depende del plan; si no caben los siete, sube solo los que uses. También sirven sueltos, adjuntos en un chat. |
 | `projects_instructions/SISTEMA_MAESTRO_CHATGPT.md` | Enrutador maestro con reglas globales y criterios de invocación. | Se pega en las instrucciones del Project. |
 | `prompts_activacion/disparadores_rapidos.md` | Frases y prompts listos para copiar. | Para activar una skill de forma explícita. |
 | `skills_chatgpt/` y `skills_chatgpt_zip/` | Carpetas en el formato abierto Agent Skills (`SKILL.md`, `references/`, `scripts/`, `agents/openai.yaml`) y sus `.zip`. | La función Skills de ChatGPT (donde el plan la ofrece) y Codex; el instalador `instalar_skills.py` las usa. |

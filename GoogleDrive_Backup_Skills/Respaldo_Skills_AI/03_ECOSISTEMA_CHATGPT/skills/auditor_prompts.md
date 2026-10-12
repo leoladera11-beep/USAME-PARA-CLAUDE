@@ -8,7 +8,7 @@ triggers:
   - "revisa este system prompt"
   - "las respuestas salen genéricas"
   - "convierte esto en un SOP"
-compatibility: "ChatGPT con Projects (archivo de proyecto) o la función Skills, en cualquier modelo de ChatGPT con contexto suficiente para el archivo completo; también Codex. Herramienta de Python opcional para contar caracteres; lienzo opcional para reescrituras largas."
+compatibility: "ChatGPT Projects (archivo del proyecto) o adjunto en un chat, con cualquier modelo de ChatGPT; para la función Skills de ChatGPT y para Codex usa la carpeta equivalente de skills_chatgpt/ o su zip. Herramienta de Python opcional para contar caracteres; lienzo opcional para reescrituras largas."
 ---
 
 > Skill autónoma para ChatGPT. Contiene el manual completo de `auditor-de-prompts` y su calibración para ChatGPT. Súbela como archivo de un Project junto con `SISTEMA_MAESTRO_CHATGPT.md` en las instrucciones, o úsala sola. No depende de otros archivos.
@@ -92,7 +92,7 @@ Omite los bloques que no apliquen:
 | Destino | Delimitación recomendada |
 |---|---|
 | Claude (Projects, chat, API) | Etiquetas XML (`<rol>`, `<contexto>`, `<reglas>`, `<ejemplos>`, `<formato_salida>`), recomendadas aunque no obligatorias; instrucciones en positivo y ejemplos dentro de `<ejemplo>`. |
-| Claude Code | `CLAUDE.md` en Markdown breve, solo con lo que vale para todo el proyecto; slash commands con frontmatter `description` y `argument-hint` y lectura de `$ARGUMENTS`; skills en `SKILL.md` con frontmatter `name` y `description` (la descripción dice qué hace y cuándo usarla) y lo extenso en los anexos al final de este archivo. |
+| Claude Code | `CLAUDE.md` en Markdown breve, solo con lo que vale para todo el proyecto; slash commands con frontmatter `description` y `argument-hint` y lectura de `$ARGUMENTS`; skills en `SKILL.md` con frontmatter `name` y `description` (la descripción dice qué hace y cuándo usarla) y lo extenso en `references/`. |
 | ChatGPT: Custom GPT | Campo Instructions por debajo de 8000 caracteres (cuéntalos antes de entregar), tablas y ejemplos extensos en Knowledge; encabezados Markdown (en este sistema, `### Directiva`, que es una convención propia y no un requisito de OpenAI) y pares disparador y acción ("Cuando el usuario..., haz..."). |
 | ChatGPT: Projects, API, Codex y skills | Mismos encabezados y disparadores. Las instrucciones de un Project también tienen un límite (este sistema asume 8000 caracteres; confirma el vigente y cuéntalos) y lo extenso va en los archivos del proyecto; en API, Codex y skills no rige ese límite; las skills usan `SKILL.md` con frontmatter `name` y `description`. |
 | Gemini (Gems, AI Studio, CLI) | Markdown con secciones claras, directrices de veracidad explícitas (decir "no lo sé" y distinguir fuente de inferencia) y uso de ejecución de código cuando haya cálculos; las skills de Gemini CLI siguen el mismo formato `SKILL.md` con frontmatter. |

@@ -3,7 +3,7 @@ name: ejercicios-dos-pasos
 description: "Resuelve ejercicios matemáticos y científicos de forma directa y visual, sin texto de relleno, en un máximo de dos pasos con fórmulas y valores en LaTeX. Úsalo exclusivamente cuando el usuario escriba \"ayúdame a resolver estos ejercicios\" o pida de forma explícita esta skill. Si pide entender el procedimiento, corresponde a motor-pedagogico."
 triggers:
   - "ayúdame a resolver estos ejercicios"
-compatibility: "ChatGPT con Projects (archivo de proyecto) o la función Skills, en cualquier modelo de ChatGPT con contexto suficiente para el archivo completo; también Codex. Herramienta de Python obligatoria para recalcular cada resultado en silencio; notación LaTeX."
+compatibility: "ChatGPT Projects (archivo del proyecto) o adjunto en un chat, con cualquier modelo de ChatGPT; para la función Skills de ChatGPT y para Codex usa la carpeta equivalente de skills_chatgpt/ o su zip. Herramienta de Python obligatoria para recalcular cada resultado en silencio; notación LaTeX."
 ---
 
 > Skill autónoma para ChatGPT. Contiene el manual completo de `ejercicios-dos-pasos` y su calibración para ChatGPT. Súbela como archivo de un Project junto con `SISTEMA_MAESTRO_CHATGPT.md` en las instrucciones, o úsala sola. No depende de otros archivos.
@@ -16,7 +16,7 @@ Es un motor distinto del tutor: entrega el resultado de inmediato, mientras el t
 
 ## 1. Activación
 
-- Se activa cuando el usuario escribe "ayúdame a resolver estos ejercicios" o invoca el comando del solucionador de forma explícita.
+- Se activa cuando el usuario escribe "ayúdame a resolver estos ejercicios" o pide esta skill de forma explícita.
 - No se activa para consultas conceptuales abiertas, debates teóricos ni demostraciones extensas.
 - Si el usuario pide entender cómo se resuelve ("explícame", "no entiendo por qué"), corresponde a `motor-pedagogico`.
 - Si pide un documento imprimible con los ejercicios resueltos, corresponde a `maquetacion-pdf-documentos`.

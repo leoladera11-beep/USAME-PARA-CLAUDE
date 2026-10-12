@@ -4,35 +4,35 @@ Fecha: 2026-10-12. Paquete: `Respaldo_Skills_AI`. Comando: `python3 herramientas
 
 ## Resultado
 
-10 de 10 pruebas pasan; 929 elementos revisados; 0 fallos.
+10 de 10 pruebas pasan; 954 elementos revisados; 0 fallos.
 
 | N.º | Prueba | Revisados | Fallos | Estado |
 |---|---|---|---|---|
 | 1 | Frontmatter YAML y campos obligatorios | 47 | 0 | PASA |
 | 2 | Raya, semirraya como puntuación y doble guion | 170 | 0 | PASA |
-| 3 | Léxico inflado | 147 | 0 | PASA |
+| 3 | Léxico inflado | 161 | 0 | PASA |
 | 4 | Término vetado | 170 | 0 | PASA |
 | 5 | Emojis y caracteres gráficos decorativos | 170 | 0 | PASA |
 | 6 | Etiquetas XML huérfanas o mal cerradas | 147 | 0 | PASA |
 | 7 | Casos límite y cumplimiento perezoso | 25 | 0 | PASA |
 | 8 | Integridad del manifest y de los paquetes | 43 | 0 | PASA |
 | 9 | Instalador en carpeta personal temporal | 4 | 0 | PASA |
-| 10 | Sensibilidad: defectos sembrados detectados | 6 | 0 | PASA |
+| 10 | Sensibilidad: defectos sembrados detectados | 17 | 0 | PASA |
 
 ## Qué revisa cada prueba
 
 1. Frontmatter YAML válido y campos obligatorios por tipo de archivo.
-  2. Raya tipográfica, semirraya como puntuación y doble guion como raya.
-  3. Léxico inflado usado (las menciones dentro de reglas, listas o comillas se cuentan aparte).
-  4. Término vetado (solo admisible como fuerza de una cuerda en notación de mecánica).
-  5. Emojis y caracteres gráficos decorativos.
-  6. Etiquetas XML huérfanas o mal cerradas.
-  7. Casos límite y cumplimiento perezoso: conectores explícitos en las skills de redacción, recálculo
-     por código y LaTeX en las skills cuantitativas, y el script revisar_texto.py frente a textos de prueba.
-  8. Integridad: sumas SHA-256 del manifest y .skill/.zip idénticos a sus carpetas.
-  9. Instalador: instalación, estado y desinstalación en una carpeta personal temporal.
-  10. Sensibilidad: en una copia del paquete se siembra un defecto por cada prueba de 1 a 6 y se exige
-     que todas lo detecten (evita que el linter pase por estar vacío).
+2. Raya tipográfica, semirraya como puntuación y doble guion como raya.
+3. Léxico inflado usado (las menciones dentro de reglas, listas o comillas se cuentan aparte).
+4. Término vetado (solo admisible como fuerza de una cuerda en notación de mecánica).
+5. Emojis y caracteres gráficos decorativos.
+6. Etiquetas XML huérfanas o mal cerradas.
+7. Casos límite y cumplimiento perezoso: conectores explícitos en las skills de redacción, recálculo
+   por código y LaTeX en las skills cuantitativas, y el script revisar_texto.py frente a textos de prueba.
+8. Integridad: sumas SHA-256 del manifest y .skill/.zip idénticos a sus carpetas.
+9. Instalador: instalación, estado y desinstalación en una carpeta personal temporal.
+10. Sensibilidad: cada defecto conocido (17 casos de las pruebas 1 a 6) se siembra por separado en un
+    paquete mínimo y su prueba debe detectarlo, para que el linter no pase por estar vacío.
 
 ## Detalle
 
@@ -46,8 +46,8 @@ Elementos revisados: 170. Fallos: 0.
 
 ### 3. Léxico inflado
 
-Elementos revisados: 147. Fallos: 0.
-- Menciones metalingüísticas (listas de prohibición, ejemplos de antes y después, regex): 360
+Elementos revisados: 161. Fallos: 0.
+- Menciones metalingüísticas (listas de prohibición, ejemplos de antes y después, regex): 410
 
 ### 4. Término vetado
 
@@ -78,8 +78,8 @@ Elementos revisados: 4. Fallos: 0.
 
 ### 10. Sensibilidad: defectos sembrados detectados
 
-Elementos revisados: 6. Fallos: 0.
-- Defectos sembrados: campo compatibility ausente, raya, «rico tapiz» usado, término vetado, emoji y etiqueta sin cierre
+Elementos revisados: 17. Fallos: 0.
+- Defectos sembrados, uno por paquete mínimo: campo compatibility ausente; raya; semirraya como inciso; doble guion pegado; «rico tapiz» en prosa; «Sumérgete» en prosa; flexión «desentraña»; flexión «vertiginosa»; «sinergia» tras «Por ejemplo»; «sinergia» tras «evitar»; término vetado; término vetado con tilde descompuesta; término vetado junto a «cuerda» sin notación; emoji; carácter decorativo; etiqueta sin cierre; cierre sin apertura
 
 ## Ciclo de pruebas: errores detectados y correcciones
 

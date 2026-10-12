@@ -20,8 +20,8 @@ Pruebas:
      por código y LaTeX en las skills cuantitativas, y el script revisar_texto.py frente a textos de prueba.
   8. Integridad: sumas SHA-256 del manifest y .skill/.zip idénticos a sus carpetas.
   9. Instalador: instalación, estado y desinstalación en una carpeta personal temporal.
-  10. Sensibilidad: en una copia del paquete se siembra un defecto por cada prueba de 1 a 6 y se exige
-     que todas lo detecten (evita que el linter pase por estar vacío).
+  10. Sensibilidad: cada defecto conocido (17 casos de las pruebas 1 a 6) se siembra por separado en un
+      paquete mínimo y su prueba debe detectarlo, para que el linter no pase por estar vacío.
 Código de salida: 0 si todas las pruebas pasan, 1 si alguna falla. Requiere PyYAML.
 """
 import argparse
@@ -35,6 +35,8 @@ import shutil
 import subprocess
 import sys
 import tempfile
+import textwrap
+import unicodedata
 import zipfile
 
 import yaml
@@ -51,21 +53,23 @@ RAYA = re.compile("\u2014")
 SEMIRRAYA = re.compile("\u2013")
 DOBLE_GUION = re.compile(r"(?<=[^\W\d_])--(?=[^\W\d_])|(?<=\s)--(?=\s)")
 VETADO = re.compile(r"\btensi(?:ón|ones|on)\b", re.I)
-CONTEXTO_MECANICA = re.compile(r"cuerda|cable|\$T\$|\\\(T\\\)|símbolo T", re.I)
+CONTEXTO_MECANICA = re.compile(r"\$T\$|\\\(T\\\)|símbolo T|fuerza de (?:la )?cuerda|fuerza del cable", re.I)
 EMOJI = re.compile(
     "[\U0001F000-\U0001FAFF\u2600-\u2604\u2606-\u260f\u2611-\u2669\u266b-\u2712\u2714-\u27bf"
     "\u2b50\u2b55\u2b1b\u2b1c\u231a\u231b\u23e9-\u23f3\u23f8-\u23fa\u20e3\ufe0f]")
 DECORATIVO = re.compile("[\u2605\u2606\u2713\u2714\u2717\u2718\u27a4\u25ba\u25c6\u25c7\u2756\u2726\u2727\u2764]")
-INFLADO = ["rico tapiz", "tapiz", "faro de esperanza", "faro", "vertiginoso mundo", "vertiginoso",
-           "súmergete", "sumergirse", "sumergirte", "desentrañar", "sinergia", "sinergias"]
-INFLADO_RE = re.compile(r"\b(" + "|".join(sorted(map(re.escape, INFLADO), key=len, reverse=True)) + r")\b", re.I)
-# Una aparición es mención (no uso) si la línea define o ejemplifica la regla.
+# Raíces del léxico inflado (rico tapiz, faro de esperanza, vertiginoso mundo, sumérgete en, desentrañar,
+# sinergia) con sus flexiones.
+INFLADO_RE = re.compile(r"\b(tapi(?:z|ces)|faros?|vertiginos[oa]s?|sum[eé]rg\w*|desentra[ñn]\w*|sinergi\w*|sin[eé]rgic\w*)\b", re.I)
+# Una aparición es mención (no uso) solo si va entre comillas, cursiva o código, si la línea enumera dos o más
+# palabras vigiladas, si lleva un marcador metalingüístico explícito o si está en una sección que cataloga el
+# léxico (vocabulario, reemplazos, antes y después, antipatrones). Las salidas de los ejemplos no quedan exentas.
 MARCAS_MENCION = re.compile(
-    r"léxico inflado|inflad|P3|evita|prohib|no uses|vigilad|rechazo|plantilla|marca de IA|ejemplo|antes:|"
-    r"patrón|señal|lista|reemplaz|sustitu|palabras como|vetad|grandilocuen|no escribas|cambia|detecta|sin léxico", re.I)
+    r"léxico inflado|palabras como|antes:|prohib|vigilad|grandilocuen|inflad[oa]s?\b|marca de IA|no uses|nunca uses|"
+    r"no escribas|metáfora de|uso literal", re.I)
+MARCA_P3 = re.compile(r"\bP3\b")
 SECCION_MENCION = re.compile(
-    r"léxico|vocabulario|vigilad|reemplaz|inflad|prohib|P3|patrón|patrones|señales|antes y después|"
-    r"catálogo|ejemplos|rechazo|plantilla|antipatr", re.I)
+    r"léxico|vocabulario|vigilad|reemplaz|antes y después|catálogo|antipatr|Serie [AB]|señales|Rechazo autom", re.I)
 ETIQUETA = re.compile(r'<(/?)([a-z_][a-z0-9_]*)((?:\s+[a-z_-]+="[^"]*")*)\s*>')
 
 
@@ -95,12 +99,12 @@ def contenido_zips(base):
                     with zipfile.ZipFile(p) as z:
                         for n in z.namelist():
                             if n.endswith(TEXTO):
-                                yield f"{relativa(p, base)}!{n}", z.read(n).decode("utf-8")
+                                yield f"{relativa(p, base)}!{n}", unicodedata.normalize("NFC", z.read(n).decode("utf-8"))
 
 
 def leer(p):
     with open(p, encoding="utf-8") as f:
-        return f.read()
+        return unicodedata.normalize("NFC", f.read())  # tildes descompuestas cuentan igual
 
 
 def sin_codigo_en_linea(linea):
@@ -206,7 +210,7 @@ def prueba_inflado(base):
     t = Prueba(3, "Léxico inflado")
     menciones = 0
     for nombre, texto in recorrer_texto(base):
-        if not nombre.endswith(".md"):
+        if not nombre.endswith((".md", ".yaml")):
             continue
         t.revisados += 1
         en_codigo, seccion = False, ""
@@ -219,8 +223,13 @@ def prueba_inflado(base):
             for m in INFLADO_RE.finditer(linea):
                 antes, despues = linea[:m.start()], linea[m.end():]
                 entre_comillas = (antes.count("«") > antes.count("»") or antes.count('"') % 2 == 1
-                                  or antes.count("`") % 2 == 1 or despues.startswith(("»", '"', "`")))
-                if en_codigo or entre_comillas or MARCAS_MENCION.search(linea) or SECCION_MENCION.search(seccion):
+                                  or antes.count("`") % 2 == 1 or despues.startswith(("»", '"', "`"))
+                                  or (antes.endswith(("*", "_")) and despues.startswith(("*", "_"))))
+                if nombre.endswith(".yaml"):
+                    entre_comillas = False  # en openai.yaml los valores van entre comillas y se muestran tal cual
+                lista = len(INFLADO_RE.findall(linea)) >= 2
+                if (en_codigo or entre_comillas or lista or MARCAS_MENCION.search(linea) or MARCA_P3.search(linea)
+                        or SECCION_MENCION.search(seccion)):
                     menciones += 1
                 else:
                     t.fallos.append(f"{nombre}:{n}: «{m.group(0)}» usado | {linea.strip()[:100]}")
@@ -429,27 +438,46 @@ def prueba_instalador(base):
 
 # ---------------------------------------------------------------- 10. sensibilidad del linter
 def prueba_sensibilidad(base):
-    """Copia el paquete, siembra un defecto por prueba y comprueba que cada prueba lo detecta."""
+    """Siembra cada defecto por separado en un paquete mínimo temporal y exige que su prueba lo detecte."""
     t = Prueba(10, "Sensibilidad: defectos sembrados detectados")
-    copia = os.path.join(tempfile.mkdtemp(prefix="qa_mut_"), "paquete")
-    try:
-        shutil.copytree(base, copia)
-        maestro = os.path.join(copia, "03_ECOSISTEMA_CHATGPT/projects_instructions/SISTEMA_MAESTRO_CHATGPT.md")
-        with open(maestro, "a", encoding="utf-8") as f:
-            f.write("\n\nEl proyecto avanza \u2014 r\u00e1pido.\n\nNos adentramos en este rico tapiz de ideas.\n\n"
-                    "La tensi\u00f3n del equipo crece.\n\nListo \U0001F680\n\n<regla>sin cierre\n")
-        skill = os.path.join(copia, "03_ECOSISTEMA_CHATGPT/skills/identidad_marca.md")
-        texto = leer(skill).replace("compatibility:", "compat:", 1)
-        with open(skill, "w", encoding="utf-8") as f:
-            f.write(texto)
-        for fn in (prueba_yaml, prueba_rayas, prueba_inflado, prueba_vetado, prueba_emojis, prueba_xml):
-            t.revisados += 1
-            resultado = fn(copia)
-            if resultado.ok:
-                t.fallos.append(f"la prueba {resultado.numero} ({resultado.nombre}) no detect\u00f3 su defecto sembrado")
-        t.notas.append("Defectos sembrados: campo compatibility ausente, raya, \u00abrico tapiz\u00bb usado, t\u00e9rmino vetado, emoji y etiqueta sin cierre")
-    finally:
-        shutil.rmtree(os.path.dirname(copia), ignore_errors=True)
+    prosa = "03_ECOSISTEMA_CHATGPT/projects_instructions/siembra.md"
+    skill = "03_ECOSISTEMA_CHATGPT/skills/siembra.md"
+    fm_sin_compat = '---\nname: siembra\ndescription: "Prueba"\ntriggers:\n  - "prueba"\n---\n\nCuerpo.\n'
+    casos = [
+        ("campo compatibility ausente", prueba_yaml, skill, fm_sin_compat),
+        ("raya", prueba_rayas, prosa, "El proyecto avanza \u2014 r\u00e1pido.\n"),
+        ("semirraya como inciso", prueba_rayas, prosa, "El proyecto avanza \u2013 r\u00e1pido.\n"),
+        ("doble guion pegado", prueba_rayas, prosa, "La empresa--seg\u00fan el informe--creci\u00f3.\n"),
+        ("\u00abrico tapiz\u00bb en prosa", prueba_inflado, prosa, "Nos adentramos en este rico tapiz de ideas.\n"),
+        ("\u00abSum\u00e9rgete\u00bb en prosa", prueba_inflado, prosa, "Sum\u00e9rgete en la historia de la marca.\n"),
+        ("flexi\u00f3n \u00abdesentra\u00f1a\u00bb", prueba_inflado, prosa, "El docente desentra\u00f1a el problema.\n"),
+        ("flexi\u00f3n \u00abvertiginosa\u00bb", prueba_inflado, prosa, "El mercado cambia a una velocidad vertiginosa.\n"),
+        ("\u00absinergia\u00bb tras \u00abPor ejemplo\u00bb", prueba_inflado, prosa, "Por ejemplo, la marca logra sinergia con su p\u00fablico.\n"),
+        ("\u00absinergia\u00bb tras \u00abevitar\u00bb", prueba_inflado, prosa, "Para evitar retrasos, el equipo trabaja en sinergia.\n"),
+        ("t\u00e9rmino vetado", prueba_vetado, prosa, "La tensi\u00f3n del equipo crece.\n"),
+        ("t\u00e9rmino vetado con tilde descompuesta", prueba_vetado, prosa, "La tensio\u0301n sube.\n"),
+        ("t\u00e9rmino vetado junto a \u00abcuerda\u00bb sin notaci\u00f3n", prueba_vetado, prosa, "Hay tensi\u00f3n en el equipo, como una cuerda floja.\n"),
+        ("emoji", prueba_emojis, prosa, "Listo \U0001F680\n"),
+        ("car\u00e1cter decorativo", prueba_emojis, prosa, "Hecho \u2605\n"),
+        ("etiqueta sin cierre", prueba_xml, prosa, "<regla>sin cierre\n"),
+        ("cierre sin apertura", prueba_xml, prosa, "texto</regla>\n"),
+    ]
+    for etiqueta, fn, ruta, contenido in casos:
+        t.revisados += 1
+        base_min = tempfile.mkdtemp(prefix="qa_siembra_")
+        try:
+            os.makedirs(os.path.join(base_min, os.path.dirname(ruta)))
+            for rama in RAMAS:
+                os.makedirs(os.path.join(base_min, rama), exist_ok=True)
+            with open(os.path.join(base_min, "manifest.json"), "w", encoding="utf-8") as f:
+                f.write("{}")
+            with open(os.path.join(base_min, ruta), "w", encoding="utf-8") as f:
+                f.write(contenido)
+            if fn(base_min).ok:
+                t.fallos.append(f"defecto no detectado: {etiqueta}")
+        finally:
+            shutil.rmtree(base_min, ignore_errors=True)
+    t.notas.append("Defectos sembrados, uno por paquete m\u00ednimo: " + "; ".join(c[0] for c in casos))
     return t
 
 
@@ -472,7 +500,7 @@ def reporte(base, pruebas, comando):
              f"Comando: `{comando}`.\n\n## Resultado\n\n"
              f"{sum(p.ok for p in pruebas)} de {len(pruebas)} pruebas pasan; {total_rev} elementos revisados; {total_fallos} fallos.\n\n"
              "| N.º | Prueba | Revisados | Fallos | Estado |\n|---|---|---|---|---|\n" + filas + "\n\n"
-             "## Qué revisa cada prueba\n\n" + __doc__.split("Pruebas:")[1].split("Código de salida")[0].strip() + "\n\n"
+             "## Qué revisa cada prueba\n\n" + textwrap.dedent(__doc__.split("Pruebas:")[1].split("Código de salida")[0]).strip() + "\n\n"
              "## Detalle\n\n" + "\n".join(detalle) + "\n" + leer(historial).strip() + "\n")
     with open(os.path.join(base, "QA_VERIFICACION_TECNICA.md"), "w", encoding="utf-8") as f:
         f.write(texto)
@@ -498,7 +526,9 @@ def main():
             print(f"       {n}")
         for f in p.fallos[:10]:
             print(f"       FALLO: {f}")
-    comando = "python3 herramientas/verificar_calidad.py" + (" --sin-instalador" if args.sin_instalador else "")
+    comando = ("python3 herramientas/verificar_calidad.py"
+               + ("" if base == os.path.abspath(PAQUETE_DEFECTO) else f" --paquete {relativa(base, REPO)}")
+               + (" --sin-instalador" if args.sin_instalador else ""))
     rev, fallos = reporte(base, pruebas, comando)
     print(f"\nTotal: {sum(p.ok for p in pruebas)}/{len(pruebas)} pruebas pasan, {rev} elementos revisados, {fallos} fallos.")
     print(f"Reporte: {os.path.join(base, 'QA_VERIFICACION_TECNICA.md')}")
