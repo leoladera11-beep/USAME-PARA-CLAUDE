@@ -156,6 +156,7 @@ Salida esperada del modelo:
 > "¿Ahora?", preguntó Luis.
 >
 > Cambios: los diálogos pasan de raya a comillas; "vale", "coge" y "móvil" se cambian por equivalentes del español latinoamericano neutro ("está bien", "agarra", "celular"), sin tocar el contenido ni el tono de la escena.
+> Si Ana o Luis son de otra región y quieres conservar su forma de hablar, dímelo y restauro sus modismos; la variante neutra se aplica por defecto.
 
 ### Ejemplo 2. Léxico inflado con uso literal protegido
 

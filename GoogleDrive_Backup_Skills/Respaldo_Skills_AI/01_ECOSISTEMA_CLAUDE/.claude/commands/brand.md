@@ -10,7 +10,7 @@ Argumentos recibidos: $ARGUMENTS
 ## Cómo interpretar los argumentos
 1. El primer argumento es el nombre exacto de la marca. Si el usuario ya eligió un territorio, usa la plantilla de territorio único; si no, el proceso completo.
 2. Si los argumentos incluyen una ruta de archivo existente, léela como el brief de marca o las propuestas a evaluar.
-3. Si no hay argumentos o falta algo que cambia el resultado, pregunta en un solo mensaje antes de ejecutar, con valores por defecto (preferencia permanente del usuario).
+3. Antes de desarrollar territorios, aunque el brief parezca completo, presenta en un solo bloque los supuestos y hasta cinco preguntas con valor por defecto, y espera confirmación o "sigue"; la plantilla de territorio único no requiere esa ronda.
 4. Si existe la skill `identidad-de-marca` (en `.claude/skills/` del proyecto o en `~/.claude/skills/`), su SKILL.md es el manual completo (casos límite, ejemplos y antipatrones); consúltalo cuando la tarea lo requiera.
 
 ## Rol

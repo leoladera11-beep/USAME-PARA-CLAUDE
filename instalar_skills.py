@@ -192,6 +192,8 @@ def instalar_carpeta(origen, destino, version, args, respaldo, resumen):
     marca = None if enlace else leer_marca(destino)
     existe = enlace or os.path.isdir(destino)
     if existe and marca and marca.get("sha256") == nueva and not args.forzar:
+        if suma_carpeta(destino) != nueva:
+            print(f"  se conservan cambios locales en {destino}; usa --forzar para restaurar")
         resumen["sin cambios"].append(destino)
         return
     accion = "actualizada" if existe else "instalada"
@@ -201,7 +203,7 @@ def instalar_carpeta(origen, destino, version, args, respaldo, resumen):
     elif existe and not marca:
         print(f"  AVISO: {destino} existe y no fue instalada por este paquete; se respalda y se reemplaza.")
     elif existe and suma_carpeta(destino) != marca.get("sha256"):
-        print(f"  AVISO: {destino} tenía cambios locales; quedan en la copia de respaldo ({respaldo}).")
+        print(f"  AVISO: {destino} tenía cambios locales; quedan en la copia de respaldo ({respaldo['carpeta']}).")
     print(f"  {accion}: {destino}")
     if not args.simular:
         if os.path.lexists(destino):
@@ -228,6 +230,8 @@ def instalar_archivo(origen, destino, version, args, respaldo, resumen):
     marca = None if enlace else leer_marca(destino)
     existe = enlace or os.path.isfile(destino)
     if existe and marca and marca.get("sha256") == nueva and not args.forzar:
+        if suma_archivo(destino) != nueva:
+            print(f"  se conservan cambios locales en {destino}; usa --forzar para restaurar")
         resumen["sin cambios"].append(destino)
         return
     accion = "actualizada" if existe else "instalada"
@@ -237,6 +241,8 @@ def instalar_archivo(origen, destino, version, args, respaldo, resumen):
         ajena = retirar_enlace(destino, args, respaldo)
     elif existe and not marca:
         print(f"  AVISO: {destino} existe y no fue instalado por este paquete; se respalda y se reemplaza.")
+    elif existe and suma_archivo(destino) != marca.get("sha256"):
+        print(f"  AVISO: {destino} tenía cambios locales; quedan en la copia de respaldo ({respaldo['carpeta']}).")
     print(f"  {accion}: {destino}")
     if not args.simular:
         if os.path.lexists(destino):
@@ -319,7 +325,7 @@ def main():
     ap.add_argument("--url", help="URL del repositorio de GitHub para descargar el paquete (tiene prioridad sobre el local)")
     ap.add_argument("--rama", default="main")
     ap.add_argument("--simular", action="store_true")
-    ap.add_argument("--forzar", action="store_true", help="reinstala aunque no haya cambios")
+    ap.add_argument("--forzar", action="store_true", help="reinstala aunque no haya cambios y restaura las skills y comandos con cambios locales")
     ap.add_argument("--estado", action="store_true")
     ap.add_argument("--desinstalar", action="store_true")
     args = ap.parse_args()
@@ -375,7 +381,14 @@ def main():
                 destino = os.path.join(base, s["nombre"])
                 origen = os.path.join(paquete, s["rutas"][plataforma])
                 if args.estado:
-                    print(f"  {s['nombre']}: {estado_carpeta(origen, destino)}; paquete {version}")
+                    estado = estado_carpeta(origen, destino)
+                    if estado == "no instalada" and s["nombre"] == "escritura-humana" and any(
+                            os.path.isdir(os.path.join(base, n)) for n in sobrantes):
+                        estado = "variante modular instalada (usa --escritura modular)"
+                    elif estado == "no instalada" and s["tipo"] == "modulo" and os.path.isdir(
+                            os.path.join(base, "escritura-humana")):
+                        estado = "no instalada; está el motor unificado (quita --escritura modular)"
+                    print(f"  {s['nombre']}: {estado}; paquete {version}")
                     continue
                 if args.desinstalar:
                     quitar(destino, args, respaldo, resumen)

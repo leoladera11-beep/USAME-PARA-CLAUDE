@@ -19,7 +19,7 @@ Diferencias frente a las skills de Claude y Gemini: cada `SKILL.md` termina con 
 1. Usa los archivos ya comprimidos de `../skills_chatgpt_zip/` (un `.zip` por skill, con la carpeta en la raíz).
 2. En ChatGPT abre la sección de Skills (según la versión, aparece como pestaña dentro del directorio de plugins), elige Crear y luego la opción de subir desde tu computadora.
 3. Sube un `.zip` por skill. ChatGPT revisa los archivos antes de activarlos; puedes leerlos antes en esta carpeta.
-4. Disponibilidad: según la documentación pública a la fecha del respaldo, las skills personales están en planes Business, Enterprise, Edu y similares (en algunos, el administrador debe activarlas). Si tu plan no las tiene, usa los prompts de respaldo de `../chatgpt_standalone/` en un Project; contienen las mismas reglas.
+4. Disponibilidad: según la documentación pública a la fecha del respaldo, las skills personales están en planes Business, Enterprise, Edu y similares (en algunos, el administrador debe activarlas). Si tu plan no las tiene, monta un Project con `../projects_instructions/SISTEMA_MAESTRO_CHATGPT.md` en las instrucciones y los archivos de `../skills/` (ver `../README.md`); tienen el mismo contenido.
 
 ## Instalar en Codex (CLI, IDE o app)
 

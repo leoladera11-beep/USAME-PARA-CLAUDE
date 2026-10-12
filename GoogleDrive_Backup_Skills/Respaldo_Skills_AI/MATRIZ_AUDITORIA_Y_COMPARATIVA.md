@@ -1,6 +1,6 @@
 # Matriz de auditoría y comparativa
 
-Respaldo generado el 2026-10-11 en `GoogleDrive_Backup_Skills/Respaldo_Skills_AI`. Contiene las 16 skills originales sin alterar, siete motores consolidados y sus versiones calibradas para Claude, Gemini y ChatGPT (107 archivos Markdown nuevos, además del respaldo original).
+Respaldo generado el 2026-10-12 en `GoogleDrive_Backup_Skills/Respaldo_Skills_AI`. Contiene las 16 skills originales sin alterar, siete motores consolidados y sus versiones calibradas para Claude, Gemini y ChatGPT (110 archivos Markdown nuevos, además del respaldo original).
 
 ## 1. Resumen
 
@@ -133,7 +133,7 @@ La memoria exportada por el usuario se integró en todas las plataformas. Cada f
 | Maquetación: convive con pdflatex; tipografía de estilo Times New Roman; colores suaves por tipo de bloque | Maquetación: 0.1 (flujo pdflatex), 2.6 (Liberation Serif, equivalente métrico de Times New Roman), paleta suave y categorías por tipo de bloque (2.4 y 2.5) |
 | Temas del tutor casi siempre para exámenes en pocos días | Motor pedagógico: por defecto modo socrático con ritmo rápido, declarado en una línea |
 | Skills terminadas como archivo .skill instalable | `01_ECOSISTEMA_CLAUDE/skills_instalables/` (7 motores) y `skills_instalables/modulos_separados/` (4 módulos) |
-| Skills en lugar de Custom GPTs (decisión del usuario en esta sesión) | Se retiraron `custom_gpts/` y `knowledge_files/`; ChatGPT queda con skills (`skills_chatgpt/` y zips) y prompts de respaldo para planes sin skills |
+| Skills en lugar de Custom GPTs (decisión del usuario en esta sesión) | Se retiraron `custom_gpts/` y `knowledge_files/`; ChatGPT queda con skills modulares: archivos autónomos para Projects (`skills/`), enrutador maestro y carpetas Agent Skills (`skills_chatgpt/` y zips); sin límite de 8000 caracteres |
 | Módulos separados (decisión previa) frente a motor unificado (encargo actual) | Por la respuesta del usuario: se entregan las dos versiones en `01_ECOSISTEMA_CLAUDE` para compararlas; no deben instalarse juntas |
 
 No se integró: la contraseña que aparece en la memoria (dato sensible, ajeno a las skills) ni las preferencias de reels, que no corresponden a ninguna skill del paquete. La memoria menciona módulos `escritura-humana-fluidez` y `escritura-humana-deteccion` y la skill `checklist-ingreso-skills`, que no venían en el paquete.
@@ -157,7 +157,9 @@ Cada manual incluye: modos y enrutamiento; reglas con su excepción; casos de us
 | Gemini | `02_ECOSISTEMA_GEMINI/system_instructions/` | Instrucciones de sistema por motor y `00_sistema_unificado.md` | Para Gems y Google AI Studio; incluyen raya, término vetado y conectores explícitos |
 | Gemini | `02_ECOSISTEMA_GEMINI/gemini_standalone/` | Prompt de arranque por motor, con ejemplos | Para pegar al inicio de un chat |
 | ChatGPT y Codex | `03_ECOSISTEMA_CHATGPT/skills_chatgpt/` | Skills en formato Agent Skills: `SKILL.md`, `references/`, `scripts/` y `agents/openai.yaml`; zips listos en `skills_chatgpt_zip/` | Sección de calibración: herramienta de Python, búsqueda con citas, lienzo, generación de imágenes, notación `\( \)` y `\[ \]`, prioridad de la skill sobre la memoria |
-| ChatGPT (respaldo) | `03_ECOSISTEMA_CHATGPT/chatgpt_standalone/` | Prompt autosuficiente por motor | Para planes sin skills: instrucciones de un Project o primer mensaje de un chat |
+| ChatGPT (Projects) | `03_ECOSISTEMA_CHATGPT/skills/` | Un archivo Markdown autónomo por skill: frontmatter con `name`, `description`, `triggers` y `compatibility`; manual completo, calibración, anexos y scripts dentro del mismo archivo | Paridad con Claude y Gemini sin el límite de 8000 caracteres: las skills van como archivos del Project, no en un formulario |
+| ChatGPT (Projects) | `03_ECOSISTEMA_CHATGPT/projects_instructions/SISTEMA_MAESTRO_CHATGPT.md` | Enrutador maestro, reglas globales y criterios de invocación | Se pega en las instrucciones del Project |
+| ChatGPT | `03_ECOSISTEMA_CHATGPT/prompts_activacion/disparadores_rapidos.md` | Frases de activación y prompts listos por skill | Invocación explícita |
 | Todas | `manifest.json`, `instalar_skills.py`, `INSTALAR.md` | Versión, rutas y sumas SHA-256 de cada skill; instalador; guía para personas y agentes | Instalar o actualizar con solo el enlace del repositorio |
 
 ## 8. Validación automática
@@ -167,17 +169,31 @@ Cada manual incluye: modos y enrutamiento; reglas con su excepción; casos de us
 - Frontmatter YAML: válido en todas las skills y comandos.
 - El término vetado no aparece escrito en ningún archivo generado; el generador falla si aparece.
 - El instalador se probó en una carpeta personal temporal: instalación, estado, reejecución sin cambios, actualización con respaldo, cambio a la variante modular, alcance de proyecto y desinstalación.
-- Caracteres de los prompts de respaldo (límite de 8000 de las instrucciones de un Project o un Gem):
+- El pipeline `herramientas/verificar_calidad.py` repite todo lo anterior de forma independiente, añade léxico inflado, etiquetas XML, casos límite, integridad de paquetes y una prueba del instalador, y escribe `QA_VERIFICACION_TECNICA.md` con el resultado numérico.
+- Tamaño de las skills autónomas de ChatGPT y del sistema maestro (informativo; ya no rige el límite de 8000 porque las skills van como archivos del Project):
 
 | Archivo | Caracteres |
 |---|---|
-| `chatgpt_standalone/auditor-de-prompts.md` | 6668 |
-| `chatgpt_standalone/ejercicios-dos-pasos.md` | 4443 |
-| `chatgpt_standalone/escritura-humana.md` | 7123 |
-| `chatgpt_standalone/identidad-de-marca.md` | 6452 |
-| `chatgpt_standalone/maquetacion-pdf-documentos.md` | 5823 |
-| `chatgpt_standalone/motor-pedagogico.md` | 7987 |
-| `chatgpt_standalone/preparador-de-clases.md` | 6486 |
+| `projects_instructions/SISTEMA_MAESTRO_CHATGPT.md` | 5586 |
+| `skills/auditor_prompts.md` | 21000 |
+| `skills/ejercicios_dos_pasos.md` | 8662 |
+| `skills/escritura_humana_master.md` | 142822 |
+| `skills/identidad_marca.md` | 19557 |
+| `skills/maquetacion_documentos.md` | 36919 |
+| `skills/preparador_clases.md` | 38410 |
+| `skills/tutor_aprendizaje_integral.md` | 30419 |
+
+### 8.1 Paridad funcional entre plataformas
+
+| Motor | Claude | Gemini | ChatGPT |
+|---|---|---|---|
+| Manual completo (casos límite, dos ejemplos, antipatrones) | Skill y Project | Skill nativa y Gem (archivo) | Skill autónoma de Projects y skill Agent Skills |
+| Anexos (`references/`) | Skill y Project | Skill nativa | Dentro del archivo autónomo y en la skill Agent Skills |
+| Scripts (`revisar_texto.py`) | Skill | Skill nativa | Dentro del archivo autónomo y en la skill Agent Skills |
+| Invocación explícita | Slash commands | Gem por motor | `disparadores_rapidos.md` y `$nombre` en Codex |
+| Enrutador global | `CLAUDE.md`, `instrucciones_proyecto.md` | `00_sistema_unificado.md` | `SISTEMA_MAESTRO_CHATGPT.md` |
+| Recálculo por código | Python en Claude Code | Ejecución de código (Python y SymPy) | Herramienta de Python |
+| Instalación por script | Claude Code | Gemini CLI | Codex |
 
 ## 9. Guía de importación paso a paso
 
@@ -227,15 +243,20 @@ Abre un chat nuevo y pega como primer mensaje el bloque del archivo del motor en
 1. Si tu versión de Gemini CLI admite Agent Skills, copia las carpetas de `skills_nativas/` a `~/.gemini/skills/` (o a `.gemini/skills/` dentro del proyecto). Si no las admite, pega `system_instructions/00_sistema_unificado.md` en el archivo de contexto `GEMINI.md` del proyecto.
 2. En el chat de Gemini sin Gem, pega como primer mensaje el archivo del motor en `gemini_standalone/`.
 
-### 9.8 ChatGPT y Codex: skills
+### 9.8 ChatGPT: Project con skills modulares (vía recomendada)
 
-1. En ChatGPT, abre la sección de Skills, elige Crear y sube cada `.zip` de `03_ECOSISTEMA_CHATGPT/skills_chatgpt_zip/`. Según la documentación pública, las skills personales están en planes Business, Enterprise y Edu; si tu plan no las tiene, usa la guía 9.9.
+1. Crea un Project en ChatGPT.
+2. Pega `03_ECOSISTEMA_CHATGPT/projects_instructions/SISTEMA_MAESTRO_CHATGPT.md` en las instrucciones del Project.
+3. Sube como archivos del Project los siete archivos de `03_ECOSISTEMA_CHATGPT/skills/`.
+4. Activa cada skill con sus frases o con los prompts de `prompts_activacion/disparadores_rapidos.md`.
+
+### 9.9 ChatGPT (función Skills) y Codex
+
+1. En ChatGPT, abre la sección de Skills, elige Crear y sube cada `.zip` de `03_ECOSISTEMA_CHATGPT/skills_chatgpt_zip/`. Según la documentación pública, las skills personales están en planes Business, Enterprise y Edu; en otros planes usa la guía 9.8.
 2. En Codex, copia las carpetas de `03_ECOSISTEMA_CHATGPT/skills_chatgpt/` a la carpeta de skills de tu instalación (`~/.codex/skills/`, `~/.agents/skills/` o `.agents/skills/` del repositorio) e invócalas con `$nombre` o `/skills`.
 3. Detalles en `03_ECOSISTEMA_CHATGPT/skills_chatgpt/README.md`.
 
-### 9.9 ChatGPT: Projects y chat (respaldo para planes sin skills)
-
-Crea un Project, pega `chatgpt_standalone/<motor>.md` (el bloque interior) en las instrucciones del Project y, si quieres más detalle, añade el manual del motor como archivo. En un chat suelto, pega el mismo bloque como primer mensaje.
+Para usar una sola skill sin Project, adjunta su archivo de `skills/` al chat y escribe "Usa esta skill para: ...".
 
 ## 10. Cómo llevar este respaldo a Google Drive
 
@@ -245,14 +266,14 @@ Crea un Project, pega `chatgpt_standalone/<motor>.md` (el bloque interior) en la
 
 ## 11. Mantenimiento
 
-- Generador: `herramientas/construir_respaldo.py` reconstruye todo el árbol desde `herramientas/fuentes/` (manuales, versiones compactas y piezas de plataforma) y el zip original, y repite las validaciones (rayas, emojis, término vetado, frontmatter, límite de 8000 caracteres de los prompts de respaldo). También regenera `manifest.json`, el instalador y `INSTALAR.md`. Edita las fuentes y vuelve a ejecutarlo en lugar de editar las 107 copias a mano.
-- Fuente de verdad: el manual de cada motor (`knowledge/motor_<nombre>.md`, idéntico a `skills/<nombre>/SKILL.md` sin frontmatter). Las versiones compactas de comandos, Gems y prompts de respaldo se derivan de él.
+- Generador: `herramientas/construir_respaldo.py` reconstruye todo el árbol desde `herramientas/fuentes/` (manuales, versiones compactas y piezas de plataforma) y el zip original, y repite las validaciones (rayas, emojis, término vetado, frontmatter); después se ejecuta `python3 herramientas/verificar_calidad.py`, que escribe `QA_VERIFICACION_TECNICA.md`. También regenera `manifest.json`, el instalador y `INSTALAR.md`. Edita las fuentes y vuelve a ejecutarlo en lugar de editar las copias a mano.
+- Fuente de verdad: el manual de cada motor (`knowledge/motor_<nombre>.md`, idéntico a `skills/<nombre>/SKILL.md` sin frontmatter). Las versiones compactas de comandos y Gems, y las skills autónomas de ChatGPT, se derivan de él.
 - Si cambias una regla absoluta (raya, término vetado, conectores), cámbiala en el manual del motor de escritura y en los bloques de reglas globales de `CLAUDE.md`, `instrucciones_proyecto.md`, `00_sistema_unificado.md` y las constantes `REGLAS_GLOBALES`, `GEMINI_VERACIDAD` y `CHATGPT_COMUN` del generador.
 - Restauración: `00_BACKUP_ORIGINAL_RAW/` conserva las 16 skills byte a byte, el paquete `para_claude_projects/`, el zip original y el documento "Sistema Auditado"; las sumas SHA-256 están en su `README.md`.
 
 ## 12. Versión e historial de cambios
 
-Versión actual: 2.1.0. Para publicar una versión nueva, cambia `VERSION` en el generador, regenera y sube los cambios; el instalador detecta por suma SHA-256 qué skills cambiaron.
+Versión actual: 2.2.0. Para publicar una versión nueva, cambia `VERSION` en el generador, regenera y sube los cambios; el instalador detecta por suma SHA-256 qué skills cambiaron.
 
 | Versión | Cambios |
 |---|---|
@@ -260,6 +281,7 @@ Versión actual: 2.1.0. Para publicar una versión nueva, cambia `VERSION` en el
 | 1.1.0 | Skills para ChatGPT y Codex en formato Agent Skills; zips para claude.ai y ChatGPT; script `revisar_texto.py`. |
 | 2.0.0 | Memoria del usuario integrada (sección 5); el término vetado desaparece de todas las versiones finales; excepción técnica solo para la fuerza de una cuerda; módulos separados de escritura para comparar; archivos `.skill` instalables; correcciones de dos rondas de jueces externos; se retiran los Custom GPTs por decisión del usuario (que indica que OpenAI prevé retirarlos) y quedan skills en las tres plataformas; instalador `instalar_skills.py`, `manifest.json` e `INSTALAR.md` para instalar o actualizar con solo el enlace. |
 | 2.1.0 | Ronda final de seis jueces externos: módulo de conectores activo con todo texto para otro lector; ejemplos de cierre de argumento recuperados; revisión final de conectores (4.6); detector de emojis ampliado y rangos numéricos en `revisar_texto.py`; ejemplos corregidos en auditor, identidad, tutor, preparador y maquetación; QA de maquetación sin tolerancia de espacios vacíos; comandos que encuentran el manual en `~/.claude/skills/`; instalador con respaldos sin colisiones, estado por suma SHA-256, enlaces simbólicos y carpeta `~/.agents/skills` de Codex. |
+| 2.2.0 | ChatGPT pasa a skills modulares: `skills/` con archivos autónomos (frontmatter con `triggers` y `compatibility`, anexos y scripts incluidos), `projects_instructions/SISTEMA_MAESTRO_CHATGPT.md` y `prompts_activacion/disparadores_rapidos.md`; se retiran los prompts de respaldo y el límite de 8000 caracteres. Pipeline determinista `herramientas/verificar_calidad.py` y reporte `QA_VERIFICACION_TECNICA.md`. Tercera ronda de jueces aplicada (plan B del preparador, salvedad del solucionador en Gemini, mensajes del instalador). |
 
 ## 13. Árbol generado
 
@@ -347,14 +369,18 @@ Respaldo_Skills_AI/
 │       ├── motor-pedagogico.md
 │       └── preparador-de-clases.md
 ├── 03_ECOSISTEMA_CHATGPT/
-│   ├── chatgpt_standalone/
-│   │   ├── auditor-de-prompts.md
-│   │   ├── ejercicios-dos-pasos.md
-│   │   ├── escritura-humana.md
-│   │   ├── identidad-de-marca.md
-│   │   ├── maquetacion-pdf-documentos.md
-│   │   ├── motor-pedagogico.md
-│   │   └── preparador-de-clases.md
+│   ├── projects_instructions/
+│   │   └── SISTEMA_MAESTRO_CHATGPT.md
+│   ├── prompts_activacion/
+│   │   └── disparadores_rapidos.md
+│   ├── skills/
+│   │   ├── auditor_prompts.md
+│   │   ├── ejercicios_dos_pasos.md
+│   │   ├── escritura_humana_master.md
+│   │   ├── identidad_marca.md
+│   │   ├── maquetacion_documentos.md
+│   │   ├── preparador_clases.md
+│   │   └── tutor_aprendizaje_integral.md
 │   ├── skills_chatgpt/
 │   │   ├── auditor-de-prompts/
 │   │   │   └── (2 archivos)
@@ -371,16 +397,18 @@ Respaldo_Skills_AI/
 │   │   ├── preparador-de-clases/
 │   │   │   └── (2 archivos)
 │   │   └── README.md
-│   └── skills_chatgpt_zip/
-│       ├── auditor-de-prompts.zip
-│       ├── ejercicios-dos-pasos.zip
-│       ├── escritura-humana.zip
-│       ├── identidad-de-marca.zip
-│       ├── maquetacion-pdf-documentos.zip
-│       ├── motor-pedagogico.zip
-│       └── preparador-de-clases.zip
+│   ├── skills_chatgpt_zip/
+│   │   ├── auditor-de-prompts.zip
+│   │   ├── ejercicios-dos-pasos.zip
+│   │   ├── escritura-humana.zip
+│   │   ├── identidad-de-marca.zip
+│   │   ├── maquetacion-pdf-documentos.zip
+│   │   ├── motor-pedagogico.zip
+│   │   └── preparador-de-clases.zip
+│   └── README.md
 ├── INSTALAR.md
 ├── MATRIZ_AUDITORIA_Y_COMPARATIVA.md
+├── QA_VERIFICACION_TECNICA.md
 ├── instalar_skills.py
 └── manifest.json
 ```

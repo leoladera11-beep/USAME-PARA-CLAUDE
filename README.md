@@ -26,7 +26,7 @@ El agente clona el repositorio y ejecuta `python3 instalar_skills.py`, que detec
   - `00_BACKUP_ORIGINAL_RAW/`: las 16 skills originales sin cambios.
   - `01_ECOSISTEMA_CLAUDE/`: skills, archivos `.skill` instalables, comandos, `CLAUDE.md`, Projects y prompts de chat; módulos separados de escritura para comparar.
   - `02_ECOSISTEMA_GEMINI/`: skills nativas, instrucciones de sistema para Gems y AI Studio, prompts de chat.
-  - `03_ECOSISTEMA_CHATGPT/`: skills (formato Agent Skills, para ChatGPT y Codex), sus zips y prompts de respaldo para planes sin skills.
-  - `manifest.json`, `instalar_skills.py`, `INSTALAR.md` y `MATRIZ_AUDITORIA_Y_COMPARATIVA.md` (auditoría, decisiones y guías).
+  - `03_ECOSISTEMA_CHATGPT/`: skills modulares. `skills/` (un archivo autónomo por skill para Projects), `projects_instructions/SISTEMA_MAESTRO_CHATGPT.md` (enrutador para las instrucciones del Project), `prompts_activacion/disparadores_rapidos.md`, y las carpetas Agent Skills con sus zips para la función Skills de ChatGPT y para Codex.
+  - `manifest.json`, `instalar_skills.py`, `INSTALAR.md`, `MATRIZ_AUDITORIA_Y_COMPARATIVA.md` (auditoría, paridad entre plataformas y guías) y `QA_VERIFICACION_TECNICA.md` (resultado de las pruebas).
 - `instalar_skills.py` e `INSTALAR.md` en la raíz: el instalador y su guía.
-- `herramientas/construir_respaldo.py`: regenera y valida todo el paquete desde `herramientas/fuentes/`.
+- `herramientas/construir_respaldo.py`: regenera y valida todo el paquete desde `herramientas/fuentes/` y al final ejecuta `herramientas/verificar_calidad.py`, el pipeline de pruebas deterministas (YAML, raya, léxico inflado, término vetado, emojis, XML, casos límite, integridad, instalador y sensibilidad).

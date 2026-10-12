@@ -1,7 +1,7 @@
 {
  "nombre": "Respaldo_Skills_AI",
- "version": "2.1.0",
- "fecha": "2026-10-11",
+ "version": "2.2.0",
+ "fecha": "2026-10-12",
  "repositorio": "https://github.com/leoladera11-beep/USAME-PARA-CLAUDE",
  "skills": [
   {
@@ -14,9 +14,9 @@
     "gemini": "02_ECOSISTEMA_GEMINI/skills_nativas/escritura-humana"
    },
    "sha256": {
-    "claude": "b9d0ba18d31d1533d1e8ccca36ec4bea0634f55eb467031f17288fad91c69af9",
-    "codex": "41f2ffede8ab6a3767987fc725bbe952f8174a1058c12667973de3b1ccf81cf2",
-    "gemini": "8c70f2d1760fedccd0566440c082533ff180534af0cbacd9031669c99fc81cb6"
+    "claude": "4836f8536cacf14530e942ea363464bdd6ce71095f779a1649711152facb556f",
+    "codex": "4dcea70ef67f901e812da859845e4a83390455822c6e4799f72080ae8bd346e4",
+    "gemini": "b1fa7cf3e4bfe5a9663a47c9672436bf0825f9c94253f61b14aece957291f68d"
    }
   },
   {
@@ -29,9 +29,9 @@
     "gemini": "02_ECOSISTEMA_GEMINI/skills_nativas/motor-pedagogico"
    },
    "sha256": {
-    "claude": "4dcd59c8e626f6bdd284a85703ce55e3aced1c082f3178cba19b79c940e2299e",
-    "codex": "8eb976c96ecac0e6a1686c4bf8d8d13e9dd76480ad702280d11c2c9dd39ada28",
-    "gemini": "4616d486e65f904a35c6d6db944244da35a0d1561b4feb18a0497d80fdbb4d11"
+    "claude": "28cd0aa57a49021b71311fc5302a62aa685fbe58da1209e897fd168e3e515759",
+    "codex": "2fe55752aa13b4a2348f60964b9c6b1b5f41b685f8a9cee9d0ac0df3b909d9f5",
+    "gemini": "99b8257792b28f06523d2a0f1a9fb486dd960cf24c9d8e2c80c3d089a11791db"
    }
   },
   {
@@ -59,9 +59,9 @@
     "gemini": "02_ECOSISTEMA_GEMINI/skills_nativas/preparador-de-clases"
    },
    "sha256": {
-    "claude": "220263fa24f294b530ad76cab70e5f5e17005900ef26ca08046913bb00b3d519",
-    "codex": "4c5c914baf73b2d5b33f91dff18d246b166c76f0800ec1959a1e026f22a83695",
-    "gemini": "7568854a1e486da9390d5a4229fb04cef90d2c47786bfffc88a48444f46d8f95"
+    "claude": "61ab4d21092bc987afec83100aa273ccbda1adeb39ce66497b8f464643383271",
+    "codex": "5c3b44c61a86aaa5065706dedb4f9effd4048204e01da47cacc607e1be5e3d4a",
+    "gemini": "9ec9c6a46f45cb2abf01db17df8735eb74743d54e250b1ca657a88376ede0204"
    }
   },
   {
@@ -74,9 +74,9 @@
     "gemini": "02_ECOSISTEMA_GEMINI/skills_nativas/identidad-de-marca"
    },
    "sha256": {
-    "claude": "66a082fc1ca856a47738696051b078f9d7a0b80cfa9d84c4df30687c0213d934",
-    "codex": "2a82e38c737eacc06eafc9d8468720a4ca9661e03f0dc8a81850d39029a6ad91",
-    "gemini": "d68d3ff4a593781dd7d7d62b712acbb1fc54527c84119035533fdfb3fe5c1b0f"
+    "claude": "fcc9da92556e53b97c46a5e34cdce6c3fc14e6a7ea7fe19bd221795fff0e8b67",
+    "codex": "0c1354784c43633c5ddffc8082bceb2bc3987a3b0c838c13b0a677bf6de92a2a",
+    "gemini": "a47cf06cdd8a9611a1c3438d9381888e53288dd99379ea26f8c9e73eb914986b"
    }
   },
   {
@@ -105,8 +105,8 @@
    },
    "sha256": {
     "claude": "5c99f6981ada872fdd2714f87fec78953d1095816b950009f37afed0e4c6c1f4",
-    "codex": "7dbeedd657bbe5cc05f751b9c952c96bcc88f253dfb558ec148f25a8bf47feec",
-    "gemini": "ab70c3704fae9e6327cacf2dc59a18daf0d7ca8a7b9e2dff4f59fdfbe26e81c7"
+    "codex": "ebe09f568a569f77de3c16f51044946b1cec4faf34ceae6bfd11e07483f6fc2c",
+    "gemini": "e7946b6aea200b429bf431b2e3d8b425aa9f11372debb6137435fda2254f111d"
    }
   },
   {
@@ -116,7 +116,7 @@
     "claude": "01_ECOSISTEMA_CLAUDE/modulos_separados/escritura-humana-core"
    },
    "sha256": {
-    "claude": "7a101dc3f656c59845b666ef29298808fa4ddb4c540ccdcd82fb35474cbc4e82"
+    "claude": "8b3957d259129dfc266489e3115f0da1ba3b61614c2862dc53b55a87e46c89df"
    }
   },
   {
@@ -126,7 +126,7 @@
     "claude": "01_ECOSISTEMA_CLAUDE/modulos_separados/escritura-humana-vocabulario"
    },
    "sha256": {
-    "claude": "b4959bdc30dca1b6f1c636d9144d1fef8177c7a6869ddc90f6ccbfb020327f61"
+    "claude": "76b1d16c91ab901714b9748f4e98d026ae59f805f484cb06940b0236d2414840"
    }
   },
   {

@@ -11,7 +11,7 @@ Reglas de la memoria del usuario, que modifican el cuerpo original de forma expl
 - Preguntar antes de ejecutar: aunque los vacíos del brief no sean críticos, antes de desarrollar los territorios presenta en un solo bloque los supuestos y hasta cinco preguntas, cada una con su valor por defecto; desarrolla cuando el usuario confirme o diga "sigue". Esto sustituye la indicación del cuerpo de continuar directamente con supuestos declarados.
 - Criterio propio: si el usuario prefiere una dirección débil frente al brief, se dice con su razón mecánica.
 
-Relación con otros motores: el texto en español sigue las restricciones absolutas del sistema (sin raya, sin el término vetado, sin emojis). Los prompts de imagen van en inglés. La auditoría de un prompt de logo ajeno se hace con `auditor-de-prompts`, usando el estándar de esta skill como referencia de calidad.
+Relación con otros motores: el texto en español sigue las restricciones absolutas del sistema (sin raya, sin el término vetado, sin emojis). Los prompts de imagen van en inglés. La plantilla de territorio único se entrega en español por fidelidad al original; si la herramienta destino rinde mejor en inglés, se añade su traducción. La auditoría de un prompt de logo ajeno se hace con `auditor-de-prompts`, usando el estándar de esta skill como referencia de calidad.
 
 ## Estándar
 
