@@ -20,8 +20,9 @@ Pruebas:
      por código y LaTeX en las skills cuantitativas, y el script revisar_texto.py frente a textos de prueba.
   8. Integridad: sumas SHA-256 del manifest y .skill/.zip idénticos a sus carpetas.
   9. Instalador: instalación, estado y desinstalación en una carpeta personal temporal.
-  10. Sensibilidad: cada defecto conocido (17 casos de las pruebas 1 a 6) se siembra por separado en un
-      paquete mínimo y su prueba debe detectarlo, para que el linter no pase por estar vacío.
+  10. Sensibilidad: cada defecto conocido (23 casos de las pruebas 1 a 6) se siembra por separado en un
+      paquete mínimo y su prueba debe detectarlo, para que el linter no pase por estar vacío; tres textos
+      técnicos legítimos (Arquímedes, el faro de un logo, una opción de comando) no deben fallar.
 Código de salida: 0 si todas las pruebas pasan, 1 si alguna falla. Requiere PyYAML.
 """
 import argparse
@@ -51,22 +52,34 @@ TEXTO = (".md", ".py", ".yaml", ".json")
 
 RAYA = re.compile("\u2014")
 SEMIRRAYA = re.compile("\u2013")
-DOBLE_GUION = re.compile(r"(?<=[^\W\d_])--(?=[^\W\d_])|(?<=\s)--(?=\s)")
+DOBLE_GUION = re.compile(r"(?<=[^\W\d_])--(?=[^\W\d_])|(?<=\s)--(?=\s)|^\s*--(?=[^\W\d_])")
 VETADO = re.compile(r"\btensi(?:ón|ones|on)\b", re.I)
 CONTEXTO_MECANICA = re.compile(r"\$T\$|\\\(T\\\)|símbolo T|fuerza de (?:la )?cuerda|fuerza del cable", re.I)
 EMOJI = re.compile(
     "[\U0001F000-\U0001FAFF\u2600-\u2604\u2606-\u260f\u2611-\u2669\u266b-\u2712\u2714-\u27bf"
-    "\u2b50\u2b55\u2b1b\u2b1c\u231a\u231b\u23e9-\u23f3\u23f8-\u23fa\u20e3\ufe0f]")
+    "\u2b05-\u2b07\u2934\u2935\u3030\u303d\u3297\u3299\u2b50\u2b55\u2b1b\u2b1c\u231a\u231b\u23e9-\u23f3\u23f8-\u23fa\u20e3\ufe0f]")
 DECORATIVO = re.compile("[\u2605\u2606\u2713\u2714\u2717\u2718\u27a4\u25ba\u25c6\u25c7\u2756\u2726\u2727\u2764]")
 # Raíces del léxico inflado (rico tapiz, faro de esperanza, vertiginoso mundo, sumérgete en, desentrañar,
 # sinergia) con sus flexiones.
-INFLADO_RE = re.compile(r"\b(tapi(?:z|ces)|faros?|vertiginos[oa]s?|sum[eé]rg\w*|desentra[ñn]\w*|sinergi\w*|sin[eé]rgic\w*)\b", re.I)
-# Una aparición es mención (no uso) solo si va entre comillas, cursiva o código, si la línea enumera dos o más
-# palabras vigiladas, si lleva un marcador metalingüístico explícito o si está en una sección que cataloga el
+# Raíces con flexiones; «sumergir» y «faro» solo en su uso metafórico, para no marcar un bloque sumergido en agua
+# (Arquímedes) ni el faro de un logo.
+INFLADO_RE = re.compile(
+    r"\b(tapi(?:z|ces)|vertiginos[oa]s?|desentra[ñn]\w*|sinergi\w*|sin[eé]rgic\w*|sum[eé]rgete|sumergirse|sumergirte"
+    r"|sum[eé]rg\w*\s+en\s+(?:el|la|este|esta|nuestro|nuestra|un|una|su|tu|mi)\s+"
+    r"(?!agua\b|l[ií]quido|fluido|aceite|tanque|recipiente|vaso|alcohol|mercurio)\w+"
+    r"|faros?\s+de\s+(?:esperanza|luz|gu[ií]a|inspiraci[oó]n|innovaci[oó]n|la\s+\w+)|es\s+un\s+faro|faro\s+en\s+la\s+oscuridad)\b", re.I)
+# Enumeración real: dos palabras vigiladas separadas solo por coma, barra, punto y coma, «y» u «o».
+ENUMERACION = re.compile(
+    r"\b(?:tapi(?:z|ces)|faros?|vertiginos[oa]s?|sum[eé]rg\w*|desentra[ñn]\w*|sinergi\w*|adentr\w*|hol[ií]stic\w*|robust\w*)\b"
+    r"\s*(?:[,/;]|\s[yo]\s)\s*(?:\w+\s){0,2}?"
+    r"\b(?:tapi(?:z|ces)|faros?|vertiginos[oa]s?|sum[eé]rg\w*|desentra[ñn]\w*|sinergi\w*|adentr\w*|hol[ií]stic\w*|robust\w*)\b", re.I)
+# Una aparición es mención (no uso) solo si va entre comillas, cursiva o código, si la línea es una enumeración
+# de palabras vigiladas, si lleva un marcador metalingüístico explícito o si está en una sección que cataloga el
 # léxico (vocabulario, reemplazos, antes y después, antipatrones). Las salidas de los ejemplos no quedan exentas.
 MARCAS_MENCION = re.compile(
-    r"léxico inflado|palabras como|antes:|prohib|vigilad|grandilocuen|inflad[oa]s?\b|marca de IA|no uses|nunca uses|"
-    r"no escribas|metáfora de|uso literal", re.I)
+    r"léxico inflado|palabras como|antes:|prohib|vigilad|grandilocuen|inflad[oa]s?\b|marca de IA|"
+    r"(?:no|nunca) (?:uses|escribas)\s+(?:[«\"`]|(?:\w+\s){0,2}?(?:tapiz|faro|vertiginos|sum[eé]rg|desentra|sinergi))|"
+    r"metáfora de|uso literal", re.I)
 MARCA_P3 = re.compile(r"\bP3\b")
 SECCION_MENCION = re.compile(
     r"léxico|vocabulario|vigilad|reemplaz|antes y después|catálogo|antipatr|Serie [AB]|señales|Rechazo autom", re.I)
@@ -222,12 +235,13 @@ def prueba_inflado(base):
                 seccion = linea
             for m in INFLADO_RE.finditer(linea):
                 antes, despues = linea[:m.start()], linea[m.end():]
-                entre_comillas = (antes.count("«") > antes.count("»") or antes.count('"') % 2 == 1
+                rectas = len(re.findall(r'(?<!\d)"', antes))  # la comilla de pulgadas (15") no abre cita
+                entre_comillas = (antes.count("«") > antes.count("»") or rectas % 2 == 1
                                   or antes.count("`") % 2 == 1 or despues.startswith(("»", '"', "`"))
                                   or (antes.endswith(("*", "_")) and despues.startswith(("*", "_"))))
                 if nombre.endswith(".yaml"):
                     entre_comillas = False  # en openai.yaml los valores van entre comillas y se muestran tal cual
-                lista = len(INFLADO_RE.findall(linea)) >= 2
+                lista = bool(ENUMERACION.search(linea))
                 if (en_codigo or entre_comillas or lista or MARCAS_MENCION.search(linea) or MARCA_P3.search(linea)
                         or SECCION_MENCION.search(seccion)):
                     menciones += 1
@@ -454,6 +468,12 @@ def prueba_sensibilidad(base):
         ("flexi\u00f3n \u00abvertiginosa\u00bb", prueba_inflado, prosa, "El mercado cambia a una velocidad vertiginosa.\n"),
         ("\u00absinergia\u00bb tras \u00abPor ejemplo\u00bb", prueba_inflado, prosa, "Por ejemplo, la marca logra sinergia con su p\u00fablico.\n"),
         ("\u00absinergia\u00bb tras \u00abevitar\u00bb", prueba_inflado, prosa, "Para evitar retrasos, el equipo trabaja en sinergia.\n"),
+        ("frase t\u00edpica con dos palabras vigiladas", prueba_inflado, prosa, "Sum\u00e9rgete en este rico tapiz de colores.\n"),
+        ("\u00abvertiginoso\u00bb y \u00absinergia\u00bb en prosa", prueba_inflado, prosa, "En este vertiginoso mundo digital, la sinergia entre equipos es clave.\n"),
+        ("\u00abno uses\u00bb ajeno a la regla", prueba_inflado, prosa, "No uses atajos: busca sinergia con el usuario.\n"),
+        ("comilla de pulgadas", prueba_inflado, prosa, "La pantalla de 15\" logra sinergia con el teclado.\n"),
+        ("doble guion de di\u00e1logo", prueba_rayas, prosa, "--Hola, dijo.\n"),
+        ("flecha emoji", prueba_emojis, prosa, "Sube \u2b06\n"),
         ("t\u00e9rmino vetado", prueba_vetado, prosa, "La tensi\u00f3n del equipo crece.\n"),
         ("t\u00e9rmino vetado con tilde descompuesta", prueba_vetado, prosa, "La tensio\u0301n sube.\n"),
         ("t\u00e9rmino vetado junto a \u00abcuerda\u00bb sin notaci\u00f3n", prueba_vetado, prosa, "Hay tensi\u00f3n en el equipo, como una cuerda floja.\n"),
@@ -477,7 +497,25 @@ def prueba_sensibilidad(base):
                 t.fallos.append(f"defecto no detectado: {etiqueta}")
         finally:
             shutil.rmtree(base_min, ignore_errors=True)
+    # Falsos positivos: vocabulario t\u00e9cnico legítimo que no debe fallar.
+    legitimos = [("bloque sumergido en agua (Arqu\u00edmedes)", prueba_inflado, "Un bloque sumergido en agua recibe un empuje de 9.8 N.\n"),
+                 ("faro de un logo", prueba_inflado, "El logo del puerto muestra un faro rojo.\n"),
+                 ("opci\u00f3n de comando", prueba_rayas, "Ejecuta el instalador con --simular antes de instalar.\n")]
+    for etiqueta, fn, contenido in legitimos:
+        t.revisados += 1
+        base_min = tempfile.mkdtemp(prefix="qa_legitimo_")
+        try:
+            for rama in RAMAS:
+                os.makedirs(os.path.join(base_min, rama), exist_ok=True)
+            os.makedirs(os.path.join(base_min, os.path.dirname(prosa)), exist_ok=True)
+            with open(os.path.join(base_min, prosa), "w", encoding="utf-8") as f:
+                f.write(contenido)
+            if not fn(base_min).ok:
+                t.fallos.append(f"falso positivo: {etiqueta}")
+        finally:
+            shutil.rmtree(base_min, ignore_errors=True)
     t.notas.append("Defectos sembrados, uno por paquete m\u00ednimo: " + "; ".join(c[0] for c in casos))
+    t.notas.append("Textos leg\u00edtimos que no deben fallar: " + "; ".join(c[0] for c in legitimos))
     return t
 
 
