@@ -490,37 +490,39 @@
 
     move-result-object v1
 
-    const-string v2, "original"
+    const-string v2, "gentle"
 
     invoke-virtual {v2, v1}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
 
     move-result v1
 
-    const-string v2, "bass"
+    const/4 v2, 0x1
 
-    const/4 v3, 0x2
+    xor-int/2addr v1, v2
 
-    invoke-static {p0, v2, v3}, Lcom/brisa/local/Y;->b(Lorg/json/JSONObject;Ljava/lang/String;I)I
+    const-string v3, "bass"
 
-    move-result v2
-
-    const-string v3, "mid"
-
-    const/4 v4, 0x0
+    const/4 v4, 0x2
 
     invoke-static {p0, v3, v4}, Lcom/brisa/local/Y;->b(Lorg/json/JSONObject;Ljava/lang/String;I)I
 
     move-result v3
 
-    const-string v4, "treble"
+    const-string v4, "mid"
 
-    const/4 v5, 0x1
+    const/4 v5, 0x0
 
     invoke-static {p0, v4, v5}, Lcom/brisa/local/Y;->b(Lorg/json/JSONObject;Ljava/lang/String;I)I
 
+    move-result v4
+
+    const-string v5, "treble"
+
+    invoke-static {p0, v5, v2}, Lcom/brisa/local/Y;->b(Lorg/json/JSONObject;Ljava/lang/String;I)I
+
     move-result p0
 
-    invoke-direct {v0, v1, v2, v3, p0}, Lcom/brisa/local/SoundCore$Settings;-><init>(ZIII)V
+    invoke-direct {v0, v1, v3, v4, p0}, Lcom/brisa/local/SoundCore$Settings;-><init>(ZIII)V
 
     return-object v0
 .end method

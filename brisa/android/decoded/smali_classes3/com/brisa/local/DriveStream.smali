@@ -64,7 +64,7 @@
 .method public static audio(Landroid/content/Context;Ljava/lang/String;)Landroid/net/Uri;
     .locals 6
 
-    .line 119
+    .line 127
     const/4 v0, 0x0
 
     :try_start_0
@@ -98,7 +98,7 @@
 
     check-cast v1, Landroid/net/Uri;
 
-    .line 120
+    .line 128
     if-nez v1, :cond_2
 
     if-eqz p1, :cond_2
@@ -113,13 +113,13 @@
 
     goto :goto_0
 
-    .line 121
+    .line 129
     :cond_0
     invoke-static {p0, p1}, Lcom/brisa/local/MobileVideoFiles;->asset(Landroid/content/Context;Ljava/lang/String;)Lorg/json/JSONObject;
 
     move-result-object p1
 
-    .line 122
+    .line 130
     invoke-static {p1}, Lcom/brisa/local/DriveStream;->streamable(Lorg/json/JSONObject;)Z
 
     move-result v1
@@ -135,16 +135,16 @@
     :cond_1
     return-object v0
 
-    .line 120
+    .line 128
     :cond_2
     :goto_0
     return-object v1
 
-    .line 123
+    .line 131
     :catch_0
     move-exception p0
 
-    .line 124
+    .line 132
     return-object v0
 .end method
 
@@ -196,6 +196,24 @@
 
     :cond_0
     return-object p0
+.end method
+
+.method static synthetic lambda$remote$0(Lcom/brisa/local/StreamRelay;)V
+    .locals 0
+
+    .line 112
+    :try_start_0
+    invoke-virtual {p0}, Lcom/brisa/local/StreamRelay;->start()I
+    :try_end_0
+    .catch Ljava/io/IOException; {:try_start_0 .. :try_end_0} :catch_0
+
+    goto :goto_0
+
+    :catch_0
+    move-exception p0
+
+    :goto_0
+    return-void
 .end method
 
 .method public static lastMessage()Ljava/lang/String;
@@ -400,13 +418,13 @@
         }
     .end annotation
 
-    .line 183
+    .line 191
     sget-object v1, Lcom/brisa/local/DriveStream;->app:Landroid/content/Context;
 
-    .line 184
+    .line 192
     if-eqz v1, :cond_12
 
-    .line 187
+    .line 195
     :try_start_0
     invoke-static {v1, p0}, Lcom/brisa/local/MobileVideoFiles;->asset(Landroid/content/Context;Ljava/lang/String;)Lorg/json/JSONObject;
 
@@ -414,17 +432,17 @@
     :try_end_0
     .catch Ljava/lang/Exception; {:try_start_0 .. :try_end_0} :catch_0
 
-    .line 190
+    .line 198
     goto :goto_0
 
-    .line 188
+    .line 196
     :catch_0
     move-exception v0
 
-    .line 189
+    .line 197
     const/4 p0, 0x0
 
-    .line 191
+    .line 199
     :goto_0
     invoke-static {p0}, Lcom/brisa/local/DriveStream;->streamable(Lorg/json/JSONObject;)Z
 
@@ -434,14 +452,14 @@
 
     if-eqz v0, :cond_11
 
-    .line 192
+    .line 200
     const-string v0, "driveId"
 
     invoke-virtual {p0, v0}, Lorg/json/JSONObject;->optString(Ljava/lang/String;)Ljava/lang/String;
 
     move-result-object v0
 
-    .line 193
+    .line 201
     const-string v3, "[a-zA-Z0-9_-]{1,200}"
 
     invoke-virtual {v0, v3}, Ljava/lang/String;->matches(Ljava/lang/String;)Z
@@ -450,12 +468,12 @@
 
     if-eqz v3, :cond_10
 
-    .line 194
+    .line 202
     invoke-static {v1}, Lcom/brisa/local/DriveStream;->check(Landroid/content/Context;)Ljava/lang/String;
 
     move-result-object v3
 
-    .line 195
+    .line 203
     invoke-virtual {v3}, Ljava/lang/String;->isEmpty()Z
 
     move-result v4
@@ -488,10 +506,10 @@
 
     if-nez v1, :cond_0
 
-    .line 196
+    .line 204
     const-string v3, "Este archivo pertenece a otra cuenta de Drive. Conecta esa cuenta para reproducirlo."
 
-    .line 197
+    .line 205
     :cond_0
     invoke-virtual {v3}, Ljava/lang/String;->isEmpty()Z
 
@@ -501,7 +519,7 @@
 
     if-eqz v1, :cond_f
 
-    .line 201
+    .line 209
     const/4 v1, 0x0
 
     invoke-static {v1}, Lcom/brisa/local/DriveStream;->token(Z)Ljava/lang/String;
@@ -512,20 +530,20 @@
 
     move-result-object v1
 
-    .line 202
+    .line 210
     invoke-virtual {v1}, Ljava/net/HttpURLConnection;->getResponseCode()I
 
     move-result v3
 
-    .line 203
+    .line 211
     const/16 v5, 0x191
 
     if-ne v3, v5, :cond_1
 
-    .line 204
+    .line 212
     invoke-virtual {v1}, Ljava/net/HttpURLConnection;->disconnect()V
 
-    .line 205
+    .line 213
     const/4 v1, 0x1
 
     invoke-static {v1}, Lcom/brisa/local/DriveStream;->token(Z)Ljava/lang/String;
@@ -536,7 +554,7 @@
 
     move-result-object v1
 
-    .line 206
+    .line 214
     invoke-virtual {v1}, Ljava/net/HttpURLConnection;->getResponseCode()I
 
     move-result v3
@@ -545,11 +563,11 @@
 
     goto :goto_1
 
-    .line 203
+    .line 211
     :cond_1
     move v7, v3
 
-    .line 208
+    .line 216
     :goto_1
     const/16 p1, 0xc8
 
@@ -559,10 +577,10 @@
 
     if-eq v7, p1, :cond_b
 
-    .line 209
+    .line 217
     invoke-virtual {v1}, Ljava/net/HttpURLConnection;->disconnect()V
 
-    .line 210
+    .line 218
     const/16 p0, 0x1a0
 
     if-ne v7, v2, :cond_2
@@ -571,7 +589,7 @@
 
     goto :goto_3
 
-    .line 211
+    .line 219
     :cond_2
     if-eq v7, v5, :cond_5
 
@@ -579,7 +597,7 @@
 
     goto :goto_2
 
-    .line 212
+    .line 220
     :cond_3
     if-ne v7, p0, :cond_4
 
@@ -587,7 +605,7 @@
 
     goto :goto_3
 
-    .line 213
+    .line 221
     :cond_4
     new-instance p1, Ljava/lang/StringBuilder;
 
@@ -615,18 +633,18 @@
 
     goto :goto_3
 
-    .line 211
+    .line 219
     :cond_5
     :goto_2
     const-string p1, "Drive no permiti\u00f3 leer el archivo. Renueva la conexi\u00f3n desde Google Drive."
 
-    .line 214
+    .line 222
     :goto_3
     if-eq v7, p0, :cond_6
 
     invoke-static {p1}, Lcom/brisa/local/DriveStream;->notice(Ljava/lang/String;)V
 
-    .line 215
+    .line 223
     :cond_6
     new-instance v0, Lcom/brisa/local/StreamRelay$Refused;
 
@@ -660,13 +678,13 @@
 
     throw v0
 
-    .line 217
+    .line 225
     :cond_b
     invoke-virtual {v1}, Ljava/net/HttpURLConnection;->getContentType()Ljava/lang/String;
 
     move-result-object p1
 
-    .line 218
+    .line 226
     if-eqz p1, :cond_d
 
     invoke-virtual {p1}, Ljava/lang/String;->isEmpty()Z
@@ -690,7 +708,7 @@
 
     goto :goto_8
 
-    .line 219
+    .line 227
     :cond_d
     :goto_6
     const-string p1, "kind"
@@ -727,7 +745,7 @@
 
     move-object v8, p1
 
-    .line 220
+    .line 228
     :goto_8
     new-instance v6, Lcom/brisa/local/StreamRelay$Reply;
 
@@ -749,18 +767,18 @@
 
     return-object v6
 
-    .line 198
+    .line 206
     :cond_f
     invoke-static {v3}, Lcom/brisa/local/DriveStream;->notice(Ljava/lang/String;)V
 
-    .line 199
+    .line 207
     new-instance p0, Lcom/brisa/local/StreamRelay$Refused;
 
     invoke-direct {p0, v4, v3}, Lcom/brisa/local/StreamRelay$Refused;-><init>(ILjava/lang/String;)V
 
     throw p0
 
-    .line 193
+    .line 201
     :cond_10
     new-instance p0, Lcom/brisa/local/StreamRelay$Refused;
 
@@ -770,7 +788,7 @@
 
     throw p0
 
-    .line 191
+    .line 199
     :cond_11
     new-instance p0, Lcom/brisa/local/StreamRelay$Refused;
 
@@ -780,7 +798,7 @@
 
     throw p0
 
-    .line 184
+    .line 192
     :cond_12
     new-instance p0, Lcom/brisa/local/StreamRelay$Refused;
 
@@ -796,7 +814,7 @@
 .method public static queued(Landroid/content/Context;Ljava/lang/String;)Landroid/net/Uri;
     .locals 6
 
-    .line 131
+    .line 139
     const/4 v0, 0x0
 
     :try_start_0
@@ -830,7 +848,7 @@
 
     check-cast v1, Landroid/net/Uri;
 
-    .line 132
+    .line 140
     if-nez v1, :cond_2
 
     if-eqz p1, :cond_2
@@ -845,7 +863,7 @@
 
     goto :goto_0
 
-    .line 133
+    .line 141
     :cond_0
     invoke-static {p0, p1}, Lcom/brisa/local/MobileVideoFiles;->asset(Landroid/content/Context;Ljava/lang/String;)Lorg/json/JSONObject;
 
@@ -890,16 +908,16 @@
     :cond_1
     return-object v0
 
-    .line 132
+    .line 140
     :cond_2
     :goto_0
     return-object v1
 
-    .line 134
+    .line 142
     :catch_0
     move-exception p0
 
-    .line 135
+    .line 143
     return-object v0
 .end method
 
@@ -1044,6 +1062,59 @@
     :cond_2
     sget-object p0, Lcom/brisa/local/DriveStream;->relay:Lcom/brisa/local/StreamRelay;
 
+    invoke-virtual {p0}, Lcom/brisa/local/StreamRelay;->port()I
+
+    move-result p0
+
+    if-nez p0, :cond_4
+
+    .line 111
+    sget-object p0, Lcom/brisa/local/DriveStream;->relay:Lcom/brisa/local/StreamRelay;
+
+    .line 112
+    new-instance v1, Ljava/lang/Thread;
+
+    new-instance v2, Lcom/brisa/local/DriveStream$$ExternalSyntheticLambda1;
+
+    invoke-direct {v2, p0}, Lcom/brisa/local/DriveStream$$ExternalSyntheticLambda1;-><init>(Lcom/brisa/local/StreamRelay;)V
+
+    const-string p0, "brisa-stream-open"
+
+    invoke-direct {v1, v2, p0}, Ljava/lang/Thread;-><init>(Ljava/lang/Runnable;Ljava/lang/String;)V
+
+    .line 113
+    invoke-virtual {v1}, Ljava/lang/Thread;->start()V
+
+    .line 114
+    const-wide/16 v4, 0xbb8
+
+    invoke-virtual {v1, v4, v5}, Ljava/lang/Thread;->join(J)V
+
+    .line 115
+    sget-object p0, Lcom/brisa/local/DriveStream;->relay:Lcom/brisa/local/StreamRelay;
+
+    invoke-virtual {p0}, Lcom/brisa/local/StreamRelay;->port()I
+
+    move-result p0
+
+    if-eqz p0, :cond_3
+
+    goto :goto_1
+
+    :cond_3
+    new-instance p0, Ljava/io/IOException;
+
+    const-string p1, "No se pudo abrir el puente local."
+
+    invoke-direct {p0, p1}, Ljava/io/IOException;-><init>(Ljava/lang/String;)V
+
+    throw p0
+
+    .line 117
+    :cond_4
+    :goto_1
+    sget-object p0, Lcom/brisa/local/DriveStream;->relay:Lcom/brisa/local/StreamRelay;
+
     const-string v1, "id"
 
     invoke-virtual {p1, v1}, Lorg/json/JSONObject;->getString(Ljava/lang/String;)Ljava/lang/String;
@@ -1065,11 +1136,11 @@
 
     return-object p0
 
-    .line 110
+    .line 118
     :catch_0
     move-exception p0
 
-    .line 111
+    .line 119
     :try_start_2
     const-string p0, "No se pudo preparar la reproducci\u00f3n desde Drive. Int\u00e9ntalo otra vez."
 
@@ -1077,7 +1148,7 @@
     :try_end_2
     .catchall {:try_start_2 .. :try_end_2} :catchall_0
 
-    .line 112
+    .line 120
     monitor-exit v0
 
     return-object v3
@@ -1102,7 +1173,7 @@
         }
     .end annotation
 
-    .line 171
+    .line 179
     new-instance v0, Ljava/net/URL;
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -1137,22 +1208,22 @@
 
     check-cast p0, Ljava/net/HttpURLConnection;
 
-    .line 172
+    .line 180
     const/16 v0, 0x3a98
 
     invoke-virtual {p0, v0}, Ljava/net/HttpURLConnection;->setConnectTimeout(I)V
 
-    .line 173
+    .line 181
     const/16 v0, 0x7530
 
     invoke-virtual {p0, v0}, Ljava/net/HttpURLConnection;->setReadTimeout(I)V
 
-    .line 174
+    .line 182
     const/4 v0, 0x0
 
     invoke-virtual {p0, v0}, Ljava/net/HttpURLConnection;->setUseCaches(Z)V
 
-    .line 175
+    .line 183
     new-instance v0, Ljava/lang/StringBuilder;
 
     invoke-direct {v0}, Ljava/lang/StringBuilder;-><init>()V
@@ -1175,21 +1246,21 @@
 
     invoke-virtual {p0, v0, p2}, Ljava/net/HttpURLConnection;->setRequestProperty(Ljava/lang/String;Ljava/lang/String;)V
 
-    .line 177
+    .line 185
     const-string p2, "Accept-Encoding"
 
     const-string v0, "identity"
 
     invoke-virtual {p0, p2, v0}, Ljava/net/HttpURLConnection;->setRequestProperty(Ljava/lang/String;Ljava/lang/String;)V
 
-    .line 178
+    .line 186
     if-eqz p1, :cond_0
 
     const-string p2, "Range"
 
     invoke-virtual {p0, p2, p1}, Ljava/net/HttpURLConnection;->setRequestProperty(Ljava/lang/String;Ljava/lang/String;)V
 
-    .line 179
+    .line 187
     :cond_0
     return-object p0
 .end method
@@ -1273,7 +1344,7 @@
         }
     .end annotation
 
-    .line 154
+    .line 162
     const-string v0, "Abre Google Drive en Brisa y renueva la conexi\u00f3n."
 
     const/16 v1, 0x191
@@ -1287,7 +1358,7 @@
 
     move-result-object v3
 
-    .line 155
+    .line 163
     if-eqz p0, :cond_0
 
     const-string p0, "b"
@@ -1300,7 +1371,7 @@
 
     invoke-virtual {p0, v2, v4, v5}, Ljava/lang/reflect/Field;->setLong(Ljava/lang/Object;J)V
 
-    .line 156
+    .line 164
     :cond_0
     const-string p0, "c"
 
@@ -1334,7 +1405,7 @@
 
     invoke-virtual {p0, v2, v4}, Ljava/lang/reflect/Method;->invoke(Ljava/lang/Object;[Ljava/lang/Object;)Ljava/lang/Object;
 
-    .line 157
+    .line 165
     const-string p0, "a"
 
     invoke-virtual {v3, p0}, Ljava/lang/Class;->getField(Ljava/lang/String;)Ljava/lang/reflect/Field;
@@ -1347,7 +1418,7 @@
 
     check-cast p0, Ljava/lang/String;
 
-    .line 158
+    .line 166
     if-eqz p0, :cond_1
 
     invoke-virtual {p0}, Ljava/lang/String;->isEmpty()Z
@@ -1356,10 +1427,10 @@
 
     if-nez v3, :cond_1
 
-    .line 159
+    .line 167
     return-object p0
 
-    .line 158
+    .line 166
     :cond_1
     new-instance p0, Lcom/brisa/local/StreamRelay$Refused;
 
@@ -1371,29 +1442,29 @@
     .catch Ljava/io/IOException; {:try_start_0 .. :try_end_0} :catch_1
     .catch Ljava/lang/Exception; {:try_start_0 .. :try_end_0} :catch_0
 
-    .line 165
+    .line 173
     :catch_0
     move-exception p0
 
-    .line 166
+    .line 174
     new-instance p0, Lcom/brisa/local/StreamRelay$Refused;
 
     invoke-direct {p0, v1, v0}, Lcom/brisa/local/StreamRelay$Refused;-><init>(ILjava/lang/String;)V
 
     throw p0
 
-    .line 163
+    .line 171
     :catch_1
     move-exception p0
 
-    .line 164
+    .line 172
     throw p0
 
-    .line 160
+    .line 168
     :catch_2
     move-exception p0
 
-    .line 161
+    .line 169
     invoke-virtual {p0}, Ljava/lang/reflect/InvocationTargetException;->getCause()Ljava/lang/Throwable;
 
     move-result-object v3
@@ -1411,7 +1482,7 @@
 
     move-result-object v2
 
-    .line 162
+    .line 170
     :goto_0
     new-instance p0, Lcom/brisa/local/StreamRelay$Refused;
 
@@ -1431,7 +1502,7 @@
 .method public static video(Landroid/content/Context;Ljava/lang/String;)Landroid/net/Uri;
     .locals 6
 
-    .line 142
+    .line 150
     const/4 v0, 0x0
 
     :try_start_0
@@ -1465,18 +1536,18 @@
 
     check-cast v1, Landroid/net/Uri;
 
-    .line 143
+    .line 151
     if-eqz v1, :cond_0
 
     return-object v1
 
-    .line 144
+    .line 152
     :cond_0
     invoke-static {p0, p1}, Lcom/brisa/local/MobileVideoFiles;->asset(Landroid/content/Context;Ljava/lang/String;)Lorg/json/JSONObject;
 
     move-result-object p1
 
-    .line 145
+    .line 153
     invoke-static {p1}, Lcom/brisa/local/DriveStream;->streamable(Lorg/json/JSONObject;)Z
 
     move-result v1
@@ -1492,10 +1563,10 @@
     :cond_1
     return-object v0
 
-    .line 146
+    .line 154
     :catch_0
     move-exception p0
 
-    .line 147
+    .line 155
     return-object v0
 .end method

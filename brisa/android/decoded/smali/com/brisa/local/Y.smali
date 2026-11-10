@@ -161,7 +161,7 @@
 
     const-string v1, "settings"
 
-    const-string v2, "{\"mode\":\"gentle\",\"bass\":2,\"mid\":0,\"treble\":1}"
+    const-string v2, "{\"mode\":\"original\",\"bass\":2,\"mid\":0,\"treble\":1}"
 
     invoke-interface {p0, v1, v2}, Landroid/content/SharedPreferences;->getString(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
 

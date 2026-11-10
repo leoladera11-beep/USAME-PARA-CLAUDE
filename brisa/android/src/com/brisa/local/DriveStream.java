@@ -106,6 +106,14 @@ public final class DriveStream {
                 for (int i = 0; i < 32; i++) secret.append(CHARS.charAt(random.nextInt(CHARS.length())));
                 relay = new StreamRelay(DriveStream::open, secret.toString());
             }
+            if (relay.port() == 0) {
+                // El puerto se abre fuera del hilo principal: Android no permite operaciones de red en él.
+                final StreamRelay server = relay;
+                Thread opener = new Thread(() -> { try { server.start(); } catch (IOException ignored) { } }, "brisa-stream-open");
+                opener.start();
+                opener.join(3000);
+                if (relay.port() == 0) throw new IOException("No se pudo abrir el puente local.");
+            }
             return Uri.parse(relay.url(record.getString("id")));
         } catch (Exception failure) {
             notice("No se pudo preparar la reproducción desde Drive. Inténtalo otra vez.");

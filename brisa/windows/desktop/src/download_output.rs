@@ -11,6 +11,24 @@ impl Output {
     pub fn as_str(self) -> &'static str { match self { Self::Video => "mp4", Self::Audio => "mp3", Self::Both => "both" } }
 }
 
+/// Formato de la música descargada. «Original» copia la pista de audio tal como llega
+/// (Opus o AAC) a un M4A, sin descodificar ni volver a comprimir: es la máxima calidad que
+/// ofrece la fuente y suena idéntica a la del vídeo. MP3 queda para equipos antiguos.
+#[derive(Clone, Copy, Debug, PartialEq)]
+pub enum AudioFormat { Original, Mp3 }
+impl AudioFormat {
+    pub fn parse(value: Option<&str>) -> Self { if value == Some("mp3") { Self::Mp3 } else { Self::Original } }
+    pub fn file_name(self) -> &'static str { match self { Self::Original => "complete.m4a", Self::Mp3 => "complete.mp3" } }
+    /// Argumentos de FFmpeg entre el archivo de entrada y el de salida.
+    pub fn ffmpeg_args(self) -> &'static [&'static str] {
+        match self {
+            Self::Original => &["-map", "0:a:0", "-vn", "-c:a", "copy", "-map_metadata", "0", "-f", "mp4", "-y"],
+            Self::Mp3 => &["-map", "0:a:0", "-vn", "-c:a", "libmp3lame", "-b:a", "320k", "-compression_level", "0", "-threads", "1", "-map_metadata", "0", "-y"],
+        }
+    }
+    pub fn recodes(self) -> bool { self == Self::Mp3 }
+}
+
 /// Keep a pair together: a cancelled/failed export never leaves a partial pair or library entry.
 pub fn commit_files<T>(sources: Vec<(PathBuf, &'static str)>, root: &Path, stem: &str,
     cancelled: impl Fn() -> bool, register: impl FnOnce(&[(PathBuf, &'static str)]) -> Result<T, String>) -> Result<T, String> {
@@ -53,4 +71,20 @@ mod tests {
     #[test] fn cancel_between_files_rolls_back_the_pair() { let f=Fixture::new();let v=f.file("source.mp4");let a=f.file("complete.mp3");let n=AtomicUsize::new(0);let result=commit_files(vec![(v,"video"),(a,"audio")],&f.0,"Song",||n.fetch_add(1,Ordering::Relaxed)>0,|_|Ok(()));assert!(result.is_err());assert!(!f.0.join("Song.mp4").exists());assert!(!f.0.join("Song.mp3").exists()); }
     #[test] fn keeps_existing_destination_and_rolls_back_new_file() { let f=Fixture::new();let v=f.file("source.mp4");let a=f.file("complete.mp3");fs::write(f.0.join("Song.mp3"),"previous").unwrap();let result=commit_files(vec![(v,"video"),(a,"audio")],&f.0,"Song",||false,|_|Ok(()));assert!(result.is_err());assert!(!f.0.join("Song.mp4").exists());assert_eq!(fs::read_to_string(f.0.join("Song.mp3")).unwrap(),"previous"); }
     #[test] fn audio_only_exports_no_video() { let f=Fixture::new();let a=f.file("complete.mp3");commit_files(vec![(a,"audio")],&f.0,"Song",||false,|files|{assert_eq!(files.len(),1);Ok(())}).unwrap();assert!(f.0.join("Song.mp3").exists());assert!(!f.0.join("Song.mp4").exists()); }
+    #[test] fn audio_original_copia_sin_recomprimir() {
+        let args = AudioFormat::Original.ffmpeg_args();
+        assert!(args.windows(2).any(|w| w == ["-c:a", "copy"]));
+        assert!(!args.iter().any(|a| a.contains("lame") || *a == "-b:a"));
+        assert_eq!(AudioFormat::Original.file_name(), "complete.m4a");
+        assert!(!AudioFormat::Original.recodes());
+    }
+    #[test] fn mp3_sigue_disponible_y_el_original_es_el_valor_por_defecto() {
+        assert_eq!(AudioFormat::parse(Some("mp3")), AudioFormat::Mp3);
+        assert_eq!(AudioFormat::parse(Some("original")), AudioFormat::Original);
+        assert_eq!(AudioFormat::parse(None), AudioFormat::Original);
+        assert_eq!(AudioFormat::parse(Some("otra-cosa")), AudioFormat::Original);
+        let args = AudioFormat::Mp3.ffmpeg_args();
+        assert!(args.windows(2).any(|w| w == ["-b:a", "320k"]));
+        assert_eq!(AudioFormat::Mp3.file_name(), "complete.mp3");
+    }
 }

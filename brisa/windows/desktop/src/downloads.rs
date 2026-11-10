@@ -1,4 +1,4 @@
-use crate::{Store, now, media, download_output::{Output, commit_files}};
+use crate::{Store, now, media, download_output::{Output, AudioFormat, commit_files}};
 use serde_json::{Value, json};
 use sha2::{Sha256, Digest};
 use std::{collections::{HashMap, HashSet}, path::{Path, PathBuf}, process::{Command, Stdio}, sync::{atomic::Ordering, mpsc}, io::{Read, Write, BufRead, BufReader}, time::{Duration, Instant}, net::{IpAddr, ToSocketAddrs}};
@@ -153,13 +153,20 @@ fn convert_file(app: &tauri::AppHandle, store: &Store, input: &Path, output: &Pa
     if !result||std::fs::metadata(output).map(|m|m.len()).unwrap_or(0)==0{return Err(failure.into());}
     Ok(output.to_path_buf())
 }
-fn encode_mp3(app: &tauri::AppHandle, store: &Store, input: &Path, temp: &Path, title: &str) -> Result<PathBuf,String> {
-    convert_file(app,store,input,&temp.join("complete.mp3"),title,
-        &["-map","0:a:0","-vn","-c:a","libmp3lame","-b:a","320k","-compression_level","0","-threads","1","-map_metadata","0","-y"],
-        "converting","No se pudo crear el MP3. Comprueba que el archivo tenga audio.")
+// La música se guarda con el audio original siempre que el contenedor lo admita; si la copia
+// directa falla, se recurre al MP3 para no dejar la descarga sin música.
+fn export_audio(app: &tauri::AppHandle, store: &Store, input: &Path, temp: &Path, title: &str, format: AudioFormat) -> Result<PathBuf,String> {
+    if !format.recodes() {
+        let copied = convert_file(app,store,input,&temp.join(format.file_name()),title,format.ffmpeg_args(),"converting","");
+        if copied.is_ok() || store.cancelled.load(Ordering::SeqCst) { return copied; }
+        let _ = std::fs::remove_file(temp.join(format.file_name()));
+    }
+    let mp3 = AudioFormat::Mp3;
+    convert_file(app,store,input,&temp.join(mp3.file_name()),title,mp3.ffmpeg_args(),
+        "converting","No se pudo guardar la música. Comprueba que el archivo tenga audio.")
 }
 
-fn run(app: tauri::AppHandle, store: Store, plan: Plan, selector: String, mode: Output, root: PathBuf, destination: String) {
+fn run(app: tauri::AppHandle, store: Store, plan: Plan, selector: String, mode: Output, audio_format: AudioFormat, root: PathBuf, destination: String) {
     let suffix = uuid::Uuid::new_v4().to_string(); let temp = root.join(format!(".brisa-{suffix}"));
     let result = (|| -> Result<PathBuf, String> {
         std::fs::create_dir_all(&temp).map_err(|_| "No se puede escribir en la carpeta de descargas. Elige otra ubicación.".to_string())?;
@@ -223,8 +230,8 @@ fn run(app: tauri::AppHandle, store: Store, plan: Plan, selector: String, mode: 
         if output.parent() != Some(temp.canonicalize().map_err(|_| "Carpeta temporal no válida.".to_string())?.as_path()) { return Err("El motor devolvió un destino no válido.".into()); }
         Ok(output)
     })().and_then(|output| {
-        // In Both mode the MP3 uses the original audio in the downloaded video: one download, one MP3 encode.
-        let audio = if mode.wants_audio() { Some(encode_mp3(&app,&store,&output,&temp,&plan.title)?) } else { None };
+        // En «Ambos» la música sale de la pista de audio del vídeo ya descargado: una sola descarga y el mismo sonido.
+        let audio = if mode.wants_audio() { Some(export_audio(&app,&store,&output,&temp,&plan.title,audio_format)?) } else { None };
         let mut files = Vec::new();
         if !mode.audio_only() {
             let video = if mode == Output::Both && !output.extension().map(|s| s.eq_ignore_ascii_case("mp4")).unwrap_or(false) {
@@ -255,6 +262,7 @@ pub fn start(app: tauri::AppHandle, store: tauri::State<'_, Store>, inspection_i
     if now() - plan.created > 600000 { return Err("Vuelve a consultar el enlace; la selección ha caducado.".into()); }
     let output = options.as_ref().and_then(|v| v["output"].as_str()).unwrap_or("mp4");
     let mode = Output::parse(output)?;
+    let audio_format = AudioFormat::parse(options.as_ref().and_then(|v| v["audioFormat"].as_str()));
     let destination=options.as_ref().and_then(|v|v["destination"].as_str()).unwrap_or("local").to_string();
     let root=match destination.as_str(){
         "local"=>store.folder.lock().unwrap().clone(),
@@ -264,7 +272,7 @@ pub fn start(app: tauri::AppHandle, store: tauri::State<'_, Store>, inspection_i
     let selector = if mode.audio_only() { plan.audio.clone() } else { plan.choices.get(&format_id).cloned().ok_or("Calidad no válida.")? };
     if store.active.compare_exchange(false, true, Ordering::SeqCst, Ordering::SeqCst).is_err() { return Err("Ya hay una descarga en curso.".into()); }
     store.cancelled.store(false, Ordering::SeqCst); publish(&app, &store, "starting", &plan.title, 0, 0, None);
-    let shared = store.inner().clone(); tauri::async_runtime::spawn_blocking(move || run(app, shared, plan, selector, mode, root, destination)); Ok(())
+    let shared = store.inner().clone(); tauri::async_runtime::spawn_blocking(move || run(app, shared, plan, selector, mode, audio_format, root, destination)); Ok(())
 }
 #[tauri::command]
 pub fn cancel(app: tauri::AppHandle, store: tauri::State<'_, Store>) {

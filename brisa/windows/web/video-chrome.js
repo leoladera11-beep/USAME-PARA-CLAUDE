@@ -2,6 +2,7 @@ const viewer = document.getElementById('videoViewer');
 const video = document.getElementById('localVideo');
 const icons = {
   full: '<rect x="4" y="4" width="16" height="16" stroke-dasharray="4 3"/>',
+  pip: '<rect x="3" y="5" width="18" height="14" rx="2"/><rect x="12" y="11" width="7" height="6" rx="1" fill="currentColor"/>',
   gear: '<circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/><path d="M12 2v4m0 12v4M2 12h4m12 0h4M5 5l3 3m8 8 3 3M5 19l3-3M16 8l3-3"/>',
 };
 const controls = document.createElement('div');
@@ -13,6 +14,21 @@ function button(label, icon) {
   controls.append(b); return b;
 }
 const gear = button('Ajustes del vídeo', 'gear');
+// Imagen en imagen: el vídeo sigue en una ventana flotante mientras usas otras apps.
+const pip = button('Imagen en imagen', 'pip');
+pip.hidden = !document.pictureInPictureEnabled;
+pip.onclick = async () => {
+  try {
+    if (document.pictureInPictureElement) await document.exitPictureInPicture();
+    else await video.requestPictureInPicture();
+  } catch {
+    const toast = document.getElementById('toast');
+    toast.textContent = 'La ventana flotante no está disponible para este vídeo.'; toast.hidden = false;
+    setTimeout(() => { toast.hidden = true; }, 4000);
+  }
+};
+video.addEventListener('enterpictureinpicture', () => { pip.setAttribute('aria-label', 'Salir de imagen en imagen'); pip.title = 'Salir de imagen en imagen'; });
+video.addEventListener('leavepictureinpicture', () => { pip.setAttribute('aria-label', 'Imagen en imagen'); pip.title = 'Imagen en imagen'; });
 const fullscreen = button('Pantalla completa', 'full');
 viewer.append(controls);
 const dialog = document.createElement('dialog');
