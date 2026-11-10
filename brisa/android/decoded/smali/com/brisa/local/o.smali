@@ -590,7 +590,7 @@
 
     if-lt v0, v1, :cond_10
 
-    const-string v0, "Convirtiendo a MP3\u2026"
+    const-string v0, "Preparando el audio\u2026"
 
     invoke-virtual {v2, v0}, Lcom/brisa/local/DownloadService;->e(Ljava/lang/String;)Landroid/app/Notification;
 
@@ -615,7 +615,7 @@
 
     invoke-direct {v6, v2, v9}, Lcom/brisa/local/p;-><init>(Lcom/brisa/local/DownloadService;I)V
 
-    invoke-static {v15, v0, v1, v3, v6}, Lcom/brisa/local/Mp3Encoder;->a(Ljava/io/File;Ljava/io/File;ILjava/lang/String;Lcom/brisa/local/p;)V
+    invoke-static {v15, v0, v1, v3, v6}, Lcom/brisa/local/AudioExport;->a(Ljava/io/File;Ljava/io/File;ILjava/lang/String;Ljava/util/function/BooleanSupplier;)V
 
     const-string v1, "audio"
 

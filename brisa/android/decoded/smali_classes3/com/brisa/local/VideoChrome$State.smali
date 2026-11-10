@@ -56,48 +56,120 @@
 
 # direct methods
 .method static constructor <clinit>()V
-    .locals 19
+    .locals 3
 
     .line 124
-    const-string v17, "exo_overflow_hide"
+    const/16 v0, 0x12
 
-    const-string v18, "exo_mute"
+    new-array v0, v0, [Ljava/lang/String;
 
-    const-string v1, "exo_play_pause"
+    const/4 v1, 0x0
+
+    const-string v2, "exo_play_pause"
+
+    aput-object v2, v0, v1
+
+    const/4 v1, 0x1
 
     const-string v2, "exo_prev"
 
-    const-string v3, "exo_next"
+    aput-object v2, v0, v1
 
-    const-string v4, "exo_rew"
+    const/4 v1, 0x2
 
-    const-string v5, "exo_ffwd"
+    const-string v2, "exo_next"
 
-    const-string v6, "exo_rew_with_amount"
+    aput-object v2, v0, v1
 
-    const-string v7, "exo_ffwd_with_amount"
+    const/4 v1, 0x3
 
-    const-string v8, "exo_progress"
+    const-string v2, "exo_rew"
 
-    const-string v9, "exo_settings"
+    aput-object v2, v0, v1
 
-    const-string v10, "exo_subtitle"
+    const/4 v1, 0x4
 
-    const-string v11, "exo_repeat_toggle"
+    const-string v2, "exo_ffwd"
 
-    const-string v12, "exo_shuffle"
+    aput-object v2, v0, v1
 
-    const-string v13, "exo_fullscreen"
+    const/4 v1, 0x5
 
-    const-string v14, "exo_minimal_fullscreen"
+    const-string v2, "exo_rew_with_amount"
 
-    const-string v15, "exo_vr"
+    aput-object v2, v0, v1
 
-    const-string v16, "exo_overflow_show"
+    const/4 v1, 0x6
 
-    filled-new-array/range {v1 .. v18}, [Ljava/lang/String;
+    const-string v2, "exo_ffwd_with_amount"
 
-    move-result-object v0
+    aput-object v2, v0, v1
+
+    const/4 v1, 0x7
+
+    const-string v2, "exo_progress"
+
+    aput-object v2, v0, v1
+
+    const/16 v1, 0x8
+
+    const-string v2, "exo_settings"
+
+    aput-object v2, v0, v1
+
+    const/16 v1, 0x9
+
+    const-string v2, "exo_subtitle"
+
+    aput-object v2, v0, v1
+
+    const/16 v1, 0xa
+
+    const-string v2, "exo_repeat_toggle"
+
+    aput-object v2, v0, v1
+
+    const/16 v1, 0xb
+
+    const-string v2, "exo_shuffle"
+
+    aput-object v2, v0, v1
+
+    const/16 v1, 0xc
+
+    const-string v2, "exo_fullscreen"
+
+    aput-object v2, v0, v1
+
+    const/16 v1, 0xd
+
+    const-string v2, "exo_minimal_fullscreen"
+
+    aput-object v2, v0, v1
+
+    const/16 v1, 0xe
+
+    const-string v2, "exo_vr"
+
+    aput-object v2, v0, v1
+
+    const/16 v1, 0xf
+
+    const-string v2, "exo_overflow_show"
+
+    aput-object v2, v0, v1
+
+    const/16 v1, 0x10
+
+    const-string v2, "exo_overflow_hide"
+
+    aput-object v2, v0, v1
+
+    const/16 v1, 0x11
+
+    const-string v2, "exo_mute"
+
+    aput-object v2, v0, v1
 
     sput-object v0, Lcom/brisa/local/VideoChrome$State;->NATIVE_CONTROLS:[Ljava/lang/String;
 
@@ -923,36 +995,40 @@
 .end method
 
 .method synthetic lambda$new$4$com-brisa-local-VideoChrome$State(Landroid/app/Activity;Landroid/view/View;)V
-    .locals 2
+    .locals 3
 
     .line 169
     iget-object p2, p0, Lcom/brisa/local/VideoChrome$State;->gestures:Lcom/brisa/local/VideoGestureEngine;
 
     invoke-virtual {p2}, Lcom/brisa/local/VideoGestureEngine;->cancel()V
 
-    sget-object p2, Ljava/lang/Boolean;->TYPE:Ljava/lang/Class;
+    const/4 p2, 0x1
 
-    filled-new-array {p2}, [Ljava/lang/Class;
+    new-array v0, p2, [Ljava/lang/Class;
 
-    move-result-object p2
+    const/4 v1, 0x0
+
+    sget-object v2, Ljava/lang/Boolean;->TYPE:Ljava/lang/Class;
+
+    aput-object v2, v0, v1
 
     invoke-static {p1}, Lcom/brisa/local/VideoChrome;->access$400(Landroid/app/Activity;)Z
 
-    move-result v0
+    move-result v1
 
-    xor-int/lit8 v0, v0, 0x1
+    xor-int/2addr p2, v1
 
-    invoke-static {v0}, Ljava/lang/Boolean;->valueOf(Z)Ljava/lang/Boolean;
+    invoke-static {p2}, Ljava/lang/Boolean;->valueOf(Z)Ljava/lang/Boolean;
 
-    move-result-object v0
+    move-result-object p2
 
-    filled-new-array {v0}, [Ljava/lang/Object;
+    filled-new-array {p2}, [Ljava/lang/Object;
 
-    move-result-object v0
+    move-result-object p2
 
     const-string v1, "e"
 
-    invoke-static {p1, v1, p2, v0}, Lcom/brisa/local/VideoChrome;->access$200(Ljava/lang/Object;Ljava/lang/String;[Ljava/lang/Class;[Ljava/lang/Object;)Ljava/lang/Object;
+    invoke-static {p1, v1, v0, p2}, Lcom/brisa/local/VideoChrome;->access$200(Ljava/lang/Object;Ljava/lang/String;[Ljava/lang/Class;[Ljava/lang/Object;)Ljava/lang/Object;
 
     return-void
 .end method
@@ -1572,11 +1648,11 @@
 
     iget-object v0, p0, Lcom/brisa/local/VideoChrome$State;->player:Landroid/view/View;
 
-    sget-object v2, Ljava/lang/Boolean;->TYPE:Ljava/lang/Class;
+    new-array v3, v1, [Ljava/lang/Class;
 
-    filled-new-array {v2}, [Ljava/lang/Class;
+    sget-object v4, Ljava/lang/Boolean;->TYPE:Ljava/lang/Class;
 
-    move-result-object v2
+    aput-object v4, v3, v2
 
     invoke-static {v1}, Ljava/lang/Boolean;->valueOf(Z)Ljava/lang/Boolean;
 
@@ -1586,9 +1662,9 @@
 
     move-result-object v1
 
-    const-string v3, "e"
+    const-string v2, "e"
 
-    invoke-static {v0, v3, v2, v1}, Lcom/brisa/local/VideoChrome;->access$200(Ljava/lang/Object;Ljava/lang/String;[Ljava/lang/Class;[Ljava/lang/Object;)Ljava/lang/Object;
+    invoke-static {v0, v2, v3, v1}, Lcom/brisa/local/VideoChrome;->access$200(Ljava/lang/Object;Ljava/lang/String;[Ljava/lang/Class;[Ljava/lang/Object;)Ljava/lang/Object;
 
     goto :goto_2
 

@@ -1023,7 +1023,7 @@
 .end method
 
 .method private static setting(Ljava/lang/Object;Ljava/lang/String;Ljava/lang/Class;Ljava/lang/Object;)V
-    .locals 0
+    .locals 2
     .annotation system Ldalvik/annotation/Signature;
         value = {
             "(",
@@ -1037,15 +1037,19 @@
     .end annotation
 
     .line 38
-    filled-new-array {p2}, [Ljava/lang/Class;
+    const/4 v0, 0x1
 
-    move-result-object p2
+    new-array v0, v0, [Ljava/lang/Class;
+
+    const/4 v1, 0x0
+
+    aput-object p2, v0, v1
 
     filled-new-array {p3}, [Ljava/lang/Object;
 
-    move-result-object p3
+    move-result-object p2
 
-    invoke-static {p0, p1, p2, p3}, Lcom/brisa/local/VideoChrome;->invoke(Ljava/lang/Object;Ljava/lang/String;[Ljava/lang/Class;[Ljava/lang/Object;)Ljava/lang/Object;
+    invoke-static {p0, p1, v0, p2}, Lcom/brisa/local/VideoChrome;->invoke(Ljava/lang/Object;Ljava/lang/String;[Ljava/lang/Class;[Ljava/lang/Object;)Ljava/lang/Object;
 
     return-void
 .end method

@@ -615,7 +615,7 @@
 
     if-eqz v0, :cond_3
 
-    const-string p1, "Convirtiendo a MP3\u2026"
+    const-string p1, "Preparando el audio\u2026"
 
     goto :goto_0
 
@@ -721,7 +721,9 @@
 
     if-eqz v3, :cond_0
 
-    const-string v3, "mp3"
+    invoke-static {p1}, Lcom/brisa/local/AudioExport;->ext(Ljava/io/File;)Ljava/lang/String;
+
+    move-result-object v3
 
     goto :goto_0
 
@@ -887,7 +889,9 @@
 
     if-eqz p2, :cond_2
 
-    const-string p2, "audio/mpeg"
+    invoke-static {v4}, Lcom/brisa/local/AudioExport;->mime(Ljava/lang/String;)Ljava/lang/String;
+
+    move-result-object p2
 
     goto :goto_2
 

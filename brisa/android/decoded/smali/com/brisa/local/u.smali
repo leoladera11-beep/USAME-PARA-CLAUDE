@@ -103,7 +103,15 @@
 
     const-string v4, "video/mp4"
 
-    const-string v5, "audio/mpeg"
+    const-string v5, "name"
+
+    invoke-virtual {v7, v5}, Lorg/json/JSONObject;->optString(Ljava/lang/String;)Ljava/lang/String;
+
+    move-result-object v5
+
+    invoke-static {v5}, Lcom/brisa/local/AudioExport;->mime(Ljava/lang/String;)Ljava/lang/String;
+
+    move-result-object v5
 
     const-string v8, "kind"
 

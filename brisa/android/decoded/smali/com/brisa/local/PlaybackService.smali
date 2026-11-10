@@ -816,7 +816,7 @@
 
     move-result-object v0
 
-    invoke-static {p0, v0}, Lcom/brisa/local/v;->u(Landroid/content/Context;Ljava/lang/String;)Landroid/net/Uri;
+    invoke-static {p0, v0}, Lcom/brisa/local/DriveStream;->audio(Landroid/content/Context;Ljava/lang/String;)Landroid/net/Uri;
 
     move-result-object v0
 
@@ -1206,6 +1206,8 @@
 
 .method public final k()V
     .locals 3
+
+    invoke-static {p0}, Lcom/brisa/local/Idle;->paused(Landroid/app/Service;)V
 
     const/4 v0, 0x0
 
@@ -2268,7 +2270,7 @@
 
     move-result-object v2
 
-    invoke-static {p0, v2}, Lcom/brisa/local/v;->u(Landroid/content/Context;Ljava/lang/String;)Landroid/net/Uri;
+    invoke-static {p0, v2}, Lcom/brisa/local/DriveStream;->queued(Landroid/content/Context;Ljava/lang/String;)Landroid/net/Uri;
 
     move-result-object v2
 
@@ -2782,7 +2784,7 @@
     :goto_1
     if-eqz v3, :cond_4
 
-    const-wide/16 v2, 0x1f4
+    const-wide/16 v2, 0x3e8
 
     invoke-virtual {v1, v0, v2, v3}, Landroid/os/Handler;->postDelayed(Ljava/lang/Runnable;J)Z
 

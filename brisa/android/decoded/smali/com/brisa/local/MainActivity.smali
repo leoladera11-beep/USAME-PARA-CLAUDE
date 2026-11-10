@@ -1369,7 +1369,7 @@
 
     if-eqz v0, :cond_0
 
-    const-wide/16 v3, 0x1f4
+    const-wide/16 v3, 0x3e8
 
     invoke-virtual {v1, v2, v3, v4}, Landroid/os/Handler;->postDelayed(Ljava/lang/Runnable;J)Z
 

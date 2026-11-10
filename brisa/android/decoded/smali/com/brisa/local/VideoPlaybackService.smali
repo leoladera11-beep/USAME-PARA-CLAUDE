@@ -2111,7 +2111,7 @@
 
     move-result-object v3
 
-    invoke-static {v0, v3}, Lcom/brisa/local/d0;->s(Landroid/content/Context;Ljava/lang/String;)Landroid/net/Uri;
+    invoke-static {v0, v3}, Lcom/brisa/local/DriveStream;->video(Landroid/content/Context;Ljava/lang/String;)Landroid/net/Uri;
 
     move-result-object v5
 

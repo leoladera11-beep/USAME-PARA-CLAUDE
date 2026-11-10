@@ -302,7 +302,7 @@
 
     iput-object p1, p0, Lcom/brisa/local/VideoActivity;->i:Ljava/lang/String;
 
-    invoke-static {p0, p1}, Lcom/brisa/local/d0;->s(Landroid/content/Context;Ljava/lang/String;)Landroid/net/Uri;
+    invoke-static {p0, p1}, Lcom/brisa/local/DriveStream;->video(Landroid/content/Context;Ljava/lang/String;)Landroid/net/Uri;
 
     move-result-object p1
 

@@ -26,6 +26,16 @@
 
 
 # direct methods
+.method public static synthetic $r8$lambda$f1Mbxrzds86nwDtgATe73k_Xjzc(Ljava/util/concurrent/atomic/AtomicBoolean;)Z
+    .locals 0
+
+    invoke-virtual {p0}, Ljava/util/concurrent/atomic/AtomicBoolean;->get()Z
+
+    move-result p0
+
+    return p0
+.end method
+
 .method static constructor <clinit>()V
     .locals 2
 
@@ -57,7 +67,7 @@
 .end method
 
 .method static asset(Landroid/content/Context;Ljava/lang/String;)Lorg/json/JSONObject;
-    .locals 2
+    .locals 3
     .annotation system Ldalvik/annotation/Throws;
         value = {
             Ljava/lang/Exception;
@@ -65,13 +75,21 @@
     .end annotation
 
     .line 8
-    const-class v0, Landroid/content/Context;
+    const/4 v0, 0x2
 
-    const-class v1, Ljava/lang/String;
+    new-array v0, v0, [Ljava/lang/Class;
 
-    filled-new-array {v0, v1}, [Ljava/lang/Class;
+    const/4 v1, 0x0
 
-    move-result-object v0
+    const-class v2, Landroid/content/Context;
+
+    aput-object v2, v0, v1
+
+    const/4 v1, 0x1
+
+    const-class v2, Ljava/lang/String;
+
+    aput-object v2, v0, v1
 
     filled-new-array {p0, p1}, [Ljava/lang/Object;
 
@@ -173,7 +191,7 @@
 .end method
 
 .method static copy(Landroid/content/Context;Landroid/net/Uri;Ljava/util/concurrent/atomic/AtomicBoolean;Landroid/os/CancellationSignal;Lcom/brisa/local/OfflineCopy$Progress;)Z
-    .locals 23
+    .locals 25
     .annotation system Ldalvik/annotation/Throws;
         value = {
             Ljava/lang/Exception;
@@ -238,6 +256,8 @@
 
     const-string v14, "a"
 
+    const/4 v15, 0x2
+
     if-eqz v2, :cond_0
 
     invoke-static {v1, v2}, Lcom/brisa/local/MobileVideoFiles;->ready(Landroid/content/Context;Lorg/json/JSONObject;)Z
@@ -248,13 +268,15 @@
 
     invoke-virtual {v2, v13, v10}, Lorg/json/JSONObject;->put(Ljava/lang/String;Z)Lorg/json/JSONObject;
 
-    const-class v0, Landroid/content/Context;
+    new-array v0, v15, [Ljava/lang/Class;
+
+    const-class v3, Landroid/content/Context;
+
+    aput-object v3, v0, v10
 
     const-class v3, Lorg/json/JSONObject;
 
-    filled-new-array {v0, v3}, [Ljava/lang/Class;
-
-    move-result-object v0
+    aput-object v3, v0, v9
 
     filled-new-array {v1, v2}, [Ljava/lang/Object;
 
@@ -274,13 +296,15 @@
 
     if-eqz v0, :cond_1
 
-    const-class v0, Landroid/content/Context;
+    new-array v0, v15, [Ljava/lang/Class;
+
+    const-class v2, Landroid/content/Context;
+
+    aput-object v2, v0, v10
 
     const-class v2, Landroid/net/Uri;
 
-    filled-new-array {v0, v2}, [Ljava/lang/Class;
-
-    move-result-object v0
+    aput-object v2, v0, v9
 
     filled-new-array/range {p0 .. p1}, [Ljava/lang/Object;
 
@@ -309,13 +333,15 @@
 
     move-result-object v2
 
+    new-array v4, v15, [Ljava/lang/String;
+
     const-string v0, "_display_name"
 
-    const-string v4, "_size"
+    aput-object v0, v4, v10
 
-    filled-new-array {v0, v4}, [Ljava/lang/String;
+    const-string v0, "_size"
 
-    move-result-object v4
+    aput-object v0, v4, v9
 
     const/4 v6, 0x0
 
@@ -441,21 +467,39 @@
 
     move-result-object v2
 
-    const-string v19, "mkv"
+    const/4 v8, 0x6
 
-    const-string v20, "3gp"
+    new-array v8, v8, [Ljava/lang/String;
 
-    const-string v15, "mp4"
+    const-string v16, "mp4"
 
-    const-string v16, "m4v"
+    aput-object v16, v8, v10
+
+    const-string v17, "m4v"
+
+    aput-object v17, v8, v9
 
     const-string v17, "webm"
 
+    aput-object v17, v8, v15
+
+    const/16 v17, 0x3
+
     const-string v18, "mov"
 
-    filled-new-array/range {v15 .. v20}, [Ljava/lang/String;
+    aput-object v18, v8, v17
 
-    move-result-object v8
+    const/16 v17, 0x4
+
+    const-string v18, "mkv"
+
+    aput-object v18, v8, v17
+
+    const/16 v17, 0x5
+
+    const-string v18, "3gp"
+
+    aput-object v18, v8, v17
 
     invoke-static {v8}, Ljava/util/Arrays;->asList([Ljava/lang/Object;)Ljava/util/List;
 
@@ -467,39 +511,39 @@
 
     if-nez v8, :cond_8
 
-    const-string v2, "mp4"
+    move-object/from16 v2, v16
 
     .line 28
     :cond_8
     new-instance v8, Ljava/io/File;
 
-    invoke-static {v1}, Lcom/brisa/local/MobileVideoFiles;->folder(Landroid/content/Context;)Ljava/io/File;
-
-    move-result-object v15
-
     const-wide/16 v16, 0x0
 
-    new-instance v4, Ljava/lang/StringBuilder;
-
-    invoke-direct {v4}, Ljava/lang/StringBuilder;-><init>()V
-
-    const-string v5, "import-"
-
-    invoke-virtual {v4, v5}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-static {v1}, Lcom/brisa/local/MobileVideoFiles;->folder(Landroid/content/Context;)Ljava/io/File;
 
     move-result-object v4
 
-    invoke-virtual {v4, v11}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    new-instance v5, Ljava/lang/StringBuilder;
 
-    move-result-object v4
+    invoke-direct {v5}, Ljava/lang/StringBuilder;-><init>()V
 
-    const-string v5, "."
+    const-string v15, "import-"
 
-    invoke-virtual {v4, v5}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v5, v15}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    move-result-object v4
+    move-result-object v5
 
-    invoke-virtual {v4, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v5, v11}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v5
+
+    const-string v15, "."
+
+    invoke-virtual {v5, v15}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v5
+
+    invoke-virtual {v5, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
     move-result-object v2
 
@@ -507,7 +551,7 @@
 
     move-result-object v2
 
-    invoke-direct {v8, v15, v2}, Ljava/io/File;-><init>(Ljava/io/File;Ljava/lang/String;)V
+    invoke-direct {v8, v4, v2}, Ljava/io/File;-><init>(Ljava/io/File;Ljava/lang/String;)V
 
     .line 29
     new-instance v2, Lorg/json/JSONObject;
@@ -546,7 +590,7 @@
 
     move-result-object v2
 
-    move-object/from16 v21, v11
+    move-object/from16 v22, v11
 
     invoke-static {}, Ljava/lang/System;->currentTimeMillis()J
 
@@ -595,7 +639,7 @@
 
     move-result-object v6
 
-    move-object/from16 v7, v21
+    move-object/from16 v7, v22
 
     invoke-interface {v11, v7, v6}, Landroid/content/SharedPreferences$Editor;->putString(Ljava/lang/String;Ljava/lang/String;)Landroid/content/SharedPreferences$Editor;
 
@@ -630,8 +674,6 @@
 
     if-lez v8, :cond_9
 
-    move-wide/from16 v17, v18
-
     goto :goto_3
 
     :cond_9
@@ -640,45 +682,43 @@
 
     move-result-wide v16
 
-    move-wide/from16 v17, v16
+    move-wide/from16 v18, v16
 
     .line 35
     :goto_3
-    move-object v8, v15
-
     invoke-virtual {v6}, Landroid/content/res/AssetFileDescriptor;->createInputStream()Ljava/io/FileInputStream;
 
-    move-result-object v15
+    move-result-object v16
     :try_end_3
     .catchall {:try_start_3 .. :try_end_3} :catchall_4
 
     :try_start_4
     invoke-static/range {p2 .. p2}, Ljava/util/Objects;->requireNonNull(Ljava/lang/Object;)Ljava/lang/Object;
 
-    new-instance v11, Lcom/brisa/local/MobileVideoFiles$$ExternalSyntheticLambda5;
+    new-instance v8, Lcom/brisa/local/MobileVideoFiles$$ExternalSyntheticLambda5;
 
-    move-object/from16 v3, p2
+    move-object/from16 v11, p2
 
-    invoke-direct {v11, v3}, Lcom/brisa/local/MobileVideoFiles$$ExternalSyntheticLambda5;-><init>(Ljava/util/concurrent/atomic/AtomicBoolean;)V
+    invoke-direct {v8, v11}, Lcom/brisa/local/MobileVideoFiles$$ExternalSyntheticLambda5;-><init>(Ljava/util/concurrent/atomic/AtomicBoolean;)V
 
-    move-object v3, v10
+    move-object/from16 v21, p4
 
-    move-object/from16 v19, v11
+    move-object/from16 v17, v20
 
-    move-object/from16 v16, v20
+    move-object/from16 v20, v8
 
-    move-object/from16 v20, p4
+    move-object v8, v10
 
-    invoke-static/range {v15 .. v20}, Lcom/brisa/local/OfflineCopy;->copy(Ljava/io/InputStream;Ljava/io/File;JLjava/util/function/BooleanSupplier;Lcom/brisa/local/OfflineCopy$Progress;)J
+    invoke-static/range {v16 .. v21}, Lcom/brisa/local/OfflineCopy;->copy(Ljava/io/InputStream;Ljava/io/File;JLjava/util/function/BooleanSupplier;Lcom/brisa/local/OfflineCopy$Progress;)J
 
     move-result-wide v10
     :try_end_4
     .catchall {:try_start_4 .. :try_end_4} :catchall_2
 
-    if-eqz v15, :cond_a
+    if-eqz v16, :cond_a
 
     :try_start_5
-    invoke-virtual {v15}, Ljava/io/InputStream;->close()V
+    invoke-virtual/range {v16 .. v16}, Ljava/io/InputStream;->close()V
     :try_end_5
     .catchall {:try_start_5 .. :try_end_5} :catchall_4
 
@@ -701,13 +741,13 @@
 
     const-string v6, "kind"
 
-    const-string v15, "video"
+    const-string v3, "video"
 
-    invoke-virtual {v4, v6, v15}, Lorg/json/JSONObject;->put(Ljava/lang/String;Ljava/lang/Object;)Lorg/json/JSONObject;
+    invoke-virtual {v4, v6, v3}, Lorg/json/JSONObject;->put(Ljava/lang/String;Ljava/lang/Object;)Lorg/json/JSONObject;
 
-    move-result-object v4
+    move-result-object v3
 
-    invoke-virtual {v4, v8, v0}, Lorg/json/JSONObject;->put(Ljava/lang/String;Ljava/lang/Object;)Lorg/json/JSONObject;
+    invoke-virtual {v3, v15, v0}, Lorg/json/JSONObject;->put(Ljava/lang/String;Ljava/lang/Object;)Lorg/json/JSONObject;
 
     move-result-object v0
 
@@ -717,19 +757,19 @@
 
     invoke-virtual {v2, v9}, Lorg/json/JSONObject;->getLong(Ljava/lang/String;)J
 
-    move-result-wide v4
+    move-result-wide v2
 
-    invoke-virtual {v0, v9, v4, v5}, Lorg/json/JSONObject;->put(Ljava/lang/String;J)Lorg/json/JSONObject;
+    invoke-virtual {v0, v9, v2, v3}, Lorg/json/JSONObject;->put(Ljava/lang/String;J)Lorg/json/JSONObject;
 
     move-result-object v0
 
     const-string v2, "privateFile"
 
-    invoke-virtual/range {v16 .. v16}, Ljava/io/File;->getName()Ljava/lang/String;
+    invoke-virtual/range {v17 .. v17}, Ljava/io/File;->getName()Ljava/lang/String;
 
-    move-result-object v4
+    move-result-object v3
 
-    invoke-virtual {v0, v2, v4}, Lorg/json/JSONObject;->put(Ljava/lang/String;Ljava/lang/Object;)Lorg/json/JSONObject;
+    invoke-virtual {v0, v2, v3}, Lorg/json/JSONObject;->put(Ljava/lang/String;Ljava/lang/Object;)Lorg/json/JSONObject;
 
     move-result-object v0
 
@@ -737,71 +777,71 @@
 
     invoke-virtual/range {p1 .. p1}, Landroid/net/Uri;->toString()Ljava/lang/String;
 
-    move-result-object v4
+    move-result-object v3
 
-    invoke-virtual {v0, v2, v4}, Lorg/json/JSONObject;->put(Ljava/lang/String;Ljava/lang/Object;)Lorg/json/JSONObject;
+    invoke-virtual {v0, v2, v3}, Lorg/json/JSONObject;->put(Ljava/lang/String;Ljava/lang/Object;)Lorg/json/JSONObject;
 
     move-result-object v0
 
     const-string v2, "storageMode"
 
-    const-string v4, "import"
+    const-string v3, "import"
 
-    invoke-virtual {v0, v2, v4}, Lorg/json/JSONObject;->put(Ljava/lang/String;Ljava/lang/Object;)Lorg/json/JSONObject;
+    invoke-virtual {v0, v2, v3}, Lorg/json/JSONObject;->put(Ljava/lang/String;Ljava/lang/Object;)Lorg/json/JSONObject;
 
     move-result-object v0
 
     const-string v2, "localUri"
 
-    new-instance v4, Ljava/lang/StringBuilder;
+    new-instance v3, Ljava/lang/StringBuilder;
 
-    invoke-direct {v4}, Ljava/lang/StringBuilder;-><init>()V
+    invoke-direct {v3}, Ljava/lang/StringBuilder;-><init>()V
 
-    const-string v5, "content://"
+    const-string v4, "content://"
 
-    invoke-virtual {v4, v5}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    move-result-object v4
+    move-result-object v3
 
     invoke-virtual {v1}, Landroid/content/Context;->getPackageName()Ljava/lang/String;
 
-    move-result-object v5
+    move-result-object v4
 
-    invoke-virtual {v4, v5}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v3
+
+    const-string v4, ".offline/"
+
+    invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v3
+
+    invoke-virtual/range {v17 .. v17}, Ljava/io/File;->getName()Ljava/lang/String;
 
     move-result-object v4
 
-    const-string v5, ".offline/"
-
-    invoke-virtual {v4, v5}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-static {v4}, Landroid/net/Uri;->encode(Ljava/lang/String;)Ljava/lang/String;
 
     move-result-object v4
 
-    invoke-virtual/range {v16 .. v16}, Ljava/io/File;->getName()Ljava/lang/String;
+    invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    move-result-object v5
+    move-result-object v3
 
-    invoke-static {v5}, Landroid/net/Uri;->encode(Ljava/lang/String;)Ljava/lang/String;
+    invoke-virtual {v3}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
 
-    move-result-object v5
+    move-result-object v3
 
-    invoke-virtual {v4, v5}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-static {v3}, Landroid/net/Uri;->parse(Ljava/lang/String;)Landroid/net/Uri;
 
-    move-result-object v4
+    move-result-object v3
 
-    invoke-virtual {v4}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+    invoke-virtual {v3}, Landroid/net/Uri;->toString()Ljava/lang/String;
 
-    move-result-object v4
+    move-result-object v3
 
-    invoke-static {v4}, Landroid/net/Uri;->parse(Ljava/lang/String;)Landroid/net/Uri;
-
-    move-result-object v4
-
-    invoke-virtual {v4}, Landroid/net/Uri;->toString()Ljava/lang/String;
-
-    move-result-object v4
-
-    invoke-virtual {v0, v2, v4}, Lorg/json/JSONObject;->put(Ljava/lang/String;Ljava/lang/Object;)Lorg/json/JSONObject;
+    invoke-virtual {v0, v2, v3}, Lorg/json/JSONObject;->put(Ljava/lang/String;Ljava/lang/Object;)Lorg/json/JSONObject;
 
     move-result-object v0
 
@@ -812,13 +852,21 @@
     move-result-object v0
 
     .line 39
-    const-class v2, Landroid/content/Context;
+    const/4 v2, 0x2
 
-    const-class v4, Lorg/json/JSONObject;
+    new-array v2, v2, [Ljava/lang/Class;
 
-    filled-new-array {v2, v4}, [Ljava/lang/Class;
+    const-class v3, Landroid/content/Context;
 
-    move-result-object v2
+    const/16 v23, 0x0
+
+    aput-object v3, v2, v23
+
+    const-class v3, Lorg/json/JSONObject;
+
+    const/16 v24, 0x1
+
+    aput-object v3, v2, v24
 
     filled-new-array {v1, v0}, [Ljava/lang/Object;
 
@@ -829,7 +877,7 @@
     .line 40
     const/4 v11, 0x0
 
-    invoke-virtual {v1, v3, v11}, Landroid/content/Context;->getSharedPreferences(Ljava/lang/String;I)Landroid/content/SharedPreferences;
+    invoke-virtual {v1, v8, v11}, Landroid/content/Context;->getSharedPreferences(Ljava/lang/String;I)Landroid/content/SharedPreferences;
 
     move-result-object v0
 
@@ -845,15 +893,15 @@
     :try_end_6
     .catch Ljava/lang/Exception; {:try_start_6 .. :try_end_6} :catch_1
 
-    const/16 v22, 0x1
+    const/16 v24, 0x1
 
-    return v22
+    return v24
 
     .line 41
     :catch_1
     move-exception v0
 
-    invoke-virtual/range {v16 .. v16}, Ljava/io/File;->delete()Z
+    invoke-virtual/range {v17 .. v17}, Ljava/io/File;->delete()Z
 
     throw v0
 
@@ -863,10 +911,10 @@
 
     move-object v1, v0
 
-    if-eqz v15, :cond_c
+    if-eqz v16, :cond_c
 
     :try_start_7
-    invoke-virtual {v15}, Ljava/io/InputStream;->close()V
+    invoke-virtual/range {v16 .. v16}, Ljava/io/InputStream;->close()V
     :try_end_7
     .catchall {:try_start_7 .. :try_end_7} :catchall_3
 
@@ -950,7 +998,7 @@
 .end method
 
 .method public static emit(Ljava/lang/String;Lorg/json/JSONObject;)V
-    .locals 4
+    .locals 5
 
     .line 15
     :try_start_0
@@ -958,13 +1006,21 @@
 
     const-string v1, "c"
 
-    const-class v2, Ljava/lang/String;
+    const/4 v2, 0x2
+
+    new-array v2, v2, [Ljava/lang/Class;
+
+    const-class v3, Ljava/lang/String;
+
+    const/4 v4, 0x0
+
+    aput-object v3, v2, v4
 
     const-class v3, Lorg/json/JSONObject;
 
-    filled-new-array {v2, v3}, [Ljava/lang/Class;
+    const/4 v4, 0x1
 
-    move-result-object v2
+    aput-object v3, v2, v4
 
     filled-new-array {p0, p1}, [Ljava/lang/Object;
 
@@ -1207,7 +1263,7 @@
 .end method
 
 .method static grant(Landroid/content/Context;Ljava/lang/String;)Lorg/json/JSONObject;
-    .locals 2
+    .locals 3
     .annotation system Ldalvik/annotation/Throws;
         value = {
             Ljava/lang/Exception;
@@ -1215,13 +1271,21 @@
     .end annotation
 
     .line 9
-    const-class v0, Landroid/content/Context;
+    const/4 v0, 0x2
 
-    const-class v1, Ljava/lang/String;
+    new-array v0, v0, [Ljava/lang/Class;
 
-    filled-new-array {v0, v1}, [Ljava/lang/Class;
+    const/4 v1, 0x0
 
-    move-result-object v0
+    const-class v2, Landroid/content/Context;
+
+    aput-object v2, v0, v1
+
+    const/4 v1, 0x1
+
+    const-class v2, Ljava/lang/String;
+
+    aput-object v2, v0, v1
 
     filled-new-array {p0, p1}, [Ljava/lang/Object;
 
@@ -1408,59 +1472,61 @@
 .end method
 
 .method static synthetic lambda$play$3(Landroid/app/Activity;Ljava/lang/String;)V
-    .locals 5
+    .locals 6
 
     .line 43
+    const/4 v0, 0x1
+
     :try_start_0
     invoke-static {p0, p1}, Lcom/brisa/local/MobileVideoFiles;->grant(Landroid/content/Context;Ljava/lang/String;)Lorg/json/JSONObject;
 
-    move-result-object v0
+    move-result-object v1
 
     invoke-static {p0, p1}, Lcom/brisa/local/MobileVideoFiles;->asset(Landroid/content/Context;Ljava/lang/String;)Lorg/json/JSONObject;
 
-    move-result-object v1
+    move-result-object v2
 
-    const/4 v2, 0x0
+    const/4 v3, 0x0
 
-    if-eqz v0, :cond_0
+    if-eqz v1, :cond_0
 
-    if-nez v1, :cond_0
+    if-nez v2, :cond_0
 
-    invoke-static {p0, v0}, Lcom/brisa/local/MobileVideoFiles;->ready(Landroid/content/Context;Lorg/json/JSONObject;)Z
+    invoke-static {p0, v1}, Lcom/brisa/local/MobileVideoFiles;->ready(Landroid/content/Context;Lorg/json/JSONObject;)Z
 
-    move-result v1
+    move-result v4
 
-    if-nez v1, :cond_0
+    if-nez v4, :cond_0
 
     new-instance p1, Landroid/app/AlertDialog$Builder;
 
     invoke-direct {p1, p0}, Landroid/app/AlertDialog$Builder;-><init>(Landroid/content/Context;)V
 
-    const-string v1, "Este v\u00eddeo sigue enlazado a Drive"
+    const-string v2, "Este v\u00eddeo sigue enlazado a Drive"
 
-    invoke-virtual {p1, v1}, Landroid/app/AlertDialog$Builder;->setTitle(Ljava/lang/CharSequence;)Landroid/app/AlertDialog$Builder;
-
-    move-result-object p1
-
-    const-string v1, "La versi\u00f3n anterior guard\u00f3 el v\u00ednculo, pero no una copia completa. Para verlo sin conexi\u00f3n hay que descargarlo una vez; ocupa espacio en este celular."
-
-    invoke-virtual {p1, v1}, Landroid/app/AlertDialog$Builder;->setMessage(Ljava/lang/CharSequence;)Landroid/app/AlertDialog$Builder;
+    invoke-virtual {p1, v2}, Landroid/app/AlertDialog$Builder;->setTitle(Ljava/lang/CharSequence;)Landroid/app/AlertDialog$Builder;
 
     move-result-object p1
 
-    const-string v1, "Descargar copia"
+    const-string v2, "La versi\u00f3n anterior guard\u00f3 el v\u00ednculo, pero no una copia completa. Para verlo sin conexi\u00f3n hay que descargarlo una vez; ocupa espacio en este celular."
 
-    new-instance v3, Lcom/brisa/local/MobileVideoFiles$$ExternalSyntheticLambda4;
-
-    invoke-direct {v3, v0, p0}, Lcom/brisa/local/MobileVideoFiles$$ExternalSyntheticLambda4;-><init>(Lorg/json/JSONObject;Landroid/app/Activity;)V
-
-    invoke-virtual {p1, v1, v3}, Landroid/app/AlertDialog$Builder;->setPositiveButton(Ljava/lang/CharSequence;Landroid/content/DialogInterface$OnClickListener;)Landroid/app/AlertDialog$Builder;
+    invoke-virtual {p1, v2}, Landroid/app/AlertDialog$Builder;->setMessage(Ljava/lang/CharSequence;)Landroid/app/AlertDialog$Builder;
 
     move-result-object p1
 
-    const-string v0, "Cancelar"
+    const-string v2, "Descargar copia"
 
-    invoke-virtual {p1, v0, v2}, Landroid/app/AlertDialog$Builder;->setNegativeButton(Ljava/lang/CharSequence;Landroid/content/DialogInterface$OnClickListener;)Landroid/app/AlertDialog$Builder;
+    new-instance v4, Lcom/brisa/local/MobileVideoFiles$$ExternalSyntheticLambda4;
+
+    invoke-direct {v4, v1, p0}, Lcom/brisa/local/MobileVideoFiles$$ExternalSyntheticLambda4;-><init>(Lorg/json/JSONObject;Landroid/app/Activity;)V
+
+    invoke-virtual {p1, v2, v4}, Landroid/app/AlertDialog$Builder;->setPositiveButton(Ljava/lang/CharSequence;Landroid/content/DialogInterface$OnClickListener;)Landroid/app/AlertDialog$Builder;
+
+    move-result-object p1
+
+    const-string v1, "Cancelar"
+
+    invoke-virtual {p1, v1, v3}, Landroid/app/AlertDialog$Builder;->setNegativeButton(Ljava/lang/CharSequence;Landroid/content/DialogInterface$OnClickListener;)Landroid/app/AlertDialog$Builder;
 
     move-result-object p1
 
@@ -1469,116 +1535,121 @@
     return-void
 
     :cond_0
-    const-string v0, "d0"
-
-    const-string v1, "s"
-
-    const-class v3, Landroid/content/Context;
-
-    const-class v4, Ljava/lang/String;
-
-    filled-new-array {v3, v4}, [Ljava/lang/Class;
-
-    move-result-object v3
-
-    filled-new-array {p0, p1}, [Ljava/lang/Object;
-
-    move-result-object v4
-
-    invoke-static {v0, v1, v3, v4}, Lcom/brisa/local/MobileVideoFiles;->call(Ljava/lang/String;Ljava/lang/String;[Ljava/lang/Class;[Ljava/lang/Object;)Ljava/lang/Object;
-
-    move-result-object v0
-
-    check-cast v0, Landroid/net/Uri;
-    :try_end_0
-    .catch Ljava/lang/Exception; {:try_start_0 .. :try_end_0} :catch_1
-
-    if-eqz v0, :cond_2
-
-    :try_start_1
-    const-string v0, "com.brisa.local.PlaybackService"
-
-    invoke-static {v0}, Ljava/lang/Class;->forName(Ljava/lang/String;)Ljava/lang/Class;
-
-    move-result-object v0
-
-    const-string v1, "z"
-
-    invoke-virtual {v0, v1}, Ljava/lang/Class;->getField(Ljava/lang/String;)Ljava/lang/reflect/Field;
-
-    move-result-object v0
-
-    invoke-virtual {v0, v2}, Ljava/lang/reflect/Field;->get(Ljava/lang/Object;)Ljava/lang/Object;
-
-    move-result-object v0
-
-    if-eqz v0, :cond_1
-
-    invoke-virtual {v0}, Ljava/lang/Object;->getClass()Ljava/lang/Class;
+    invoke-static {p0, p1}, Lcom/brisa/local/DriveStream;->video(Landroid/content/Context;Ljava/lang/String;)Landroid/net/Uri;
 
     move-result-object v1
 
-    const-string v2, "k"
+    if-nez v1, :cond_3
 
-    const/4 v3, 0x0
+    invoke-static {v2}, Lcom/brisa/local/DriveStream;->streamable(Lorg/json/JSONObject;)Z
 
-    new-array v4, v3, [Ljava/lang/Class;
+    move-result p1
 
-    invoke-virtual {v1, v2, v4}, Ljava/lang/Class;->getMethod(Ljava/lang/String;[Ljava/lang/Class;)Ljava/lang/reflect/Method;
+    if-eqz p1, :cond_1
 
-    move-result-object v1
+    invoke-static {p0}, Lcom/brisa/local/DriveStream;->check(Landroid/content/Context;)Ljava/lang/String;
 
-    new-array v2, v3, [Ljava/lang/Object;
-
-    invoke-virtual {v1, v0, v2}, Ljava/lang/reflect/Method;->invoke(Ljava/lang/Object;[Ljava/lang/Object;)Ljava/lang/Object;
-    :try_end_1
-    .catch Ljava/lang/Exception; {:try_start_1 .. :try_end_1} :catch_0
+    move-result-object p1
 
     goto :goto_0
 
-    :catch_0
-    move-exception v0
-
     :cond_1
-    :goto_0
-    :try_start_2
-    new-instance v0, Landroid/content/Intent;
+    const-string p1, ""
 
-    const-string v1, "com.brisa.local.VideoActivity"
+    :goto_0
+    invoke-virtual {p1}, Ljava/lang/String;->isEmpty()Z
+
+    move-result v1
+
+    if-eqz v1, :cond_2
+
+    const-string p1, "No se pudo abrir el v\u00eddeo. Vuelve a elegirlo desde A\u00f1adir v\u00eddeos."
+
+    :cond_2
+    invoke-static {p0, p1, v0}, Landroid/widget/Toast;->makeText(Landroid/content/Context;Ljava/lang/CharSequence;I)Landroid/widget/Toast;
+
+    move-result-object p1
+
+    invoke-virtual {p1}, Landroid/widget/Toast;->show()V
+    :try_end_0
+    .catch Ljava/lang/Exception; {:try_start_0 .. :try_end_0} :catch_1
+
+    return-void
+
+    :cond_3
+    :try_start_1
+    const-string v1, "com.brisa.local.PlaybackService"
 
     invoke-static {v1}, Ljava/lang/Class;->forName(Ljava/lang/String;)Ljava/lang/Class;
 
     move-result-object v1
 
-    invoke-direct {v0, p0, v1}, Landroid/content/Intent;-><init>(Landroid/content/Context;Ljava/lang/Class;)V
+    const-string v2, "z"
 
-    const-string v1, "videoId"
+    invoke-virtual {v1, v2}, Ljava/lang/Class;->getField(Ljava/lang/String;)Ljava/lang/reflect/Field;
 
-    invoke-virtual {v0, v1, p1}, Landroid/content/Intent;->putExtra(Ljava/lang/String;Ljava/lang/String;)Landroid/content/Intent;
+    move-result-object v1
+
+    invoke-virtual {v1, v3}, Ljava/lang/reflect/Field;->get(Ljava/lang/Object;)Ljava/lang/Object;
+
+    move-result-object v1
+
+    if-eqz v1, :cond_4
+
+    invoke-virtual {v1}, Ljava/lang/Object;->getClass()Ljava/lang/Class;
+
+    move-result-object v2
+
+    const-string v3, "k"
+
+    const/4 v4, 0x0
+
+    new-array v5, v4, [Ljava/lang/Class;
+
+    invoke-virtual {v2, v3, v5}, Ljava/lang/Class;->getMethod(Ljava/lang/String;[Ljava/lang/Class;)Ljava/lang/reflect/Method;
+
+    move-result-object v2
+
+    new-array v3, v4, [Ljava/lang/Object;
+
+    invoke-virtual {v2, v1, v3}, Ljava/lang/reflect/Method;->invoke(Ljava/lang/Object;[Ljava/lang/Object;)Ljava/lang/Object;
+    :try_end_1
+    .catch Ljava/lang/Exception; {:try_start_1 .. :try_end_1} :catch_0
+
+    goto :goto_1
+
+    :catch_0
+    move-exception v1
+
+    :cond_4
+    :goto_1
+    :try_start_2
+    new-instance v1, Landroid/content/Intent;
+
+    const-string v2, "com.brisa.local.VideoActivity"
+
+    invoke-static {v2}, Ljava/lang/Class;->forName(Ljava/lang/String;)Ljava/lang/Class;
+
+    move-result-object v2
+
+    invoke-direct {v1, p0, v2}, Landroid/content/Intent;-><init>(Landroid/content/Context;Ljava/lang/Class;)V
+
+    const-string v2, "videoId"
+
+    invoke-virtual {v1, v2, p1}, Landroid/content/Intent;->putExtra(Ljava/lang/String;Ljava/lang/String;)Landroid/content/Intent;
 
     move-result-object p1
 
     invoke-virtual {p0, p1}, Landroid/app/Activity;->startActivity(Landroid/content/Intent;)V
-
-    goto :goto_1
-
-    :cond_2
-    new-instance p1, Ljava/io/IOException;
-
-    const-string v0, "Vuelve a elegir el v\u00eddeo desde Drive o desde tus archivos."
-
-    invoke-direct {p1, v0}, Ljava/io/IOException;-><init>(Ljava/lang/String;)V
-
-    throw p1
     :try_end_2
     .catch Ljava/lang/Exception; {:try_start_2 .. :try_end_2} :catch_1
+
+    goto :goto_2
 
     :catch_1
     move-exception p1
 
     const-string p1, "No se pudo abrir el v\u00eddeo. Vuelve a seleccionarlo; si est\u00e1 en Drive, necesitas internet para importar la copia."
-
-    const/4 v0, 0x1
 
     invoke-static {p0, p1, v0}, Landroid/widget/Toast;->makeText(Landroid/content/Context;Ljava/lang/CharSequence;I)Landroid/widget/Toast;
 
@@ -1586,7 +1657,7 @@
 
     invoke-virtual {p0}, Landroid/widget/Toast;->show()V
 
-    :goto_1
+    :goto_2
     return-void
 .end method
 
@@ -1661,7 +1732,7 @@
 .end method
 
 .method public static list(Landroid/content/Context;Ljava/lang/String;)Ljava/lang/String;
-    .locals 9
+    .locals 11
 
     .line 14
     :try_start_0
@@ -1679,99 +1750,126 @@
 
     const/4 v3, 0x0
 
+    move v4, v3
+
     :goto_0
     invoke-virtual {v0}, Lorg/json/JSONArray;->length()I
 
-    move-result v4
+    move-result v5
 
-    if-ge v3, v4, :cond_5
+    if-ge v4, v5, :cond_7
 
-    invoke-virtual {v0, v3}, Lorg/json/JSONArray;->getJSONObject(I)Lorg/json/JSONObject;
-
-    move-result-object v4
-
-    const-string v5, "id"
-
-    invoke-virtual {v4, v5}, Lorg/json/JSONObject;->optString(Ljava/lang/String;)Ljava/lang/String;
+    invoke-virtual {v0, v4}, Lorg/json/JSONArray;->getJSONObject(I)Lorg/json/JSONObject;
 
     move-result-object v5
 
-    invoke-interface {v2, v5}, Ljava/util/Set;->add(Ljava/lang/Object;)Z
+    const-string v6, "id"
 
-    move-result v6
-
-    if-nez v6, :cond_0
-
-    :goto_1
-    goto :goto_4
-
-    :cond_0
-    invoke-static {p0, v5}, Lcom/brisa/local/MobileVideoFiles;->asset(Landroid/content/Context;Ljava/lang/String;)Lorg/json/JSONObject;
+    invoke-virtual {v5, v6}, Lorg/json/JSONObject;->optString(Ljava/lang/String;)Ljava/lang/String;
 
     move-result-object v6
 
-    invoke-static {p0, v5}, Lcom/brisa/local/MobileVideoFiles;->grant(Landroid/content/Context;Ljava/lang/String;)Lorg/json/JSONObject;
+    invoke-interface {v2, v6}, Ljava/util/Set;->add(Ljava/lang/Object;)Z
 
-    move-result-object v5
+    move-result v7
 
-    if-eqz v6, :cond_1
+    if-nez v7, :cond_0
 
-    move-object v7, v6
+    :goto_1
+    goto :goto_5
+
+    :cond_0
+    invoke-static {p0, v6}, Lcom/brisa/local/MobileVideoFiles;->asset(Landroid/content/Context;Ljava/lang/String;)Lorg/json/JSONObject;
+
+    move-result-object v7
+
+    invoke-static {p0, v6}, Lcom/brisa/local/MobileVideoFiles;->grant(Landroid/content/Context;Ljava/lang/String;)Lorg/json/JSONObject;
+
+    move-result-object v6
+
+    if-eqz v7, :cond_1
+
+    move-object v8, v7
 
     goto :goto_2
 
     :cond_1
-    move-object v7, v5
+    move-object v8, v6
 
     :goto_2
-    if-eqz v7, :cond_4
+    if-eqz v8, :cond_6
 
-    invoke-static {p0, v7}, Lcom/brisa/local/MobileVideoFiles;->ready(Landroid/content/Context;Lorg/json/JSONObject;)Z
+    invoke-static {p0, v8}, Lcom/brisa/local/MobileVideoFiles;->ready(Landroid/content/Context;Lorg/json/JSONObject;)Z
+
+    move-result v9
+
+    const-string v10, "offlineReady"
+
+    invoke-virtual {v5, v10, v9}, Lorg/json/JSONObject;->put(Ljava/lang/String;Z)Lorg/json/JSONObject;
+
+    const/4 v10, 0x1
+
+    if-eqz v6, :cond_2
+
+    if-nez v7, :cond_2
+
+    const-string v7, "providerImport"
+
+    invoke-virtual {v5, v7, v10}, Lorg/json/JSONObject;->put(Ljava/lang/String;Z)Lorg/json/JSONObject;
+
+    :cond_2
+    if-nez v9, :cond_6
+
+    if-nez v6, :cond_3
+
+    invoke-static {v8}, Lcom/brisa/local/DriveStream;->streamable(Lorg/json/JSONObject;)Z
 
     move-result v7
 
-    const-string v8, "offlineReady"
-
-    invoke-virtual {v4, v8, v7}, Lorg/json/JSONObject;->put(Ljava/lang/String;Z)Lorg/json/JSONObject;
-
-    if-eqz v5, :cond_2
-
-    if-nez v6, :cond_2
-
-    const-string v6, "providerImport"
-
-    const/4 v8, 0x1
-
-    invoke-virtual {v4, v6, v8}, Lorg/json/JSONObject;->put(Ljava/lang/String;Z)Lorg/json/JSONObject;
-
-    :cond_2
-    if-nez v7, :cond_4
-
-    const-string v6, "storageLabel"
-
-    if-eqz v5, :cond_3
-
-    const-string v5, "Archivo enlazado \u00b7 descargar copia para verlo sin conexi\u00f3n"
+    if-eqz v7, :cond_3
 
     goto :goto_3
 
     :cond_3
-    const-string v5, "En Drive \u00b7 preparar sin conexi\u00f3n"
+    move v10, v3
 
     :goto_3
-    invoke-virtual {v4, v6, v5}, Lorg/json/JSONObject;->put(Ljava/lang/String;Ljava/lang/Object;)Lorg/json/JSONObject;
+    const-string v7, "streamable"
+
+    invoke-virtual {v5, v7, v10}, Lorg/json/JSONObject;->put(Ljava/lang/String;Z)Lorg/json/JSONObject;
+
+    const-string v7, "storageLabel"
+
+    if-eqz v6, :cond_4
+
+    const-string v6, "Archivo enlazado \u00b7 descargar copia para verlo sin conexi\u00f3n"
+
+    goto :goto_4
 
     :cond_4
-    invoke-virtual {v1, v4}, Lorg/json/JSONArray;->put(Ljava/lang/Object;)Lorg/json/JSONArray;
+    if-eqz v10, :cond_5
+
+    const-string v6, "En Drive \u00b7 se reproduce por internet"
+
+    goto :goto_4
+
+    :cond_5
+    const-string v6, "En Drive \u00b7 preparar sin conexi\u00f3n"
+
+    :goto_4
+    invoke-virtual {v5, v7, v6}, Lorg/json/JSONObject;->put(Ljava/lang/String;Ljava/lang/Object;)Lorg/json/JSONObject;
+
+    :cond_6
+    invoke-virtual {v1, v5}, Lorg/json/JSONArray;->put(Ljava/lang/Object;)Lorg/json/JSONArray;
 
     goto :goto_1
 
-    :goto_4
-    add-int/lit8 v3, v3, 0x1
+    :goto_5
+    add-int/lit8 v4, v4, 0x1
 
     goto :goto_0
 
-    :cond_5
+    :cond_7
     invoke-virtual {v1}, Lorg/json/JSONArray;->toString()Ljava/lang/String;
 
     move-result-object p0
@@ -1787,7 +1885,7 @@
 .end method
 
 .method static local(Landroid/net/Uri;)Z
-    .locals 4
+    .locals 3
 
     .line 7
     if-nez p0, :cond_0
@@ -1802,17 +1900,33 @@
     move-result-object p0
 
     :goto_0
-    const-string v0, "com.android.externalstorage.documents"
+    const/4 v0, 0x4
 
-    const-string v1, "com.android.providers.downloads.documents"
+    new-array v0, v0, [Ljava/lang/String;
+
+    const/4 v1, 0x0
 
     const-string v2, "media"
 
-    const-string v3, "com.android.providers.media.documents"
+    aput-object v2, v0, v1
 
-    filled-new-array {v2, v3, v0, v1}, [Ljava/lang/String;
+    const/4 v1, 0x1
 
-    move-result-object v0
+    const-string v2, "com.android.providers.media.documents"
+
+    aput-object v2, v0, v1
+
+    const/4 v1, 0x2
+
+    const-string v2, "com.android.externalstorage.documents"
+
+    aput-object v2, v0, v1
+
+    const/4 v1, 0x3
+
+    const-string v2, "com.android.providers.downloads.documents"
+
+    aput-object v2, v0, v1
 
     invoke-static {v0}, Ljava/util/Arrays;->asList([Ljava/lang/Object;)Ljava/util/List;
 
@@ -1897,7 +2011,7 @@
 
     :cond_2
     :goto_1
-    const-string v0, "No se pudo leer el v\u00eddeo desde la nube. Comprueba internet o importa una copia sin conexi\u00f3n."
+    const-string v0, "No se pudo leer el v\u00eddeo desde Drive. Comprueba tu conexi\u00f3n o gu\u00e1rdalo sin conexi\u00f3n desde Google Drive."
 
     :goto_2
     sget-object v1, Lcom/brisa/local/MobileVideoFiles;->player:Ljava/lang/ref/WeakReference;

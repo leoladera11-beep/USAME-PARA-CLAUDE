@@ -30,7 +30,7 @@
     .line 0
     iget-object v0, p0, Lcom/brisa/local/MobileVideoFiles$$ExternalSyntheticLambda5;->f$0:Ljava/util/concurrent/atomic/AtomicBoolean;
 
-    invoke-virtual {v0}, Ljava/util/concurrent/atomic/AtomicBoolean;->get()Z
+    invoke-static {v0}, Lcom/brisa/local/MobileVideoFiles;->$r8$lambda$f1Mbxrzds86nwDtgATe73k_Xjzc(Ljava/util/concurrent/atomic/AtomicBoolean;)Z
 
     move-result v0
 

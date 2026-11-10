@@ -1,5 +1,5 @@
 package com.brisa.local;
-import android.app.*;import android.content.*;import android.content.pm.ServiceInfo;import android.net.Uri;import android.os.*;import java.util.*;import java.util.concurrent.*;import java.util.concurrent.atomic.AtomicBoolean;
+import android.app.*;import android.app.Service;import android.content.*;import android.content.pm.ServiceInfo;import android.net.Uri;import android.os.*;import java.util.*;import java.util.concurrent.*;import java.util.concurrent.atomic.AtomicBoolean;
 /** Foreground only while selected cloud videos are being copied. */
 public final class VideoImportService extends Service {
  public static final AtomicBoolean busy=new AtomicBoolean();private final AtomicBoolean cancelled=new AtomicBoolean();private final CancellationSignal signal=new CancellationSignal();private ExecutorService worker;private long last;

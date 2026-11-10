@@ -25,3 +25,4 @@
 *.keystore
 *.p12
 *clave*.txt
+/clave/

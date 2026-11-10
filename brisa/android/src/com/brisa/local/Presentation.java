@@ -53,7 +53,7 @@ public final class Presentation {
  }
  private static String profileJson(Context c){try{return new JSONObject().put("profile",profile(c)).put("powerSave",((PowerManager)c.getSystemService(Context.POWER_SERVICE)).isPowerSaveMode()).toString();}catch(Exception ignored){return "{\"profile\":\"a30\",\"powerSave\":true}";}}
  public static void install(Activity a){try{
-  dispose(a);app=a.getApplicationContext();WebView view=(WebView)read(a,"e");web=new WeakReference<>(view);view.addJavascriptInterface(new Bridge(app),"BrisaPresentation");
+  dispose(a);app=a.getApplicationContext();WebView view=(WebView)read(a,"e");web=new WeakReference<>(view);view.addJavascriptInterface(new Bridge(app),"BrisaPresentation");view.addJavascriptInterface(new Tuning(app),"BrisaTuning");
   power=new BroadcastReceiver(){public void onReceive(Context context,Intent intent){WebView v=web.get();if(v!=null)v.post(()->v.evaluateJavascript("window.dispatchEvent(new CustomEvent('brisa-power',{detail:"+profileJson(context)+"}))",null));}};
   IntentFilter filter=new IntentFilter(PowerManager.ACTION_POWER_SAVE_MODE_CHANGED);if(Build.VERSION.SDK_INT>=33)app.registerReceiver(power,filter,Context.RECEIVER_NOT_EXPORTED);else app.registerReceiver(power,filter);
  }catch(Exception ignored){}}

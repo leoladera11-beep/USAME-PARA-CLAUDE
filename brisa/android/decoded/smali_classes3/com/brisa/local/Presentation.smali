@@ -86,35 +86,57 @@
 
 # direct methods
 .method static constructor <clinit>()V
-    .locals 6
+    .locals 4
 
     .line 5
-    const-string v4, "#516345"
+    const/4 v0, 0x6
 
-    const-string v5, "#4d5668"
+    new-array v1, v0, [Ljava/lang/String;
 
-    const-string v0, "#3e5941"
+    const/4 v2, 0x0
 
-    const-string v1, "#6a5940"
+    const-string v3, "#3e5941"
 
-    const-string v2, "#455363"
+    aput-object v3, v1, v2
+
+    const/4 v2, 0x1
+
+    const-string v3, "#6a5940"
+
+    aput-object v3, v1, v2
+
+    const/4 v2, 0x2
+
+    const-string v3, "#455363"
+
+    aput-object v3, v1, v2
+
+    const/4 v2, 0x3
 
     const-string v3, "#684b4b"
 
-    filled-new-array/range {v0 .. v5}, [Ljava/lang/String;
+    aput-object v3, v1, v2
 
-    move-result-object v0
+    const/4 v2, 0x4
 
-    sput-object v0, Lcom/brisa/local/Presentation;->palette:[Ljava/lang/String;
+    const-string v3, "#516345"
+
+    aput-object v3, v1, v2
+
+    const/4 v2, 0x5
+
+    const-string v3, "#4d5668"
+
+    aput-object v3, v1, v2
+
+    sput-object v1, Lcom/brisa/local/Presentation;->palette:[Ljava/lang/String;
 
     .line 6
-    new-instance v0, Landroid/util/LruCache;
+    new-instance v1, Landroid/util/LruCache;
 
-    const/4 v1, 0x6
+    invoke-direct {v1, v0}, Landroid/util/LruCache;-><init>(I)V
 
-    invoke-direct {v0, v1}, Landroid/util/LruCache;-><init>(I)V
-
-    sput-object v0, Lcom/brisa/local/Presentation;->images:Landroid/util/LruCache;
+    sput-object v1, Lcom/brisa/local/Presentation;->images:Landroid/util/LruCache;
 
     .line 7
     new-instance v0, Ljava/util/HashMap;
@@ -744,6 +766,16 @@
     invoke-direct {v0, v1}, Lcom/brisa/local/Presentation$Bridge;-><init>(Landroid/content/Context;)V
 
     const-string v1, "BrisaPresentation"
+
+    invoke-virtual {p0, v0, v1}, Landroid/webkit/WebView;->addJavascriptInterface(Ljava/lang/Object;Ljava/lang/String;)V
+
+    new-instance v0, Lcom/brisa/local/Tuning;
+
+    sget-object v1, Lcom/brisa/local/Presentation;->app:Landroid/content/Context;
+
+    invoke-direct {v0, v1}, Lcom/brisa/local/Tuning;-><init>(Landroid/content/Context;)V
+
+    const-string v1, "BrisaTuning"
 
     invoke-virtual {p0, v0, v1}, Landroid/webkit/WebView;->addJavascriptInterface(Ljava/lang/Object;Ljava/lang/String;)V
 

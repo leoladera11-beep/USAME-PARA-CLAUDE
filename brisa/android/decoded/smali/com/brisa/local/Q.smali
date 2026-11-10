@@ -70,7 +70,7 @@
 
     iget-object v0, v0, Lcom/brisa/local/PlaybackService;->u:Landroid/os/Handler;
 
-    const-wide/16 v1, 0x1f4
+    const-wide/16 v1, 0x3e8
 
     invoke-virtual {v0, p0, v1, v2}, Landroid/os/Handler;->postDelayed(Ljava/lang/Runnable;J)Z
 
