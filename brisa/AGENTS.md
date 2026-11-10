@@ -26,6 +26,9 @@ entornos de agente: por eso las herramientas de Android vienen de GitHub, Maven 
 `storage.googleapis.com`, no del SDK oficial. Si tu entorno no tiene Chromium, ejecuta
 `npx playwright install chromium` dentro de `windows/` y no definas `BRISA_CHROMIUM`.
 
+Estos pasos se comprobaron desde un clon limpio de la rama: las pruebas pasan, `tools/build-android.sh`
+genera las APK (sin firmar si no está `clave/`) y `tools/build-windows.sh` genera el `.exe`.
+
 ## Mapa del repositorio
 
 | Ruta | Qué hay | Cómo se cambia |

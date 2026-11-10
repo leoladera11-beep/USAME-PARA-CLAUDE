@@ -6,7 +6,8 @@ cd "$(dirname "$0")/.."
 VERSION=4.0.0
 OUT=${1:-"$PWD/dist/entrega"}
 TARGET=${CARGO_TARGET_DIR:-"$PWD/windows/desktop/target"}/x86_64-pc-windows-gnullvm/release
-UNWIND=${BRISA_LIBUNWIND:-}
+UNWIND=${BRISA_LIBUNWIND:-$(ls build-tools/llvm-mingw-*/x86_64-w64-mingw32/bin/libunwind.dll 2>/dev/null | head -1)}
+[[ -n "$UNWIND" ]] || { echo "No se encuentra libunwind.dll: ejecuta tools/herramientas-extra.py windows o define BRISA_LIBUNWIND" >&2; exit 1; }
 NAME="Brisa-$VERSION"
 rm -rf "$OUT" && mkdir -p "$OUT/$NAME"/{apps,documentacion,licencias,fuentes}
 cp "dist/Brisa-$VERSION-A30.apk" "dist/Brisa-$VERSION-F8-Pro.apk" "$OUT/$NAME/apps/"
@@ -15,7 +16,7 @@ WIN="$OUT/win/Brisa-$VERSION-Windows-x64"
 mkdir -p "$WIN/resources"
 cp "$TARGET/brisa-local.exe" "$WIN/Brisa Local.exe"
 cp "$TARGET/WebView2Loader.dll" "$WIN/"
-[[ -n "$UNWIND" ]] && cp "$UNWIND" "$WIN/libunwind.dll"
+cp "$UNWIND" "$WIN/libunwind.dll"
 cp windows/portable/ABRIR-BRISA.cmd windows/portable/Preparar-Brisa.ps1 LICENSE THIRD_PARTY_NOTICES.txt "$WIN/"
 cp documentacion/INSTALAR.md documentacion/CAMBIOS-$VERSION.md "$WIN/"
 cp -r windows/desktop/resources/licenses "$WIN/resources/"

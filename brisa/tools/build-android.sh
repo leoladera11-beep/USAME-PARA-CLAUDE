@@ -75,7 +75,7 @@ PY
     python3 tools/zipalign.py --comprobar "$OUT"
     echo "Firmada: $OUT"
   else
-    echo "Sin clave en $KEYSTORE: queda android/$PROFILE-aligned.apk sin firmar. Crea la clave con tools/crear-clave.sh"
+    echo "Sin clave en $KEYSTORE: queda android/$PROFILE-aligned.apk sin firmar. Para actualizar la app instalada copia aqui la carpeta clave/ del propietario; tools/crear-clave.sh solo sirve para una instalacion nueva."
   fi
 done
 rm -rf android/decoded/build
