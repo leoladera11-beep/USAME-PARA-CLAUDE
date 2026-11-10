@@ -1,0 +1,9 @@
+com.brisa.local.MainActivity -> VerifyError: (class: com/brisa/local/MainActivity, method: onActivityResult signature: (IILandroid/content/Intent;)V) Call to wrong initialization method
+com.brisa.local.VideoPlaybackService -> VerifyError: (class: com/brisa/local/VideoPlaybackService, method: o signature: (LM0/P0;Z)Lz1/a;) Incompatible type for getting or setting field
+com.brisa.local.a -> VerifyError: (class: com/brisa/local/a, method: k signature: (Landroid/view/View;Landroid/view/KeyEvent;)Z) Incompatible type for getting or setting field
+com.brisa.local.m -> VerifyError: (class: com/brisa/local/m, method: b signature: (Ljava/lang/String;)Lcom/brisa/local/l;) Bad type in putfield/putstatic
+com.brisa.local.q -> VerifyError: (class: com/brisa/local/q, method: run signature: ()V) Incompatible argument to function
+com.brisa.local.t -> VerifyError: (class: com/brisa/local/t, method: <init> signature: (Ljava/lang/String;JJLandroid/content/Context;Lorg/json/JSONObject;Ljava/util/function/BooleanSupplier;)V) Call to wrong initialization method
+com.brisa.local.u -> VerifyError: (class: com/brisa/local/u, method: z signature: (II)LP1/c;) Wrong return type in function
+com.brisa.local.v -> VerifyError: (class: com/brisa/local/v, method: k signature: (Ljava/lang/RuntimeException;)Lz1/w;) Incompatible object argument for function call
+com.brisa.local.x -> VerifyError: (class: com/brisa/local/x, method: <init> signature: (Ljava/io/File;LL0/e;I)V) Bad type in putfield/putstatic

@@ -22,8 +22,9 @@ libera sola a los diez minutos.
 ## Windows 11
 
 1. Extrae **todo** `Brisa-4.0.0-Windows-x64.zip` en una carpeta.
-2. Abre `ABRIR-BRISA.cmd`. La primera vez descarga el motor de descargas (yt-dlp, unos 24 MB) desde
-   su publicación oficial y comprueba su SHA-256. Después puedes abrir `Brisa Local.exe` directamente.
+2. Abre `Brisa Local.exe`. El paquete ya trae todo, incluido el motor de descargas.
+   `ABRIR-BRISA.cmd` es un arranque alternativo: comprueba el motor por SHA-256 y, si faltara, lo
+   vuelve a descargar de su publicación oficial.
 3. Conserva junto al ejecutable las DLL y la carpeta `resources`.
 4. Si tenías la 3.0.2, la biblioteca del PC se conserva: usa la misma carpeta de datos.
 

@@ -7,6 +7,8 @@ un enlace y Google Drive como almacenamiento. Parte de Brisa Local 3.0.2.
 - Instalar: [documentacion/INSTALAR.md](documentacion/INSTALAR.md)
 - Conectar Drive en Android: [documentacion/CONFIGURAR_GOOGLE_DRIVE.md](documentacion/CONFIGURAR_GOOGLE_DRIVE.md)
 - Qué está probado y qué no: [documentacion/VALIDACION-4.0.0.md](documentacion/VALIDACION-4.0.0.md)
+- Para agentes de IA que continúen el desarrollo: [AGENTS.md](AGENTS.md), [documentacion/MAPA-ANDROID.md](documentacion/MAPA-ANDROID.md) y [documentacion/PENDIENTES.md](documentacion/PENDIENTES.md)
+- Apps compiladas de esta versión: [`apps/`](apps/)
 - Documentación de la versión anterior: `historial-3.0.2/`
 
 ## Organización
@@ -46,6 +48,10 @@ rustup target add x86_64-pc-windows-gnullvm
 cargo build --manifest-path desktop/Cargo.toml --target x86_64-pc-windows-gnullvm --release --locked
 bash ../tools/empaquetar.sh                                        # arma la entrega completa
 ```
+
+Atajos: `bash tools/verificar-todo.sh` ejecuta todas las comprobaciones, `bash tools/build-windows.sh`
+compila Windows desde Linux, `bash tools/verificar-apk.sh` verifica la APK sin teléfono y
+`node tools/capturas.cjs` genera capturas de la interfaz.
 
 En Windows nativo también sirve `npm run desktop:build` con las herramientas de Tauri.
 

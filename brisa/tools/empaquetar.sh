@@ -20,6 +20,9 @@ cp windows/portable/ABRIR-BRISA.cmd windows/portable/Preparar-Brisa.ps1 LICENSE 
 cp documentacion/INSTALAR.md documentacion/CAMBIOS-$VERSION.md "$WIN/"
 cp -r windows/desktop/resources/licenses "$WIN/resources/"
 cp windows/desktop/resources/{ffmpeg.exe,ffprobe.exe,qjs.exe,hashes.json,versions.json} "$WIN/resources/"
+# El motor de descargas va dentro para que la app funcione al abrir el .exe, sin pasos previos.
+# ABRIR-BRISA.cmd sigue sirviendo: comprueba el motor y, si faltara, lo descarga verificado.
+[[ -f windows/desktop/resources/yt-dlp.exe ]] && cp windows/desktop/resources/yt-dlp.exe "$WIN/resources/"
 (cd "$OUT/win" && zip -q -r -9 "$OUT/$NAME/apps/Brisa-$VERSION-Windows-x64.zip" "Brisa-$VERSION-Windows-x64")
 rm -rf "$OUT/win"
 
@@ -51,4 +54,8 @@ capturas/  la interfaz nueva en cada tamano de pantalla
 TXT
 (cd "$OUT/$NAME" && find . -type f ! -name SHA256SUMS.txt | sort | xargs sha256sum > SHA256SUMS.txt)
 (cd "$OUT" && rm -f "$NAME.zip" && zip -q -r -9 "$NAME.zip" "$NAME")
+# Copia publicable de las apps (sin la clave) para el repositorio: apps/
+rm -rf apps && mkdir -p apps
+cp "$OUT/$NAME/apps/"* apps/
+(cd apps && sha256sum Brisa-* > SHA256SUMS.txt)
 ls -la "$OUT/$NAME.zip"
