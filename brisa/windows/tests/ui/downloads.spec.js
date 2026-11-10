@@ -26,7 +26,7 @@ test('pegar un enlace muestra calidades, aviso 4K e inicia con una sola elecció
   await expect(page.locator('#videoFormats')).toContainText('Puede no reproducirse');
   await page.getByRole('button', { name: /1080p/ }).click();
   await expect(page.locator('#downloadStatus')).toHaveText('Descargando…');
-  expect(await page.evaluate(() => window.testCalls.filter(c => c[0] === 'start'))).toEqual([['start', 'inspection', 'hd', {output:'mp4',destination:'local',bitrate:320}]]);
+  expect(await page.evaluate(() => window.testCalls.filter(c => c[0] === 'start'))).toEqual([['start', 'inspection', 'hd', {output:'mp4',destination:'local',bitrate:320,audioFormat:'original'}]]);
   await expect(page.locator('#videoFormats button').first()).toBeDisabled();
   await page.locator('#cancelDownload').click();
   await expect(page.locator('#downloadStatus')).toHaveText('Descarga cancelada.');
@@ -40,16 +40,16 @@ test('Ambos inicia una sola tarea, conserva la calidad elegida y anuncia los dos
   await page.locator('#videoLink').fill('https://youtu.be/abcdefghijk');
   await expect(page.locator('#videoFormats button')).toHaveCount(2);
   await expect(page.locator('#videoSourceInfo')).toContainText('Dos archivos');
-  await page.getByRole('button',{name:/1080p · MP4 \+ MP3/}).click();
-  expect(await page.evaluate(()=>testCalls.filter(c=>c[0]==='start'))).toEqual([['start','inspection','hd',{output:'both',destination:'local',bitrate:320}]]);
+  await page.getByRole('button',{name:/1080p · MP4 \+ música/}).click();
+  expect(await page.evaluate(()=>testCalls.filter(c=>c[0]==='start'))).toEqual([['start','inspection','hd',{output:'both',destination:'local',bitrate:320,audioFormat:'original'}]]);
   await expect(page.locator('#downloadOutput')).toBeDisabled();
   await page.evaluate(()=>window.dispatchEvent(new CustomEvent('brisa-download',{detail:{status:'converting',title:'Prueba'}})));
-  await expect(page.locator('#downloadStatus')).toContainText('Convirtiendo a MP3');
+  await expect(page.locator('#downloadStatus')).toContainText('Guardando el audio original');
   await expect(page.locator('#cancelDownload')).toBeVisible();
   await page.evaluate(()=>window.dispatchEvent(new CustomEvent('brisa-download',{detail:{status:'completed',output:'both',fileCount:2,title:'Prueba'}})));
-  await expect(page.locator('#downloadStatus')).toContainText('Vídeo y MP3 guardados');
-  await expect(page.locator('#downloadStatus')).toContainText('Vídeos y Música');
-  await expect(page.locator('#toast')).toContainText('Vídeo y MP3 guardados');
+  await expect(page.locator('#downloadStatus')).toContainText('Vídeo y música guardados');
+  await expect(page.locator('#downloadStatus')).toContainText('disponibles sin conexión');
+  await expect(page.locator('#toast')).toContainText('Vídeo y música guardados');
   await expect(page.locator('#downloadOutput')).toBeEnabled();
 });
 
@@ -57,7 +57,7 @@ test('Ambos permite cancelar durante la conversión sin anunciar éxito', async 
   await open(page,{width:1280,height:900});
   await page.locator('#downloadOutput').selectOption('both');
   await page.locator('#videoLink').fill('https://youtu.be/abcdefghijk');
-  await page.getByRole('button',{name:/1080p · MP4 \+ MP3/}).click();
+  await page.getByRole('button',{name:/1080p · MP4 \+ música/}).click();
   await page.evaluate(()=>window.dispatchEvent(new CustomEvent('brisa-download',{detail:{status:'converting'}})));
   await page.locator('#cancelDownload').click();
   await expect(page.locator('#downloadStatus')).toHaveText('Descarga cancelada.');

@@ -15,7 +15,7 @@
       clearTimeout(sleepTimer); sleepAtEnd = value === 'end';
       if (Number(value) > 0) sleepTimer = setTimeout(() => { audio.pause(); platform.onState?.({ sleepFinished: true }); }, Number(value) * 60000);
     },
-    openUpdates: () => alert('Brisa Local 3.0.2. Conserva el paquete y el código fuente para futuras actualizaciones.'),
+    openUpdates: () => { },
     readBlob: async track => { const response = await fetch(track.path); if (!response.ok) throw new Error('El archivo no está disponible. Vuelve a importarlo.'); return response.blob(); },
     remoteFile: track => ({ name: track.name, size: track.size, slice: (a, b) => ({ async arrayBuffer() {
       if (a >= Math.min(b, track.size || b)) return new ArrayBuffer(0);

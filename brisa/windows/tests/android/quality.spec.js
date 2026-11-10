@@ -11,7 +11,7 @@ test('MP3 tiene una sola calidad y envía 320; el perfil ligero respeta ahorro',
   const {setupDownloads}=await import('./downloads.js');setupDownloads({parseVideoLink:()=>({url:'https://youtu.be/abcdefghijk'}),refresh:async()=>{},notify:()=>{}});
  });
  await expect(page.locator('html')).toHaveAttribute('data-brisa-profile','a30');await expect(page.locator('#mp3Bitrate option')).toHaveCount(1);await expect(page.locator('#mp3BitrateField')).toBeHidden();
- await page.locator('#downloadOutput').selectOption('mp3');await page.locator('#videoLink').fill('https://youtu.be/abcdefghijk');await page.locator('#inspectVideo').click();await expect(page.locator('#videoFormats button')).toHaveCount(1);await expect(page.locator('#videoSourceInfo')).toContainText('con pérdida');
+ await page.locator('#downloadOutput').selectOption('mp3');await page.locator('#audioFormat').selectOption('mp3');await page.locator('#videoLink').fill('https://youtu.be/abcdefghijk');await page.locator('#inspectVideo').click();await expect(page.locator('#videoFormats button')).toHaveCount(1);await expect(page.locator('#videoSourceInfo')).toContainText('con pérdida');
  await page.getByRole('button',{name:/Descargar MP3/}).evaluate(e=>e.click());
  const calls=await page.evaluate(()=>window.calls);expect(calls[0][2].bitrate).toBe(320);
 });

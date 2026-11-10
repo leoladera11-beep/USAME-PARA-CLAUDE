@@ -18,7 +18,7 @@ public final class SoundSessions {
  private static Object engineOwner(){return engine.owner();}
  static Object read(Object o,String key)throws Exception{return o.getClass().getField(key).get(o);}
  static Object call(Object o,String method,Class<?>[] types,Object... args)throws Exception{return o.getClass().getMethod(method,types).invoke(o,args);}
- private static SoundCore.Settings settings(Context c){JSONObject s=Y.d(c);return new SoundCore.Settings("original".equals(s.optString("mode")),Y.b(s,"bass",2),Y.b(s,"mid",0),Y.b(s,"treble",1));}
+ private static SoundCore.Settings settings(Context c){JSONObject s=Y.d(c);return new SoundCore.Settings(!"gentle".equals(s.optString("mode")),Y.b(s,"bass",2),Y.b(s,"mid",0),Y.b(s,"treble",1));}
  private static void update(Context context,Object owner,SoundCore.Port port){current=owner;currentPort=port;currentContext=context.getApplicationContext();engine.apply(owner,port,settings(context));}
  private static void reapply(){if(current!=null&&currentPort!=null&&currentContext!=null)update(currentContext,current,currentPort);}
  public static void release(Object owner){engine.release(owner);if(current==owner){current=null;currentPort=null;currentContext=null;}}

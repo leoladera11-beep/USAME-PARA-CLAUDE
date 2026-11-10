@@ -10,7 +10,7 @@ test('configurar Drive elige su carpeta como destino sin afirmar que la nube ya 
  await page.locator('#installPcDrive').click();await page.locator('#choosePcDrive').click();await expect(page.locator('#pcDriveDialog')).toBeHidden();
  await expect(page.locator('#downloadDestination')).toHaveValue('drive');await expect(page.locator('#pcStorageNote')).toContainText('Google Drive para ordenadores sincroniza');
  await page.locator('#downloadOutput').selectOption('both');await page.locator('#videoLink').fill('https://youtu.be/abcdefghijk');await page.getByRole('button',{name:/1080p · MP4/}).click();
- expect(await page.evaluate(()=>cloudCalls)).toEqual(['install','choose',['cloud','hd',{output:'both',destination:'drive',bitrate:320}]]);
+ expect(await page.evaluate(()=>cloudCalls)).toEqual(['install','choose',['cloud','hd',{output:'both',destination:'drive',bitrate:320,audioFormat:'original'}]]);
  await expect(page.locator('#downloadStatus')).toContainText('comprueba la sincronización');await expect(page.locator('#downloadStatus')).not.toContainText('sin conexión');
 });
 test('una carpeta Drive configurada se restaura y la elección local del usuario se conserva',async({page})=>{

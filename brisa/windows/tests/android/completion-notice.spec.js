@@ -43,7 +43,7 @@ test('a new completed download announces once, duplicate events and restoration 
   await page.evaluate(()=>window.savedState={status:'completed',title:'Nuevo archivo'});
   await visibilityCycle(page);
   await expect.poll(()=>page.evaluate(()=>window.stateReads)).toBe(2);
-  expect(await page.evaluate(()=>window.notices)).toEqual(['Archivos listos en Música o Videos.']);
+  expect(await page.evaluate(()=>window.notices)).toEqual(['Archivo guardado · disponible sin conexión.']);
 });
 test('each subsequent new download may announce, including its warning',async({page})=>{
   await setup(page);

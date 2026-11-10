@@ -17,9 +17,12 @@ test('los archivos directos conservan su URL y parámetros necesarios', () => {
 });
 test('los ajustes de sonido quedan acotados y sonido original no reserva ganancia', () => {
   assert.deepEqual(sanitizeSound({ mode: 'original', bass: 90, mid: -20, treble: 'invalid' }), { mode: 'original', bass: 6, mid: -6, treble: 1 });
+  assert.equal(sanitizeSound().mode, 'original');
+  assert.equal(sanitizeSound({ mode: 'gentle' }).mode, 'gentle');
   assert.equal(headroomDb({ mode: 'original', bass: 6, mid: 6, treble: 6 }), 0);
   assert.equal(headroomDb({ mode: 'gentle', bass: 6, mid: 6, treble: 6 }), -7);
-  assert.equal(headroomDb(sanitizeSound()), -3);
+  assert.equal(headroomDb(sanitizeSound()), 0);
+  assert.equal(headroomDb(sanitizeSound({ mode: 'gentle' })), -3);
 });
 test('los tamaños desconocidos se muestran como estimaciones pendientes', () => {
   assert.equal(formatBytes(0), 'Tamaño por determinar');

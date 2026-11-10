@@ -24,6 +24,6 @@ test('Ambos en celular conserva la calidad de vídeo y envía MP4 + MP3 a 320',a
   const {setupDownloads}=await import('./downloads.js');setupDownloads({parseVideoLink:()=>({url:'https://youtu.be/abcdefghijk'}),refresh:async()=>{},notify:()=>{}});
  });
  await page.locator('#downloadOutput').selectOption('both');await page.locator('#videoLink').fill('https://youtu.be/abcdefghijk');await page.locator('#inspectVideo').click();
- await expect(page.locator('#videoSourceInfo')).toContainText('Dos archivos');await page.getByRole('button',{name:/1080p · MP4 \+ MP3/}).click();
- expect(await page.evaluate(()=>started)).toEqual([['both','hd',{output:'both',destination:'local',bitrate:320,subtitles:'auto-es'}]]);
+ await expect(page.locator('#videoSourceInfo')).toContainText('Dos archivos');await page.getByRole('button',{name:/1080p · MP4 \+ música/}).click();
+ expect(await page.evaluate(()=>started)).toEqual([['both','hd',{output:'both',destination:'local',bitrate:320,audioFormat:'original',subtitles:'auto-es'}]]);
 });

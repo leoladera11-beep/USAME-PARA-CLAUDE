@@ -1,5 +1,5 @@
 import { captionOverlay } from './captions.js';
-import { setupDrive, driveAPI } from './drive.js';
+import { setupDrive, driveAPI, driveHooks } from './drive.js';
 import { setupDownloads } from './downloads.js';
 // Videos use their own library and never enter the music queue.
 const videoExtension = /\.(mp4|m4v|webm|mov|mkv|3gp)$/i;
@@ -67,7 +67,7 @@ export function setupVideos({audio,notify}) {
     el('videosEmpty').hidden = !!records.length;
     el('videosMore').hidden = records.length <= limit;
     el('videosList').innerHTML = records.slice(0,limit).map((item,i) =>
-      '<div class="video-row"><button class="video-row-play" data-video-play="'+i+'"><span class="video-tile"><svg aria-hidden="true"><use href="#i-play"/></svg></span><span><strong>'+esc(item.name)+'</strong><small>'+esc([size(item.size),item.offlineReady===false?(item.storageLabel||'En Drive · preparar sin conexión'):'Sin conexión',item.pendingUpload?'Subida pendiente':''].filter(Boolean).join(' · '))+'</small></span></button><button class="icon-btn" data-video-remove="'+i+'" aria-label="Quitar '+esc(item.name)+' de Brisa"><svg aria-hidden="true"><use href="#i-trash"/></svg></button></div>'
+      '<div class="video-row"><button class="video-row-play" data-video-play="'+i+'"><span class="video-tile"><svg aria-hidden="true"><use href="#i-play"/></svg></span><span><strong>'+esc(item.name)+'</strong><small>'+esc([size(item.size),item.offlineReady===false?(item.storageLabel||'En Drive'):item.driveId?'Sin conexión · también en Drive':'Sin conexión · en este teléfono',item.pendingUpload?'Subida pendiente':''].filter(Boolean).join(' · '))+'</small></span></button><button class="icon-btn" data-video-remove="'+i+'" aria-label="Quitar '+esc(item.name)+' de Brisa"><svg aria-hidden="true"><use href="#i-trash"/></svg></button></div>'
     ).join('');
   }
   async function refresh() {
@@ -90,7 +90,8 @@ export function setupVideos({audio,notify}) {
   }
   async function play(item) {
     if(item?.offlineReady===false&&item.providerImport&&native?.playVideo){native.playVideo(item.id);return;}
-    if(item?.offlineReady===false){try{await driveAPI()?.prepare(item.id);notify('Preparando el archivo sin conexión. Sigue su progreso en la descarga.');}catch(e){notify(e.message);}return;}
+    if(item?.offlineReady===false&&item.streamable&&native?.playVideo){let why='';try{why=window.BrisaTuning?.streamCheck?.()||'';}catch{}if(why){notify(why);return;}audio.pause();native.playVideo(item.id);return;}
+    if(item?.offlineReady===false){try{await driveAPI()?.prepare(item.id);notify('Guardando una copia sin conexión. Sigue su progreso en la descarga.');}catch(e){notify(e.message);}return;}
     if (native?.playVideo) { audio.pause(); native.playVideo(item.id); return; }
     if (window.BrisaDesktop) {
       stop(); active = item.id; audio.pause();
@@ -132,7 +133,7 @@ export function setupVideos({audio,notify}) {
     if (!btn) return;
     if (btn.dataset.videoPlay !== undefined) { await play(records[+btn.dataset.videoPlay]); return; }
     const item = records[+btn.dataset.videoRemove];
-    if (!item || !confirm('¿Quitar «'+item.name+'» de Brisa? Tu archivo original se conserva.')) return;
+    if (!item || !confirm('¿Quitar «'+item.name+'» de Brisa? Tu archivo original o el de Drive se conserva.')) return;
     try {
       if (active === item.id) stop();
       if (native?.forgetVideo) native.forgetVideo(item.id); else if (window.BrisaDesktop) await window.BrisaDesktop.forgetVideo(item.id); else await write(item);
@@ -166,7 +167,7 @@ export function setupVideos({audio,notify}) {
       el('videoImportStatus').textContent = added+(added===1?' video importado':' videos importados')+(skipped?' · '+skipped+' repetidos':'')+(failed?' · '+failed+' no guardados (revisa formato y espacio)':'')+'.';
     } finally { busy = false; el('addVideosBtn').disabled = false; }
   };
-  setupDownloads({ parseVideoLink, refresh, notify });
+  setupDownloads({ parseVideoLink, refresh, notify, drive: driveHooks() });
   setupDrive({refresh,notify});
   window.addEventListener('brisa-video-import',e=>{const state=e.detail||{},busy=state.status==='preparing';el('addVideosBtn').disabled=busy;el('videoImportStatus').textContent=state.message||'';if(!busy)refresh();});
   window.BrisaVideosChanged = () => { if (showing) refresh(); };
