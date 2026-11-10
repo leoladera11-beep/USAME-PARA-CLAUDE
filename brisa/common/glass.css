@@ -1,0 +1,17 @@
+:root{--track-accent:#3e5941}
+.player{background:linear-gradient(135deg,color-mix(in srgb,var(--track-accent) 78%,#101714),#15241cf5);box-shadow:inset 0 1px #ffffff25,0 8px 28px #0003}
+.primary,.main-play{box-shadow:inset 0 1px #ffffff55,0 4px 18px #0002}
+.quick-card,dialog,.video-link-box{background:linear-gradient(135deg,#ffffff0d,#ffffff03 40%,#16251bef);border:1px solid #ffffff1f;box-shadow:inset 0 1px #ffffff12,0 8px 24px #0002}
+[data-brisa-profile=f8] .player,[data-brisa-profile=desktop] .player{border:1px solid #ffffff35;background:linear-gradient(120deg,color-mix(in srgb,var(--track-accent) 78%,transparent),#111d17ed);backdrop-filter:blur(6px)}
+button{transition:transform .16s ease,background-color .16s ease,opacity .16s ease}
+button:active{transform:scale(.97)}
+[data-brisa-profile=a30] .player,[data-brisa-profile=a30] dialog{backdrop-filter:none!important;box-shadow:inset 0 1px #ffffff20}
+.brisa-background *, .brisa-power-save *, .brisa-power-save *::before,.brisa-power-save *::after{animation:none!important;transition:none!important;backdrop-filter:none!important}
+.brisa-background .player{backdrop-filter:none!important}
+#mp3BitrateField{display:none!important}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+
+/* Playback uses a static indicator; motion is limited to interaction transitions. */
+body.playing .vinyl,body.playing .equalizer i,body.playing .player::after{animation:none!important}
+body.playing #progress::-webkit-slider-thumb,body.playing #progress::-moz-range-thumb{animation:none!important}
+.brisa-background *::before,.brisa-background *::after{animation:none!important;transition:none!important}

@@ -1,0 +1,39 @@
+BRISA LOCAL 3.0.1 — WINDOWS 11 x64
+
+INSTALACIÓN Y ACTUALIZACIÓN
+Cierra Brisa antes de actualizar y espera si tiene una descarga en curso.
+Extrae TODO el ZIP nuevo en una carpeta y abre Brisa Local.exe.
+Conserva WebView2Loader.dll, libunwind.dll y resources junto al EXE.
+La biblioteca y preferencias se conservan en los datos de la misma app;
+no se cambia su identificador com.brisa.localplus ni se borran tus archivos.
+Requiere Microsoft WebView2, normalmente incluido en Windows 11.
+
+NUEVO: DESCARGAR AMBOS
+En Vídeos → Guardar como, elige «Ambos · Vídeo MP4 + Música MP3».
+Pega un enlace y elige la calidad del vídeo. Brisa descarga una vez,
+conserva el vídeo y convierte su audio original a un MP3 de 320 kbps.
+Obtienes dos archivos con el mismo nombre: uno .mp4 y otro .mp3.
+Los dos se guardan en tu carpeta de descargas elegida y aparecen en
+las secciones Vídeos y Música, respectivamente.
+No se publica un resultado completo hasta que ambos archivos estén listos.
+Puedes cancelar durante la descarga o conversión; los temporales se limpian.
+Si un archivo directo no admite MP4 sin recomprimir, se informa del error
+y no se guarda una pareja incompleta.
+Las opciones Vídeo solo y Música solo siguen disponibles.
+
+PANTALLA COMPLETA
+Se ocultan las barras de desplazamiento de la página y sus contenedores
+mientras el vídeo está en pantalla completa. Al salir se restaura el
+desplazamiento normal de la biblioteca. Escape permite salir.
+
+SIN CONEXIÓN
+La biblioteca de archivos locales funciona sin internet. Consultar enlaces
+y descargar vídeo o audio necesita conexión. MP3 es un formato con pérdida:
+320 kbps no recupera información que no exista en la fuente de YouTube.
+
+VALIDACIÓN
+Compilación Windows release x64; 7 pruebas Rust de exportación por pareja,
+5 pruebas JavaScript y 12 pruebas de interfaz Chromium pasaron.
+El puente Windows se simula en las pruebas de interfaz. No se ejecutó la
+app ni los motores Windows en un Windows 11 real en este entorno.
+La comprobación de FFmpeg Linux valida los argumentos, no su ejecución Windows.

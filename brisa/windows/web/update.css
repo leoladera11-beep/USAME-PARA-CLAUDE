@@ -1,0 +1,18 @@
+/* Keep Brisa's existing palette and layout. New controls remain usable at 320px. */
+.download-heading{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.download-heading>*{min-width:0;overflow-wrap:anywhere}.download-heading h2{margin:4px 0 12px}.download-heading .videos-kicker{margin:0}
+.video-link-box p,.video-format span,.video-format small{line-height:1.6;overflow-wrap:anywhere}
+.video-link-fields input{min-width:0;font-size:16px;min-height:48px}
+.video-link-fields button,.video-format,.download-job button,#downloadFolder,[data-sound]{min-height:48px;touch-action:manipulation}
+.video-formats{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr));gap:12px;margin:20px 0}
+.video-format{border:1px solid #526b4b;border-radius:12px;background:#1c2a20;color:#e4eedf;padding:16px;text-align:left;display:flex;flex-direction:column;gap:8px;cursor:pointer}
+.video-format:hover{background:#283c2c}.video-format strong{font-size:19px}.video-format span{font-size:13px;color:#c2d2b8}.video-format small{font-size:12px;color:#d1e4be}
+.download-job{margin-top:20px;padding:18px;border:1px solid #526b4b;border-radius:12px;background:#17251b}.download-job p{font-size:14px}.download-job progress{display:block;width:100%;height:10px;accent-color:#b9dd94;margin:12px 0}.download-job small{font-size:13px;color:#c2d2b8;font-variant-numeric:tabular-nums}
+.sound-bands{display:grid;gap:20px;margin:24px 0}.sound-bands label{display:grid;grid-template-columns:1fr auto;gap:12px;font-size:16px}.sound-bands input{grid-column:1/-1;width:100%;height:32px;accent-color:#b9dd94}.sound-bands output{font-size:14px;font-variant-numeric:tabular-nums;color:#c9dfb9}
+#soundDialog{max-width:480px;width:calc(100% - 32px)}#soundDialog .muted{font-size:14px;line-height:1.65}#soundMode{font-size:16px;min-height:48px}
+.video-formats button:disabled{opacity:.5;cursor:wait}button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid #d6efb9;outline-offset:3px}
+[hidden]{display:none!important}
+@media(max-width:600px){.video-link-fields{flex-direction:column;align-items:stretch}.video-link-fields button{width:100%}.download-heading{gap:8px}.videos-hero{flex-wrap:wrap}.videos-hero>[data-sound]{margin-left:auto}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+html{scroll-padding-bottom:220px}.video-link-box input,.video-link-box button{scroll-margin-bottom:220px}

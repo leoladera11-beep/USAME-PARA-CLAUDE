@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <application android:theme="@style/BrisaTheme" android:label="Brisa Local" android:icon="@drawable/brisa" android:allowBackup="false" android:usesCleartextTraffic="false" android:supportsRtl="true">
+        <activity android:name="com.brisa.local.MainActivity" android:exported="true" android:launchMode="singleTask" android:configChanges="keyboardHidden|orientation|screenSize|screenLayout" android:windowSoftInputMode="adjustResize">
+            <intent-filter><action android:name="android.intent.action.MAIN"/><category android:name="android.intent.category.LAUNCHER"/></intent-filter>
+        </activity>
+        <activity android:name="com.brisa.local.VideoActivity" android:exported="false" android:configChanges="keyboardHidden|orientation|screenSize|screenLayout"/>
+        <service android:name="com.brisa.local.PlaybackService" android:exported="false" android:stopWithTask="true" android:foregroundServiceType="mediaPlayback"/>
+        <service android:name="com.brisa.local.DownloadService" android:exported="false" android:foregroundServiceType="dataSync"/>
+    </application>
+</manifest>

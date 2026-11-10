@@ -1,0 +1,16 @@
+.tools/
+recovered/
+node_modules/
+target/
+**/build/
+**/.gradle/
+android/local.properties
+private/
+dist/
+playwright-report/
+test-results/
+
+recovered-clean/
+desktop/resources/*.exe
+tests/fixtures/android-*.mp4
+tests/fixtures/desktop-*.mp4

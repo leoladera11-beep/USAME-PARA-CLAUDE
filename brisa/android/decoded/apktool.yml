@@ -1,0 +1,19 @@
+version: 2.12.1
+apkFileName: Brisa-Local-2.7.0.apk
+usesFramework:
+  ids:
+  - 1
+sdkInfo:
+  minSdkVersion: 26
+  targetSdkVersion: 37
+packageInfo:
+  forcedPackageId: 127
+versionInfo:
+  versionCode: 30002
+  versionName: 3.0.2-A30
+doNotCompress:
+- arsc
+- png
+- so
+- assets/dexopt/baseline.prof
+- assets/dexopt/baseline.profm

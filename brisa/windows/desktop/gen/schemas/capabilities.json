@@ -1,0 +1,1 @@
+{"main":{"identifier":"main","description":"Acceso local de la ventana de Brisa. No se permite IPC a páginas remotas.","local":true,"windows":["main"],"permissions":["core:default"]}}

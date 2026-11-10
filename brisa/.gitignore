@@ -1,0 +1,27 @@
+# Salidas de compilación y herramientas descargadas
+/android/classes/
+/android/stub-classes/
+/android/dex/
+/android/helper.apk
+/android/helper-decoded/
+/android/decoded/build/
+/android/decoded/dist/
+/android/*-unsigned.apk
+/android/*-aligned.apk
+/android/framework/
+/dist/
+/logs/
+/build-tools/
+/test-classes/
+/windows/node_modules/
+/windows/desktop/target/
+/windows/test-results/
+/windows/playwright-report/
+# Motor grande que se descarga con tools/descargar-dependencias.py
+/windows/desktop/resources/yt-dlp.exe
+/windows/third-party/ffmpeg-n8.1-source.zip
+# Claves privadas: nunca se suben al repositorio
+*.jks
+*.keystore
+*.p12
+*clave*.txt

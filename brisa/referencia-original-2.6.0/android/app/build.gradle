@@ -1,0 +1,40 @@
+plugins { id 'com.android.application' }
+android {
+    namespace 'com.brisa.local'
+    compileSdk 36
+    defaultConfig {
+        applicationId 'com.brisa.localplus'
+        minSdk 26
+        targetSdk 36
+        versionCode 20600
+        versionName '2.6.0'
+    }
+    sourceSets { main { assets.srcDirs = ['../../web'] } }
+    compileOptions {
+        coreLibraryDesugaringEnabled true
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+    buildTypes {
+        release {
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    testOptions { unitTests.all {
+        systemProperty 'robolectric.dependency.repo.url', 'https://repo.maven.apache.org/maven2'
+        systemProperty 'maven.repo.local', rootProject.file('../.tools/m2').absolutePath
+        ['https.proxyHost', 'https.proxyPort', 'http.proxyHost', 'http.proxyPort', 'javax.net.ssl.trustStore'].each { key -> if (System.getProperty(key)) systemProperty key, System.getProperty(key) }
+    } }
+    packaging { resources { excludes += ['META-INF/DEPENDENCIES', 'META-INF/INDEX.LIST', 'META-INF/*.kotlin_module'] } }
+}
+dependencies {
+    implementation project(':extractor')
+    implementation 'com.squareup.okhttp3:okhttp:4.12.0'
+    implementation 'androidx.media3:media3-muxer:1.11.1'
+    implementation 'androidx.media3:media3-extractor:1.11.1'
+    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs_nio:2.1.5'
+    testImplementation 'junit:junit:4.13.2'
+    testImplementation 'org.robolectric:robolectric:4.16.1'
+}

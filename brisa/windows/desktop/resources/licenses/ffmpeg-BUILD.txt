@@ -1,0 +1,5 @@
+FFmpeg n8.1 unmodified source, LGPL-2.1-or-later. Static LAME 3.100 LGPL library.
+No GPL or nonfree configure flags. No network. Local MP4/WebM remux copies original video/audio tracks.
+MP3 mode decodes AAC/Opus/MP3 audio and encodes libmp3lame 320 kbps; this is lossy conversion.
+Source: https://github.com/FFmpeg/FFmpeg/tree/n8.1 and https://lame.sourceforge.io/
+Exact scripts and corresponding sources are included in the accompanying source ZIP.
