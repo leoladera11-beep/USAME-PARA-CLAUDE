@@ -444,15 +444,15 @@ dialog summary{cursor:pointer;font-weight:600;color:var(--text);min-height:40px;
   body.player-expanded .player{inset:0;height:auto;border-radius:0;z-index:40;display:flex;flex-direction:column;gap:0;padding:max(12px,env(safe-area-inset-top,0px)) 24px calc(22px + var(--safe-b));background:#101010;background:linear-gradient(180deg,color-mix(in srgb,var(--track-accent) 62%,transparent) 0,rgba(8,8,8,.9) 74%),#000;overflow-y:auto}
   body.player-expanded .close-player{display:flex;align-items:center;gap:8px;align-self:flex-start;min-height:44px;margin-left:-8px;padding:0 8px;font-size:13px;font-weight:600;color:#ffffffd9}
   body.player-expanded .player-mode{display:block;text-align:center;font-size:11.5px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#ffffffb3;margin:2px 0 10px}
-  body.player-expanded .now-playing{flex-direction:column;align-items:stretch;gap:0;flex:1 1 auto;justify-content:center;position:relative}
-  body.player-expanded .mini-art{width:min(100%,46dvh);height:auto;aspect-ratio:1;align-self:center;border-radius:10px;background:linear-gradient(145deg,color-mix(in srgb,var(--track-accent) 86%,#fff),color-mix(in srgb,var(--track-accent) 60%,#000));box-shadow:0 16px 50px #0007;margin:8px 0 26px}
+  body.player-expanded .now-playing{display:grid;grid-template-columns:minmax(0,1fr) auto;align-content:center;align-items:center;gap:0;flex:1 1 auto}
+  body.player-expanded .mini-art{grid-column:1/-1;justify-self:center;width:min(100%,46dvh);height:auto;aspect-ratio:1;border-radius:10px;background:linear-gradient(145deg,color-mix(in srgb,var(--track-accent) 86%,#fff),color-mix(in srgb,var(--track-accent) 60%,#000));box-shadow:0 16px 50px #0007;margin:8px 0 26px}
   body.player-expanded .mini-art svg{width:34%;height:34%}
   body.player-expanded .equalizer{display:none}
   body.player-expanded.playing .mini-art>svg{display:block}
-  body.player-expanded .now-text{padding-right:52px}
+  body.player-expanded .now-text{padding-right:8px}
   body.player-expanded .now-text strong{font-size:23px;font-weight:800;letter-spacing:-.4px}
   body.player-expanded .now-text span{font-size:15.5px;margin-top:2px}
-  body.player-expanded .now-playing #nowFav{display:grid;position:absolute;right:-8px;bottom:2px;width:48px;height:48px}
+  body.player-expanded .now-playing #nowFav{display:grid;width:48px;height:48px;margin-right:-10px}
   body.player-expanded #nowFav svg{width:26px;height:26px}
   body.player-expanded .transport{display:flex;flex-direction:column-reverse;gap:10px;margin-top:18px}
   body.player-expanded .progress-row{position:static;height:auto;display:grid;grid-template-columns:1fr 1fr;row-gap:2px}
