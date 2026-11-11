@@ -5,6 +5,9 @@ mod media;
 mod downloads;
 mod download_output;
 mod drive_storage;
+mod drive_token;
+mod drive_core;
+mod drive_api;
 mod storage_paths;
 use std::{sync::{Arc, Mutex, atomic::AtomicBool}, path::PathBuf, process::Child};
 use serde::{Serialize, Deserialize};
@@ -13,13 +16,18 @@ use tauri::Manager;
 
 #[derive(Clone, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
-pub struct Entry { pub id: String, pub path: String, pub name: String, pub size: u64, pub added: u64, pub kind: String, #[serde(default)] pub storage: String }
+pub struct Entry { pub id: String, pub path: String, pub name: String, pub size: u64, pub added: u64, pub kind: String, #[serde(default)] pub storage: String,
+    /// Identificador en Drive cuando el archivo se reproduce por internet con la sesión por token.
+    #[serde(default, skip_serializing_if = "String::is_empty")] pub drive_id: String }
 pub struct Shared {
     pub root: PathBuf,
     pub entries: Mutex<Vec<Entry>>,
     pub persistence: Mutex<()>,
     pub folder: Mutex<PathBuf>,
     pub drive_folder: Mutex<Option<PathBuf>>,
+    pub drive_session: Mutex<Option<drive_api::Session>>,
+    pub drive_cache: Mutex<Vec<Entry>>,
+    pub drive_hidden: Mutex<Vec<String>>,
     pub state: Mutex<Value>,
     pub active: AtomicBool,
     pub cancelled: AtomicBool,
@@ -43,6 +51,11 @@ fn video_mode(window: tauri::WebviewWindow, fullscreen: bool) -> Result<(), Stri
 }
 fn main() {
     tauri::Builder::default()
+        // brisadrive://<id>: el reproductor pide tramos y se traen de Drive con el token. Cada petición va en su hilo.
+        .register_asynchronous_uri_scheme_protocol("brisadrive", |context, request, responder| {
+            let app = context.app_handle().clone();
+            std::thread::spawn(move || responder.respond(drive_api::serve(&app, &request)));
+        })
         .setup(|app| {
             let root = app.path().app_local_data_dir()?; std::fs::create_dir_all(&root)?;
             let entries: Vec<Entry> = std::fs::read(root.join("library.json")).ok().and_then(|b| serde_json::from_slice(&b).ok()).unwrap_or_default();
@@ -50,12 +63,15 @@ fn main() {
             let folder = std::fs::read_to_string(root.join("folder.txt")).map(PathBuf::from)
                 .unwrap_or_else(|_| dirs::video_dir().or_else(dirs::download_dir).unwrap_or_else(|| root.clone()).join("Brisa"));
             let drive_folder = std::fs::read_to_string(root.join("drive-folder.txt")).ok().map(PathBuf::from);
-            app.manage(Arc::new(Shared { root, persistence: Mutex::new(()), entries: Mutex::new(entries), folder: Mutex::new(folder), drive_folder: Mutex::new(drive_folder), state: Mutex::new(json!({"status":"idle"})),
+            let drive_session: Option<drive_api::Session> = std::fs::read(root.join("drive-token.json")).ok().and_then(|b| serde_json::from_slice(&b).ok());
+            let (drive_cache, drive_hidden) = (drive_api::load(&root, "drive-cache.json"), drive_api::load(&root, "drive-hidden.json"));
+            app.manage(Arc::new(Shared { drive_session: Mutex::new(drive_session), drive_cache: Mutex::new(drive_cache), drive_hidden: Mutex::new(drive_hidden), root, persistence: Mutex::new(()), entries: Mutex::new(entries), folder: Mutex::new(folder), drive_folder: Mutex::new(drive_folder), state: Mutex::new(json!({"status":"idle"})),
                 active: AtomicBool::new(false), cancelled: AtomicBool::new(false), close_after_download: AtomicBool::new(false), child: Mutex::new(None), plans: Mutex::new(Default::default()), inspecting: Arc::new(tokio::sync::Semaphore::new(1)) }));
             Ok(())
         })
         .invoke_handler(tauri::generate_handler![media::pick_media, media::list_media, media::forget_media, media::save_text,
             drive_storage::drive_storage_status, drive_storage::choose_drive_folder, drive_storage::open_drive_setup,
+            drive_api::drive_token_connect, drive_api::drive_token_status, drive_api::drive_token_disconnect, drive_api::drive_refresh,
             video_mode, downloads::inspect, downloads::start, downloads::cancel, downloads::state, downloads::folder])
         .on_window_event(|window, event| {
             if let tauri::WindowEvent::CloseRequested { api, .. } = event {

@@ -69,6 +69,7 @@ public final class DriveStream {
 
     /** Motivo por el que ahora mismo no se puede reproducir desde Drive, o cadena vacía. */
     public static String check(Context c) {
+        if (ManualAuth.expired(c)) return "La sesión de Drive por token caducó. Abre Google Drive y pega un token nuevo.";
         String net = network(c);
         String reason = refusal(!account(c).isEmpty(), !net.equals("none"), net.equals("wifi"), mobileAllowed(c));
         return reason == null ? "" : reason;
@@ -160,7 +161,7 @@ public final class DriveStream {
     private static String token(boolean renew) throws IOException {
         try {
             Class<?> drive = Class.forName("com.brisa.local.u");
-            if (renew) drive.getField("b").setLong(null, 0L);
+            if (renew) { ManualAuth.invalidate(app); drive.getField("b").setLong(null, 0L); }
             drive.getMethod("c", Context.class, String.class).invoke(null, app, "https://www.googleapis.com/drive/v3/files");
             String value = (String) drive.getField("a").get(null);
             if (value == null || value.isEmpty()) throw new StreamRelay.Refused(401, "Abre Google Drive en Brisa y renueva la conexión.");
@@ -206,7 +207,14 @@ public final class DriveStream {
             notice(reason);
             throw new StreamRelay.Refused(403, reason);
         }
-        HttpURLConnection http = request(driveId, range, token(false));
+        String access;
+        try {
+            access = token(false);
+        } catch (StreamRelay.Refused refused) {
+            notice(refused.getMessage());
+            throw refused;
+        }
+        HttpURLConnection http = request(driveId, range, access);
         int status = http.getResponseCode();
         if (status == 401) {
             http.disconnect();

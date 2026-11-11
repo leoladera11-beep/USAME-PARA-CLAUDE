@@ -6,7 +6,7 @@
 #   bash tools/descompilar.sh [ruta.apk]
 set -euo pipefail
 cd "$(dirname "$0")/.."
-APK=${1:-dist/Brisa-4.0.0-A30.apk}
+APK=${1:-$(ls dist/Brisa-*-A30.apk | tail -1)}
 JADX="${BRISA_TOOLS:-$PWD/build-tools}/jadx/bin/jadx"
 [[ -x "$JADX" ]] || { echo "Falta jadx. Ejecuta: python3 tools/herramientas-extra.py analisis" >&2; exit 1; }
 unset JAVA_TOOL_OPTIONS

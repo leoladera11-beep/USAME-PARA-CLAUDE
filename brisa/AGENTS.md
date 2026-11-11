@@ -8,7 +8,7 @@ de cambiar nada: el proyecto de Android no es un proyecto normal y es fácil rom
 
 Brisa es un reproductor de música y vídeo personal para un Galaxy A30, un F8 Pro (HyperOS) y un PC
 con Windows 11. Descarga desde enlaces de YouTube, guarda en Google Drive y reproduce desde Drive
-sin copia local. Versión actual: **4.0.0**. El usuario habla español: interfaz, documentación,
+sin copia local. Versión actual: **4.1.0**. El usuario habla español: interfaz, documentación,
 comentarios y mensajes de commit van en español.
 
 ## Lo primero: preparar y comprobar
@@ -35,12 +35,13 @@ genera las APK (sin firmar si no está `clave/`) y `tools/build-windows.sh` gene
 | --- | --- | --- |
 | `common/` | Interfaz compartida: `index.template.html`, `brisa.css`, `app.js`, `home.js`, `downloads.js`, sonido, letras | **Edita aquí** y ejecuta `python3 tools/build-web.py` |
 | `android/decoded/assets/`, `windows/web/` | Interfaz generada más los módulos propios de cada plataforma | Solo se editan a mano `platform.js`, `video.js`, `drive.js`, `captions.js`, `download-api.js` (Android) y `desktop.js`, `video.js`, `video-chrome.*`, `drive-storage.js`, `download-api.js` (Windows) |
-| `android/src/` | Java propio: `DriveStream`, `StreamRelay`, `Idle`, `AudioExport`, `Tuning`, sonido, vídeo, importación | Edita y ejecuta `bash tools/build-android.sh` |
+| `android/src/` | Java propio: `DriveStream`, `StreamRelay`, `Idle`, `AudioExport`, `Tuning`, `TokenSession`, `ManualAuth`, sonido, vídeo, importación | Edita y ejecuta `bash tools/build-android.sh` |
 | `android/decoded/smali*` | Código recuperado de la APK original, ofuscado | Solo con sustituciones mínimas registradas en `tools/parches-4.0.0.py` |
 | `android/decoded/smali_classes3/` | **Generado** desde `android/src`. No lo edites: se regenera en cada compilación | — |
 | `android/stubs/` | Firmas para compilar contra clases ofuscadas. Nunca entran en la APK | — |
 | `android/tests/`, `windows/tests/` | Pruebas JVM, de JavaScript y de interfaz (Playwright) de ambas plataformas | — |
 | `windows/desktop/` | App nativa Tauri 2 / Rust | `bash tools/build-windows.sh` |
+| `windows/desktop/host-tests/` | Drive simulado y pruebas del código de Drive de Windows en cualquier sistema, sin Tauri | `cargo test --manifest-path windows/desktop/host-tests/Cargo.toml` |
 | `tools/` | Compilación, parches, verificación, capturas y empaquetado | — |
 | `apps/` | Las apps compiladas de la versión publicada | `bash tools/empaquetar.sh` |
 | `documentacion/` | Cambios, instalación, Drive, validación, mapa de Android y pendientes | — |
@@ -49,7 +50,7 @@ genera las APK (sin firmar si no está `clave/`) y `tools/build-windows.sh` gene
 Lecturas obligadas según la tarea:
 - Tocar Android nativo: `documentacion/MAPA-ANDROID.md` (qué es cada clase ofuscada).
 - Decidir qué hacer a continuación: `documentacion/PENDIENTES.md`.
-- Saber qué está probado: `documentacion/VALIDACION-4.0.0.md`.
+- Saber qué está probado: `documentacion/VALIDACION-4.1.0.md`.
 
 ## Reglas que no se rompen
 
@@ -78,9 +79,11 @@ Lecturas obligadas según la tarea:
 1. Cambia la fuente (`common/`, `android/src/`, `windows/desktop/src/` o un módulo de plataforma).
 2. `python3 tools/build-web.py` si tocaste `common/`.
 3. `bash tools/verificar-todo.sh`.
-4. Para cambios visuales: `node tools/capturas.cjs android/decoded/assets /tmp/c/brisa android` y
+4. Si tocaste el streaming o Drive: `node tools/probar-streaming.cjs` reproduce medios reales por los
+   dos puentes (ya va incluido en `verificar-todo.sh`).
+5. Para cambios visuales: `node tools/capturas.cjs android/decoded/assets /tmp/c/brisa android` y
    mira las imágenes en los tres tamaños.
-5. Para publicar una versión: sube el número en `tools/build-android.sh`, `tools/empaquetar.sh`,
+6. Para publicar una versión: sube el número en `tools/build-android.sh`, `tools/empaquetar.sh`,
    `android/decoded/apktool.yml` (`versionCode`), `windows/desktop/Cargo.toml`, `Cargo.lock`,
    `tauri.conf.json`, `windows/package.json` y la plantilla HTML; compila Android y Windows;
    ejecuta `bash tools/empaquetar.sh`; escribe `documentacion/CAMBIOS-X.Y.Z.md` y
@@ -96,19 +99,20 @@ Lecturas obligadas según la tarea:
   vive en el servicio para seguir sonando con la interfaz dormida. `Idle` lo libera tras diez
   minutos en pausa.
 - **Android, vídeo**: `VideoActivity` + `VideoPlaybackService` con Media3/ExoPlayer e imagen en imagen.
-- **Android, Drive**: OAuth con alcance `drive.file`. Los archivos sin copia local se reproducen
+- **Android, Drive**: OAuth con alcance `drive.file`, por el inicio de sesión de Google o con un token pegado (`ManualAuth`). Los archivos sin copia local se reproducen
   mediante `StreamRelay`, un puente HTTP en 127.0.0.1 que reenvía rangos a la API de Drive con el
   token. `DriveStream` decide según cuenta, red y el ajuste de datos móviles.
 - **Android, descargas**: `DownloadService` con NewPipe Extractor, un unidor MP4 sin recompresión y
   LAME por JNI para MP3. `AudioExport` elige entre copiar el audio original a M4A o convertir a MP3.
 - **Windows**: Rust lanza `yt-dlp`, `ffmpeg` y `qjs` (verificados por SHA-256 en
-  `resources/hashes.json`) y guarda la biblioteca en JSON. Drive se usa a través de la unidad de
-  Google Drive para ordenadores.
+  `resources/hashes.json`) y guarda la biblioteca en JSON. Las descargas se guardan en Drive a través de la unidad de
+  Google Drive para ordenadores; con un token pegado, `drive_api.rs` lista la música y los vídeos de
+  Drive y los reproduce por tramos con el protocolo `brisadrive://`.
 
 ## Estado y riesgos conocidos
 
-Todo compila y las pruebas automáticas pasan, pero **nada de la 4.0.0 se ha ejecutado en un
+Todo compila y las pruebas automáticas pasan, pero **nada de la 4.0.0 ni de la 4.1.0 se ha ejecutado en un
 teléfono ni en Windows**. Lo más arriesgado, por orden: reproducción desde Drive en Android, inicio
-de sesión de Drive con la firma nueva, liberación del servicio en pausa con HyperOS, M4A original
+de sesión de Drive (con la firma nueva o con token), liberación del servicio en pausa con HyperOS, M4A original
 en Android y el extractor de YouTube, que no se tocó y puede haber quedado obsoleto. Si el usuario
 informa de un fallo, empieza por ahí.

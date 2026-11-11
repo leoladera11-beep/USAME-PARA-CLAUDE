@@ -57,7 +57,7 @@ export function setupVideos({audio,notify}) {
     el('videosEmpty').hidden = !!records.length;
     el('videosMore').hidden = records.length <= limit;
     el('videosList').innerHTML = records.slice(0,limit).map((item,i) =>
-      '<div class="video-row"><button class="video-row-play" data-video-play="'+i+'"><span class="video-tile"><svg aria-hidden="true"><use href="#i-play"/></svg></span><span><strong>'+esc(item.name)+'</strong><small>'+esc([size(item.size),item.storage==='drive'?'En Drive · requiere su unidad disponible':'Archivo local'].filter(Boolean).join(' · '))+'</small></span></button><button class="icon-btn" data-video-remove="'+i+'" aria-label="Quitar '+esc(item.name)+' de Brisa"><svg aria-hidden="true"><use href="#i-trash"/></svg></button></div>'
+      '<div class="video-row"><button class="video-row-play" data-video-play="'+i+'"><span class="video-tile"><svg aria-hidden="true"><use href="#i-play"/></svg></span><span><strong>'+esc(item.name)+'</strong><small>'+esc([size(item.size),item.driveId?'En Drive · se reproduce por internet':item.storage==='drive'?'En Drive · requiere su unidad disponible':'Archivo local'].filter(Boolean).join(' · '))+'</small></span></button><button class="icon-btn" data-video-remove="'+i+'" aria-label="Quitar '+esc(item.name)+' de Brisa"><svg aria-hidden="true"><use href="#i-trash"/></svg></button></div>'
     ).join('');
   }
   async function refresh() {
@@ -82,8 +82,8 @@ export function setupVideos({audio,notify}) {
     if (window.BrisaDesktop) {
       stop(); active = item.id; audio.pause();
       el('videoNowTitle').textContent = item.name; el('videoResolution').textContent = 'Calidad original';
-      el('videoViewer').hidden = false; player.src = window.BrisaDesktop.fileUrl(item.path);
-      await player.play().catch(() => notify(item.storage==='drive'?'No se pudo leer el vídeo de Drive. Abre Drive para ordenadores, comprueba internet y espera a que el archivo esté accesible. Si sigue fallando, prueba un MP4 H.264/AAC.':'Este formato no se puede reproducir aquí. El archivo sigue guardado en tu carpeta de descargas.'));  return;
+      el('videoViewer').hidden = false; player.src = item.driveId ? window.BrisaDesktop.driveUrl(item.driveId) : window.BrisaDesktop.fileUrl(item.path);
+      await player.play().catch(() => notify(item.driveId?'No se pudo reproducir desde Drive. Comprueba internet y que la sesión por token siga activa.':item.storage==='drive'?'No se pudo leer el vídeo de Drive. Abre Drive para ordenadores, comprueba internet y espera a que el archivo esté accesible. Si sigue fallando, prueba un MP4 H.264/AAC.':'Este formato no se puede reproducir aquí. El archivo sigue guardado en tu carpeta de descargas.'));  return;
     }
     stop();
     const attempt = selection;

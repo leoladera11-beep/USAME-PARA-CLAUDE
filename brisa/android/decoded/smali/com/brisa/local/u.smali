@@ -1597,6 +1597,8 @@
 .method public static c(Landroid/content/Context;Ljava/lang/String;)LC2/b;
     .locals 7
 
+    invoke-static {p0}, Lcom/brisa/local/ManualAuth;->ensure(Landroid/content/Context;)V
+
     new-instance v0, LC2/b;
 
     invoke-direct {v0}, LC2/b;-><init>()V

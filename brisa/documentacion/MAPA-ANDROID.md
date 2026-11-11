@@ -23,6 +23,7 @@ métodos largos no se descompilan; para esos hay que leer el smali.
 | `SoundCore`, `SoundSessions`, `Y` | Ecualizador único para música y vídeo (fuente en `android/src`) |
 | `Presentation`, `VideoChrome`, `VideoGestureEngine`, `VideoSystemControls`, `VideoBackgroundPolicy` | Carátulas, controles y política de vídeo (fuente en `android/src`) |
 | `DriveStream`, `StreamRelay`, `Idle`, `AudioExport`, `Tuning` | Novedades de la 4.0.0 (fuente en `android/src`) |
+| `TokenSession`, `ManualAuth` | Inicio de sesión en Drive con token, de la 4.1.0. `ManualAuth.ensure` se llama al principio de `u.c` y deja el token vigente en `u.a` y `u.b` |
 
 ## Clases ofuscadas
 
@@ -74,7 +75,7 @@ tras preparar · `s()` detener y liberar · `p(ms)` buscar · `m()` posición ·
    firma**. Añade la sustitución a `tools/parches-4.0.0.py` con su motivo.
 3. `bash tools/build-android.sh && bash tools/verificar-apk.sh`.
 
-Los 14 enganches actuales y su motivo están en `tools/parches-4.0.0.py`.
+Los 15 enganches actuales y su motivo están en `tools/parches-4.0.0.py`.
 
 ## Puentes entre la interfaz y Android
 
@@ -85,7 +86,7 @@ Los 14 enganches actuales y su motivo están en `tools/parches-4.0.0.py`.
 | `BrisaDriveNative` | `r` | Drive (mismo mecanismo asíncrono) |
 | `BrisaSoundNative` | `X` | ecualizador |
 | `BrisaPresentation` | `Presentation.Bridge` | perfil del equipo (`a30`/`f8`) y ahorro de batería |
-| `BrisaTuning` | `Tuning` | datos móviles para Drive, comprobación de red, formato de música |
+| `BrisaTuning` | `Tuning` | datos móviles para Drive, comprobación de red, formato de música, sesión por token (`manualToken` responde por `BrisaDownloadResult`) |
 
 Eventos que Android lanza en la página: `brisa-download`, `brisa-video-import`, `brisa-video-error`,
 `brisa-power`, `brisa-sound`, `brisa-stream`.

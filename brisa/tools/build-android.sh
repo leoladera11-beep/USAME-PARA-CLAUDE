@@ -9,7 +9,7 @@
 # android.jar y BRISA_D8_JAR / BRISA_SIGNER_JAR a tus propios jar.
 set -euo pipefail
 cd "$(dirname "$0")/.."
-VERSION=4.0.0
+VERSION=4.1.0
 TOOLS=${BRISA_TOOLS:-"$PWD/build-tools"}
 API=${BRISA_API:-"$TOOLS/android-all.jar"}
 D8_JAR=${BRISA_D8_JAR:-"$TOOLS/r8lib.jar"}

@@ -56,3 +56,17 @@ test('solo Drive libera únicamente las copias cuya subida está confirmada', ()
   assert.deepEqual(releasable(records, null), { free: [], waiting: [] });
   assert.deepEqual(releasable(records, { since: 0, ids: [] }), { free: [], waiting: [] });
 });
+
+import { describeToken, readTokenForm } from '../web/drive-token.js';
+test('el estado de la sesión por token se explica sin mostrar el token', () => {
+  assert.equal(describeToken(null), 'Sin sesión por token.');
+  assert.equal(describeToken({ active: false }), 'Sin sesión por token.');
+  assert.match(describeToken({ active: true, email: 'yo@example.com', minutes: 42 }), /yo@example\.com · caduca en 42 min · ve los archivos creados/);
+  assert.match(describeToken({ active: true, email: 'yo@example.com', permanent: true, fullDrive: true }), /se renueva sola · ve todo tu Drive/);
+  assert.match(describeToken({ active: true, email: 'yo@example.com', expired: true }), /caducó\. Pega un token nuevo/);
+});
+test('el formulario del token solo envía los campos rellenados y sin espacios', () => {
+  assert.deepEqual(readTokenForm({ access: '  ya29.abc \n', refresh: '', clientId: undefined, clientSecret: '   ' }), { access: 'ya29.abc' });
+  assert.deepEqual(readTokenForm({ refresh: '1//r', clientId: 'id.apps', clientSecret: 's' }), { refresh: '1//r', clientId: 'id.apps', clientSecret: 's' });
+  assert.deepEqual(readTokenForm({}), {});
+});

@@ -19,7 +19,7 @@ ROOT = Path(__file__).resolve().parents[1]
 COMMON = ROOT / 'common'
 TARGETS = {'android': ROOT / 'android' / 'decoded' / 'assets', 'windows': ROOT / 'windows' / 'web'}
 SHARED = ['brisa.css', 'app.js', 'home.js', 'downloads.js', 'sound.js', 'sound-desktop.js', 'presentation.js',
-          'music.js', 'storage.js', 'lyric-tools.js', 'lyric-ui.js', 'ai.js', 'ai-worker.js']
+          'drive-token.js', 'music.js', 'storage.js', 'lyric-tools.js', 'lyric-ui.js', 'ai.js', 'ai-worker.js']
 OBSOLETE = ['style.css', 'update.css', 'glass.css']
 # Elementos que el propio JavaScript crea al arrancar.
 DYNAMIC = {'videoSettings', 'videoSettingsTitle', 'videoSpeed', 'videoSound', 'videoBack', 'brisaWorkerSource'}

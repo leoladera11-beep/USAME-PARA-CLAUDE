@@ -8,6 +8,6 @@ unset JAVA_TOOL_OPTIONS
 rm -rf test-classes && mkdir -p test-classes/stubs
 javac -encoding UTF-8 -source 8 -target 8 -Xlint:-options -nowarn -cp "$API" -d test-classes/stubs $(find android/stubs -name '*.java') 2>/dev/null
 javac -encoding UTF-8 -source 8 -target 8 -Xlint:-options -nowarn -cp "$API:test-classes/stubs" -d test-classes $(find android/src android/tests -name '*.java') 2>&1 | grep -v '^Note:' || true
-for name in SoundCoreTest VideoGestureEngineTest VideoBackgroundPolicyTest OfflineCopyTest StreamRelayTest Brisa4LogicTest; do
+for name in SoundCoreTest VideoGestureEngineTest VideoBackgroundPolicyTest OfflineCopyTest StreamRelayTest Brisa4LogicTest TokenSessionTest; do
   java -cp "test-classes:$API" com.brisa.local.$name
 done

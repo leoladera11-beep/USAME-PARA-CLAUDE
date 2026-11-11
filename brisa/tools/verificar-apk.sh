@@ -11,7 +11,7 @@
 #   bash tools/verificar-apk.sh [ruta.apk]
 set -euo pipefail
 cd "$(dirname "$0")/.."
-APK=${1:-dist/Brisa-4.0.0-A30.apk}
+APK=${1:-$(ls dist/Brisa-*-A30.apk | tail -1)}
 TOOLS=${BRISA_TOOLS:-"$PWD/build-tools"}
 D2J=$(ls -d "$TOOLS"/dex-tools-*/ 2>/dev/null | head -1)
 [[ -n "$D2J" && -f "$TOOLS/android-all.jar" ]] || { echo "Faltan herramientas. Ejecuta tools/herramientas-android.py y tools/herramientas-extra.py analisis" >&2; exit 1; }

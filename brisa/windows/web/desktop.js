@@ -4,6 +4,8 @@
   const tauri = window.__TAURI__;
   const invoke = (name, args = {}) => tauri.core.invoke(name, args);
   const fileUrl = path => tauri.core.convertFileSrc(path);
+  // Los archivos de Drive se piden por tramos al protocolo propio brisadrive://<id>.
+  const driveUrl = id => tauri.core.convertFileSrc(id, 'brisadrive');
   const audio = new Audio(); audio.preload = 'metadata';
   let current = null, queue = [], options = {}, history = [], seen = new Set(), sleepTimer, sleepAtEnd = false, importRevision = 0;
   const platform = window.BrisaPlatform = {
@@ -63,13 +65,16 @@
   }
   document.documentElement.classList.remove('brisa-android');
   window.BrisaDesktop = {
-    fileUrl,
+    fileUrl, driveUrl,
     fullscreen: enabled => invoke('video_mode', { fullscreen: enabled }),
     listVideos: () => invoke('list_media', { kind: 'video' }),
     pickVideos: () => invoke('pick_media', { kind: 'video', folder: false }),
     forgetVideo: id => invoke('forget_media', { id, kind: 'video' }),
   };
   window.BrisaDriveStorage={status:()=>invoke("drive_storage_status"),choose:()=>invoke("choose_drive_folder"),install:()=>invoke("open_drive_setup")};
+  // Sesión de Drive con token: los archivos de Drive se reproducen por tramos con brisadrive://<id>.
+  const reloadLibrary = () => { window.BrisaNative.importReady(); window.BrisaVideosChanged?.(); };
+  window.BrisaDriveToken = { connect: input => invoke('drive_token_connect', { input }), status: () => invoke('drive_token_status'), disconnect: () => invoke('drive_token_disconnect'), refresh: () => invoke('drive_refresh'), reloadLibrary };
   window.BrisaDownloads = {
     inspect: url => invoke('inspect', { url }),
     start: (inspectionId, formatId, options = {}) => invoke('start', { inspectionId, formatId, options }),
@@ -80,7 +85,9 @@
     const revision = ++importRevision, importId = crypto.randomUUID();
     for (let index = 0; index < entries.length || index === 0; index += 50) {
       if (revision !== importRevision) break;
-      const batch = entries.slice(index, index + 50).map(entry => ({ ...entry, nativeId: entry.id, path: fileUrl(entry.path) }));
+      const batch = entries.slice(index, index + 50).map(entry => entry.driveId
+        ? { ...entry, nativeId: entry.id, path: driveUrl(entry.driveId), offlineReady: false }
+        : { ...entry, nativeId: entry.id, path: fileUrl(entry.path) });
       await platform.onImport?.({ importId, batchId: String(index), items: batch, done: index + 50 >= entries.length });
     }
   }
@@ -95,6 +102,8 @@
     forget: id => invoke('forget_media', { id, kind: 'audio' }).catch(showError),
   };
   document.getElementById('fileInput').click = platform.pick;
+  // Una sola consulta a Drive al abrir, si hay sesión por token. No se repite ni se programa.
+  setTimeout(() => invoke('drive_token_status').then(state => state.active && invoke('drive_refresh').then(reloadLibrary)).catch(() => { }), 2500);
   if ('mediaSession' in navigator) {
     for (const [action, handler] of Object.entries({ play: () => audio.play(), pause: () => audio.pause(), nexttrack: platform.next, previoustrack: platform.previous, seekto: data => { audio.currentTime = data.seekTime; } })) {
       try { navigator.mediaSession.setActionHandler(action, handler); } catch { }

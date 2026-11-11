@@ -20,6 +20,7 @@ public final class Tuning {
                 .put("network", DriveStream.network(context))
                 .put("account", !DriveStream.account(context).isEmpty())
                 .put("audioFormat", AudioExport.original(context) ? "original" : "mp3")
+                .put("token", ManualAuth.summary(context))
                 .toString();
         } catch (Exception failure) {
             return "{}";
@@ -40,5 +41,28 @@ public final class Tuning {
     @JavascriptInterface
     public void setAudioFormat(String value) {
         AudioExport.setFormat(context, value);
+    }
+
+    private static void reply(String requestId, Object result, Throwable error) {
+        try {
+            Class.forName("com.brisa.local.h").getMethod("d", String.class, Object.class, Throwable.class).invoke(null, requestId, result, error);
+        } catch (Exception ignored) { }
+    }
+
+    /** Inicia sesión en Drive con un token pegado. Responde por el mismo canal asíncrono que las descargas. */
+    @JavascriptInterface
+    public void manualToken(final String requestId, final String json) {
+        new Thread(() -> {
+            try {
+                reply(requestId, ManualAuth.connect(context, new JSONObject(json)), null);
+            } catch (Exception failure) {
+                reply(requestId, null, failure);
+            }
+        }, "brisa-token").start();
+    }
+
+    @JavascriptInterface
+    public void clearManualToken() {
+        ManualAuth.clear(context);
     }
 }

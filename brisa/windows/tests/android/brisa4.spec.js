@@ -16,10 +16,13 @@ async function open(page, { streamCheck = '', records = [] } = {}) {
     }, { get: (target, key) => key in target ? target[key] : noop });
     window.BrisaSoundNative = { settings: () => '{}', configure: noop };
     window.BrisaPresentation = { profile: () => '{"profile":"a30","powerSave":false}' };
-    window.BrisaTuning = { state: () => JSON.stringify({ streamMobile: !!window.mobile }), streamCheck: () => window.streamReason, setStreamMobile: value => { window.mobile = value; }, setAudioFormat: value => calls.push(['audioFormat', value]) };
+    window.tokenState = { active: false };
+    window.BrisaTuning = { state: () => JSON.stringify({ streamMobile: !!window.mobile, token: window.tokenState }),
+      manualToken: (id, json) => { const input = JSON.parse(json); calls.push(['manualToken', input]); setTimeout(() => { if (input.access === 'ya29.caducado') return window.BrisaDownloadResult({ requestId: id, ok: false, error: 'El token no es válido o ya caducó. Genera uno nuevo.' }); window.tokenState = { active: true, email: 'yo@example.com', permanent: !!input.refresh, minutes: 55, expired: false, fullDrive: false }; window.BrisaDownloadResult({ requestId: id, ok: true, result: window.tokenState }); }, 5); },
+      clearManualToken: () => { calls.push(['clearManualToken']); window.tokenState = { active: false }; }, streamCheck: () => window.streamReason, setStreamMobile: value => { window.mobile = value; }, setAudioFormat: value => calls.push(['audioFormat', value]) };
     const reply = (id, result) => setTimeout(() => window.BrisaDownloadResult({ requestId: id, ok: true, result }), 5);
     window.BrisaDownloadNative = { state: id => reply(id, { status: 'idle' }), inspect: id => reply(id, { inspectionId: 'plan', title: 'Tema', duration: 180, formats: [{ id: 'hd', label: '1080p' }], audioAvailable: true }), start: (id, plan, format, options) => { calls.push(['start', format, JSON.parse(options)]); reply(id, true); }, cancel: id => reply(id, true), folder: id => reply(id, true) };
-    window.BrisaDriveNative = { status: id => reply(id, { connected: true, email: 'yo@example.com' }), assets: id => reply(id, []), records: id => reply(id, window.driveRecords), removeOffline: (id, asset) => { calls.push(['removeOffline', asset]); window.driveRecords = window.driveRecords.map(r => r.id === asset ? { ...r, managedOffline: false, offlineReady: false } : r); reply(id, true); }, prepare: (id, asset) => { calls.push(['prepare', asset]); reply(id, true); }, refresh: id => reply(id, true), connect: id => reply(id, true), disconnect: id => reply(id, true), retry: id => reply(id, true) };
+    window.BrisaDriveNative = { status: id => reply(id, { connected: true, email: 'yo@example.com' }), assets: id => reply(id, []), records: id => reply(id, window.driveRecords), removeOffline: (id, asset) => { calls.push(['removeOffline', asset]); window.driveRecords = window.driveRecords.map(r => r.id === asset ? { ...r, managedOffline: false, offlineReady: false } : r); reply(id, true); }, prepare: (id, asset) => { calls.push(['prepare', asset]); reply(id, true); }, refresh: id => { calls.push(['driveRefresh']); reply(id, true); }, connect: id => { calls.push(['driveConnect']); reply(id, true); }, disconnect: id => { calls.push(['driveDisconnect']); reply(id, true); }, retry: id => reply(id, true) };
   }, { streamCheck, records });
   const errors = []; page.on('pageerror', error => errors.push(error.message));
   await page.goto('/index.html');
@@ -109,5 +112,32 @@ test('ajustes permite datos móviles para Drive y el perfil A30 usa cristal lige
   await page.locator('#streamMobile').evaluate(input => input.click());
   await expect(page.locator('#streamNote')).toContainText('datos móviles');
   expect(await page.evaluate(() => window.mobile)).toBe(true);
+  expect(errors).toEqual([]);
+});
+test('un token de acceso inicia sesión en Drive al instante y actualiza la biblioteca', async ({ page }) => {
+  const errors = await open(page);
+  await page.locator('#mobileVideosBtn').click();
+  await page.locator('#openDrive').click();
+  await expect(page.locator('#tokenStatus')).toHaveText('Sin sesión por token.');
+  await page.locator('#tokenAccess').fill('ya29.caducado');
+  await page.locator('#tokenConnect').click();
+  await expect(page.locator('#tokenStatus')).toHaveText('Sin sesión por token.');
+  await expect(page.locator('#tokenAccess')).toHaveValue('ya29.caducado');
+  await page.locator('#tokenAccess').fill(' ya29.token-bueno_0123456789 ');
+  await page.locator('#tokenConnect').click();
+  await expect(page.locator('#tokenStatus')).toContainText('yo@example.com · caduca en 55 min');
+  await expect(page.locator('#tokenAccess')).toHaveValue('');
+  await expect(page.locator('#driveMessage')).toHaveText('Biblioteca actualizada.');
+  const calls = await page.evaluate(() => window.calls);
+  expect(calls.filter(c => c[0] === 'manualToken').at(-1)[1]).toEqual({ access: 'ya29.token-bueno_0123456789' });
+  expect(calls.some(c => c[0] === 'driveRefresh')).toBe(true);
+  // Cerrar la sesión por token desconecta la cuenta y borra el token guardado.
+  await page.locator('#tokenDisconnect').click();
+  await expect(page.locator('#tokenStatus')).toHaveText('Sin sesión por token.');
+  expect(await page.evaluate(() => window.calls.map(c => c[0]).filter(n => n === 'driveDisconnect' || n === 'clearManualToken'))).toEqual(['driveDisconnect', 'clearManualToken']);
+  // El inicio normal de Google sustituye a la sesión por token.
+  await page.evaluate(() => { window.calls.length = 0; });
+  await page.locator('#connectDrive').click();
+  await expect.poll(() => page.evaluate(() => window.calls.map(c => c[0]).filter(n => n === 'clearManualToken' || n === 'driveConnect'))).toEqual(['clearManualToken', 'driveConnect']);
   expect(errors).toEqual([]);
 });

@@ -19,7 +19,7 @@ pub fn register_batch(app: &tauri::AppHandle, store: &Store, files: &[(PathBuf, 
     let meta = path.metadata().map_err(|_| "No se pudo leer el archivo.".to_string())?;
     if !meta.is_file() || meta.len() == 0 { return Err("El archivo está vacío o no es un archivo.".into()); }
     let text = path.to_string_lossy().to_string();
-    let entry = Entry { id: format!("{:x}", Sha256::digest(text.as_bytes())), name: path.file_name().unwrap().to_string_lossy().to_string(), path: text, size: meta.len(), added: now(), kind: (*kind).into(), storage: if crate::drive_storage::is_drive(store,&path) {"drive".into()}else{"local".into()} };
+    let entry = Entry { id: format!("{:x}", Sha256::digest(text.as_bytes())), name: path.file_name().unwrap().to_string_lossy().to_string(), path: text, size: meta.len(), added: now(), kind: (*kind).into(), storage: if crate::drive_storage::is_drive(store,&path) {"drive".into()}else{"local".into()}, drive_id: String::new() };
     app.asset_protocol_scope().allow_file(&path).map_err(|_| "No se obtuvo permiso para reproducir el archivo.".to_string())?;
     batch.push(entry);
     }
@@ -64,9 +64,13 @@ pub async fn pick_media(app: tauri::AppHandle, store: tauri::State<'_, Store>, k
     }).await.map_err(|_| "No se pudo importar.".to_string())?
 }
 #[tauri::command]
-pub fn list_media(store: tauri::State<'_, Store>, kind: String) -> Vec<Entry> { store.entries.lock().unwrap().iter().filter(|e| e.kind == kind).cloned().map(|mut e|{e.storage=if crate::drive_storage::is_drive(&store,Path::new(&e.path)){"drive".into()}else{"local".into()};e}).collect() }
+pub fn list_media(store: tauri::State<'_, Store>, kind: String) -> Vec<Entry> { store.entries.lock().unwrap().iter().filter(|e| e.kind == kind).cloned().map(|mut e|{e.storage=if crate::drive_storage::is_drive(&store,Path::new(&e.path)){"drive".into()}else{"local".into()};e})
+        // Con la sesión por token, la música y los vídeos de Drive aparecen junto a los locales.
+        .chain(crate::drive_api::entries(&store, &kind)).collect() }
 #[tauri::command]
 pub fn forget_media(store: tauri::State<'_, Store>, id: String, kind: String) -> Result<(), String> {
+    // Un archivo de Drive no se borra: solo deja de mostrarse en Brisa.
+    if id.starts_with("drive:") { return crate::drive_api::hide(&store, &id); }
     store.entries.lock().unwrap().retain(|e| e.id != id || e.kind != kind); persist(&store)
 }
 #[tauri::command]

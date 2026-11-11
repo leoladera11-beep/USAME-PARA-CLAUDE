@@ -1,6 +1,7 @@
 // Google Drive en Android. Los archivos que están solo en Drive se reproducen por internet;
 // la copia sin conexión es opcional y se gestiona archivo por archivo.
 import { bridgeRequest } from './download-api.js';
+import { setupDriveToken } from './drive-token.js';
 
 export function driveAPI() {
   if (window.BrisaDrive) return window.BrisaDrive;
@@ -86,10 +87,26 @@ export function setupDrive({ notify, refresh }) {
       root.append(row);
     }
   };
-  el('openDrive').onclick = () => { el('driveDialog').showModal(); show().catch(e => notify(e.message)); };
+  // Inicio de sesión con token: Drive reconoce la cuenta sin registrar la huella de la firma.
+  const tuning = window.BrisaTuning;
+  const token = setupDriveToken({
+    notify,
+    api: api && tuning?.manualToken ? {
+      connect: input => bridgeRequest('BrisaTuning', 'manualToken', JSON.stringify(input)),
+      status: async () => { try { return JSON.parse(tuning.state()).token || {}; } catch { return {}; } },
+      disconnect: async () => { await api.disconnect(); tuning.clearManualToken(); },
+    } : null,
+    onChange: async state => {
+      if (state.active) { el('driveMessage').textContent = 'Consultando tus archivos de Brisa…'; try { await api.refresh(); el('driveMessage').textContent = 'Biblioteca actualizada.'; } catch (e) { el('driveMessage').textContent = e.message; } }
+      await syncAudioAssets().catch(() => { }); await refresh(); await show().catch(() => { });
+    },
+  });
+  el('openDrive').onclick = () => { el('driveDialog').showModal(); show().catch(e => notify(e.message)); token.show().catch(() => { }); };
   const operation = async (method) => {
     if (!api) return notify('Abre la app instalada de Brisa para usar Drive.');
     if (busy) return; busy = true;
+    // El inicio normal de Google sustituye a la sesión por token.
+    if (method === 'connect') try { window.BrisaTuning?.clearManualToken?.(); } catch { }
     for (const id of ['connectDrive', 'refreshDrive', 'disconnectDrive']) el(id).disabled = true;
     el('driveMessage').textContent = method === 'connect' ? 'Completa la autorización en Google…' : method === 'refresh' ? 'Consultando tus archivos de Brisa…' : 'Desconectando…';
     try {

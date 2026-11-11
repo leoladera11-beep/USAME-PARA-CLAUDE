@@ -1,10 +1,10 @@
-# Apps de Brisa 4.0.0
+# Apps de Brisa 4.1.0
 
 | Archivo | Para |
 | --- | --- |
-| `Brisa-4.0.0-A30.apk` | Samsung Galaxy A30 (arranca con el perfil visual ligero) |
-| `Brisa-4.0.0-F8-Pro.apk` | F8 Pro (arranca con cristal completo) |
-| `Brisa-4.0.0-Windows-x64.zip` | Windows 11 de 64 bits. Extrae todo y abre `Brisa Local.exe` |
+| `Brisa-4.1.0-A30.apk` | Samsung Galaxy A30 (arranca con el perfil visual ligero) |
+| `Brisa-4.1.0-F8-Pro.apk` | F8 Pro (arranca con cristal completo) |
+| `Brisa-4.1.0-Windows-x64.zip` | Windows 11 de 64 bits. Extrae todo y abre `Brisa Local.exe` |
 
 Instrucciones: [../documentacion/INSTALAR.md](../documentacion/INSTALAR.md). Para usar Drive en el
 teléfono: [../documentacion/CONFIGURAR_GOOGLE_DRIVE.md](../documentacion/CONFIGURAR_GOOGLE_DRIVE.md).
@@ -19,4 +19,4 @@ cada uno verificado por SHA-256 al usarlo.
 `SHA256SUMS.txt` permite comprobar la integridad: `sha256sum -c SHA256SUMS.txt`.
 
 Estado: compiladas y con todas las pruebas automáticas en verde, pero sin ejecutar todavía en un
-teléfono ni en Windows. Detalle en [../documentacion/VALIDACION-4.0.0.md](../documentacion/VALIDACION-4.0.0.md).
+teléfono ni en Windows. Detalle en [../documentacion/VALIDACION-4.1.0.md](../documentacion/VALIDACION-4.1.0.md).

@@ -3,7 +3,7 @@
 # licencias y código fuente. Requiere haber compilado antes Android y Windows.
 set -euo pipefail
 cd "$(dirname "$0")/.."
-VERSION=4.0.0
+VERSION=4.1.0
 OUT=${1:-"$PWD/dist/entrega"}
 TARGET=${CARGO_TARGET_DIR:-"$PWD/windows/desktop/target"}/x86_64-pc-windows-gnullvm/release
 UNWIND=${BRISA_LIBUNWIND:-$(ls build-tools/llvm-mingw-*/x86_64-w64-mingw32/bin/libunwind.dll 2>/dev/null | head -1)}
@@ -37,8 +37,8 @@ if [[ -d clave ]]; then
   printf 'Clave privada con la que se firmaron las APK de Brisa %s.\nGuardala en un lugar seguro y no la compartas: con ella podras instalar futuras versiones encima\nde esta sin desinstalar. Alias: brisa. La contrasena esta en brisa-clave.txt.\nPara compilar, copia esta carpeta como clave/ dentro del codigo fuente.\n' "$VERSION" > "$OUT/$NAME/clave/LEEME.txt"
 fi
 [[ -d "${BRISA_CAPTURAS:-}" ]] && mkdir -p "$OUT/$NAME/capturas" && cp "$BRISA_CAPTURAS"/*.png "$OUT/$NAME/capturas/"
-# Código fuente tal como está en el repositorio (sin claves ni herramientas descargadas).
-git archive --format=zip -9 --prefix="Brisa-$VERSION-codigo/" -o "$OUT/$NAME/fuentes/Brisa-$VERSION-codigo.zip" HEAD .
+# Código fuente tal como está en el repositorio (sin claves, sin herramientas descargadas y sin las apps compiladas, que ya van en apps/).
+git archive --format=zip -9 --prefix="Brisa-$VERSION-codigo/" -o "$OUT/$NAME/fuentes/Brisa-$VERSION-codigo.zip" HEAD . ':(exclude)apps/Brisa-*'
 cat > "$OUT/$NAME/EMPIEZA-AQUI.md" <<TXT
 # Brisa $VERSION
 
@@ -56,7 +56,7 @@ TXT
 (cd "$OUT/$NAME" && find . -type f ! -name SHA256SUMS.txt | sort | xargs sha256sum > SHA256SUMS.txt)
 (cd "$OUT" && rm -f "$NAME.zip" && zip -q -r -9 "$NAME.zip" "$NAME")
 # Copia publicable de las apps (sin la clave) para el repositorio: apps/
-rm -rf apps && mkdir -p apps
+mkdir -p apps && rm -f apps/Brisa-* apps/SHA256SUMS.txt
 cp "$OUT/$NAME/apps/"* apps/
 (cd apps && sha256sum Brisa-* > SHA256SUMS.txt)
 ls -la "$OUT/$NAME.zip"

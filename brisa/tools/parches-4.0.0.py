@@ -34,6 +34,11 @@ PATCHES = [
      'invoke-static {p0, p1}, Lcom/brisa/local/d0;->s' + URI,
      'invoke-static {p0, p1}, Lcom/brisa/local/DriveStream;->video' + URI, 1,
      'La pantalla de vídeo acepta un vídeo que solo está en Drive.'),
+    # --- Inicio de sesión en Drive con token --------------------------------------------------------
+    (LOCAL + 'u.smali',
+     '.method public static c(Landroid/content/Context;Ljava/lang/String;)LC2/b;\n    .locals 7\n\n    new-instance v0, LC2/b;\n',
+     '.method public static c(Landroid/content/Context;Ljava/lang/String;)LC2/b;\n    .locals 7\n\n    invoke-static {p0}, Lcom/brisa/local/ManualAuth;->ensure(Landroid/content/Context;)V\n\n    new-instance v0, LC2/b;\n', 1,
+     'Toda petición a Drive usa primero la sesión por token, si existe, y la renueva cuando caduca.'),
     # --- Ahorro de batería ----------------------------------------------------------------------
     (LOCAL + 'PlaybackService.smali',
      '.method public final k()V\n    .locals 3\n\n    const/4 v0, 0x0\n',
