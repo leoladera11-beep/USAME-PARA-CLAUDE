@@ -105,7 +105,8 @@ Lecturas obligadas según la tarea:
 - **Android, descargas**: `DownloadService` con NewPipe Extractor, un unidor MP4 sin recompresión y
   LAME por JNI para MP3. `AudioExport` elige entre copiar el audio original a M4A o convertir a MP3.
 - **Windows**: Rust lanza `yt-dlp`, `ffmpeg` y `qjs` (verificados por SHA-256 en
-  `resources/hashes.json`) y guarda la biblioteca en JSON. Las descargas se guardan en Drive a través de la unidad de
+  `resources/hashes.json`; `ffmpeg.exe`, `ffprobe.exe` y `qjs.exe` están en el repositorio porque son
+  compilaciones propias, y `yt-dlp.exe` se descarga con `tools/descargar-dependencias.py --solo-motor`) y guarda la biblioteca en JSON. Las descargas se guardan en Drive a través de la unidad de
   Google Drive para ordenadores; con un token pegado, `drive_api.rs` lista la música y los vídeos de
   Drive y los reproduce por tramos con el protocolo `brisadrive://`.
 

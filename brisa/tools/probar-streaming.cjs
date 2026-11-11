@@ -19,7 +19,7 @@ const long = path.join(fs.mkdtempSync(path.join(os.tmpdir(), 'brisa-')), 'largo.
   header.writeUInt32LE(rate, 24); header.writeUInt32LE(rate * 2, 28); header.writeUInt16LE(2, 32); header.writeUInt16LE(16, 34); header.write('data', 36); header.writeUInt32LE(body.length, 40);
   fs.writeFileSync(long, Buffer.concat([header, body]));
 }
-const media = [[long, 'audio/wav', 'audio'], ['tone.wav', 'audio/wav', 'audio'], ['aac.m4a', 'audio/mp4', 'audio'], ['opus.webm', 'audio/webm', 'audio'], ['h264.mp4', 'video/mp4', 'video'], ['android-h264.mp4', 'video/mp4', 'video']];
+const media = [[long, 'audio/wav', 'audio'], ['tone.wav', 'audio/wav', 'audio'], ['aac.m4a', 'audio/mp4', 'audio'], ['opus.webm', 'audio/webm', 'audio'], ['h264.mp4', 'video/mp4', 'video'], ['h264-4k.mp4', 'video/mp4', 'video']];
 const servers = {
   android: (file, type) => ['java', ['-cp', path.join(root, 'test-classes'), 'com.brisa.local.StreamRelayDemo', file, type]],
   windows: (file, type) => [process.env.BRISA_BRIDGE, [file, type, '32768']],
