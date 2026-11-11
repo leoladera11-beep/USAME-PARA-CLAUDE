@@ -27,6 +27,11 @@ public final class Tuning {
         }
     }
 
+    @JavascriptInterface
+    public String downloadNetwork() {
+        return DriveStream.network(context);
+    }
+
     /** Cadena vacía si ahora se puede reproducir desde Drive; si no, el motivo para mostrar. */
     @JavascriptInterface
     public String streamCheck() {

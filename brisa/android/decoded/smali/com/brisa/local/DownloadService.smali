@@ -1536,6 +1536,8 @@
 
     iput-boolean v0, p0, Lcom/brisa/local/DownloadService;->b:Z
 
+    invoke-static {p0}, Lcom/brisa/local/AndroidDownloads;->cancel(Lcom/brisa/local/DownloadService;)V
+
     iget-object v0, p0, Lcom/brisa/local/DownloadService;->c:La2/h;
 
     if-eqz v0, :cond_0
@@ -1606,6 +1608,8 @@
     if-eqz p1, :cond_2
 
     iput-boolean p3, p1, Lcom/brisa/local/DownloadService;->b:Z
+
+    invoke-static {p1}, Lcom/brisa/local/AndroidDownloads;->cancel(Lcom/brisa/local/DownloadService;)V
 
     iget-object p3, p1, Lcom/brisa/local/DownloadService;->c:La2/h;
 

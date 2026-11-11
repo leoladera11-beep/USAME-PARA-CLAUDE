@@ -68,7 +68,8 @@ test('una respuesta anterior no reemplaza el nuevo enlace', async ({ page }) => 
   await open(page);
   await page.evaluate(() => { window.BrisaDownloads.inspect = () => new Promise(resolve => { window.resolveOld = resolve; }); });
   await page.locator('#videoLink').fill('https://youtu.be/abcdefghijk');
-  await page.locator('#inspectVideo').click();
+  // La consulta automática ya está en curso y el botón se desactiva durante la espera.
+  await page.waitForFunction(() => typeof window.resolveOld === 'function');
   await page.locator('#videoLink').fill('texto sin enlace');
   await page.evaluate(() => window.resolveOld({ inspectionId: 'old', title: 'Anterior', formats: [{ id: 'old', label: '720p' }] }));
   await expect(page.locator('#videoLinkResult')).toBeHidden();

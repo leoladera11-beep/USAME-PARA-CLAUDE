@@ -26,5 +26,27 @@ test('los ajustes de sonido quedan acotados y sonido original no reserva gananci
 });
 test('los tamaños desconocidos se muestran como estimaciones pendientes', () => {
   assert.equal(formatBytes(0), 'Tamaño por determinar');
-  assert.equal(formatBytes(1073741824), '1.00 GB');
+  assert.equal(formatBytes(1_000_000_000), '1.00 GB');
+});
+
+test('la advertencia móvil comienza por encima de 100 MB decimales', async () => {
+  const { shouldWarnMobile, estimateTransfer } = await import('../web/downloads.js');
+  assert.equal(shouldWarnMobile('mobile', 100_000_000), false);
+  assert.equal(shouldWarnMobile('mobile', 100_000_001), true);
+  assert.equal(shouldWarnMobile('wifi', 200_000_000), false);
+  assert.equal(shouldWarnMobile('mobile', 0), false);
+  assert.equal(estimateTransfer({ duration: 600, audioSize: 5_000_000 }, { size: 180_000_000 }, 'mp3'), 5_000_000);
+  assert.equal(estimateTransfer({ duration: 600, audioSize: 5_000_000 }, { size: 180_000_000 }, 'both'), 180_000_000);
+});
+
+test('recomienda 720p compatible y deja disponibles las demás calidades', async () => {
+  const { orderQualities } = await import('../web/downloads.js');
+  const formats = [
+    { id: '4k', label: '2160p', compatible: false },
+    { id: 'fhd', label: '1080p', compatible: true },
+    { id: 'small', label: '360p', compatible: true },
+    { id: 'hd', label: '720p', compatible: true },
+  ];
+  assert.deepEqual(orderQualities(formats).map(format => format.id), ['hd', '4k', 'fhd', 'small']);
+  assert.equal(orderQualities(formats.slice(0, 2))[0].id, 'fhd');
 });
