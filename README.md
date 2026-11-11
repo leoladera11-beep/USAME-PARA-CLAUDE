@@ -35,4 +35,4 @@ Si el entorno del agente no tiene internet (no puede clonar ni descargar), desca
 
 ## Brisa, reproductor de música y vídeo
 
-Este repositorio guarda también la app **Brisa 4.0.0** para Galaxy A30, F8 Pro y Windows 11, en la carpeta [`brisa/`](brisa/README.md). Las apps listas para instalar están en [`brisa/apps/`](brisa/apps/) y las instrucciones en [`brisa/documentacion/INSTALAR.md`](brisa/documentacion/INSTALAR.md). Para continuar su desarrollo con un agente de IA: [`brisa/AGENTS.md`](brisa/AGENTS.md).
+Este repositorio guarda también la app **Brisa 4.0.0** para Galaxy A30, F8 Pro y Windows 11, en la carpeta [`brisa/`](brisa/README.md). Las apps listas para instalar están en [`brisa/apps/`](brisa/apps/), las instrucciones en [`brisa/documentacion/INSTALAR.md`](brisa/documentacion/INSTALAR.md) y los consejos de uso en [`brisa/documentacion/GUIA-DE-USO.md`](brisa/documentacion/GUIA-DE-USO.md). Para continuar su desarrollo con un agente de IA: [`brisa/AGENTS.md`](brisa/AGENTS.md).

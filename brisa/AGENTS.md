@@ -51,6 +51,7 @@ Lecturas obligadas según la tarea:
 - Tocar Android nativo: `documentacion/MAPA-ANDROID.md` (qué es cada clase ofuscada).
 - Decidir qué hacer a continuación: `documentacion/PENDIENTES.md`.
 - Saber qué está probado: `documentacion/VALIDACION-4.1.0.md`.
+- Explicar a una persona cómo usar la app o por qué falla algo: `documentacion/GUIA-DE-USO.md`.
 
 ## Reglas que no se rompen
 

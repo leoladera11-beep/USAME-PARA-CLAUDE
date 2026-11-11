@@ -6,7 +6,7 @@
 | `Brisa-4.1.0-F8-Pro.apk` | F8 Pro (arranca con cristal completo) |
 | `Brisa-4.1.0-Windows-x64.zip` | Windows 11 de 64 bits. Extrae todo y abre `Brisa Local.exe` |
 
-Instrucciones: [../documentacion/INSTALAR.md](../documentacion/INSTALAR.md). Para usar Drive en el
+Instrucciones: [../documentacion/INSTALAR.md](../documentacion/INSTALAR.md) y consejos en [../documentacion/GUIA-DE-USO.md](../documentacion/GUIA-DE-USO.md). Para usar Drive en el
 teléfono: [../documentacion/CONFIGURAR_GOOGLE_DRIVE.md](../documentacion/CONFIGURAR_GOOGLE_DRIVE.md).
 
 Para descargar un archivo desde GitHub, ábrelo y pulsa «Download raw file».

@@ -33,6 +33,8 @@ libera sola a los diez minutos.
 
 Requiere WebView2, que Windows 11 ya incluye.
 
+Antes de empezar y para evitar fallos, lee `GUIA-DE-USO.md`.
+
 ## Actualizaciones futuras
 
 Guarda la carpeta `clave/`. Una APK nueva firmada con esa misma clave se instala encima de la 4.1.0

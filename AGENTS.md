@@ -6,4 +6,4 @@ Si te pidieron modificar las skills, no edites a mano los archivos de `GoogleDri
 
 ## App Brisa
 
-La carpeta `brisa/` contiene una app aparte: un reproductor de música y vídeo para Android y Windows 11. Si te pidieron trabajar en ella, sigue [brisa/AGENTS.md](brisa/AGENTS.md); las reglas de las skills de arriba no le aplican. Las apps compiladas están en `brisa/apps/`.
+La carpeta `brisa/` contiene una app aparte: un reproductor de música y vídeo para Android y Windows 11. Si te pidieron trabajar en ella, sigue [brisa/AGENTS.md](brisa/AGENTS.md); las reglas de las skills de arriba no le aplican. Las apps compiladas están en `brisa/apps/`. Los pull requests que toquen `brisa/` deben pasar `bash brisa/tools/verificar-todo.sh` (ver `.github/pull_request_template.md`).
