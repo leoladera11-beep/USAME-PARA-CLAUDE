@@ -1798,6 +1798,8 @@
 
     iput-object v1, v2, Lcom/brisa/local/l;->d:Ljava/lang/String;
 
+    invoke-static {v1, v10}, Lcom/brisa/local/TrackNames;->channel(Ljava/lang/String;Ljava/lang/Object;)V
+
     iget-wide v3, v0, LG2/h;->l:J
 
     iput-wide v3, v2, Lcom/brisa/local/l;->f:J

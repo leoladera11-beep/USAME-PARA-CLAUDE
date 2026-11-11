@@ -73,7 +73,7 @@
 
     move-result-object v4
 
-    invoke-static {v2, v4}, Lcom/brisa/local/a;->c(Landroid/content/Context;Lorg/json/JSONObject;)Lorg/json/JSONObject;
+    invoke-static {v2, v4}, Lcom/brisa/local/TrackNames;->entry(Landroid/content/Context;Lorg/json/JSONObject;)Lorg/json/JSONObject;
 
     move-result-object v4
 

@@ -42,7 +42,7 @@ fn refresh(store: &Store) -> Result<usize, String> {
     let found = drive_core::list(&Endpoints::default(), &mut |force| token(store, force))?;
     let base = now();
     let entries: Vec<Entry> = found.into_iter().enumerate().map(|(index, file)| Entry { id: format!("drive:{}", file.id), path: String::new(), name: file.name, size: file.size,
-        added: base.saturating_sub(index as u64), kind: file.kind.into(), storage: "drive-api".into(), drive_id: file.id }).collect();
+        added: base.saturating_sub(index as u64), kind: file.kind.into(), storage: "drive-api".into(), drive_id: file.id, title: String::new(), artist: String::new() }).collect();
     let count = entries.len();
     save(store, "drive-cache.json", &entries)?; *store.drive_cache.lock().unwrap() = entries; Ok(count)
 }

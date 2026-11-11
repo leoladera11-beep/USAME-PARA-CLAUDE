@@ -23,6 +23,7 @@ métodos largos no se descompilan; para esos hay que leer el smali.
 | `SoundCore`, `SoundSessions`, `Y` | Ecualizador único para música y vídeo (fuente en `android/src`) |
 | `Presentation`, `VideoChrome`, `VideoGestureEngine`, `VideoSystemControls`, `VideoBackgroundPolicy` | Carátulas, controles y política de vídeo (fuente en `android/src`) |
 | `DriveStream`, `StreamRelay`, `Idle`, `AudioExport`, `Tuning` | Novedades de la 4.0.0 (fuente en `android/src`) |
+| `TrackNames` | Nombre y artista de la música: los deduce al descargar (título del vídeo y canal), corrige el título de lo que solo está en Drive (`entry` sustituye a `a.c` en `r.assets`) y, cuando el usuario renombra la canción que suena, actualiza `PlaybackService.o` y vuelve a publicar el estado (`rename`, expuesto como `BrisaTuning.rename`). No escribe en ningún archivo |
 | `TokenSession`, `ManualAuth` | Inicio de sesión en Drive con token, de la 4.1.0. `ManualAuth.ensure` se llama al principio de `u.c` y deja el token vigente en `u.a` y `u.b` |
 
 ## Clases ofuscadas
@@ -75,7 +76,7 @@ tras preparar · `s()` detener y liberar · `p(ms)` buscar · `m()` posición ·
    firma**. Añade la sustitución a `tools/parches-4.0.0.py` con su motivo.
 3. `bash tools/build-android.sh && bash tools/verificar-apk.sh`.
 
-Los 15 enganches actuales y su motivo están en `tools/parches-4.0.0.py`.
+Los enganches actuales y su motivo están en `tools/parches-4.0.0.py` y `tools/parches-4.1.0.py` (descargas rápidas y nombres de la música).
 
 ## Puentes entre la interfaz y Android
 

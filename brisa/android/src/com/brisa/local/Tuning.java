@@ -48,6 +48,12 @@ public final class Tuning {
         AudioExport.setFormat(context, value);
     }
 
+    /** Nombre nuevo de la canción que suena: actualiza la notificación y la sesión multimedia al momento. */
+    @JavascriptInterface
+    public void rename(String json) {
+        TrackNames.rename(json);
+    }
+
     private static void reply(String requestId, Object result, Throwable error) {
         try {
             Class.forName("com.brisa.local.h").getMethod("d", String.class, Object.class, Throwable.class).invoke(null, requestId, result, error);

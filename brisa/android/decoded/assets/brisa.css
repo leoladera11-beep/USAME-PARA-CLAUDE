@@ -422,7 +422,7 @@ dialog summary{cursor:pointer;font-weight:600;color:var(--text);min-height:40px;
   .mini-art{width:42px;height:42px;border-radius:5px;background:#0000004d}
   .now-playing{gap:10px}
   .now-text strong{font-size:14px}
-  .now-playing #nowFav{display:none}
+  .now-playing #nowFav,.now-playing #nowEdit{display:none}
   .transport{display:contents}
   .transport-buttons{gap:0}
   .transport-buttons>:not(#playBtn):not(#nextBtn){display:none}
@@ -450,7 +450,7 @@ dialog summary{cursor:pointer;font-weight:600;color:var(--text);min-height:40px;
   body.player-expanded .player{inset:0;height:auto;border-radius:0;z-index:40;display:flex;flex-direction:column;gap:0;padding:max(12px,env(safe-area-inset-top,0px)) 24px calc(22px + var(--safe-b));background:#101010;background:linear-gradient(180deg,color-mix(in srgb,var(--track-accent) 62%,transparent) 0,rgba(8,8,8,.9) 74%),#000;overflow-y:auto}
   body.player-expanded .close-player{display:flex;align-items:center;gap:8px;align-self:flex-start;min-height:44px;margin-left:-8px;padding:0 8px;font-size:13px;font-weight:600;color:#ffffffd9}
   body.player-expanded .player-mode{display:block;text-align:center;font-size:11.5px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#ffffffb3;margin:2px 0 10px}
-  body.player-expanded .now-playing{display:grid;grid-template-columns:minmax(0,1fr) auto;align-content:center;align-items:center;gap:0;flex:1 1 auto}
+  body.player-expanded .now-playing{display:grid;grid-template-columns:minmax(0,1fr) auto auto;align-content:center;align-items:center;gap:0;flex:1 1 auto}
   body.player-expanded .mini-art{grid-column:1/-1;justify-self:center;width:min(100%,46dvh);height:auto;aspect-ratio:1;border-radius:10px;background:linear-gradient(145deg,color-mix(in srgb,var(--track-accent) 86%,#fff),color-mix(in srgb,var(--track-accent) 60%,#000));box-shadow:0 16px 50px #0007;margin:8px 0 26px}
   body.player-expanded .mini-art svg{width:34%;height:34%}
   body.player-expanded .equalizer{display:none}
@@ -460,14 +460,17 @@ dialog summary{cursor:pointer;font-weight:600;color:var(--text);min-height:40px;
   body.player-expanded .now-text span{font-size:15.5px;margin-top:2px}
   body.player-expanded .now-playing #nowFav{display:grid;width:48px;height:48px;margin-right:-10px}
   body.player-expanded #nowFav svg{width:26px;height:26px}
-  body.player-expanded .transport{display:flex;flex-direction:column-reverse;gap:10px;margin-top:18px}
-  body.player-expanded .progress-row{position:static;height:auto;display:grid;grid-template-columns:1fr 1fr;row-gap:2px}
+  body.player-expanded .now-playing #nowEdit{display:grid;width:48px;height:48px;color:#ffffffd9}
+  body.player-expanded #nowEdit svg{width:22px;height:22px}
+  /* Una sola rejilla de cinco columnas: barra de progreso, fila de tiempos con ±10 s y, debajo, los controles principales. */
+  body.player-expanded .transport{display:grid;grid-template-columns:repeat(5,1fr);grid-template-areas:"progress progress progress progress progress" "elapsed back . forward duration" "shuffle prev play next repeat";justify-items:center;align-items:center;row-gap:4px;margin-top:18px}
+  body.player-expanded .transport-buttons,body.player-expanded .progress-row{display:contents}
   body.player-expanded .progress-row span{display:block;font-size:12px}
-  body.player-expanded .progress-row #duration{text-align:right}
-  body.player-expanded .progress-row #progress{grid-column:1/-1;grid-row:1;height:22px;pointer-events:auto}
+  body.player-expanded .progress-row #elapsed{grid-area:elapsed;justify-self:start}
+  body.player-expanded .progress-row #duration{grid-area:duration;justify-self:end;text-align:right}
+  body.player-expanded .progress-row #progress{grid-area:progress;justify-self:stretch;height:22px;pointer-events:auto}
   body.player-expanded .progress-row #progress::-webkit-slider-runnable-track{height:4px;background:linear-gradient(90deg,#fff var(--played,0%),#ffffff40 var(--played,0%))}
   body.player-expanded .progress-row #progress::-webkit-slider-thumb{width:14px;height:14px;margin-top:-5px}
-  body.player-expanded .transport-buttons{display:grid;grid-template-columns:repeat(5,1fr);grid-template-areas:"shuffle prev play next repeat" ". back . forward .";justify-items:center;align-items:center;row-gap:6px}
   body.player-expanded .transport-buttons>*{display:grid!important}
   body.player-expanded #shuffleBtn{grid-area:shuffle}body.player-expanded #prevBtn{grid-area:prev}body.player-expanded #playBtn{grid-area:play}
   body.player-expanded #nextBtn{grid-area:next}body.player-expanded #repeatBtn{grid-area:repeat}body.player-expanded #backBtn{grid-area:back}body.player-expanded #forwardBtn{grid-area:forward}
@@ -475,6 +478,7 @@ dialog summary{cursor:pointer;font-weight:600;color:var(--text);min-height:40px;
   body.player-expanded .transport-buttons .icon-btn svg{width:28px;height:28px}
   body.player-expanded .transport-buttons .icon-btn.on{color:var(--accent)}
   body.player-expanded .skip svg{width:24px!important;height:24px!important}
+  body.player-expanded .transport-buttons .icon-btn.skip{width:48px;height:44px;color:#ffffffd9}
   body.player-expanded .main-play{width:66px;height:66px;background:#fff;color:#000}
   body.player-expanded .main-play svg{width:28px;height:28px}
   body.player-expanded .player-extras{display:flex;justify-content:space-between;margin-top:8px}
@@ -495,6 +499,9 @@ dialog summary{cursor:pointer;font-weight:600;color:var(--text);min-height:40px;
   .card,.card-art{width:120px;flex-basis:120px}.card-art{height:120px}
   body.player-expanded .player{padding-left:18px;padding-right:18px}
   body.player-expanded .transport-buttons .icon-btn{width:46px;height:46px}
+  /* A 360 px la fila de Velocidad, Sonido, Cola y Letra se salía 8 px y dejaba desplazar el reproductor de lado. */
+  body.player-expanded .player-extras .icon-btn{padding:0 7px;gap:5px}
+  body.player-expanded .player-extras select{padding-right:22px}
 }
 @media(min-width:901px) and (max-width:1180px){
   .app-shell{grid-template-columns:220px minmax(0,1fr)}

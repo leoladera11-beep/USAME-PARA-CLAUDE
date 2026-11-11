@@ -8,8 +8,8 @@ step() { printf '\n== %s\n' "$1"; }
 step "Interfaz generada desde common/";            python3 tools/build-web.py --comprobar
 step "Enganches smali";                            python3 tools/parches-4.1.0.py --comprobar
 step "Lógica nativa de Android (JVM)";             bash tools/probar-android.sh | grep -E "comprobaciones|passed|escenarios HTTP"
-step "Rust: salida de descargas, rutas y token de Drive"
-for name in download_output storage_paths drive_token; do
+step "Rust: salida de descargas, rutas, token de Drive y nombres"
+for name in download_output storage_paths drive_token track_names; do
   rustc --edition 2021 --test "windows/desktop/src/$name.rs" -o "/tmp/brisa-test-$name" 2>/dev/null
   "/tmp/brisa-test-$name" | grep "test result"
 done

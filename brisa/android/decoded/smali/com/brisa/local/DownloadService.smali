@@ -969,7 +969,7 @@
 
     invoke-virtual {v5, v7, p1}, Lorg/json/JSONObject;->put(Ljava/lang/String;Ljava/lang/Object;)Lorg/json/JSONObject;
 
-    invoke-static {p0, v5}, Lcom/brisa/local/a;->z(Landroid/content/Context;Lorg/json/JSONObject;)V
+    invoke-static {p0, v5}, Lcom/brisa/local/TrackNames;->save(Landroid/content/Context;Lorg/json/JSONObject;)V
 
     iput-object v1, p0, Lcom/brisa/local/DownloadService;->i:Landroid/net/Uri;
 
@@ -1074,7 +1074,7 @@
 
     invoke-virtual {p1, p3, p2}, Lorg/json/JSONObject;->put(Ljava/lang/String;Ljava/lang/Object;)Lorg/json/JSONObject;
 
-    invoke-static {p0, v5}, Lcom/brisa/local/a;->z(Landroid/content/Context;Lorg/json/JSONObject;)V
+    invoke-static {p0, v5}, Lcom/brisa/local/TrackNames;->save(Landroid/content/Context;Lorg/json/JSONObject;)V
 
     return-object v5
 

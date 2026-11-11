@@ -10,6 +10,7 @@ mod drive_token;
 mod drive_core;
 mod drive_api;
 mod storage_paths;
+mod track_names;
 use std::{sync::{Arc, Mutex, atomic::AtomicBool}, path::PathBuf, process::Child};
 use serde::{Serialize, Deserialize};
 use serde_json::{Value, json};
@@ -19,7 +20,10 @@ use tauri::Manager;
 #[serde(rename_all = "camelCase")]
 pub struct Entry { pub id: String, pub path: String, pub name: String, pub size: u64, pub added: u64, pub kind: String, #[serde(default)] pub storage: String,
     /// Identificador en Drive cuando el archivo se reproduce por internet con la sesión por token.
-    #[serde(default, skip_serializing_if = "String::is_empty")] pub drive_id: String }
+    #[serde(default, skip_serializing_if = "String::is_empty")] pub drive_id: String,
+    /// Título y artista conocidos al descargar. Vacíos en lo que el usuario importa: ahí mandan las etiquetas del archivo.
+    #[serde(default, skip_serializing_if = "String::is_empty")] pub title: String,
+    #[serde(default, skip_serializing_if = "String::is_empty")] pub artist: String }
 pub struct Shared {
     pub root: PathBuf,
     pub entries: Mutex<Vec<Entry>>,

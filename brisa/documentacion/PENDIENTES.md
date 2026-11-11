@@ -34,8 +34,10 @@ Dónde mirar según el síntoma:
 
 ## 3. Mejoras propuestas
 
-- **Editar nombre y artista de lo descargado y mover los botones de ±10 s arriba** (el usuario lo
-  pidió): prompt listo en `PROMPT-NOMBRES-Y-CONTROLES.md`, con la causa probable verificada en el código.
+- **Editar nombre y artista de lo descargado y botones de ±10 s arriba**: hecho (ver
+  `CAMBIOS-4.1.0.md`, «Nombre y artista de la música»). Falta probarlo en el teléfono y en Windows, y
+  decidir con el usuario si además se escriben las etiquetas dentro de los archivos que Brisa descarga
+  (hoy no se modifica ningún archivo).
 - **Descargas más rápidas y con menos datos** (prioridad alta para el usuario): hay un prompt listo
   para un agente en `PROMPT-DESCARGAS-RAPIDAS.md`, con lo verificado en el código, lo que hay que
   medir y cómo.

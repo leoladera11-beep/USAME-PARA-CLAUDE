@@ -26,11 +26,14 @@
     } }) }),
   };
   audio.attachTrack = track => { current = track; };
+  const announceMetadata = track => { if ('mediaSession' in navigator) navigator.mediaSession.metadata = new MediaMetadata({ title: track.title || track.name, artist: track.artist || '' }); };
+  // Nombre nuevo de la canción que suena: se refleja en los controles multimedia de Windows sin recargarla.
+  platform.updateTrack = track => { if (!current || current.id !== track.id) return; current = { ...current, title: track.title, artist: track.artist }; announceMetadata(current); };
   audio.setTrack = track => {
     if (current && current.id !== track.id) history.push(current);
     current = track; seen.add(track.key || track.queueKey || track.id);
     audio.src = track.path; audio.load();
-    if ('mediaSession' in navigator) navigator.mediaSession.metadata = new MediaMetadata({ title: track.title || track.name, artist: track.artist || '' });
+    announceMetadata(track);
   };
   function announce() { if (current) platform.onState?.({ id: current.id, prepared: true, playing: !audio.paused, position: audio.currentTime, duration: audio.duration }); }
   function next(automatic = false) {
