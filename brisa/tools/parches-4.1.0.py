@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Enganches de las descargas rápidas. También comprueba los parches de la versión anterior."""
+"""Enganches de las descargas rápidas y de los nombres de la música. También comprueba los parches de la versión anterior."""
 from pathlib import Path
 import runpy
 
@@ -81,6 +81,19 @@ PATCHES = [
      '    iput-boolean p3, p1, Lcom/brisa/local/DownloadService;->b:Z\n\n    iget-object p3, p1, Lcom/brisa/local/DownloadService;->c:La2/h;',
      '    iput-boolean p3, p1, Lcom/brisa/local/DownloadService;->b:Z\n\n    invoke-static {p1}, Lcom/brisa/local/AndroidDownloads;->cancel(Lcom/brisa/local/DownloadService;)V\n\n    iget-object p3, p1, Lcom/brisa/local/DownloadService;->c:La2/h;', 1,
      'La cancelación cierra las peticiones activas de todas las pistas.'),
+    # --- Nombre y artista de la música ---------------------------------------------------------------
+    (LOCAL + 'r.smali',
+     'invoke-static {v2, v4}, Lcom/brisa/local/a;->c(Landroid/content/Context;Lorg/json/JSONObject;)Lorg/json/JSONObject;',
+     'invoke-static {v2, v4}, Lcom/brisa/local/TrackNames;->entry(Landroid/content/Context;Lorg/json/JSONObject;)Lorg/json/JSONObject;', 1,
+     'La música que solo está en Drive se muestra sin extensión (también M4A) y con el título y artista guardados al descargar.'),
+    (LOCAL + 'DownloadService.smali',
+     'invoke-static {p0, v5}, Lcom/brisa/local/a;->z(Landroid/content/Context;Lorg/json/JSONObject;)V',
+     'invoke-static {p0, v5}, Lcom/brisa/local/TrackNames;->save(Landroid/content/Context;Lorg/json/JSONObject;)V', 2,
+     'Al registrar una descarga se guardan título y artista en el registro de Brisa; el archivo no se modifica.'),
+    (LOCAL + 'm.smali',
+     '    iput-object v1, v2, Lcom/brisa/local/l;->d:Ljava/lang/String;\n\n    iget-wide v3, v0, LG2/h;->l:J\n',
+     '    iput-object v1, v2, Lcom/brisa/local/l;->d:Ljava/lang/String;\n\n    invoke-static {v1, v10}, Lcom/brisa/local/TrackNames;->channel(Ljava/lang/String;Ljava/lang/Object;)V\n\n    iget-wide v3, v0, LG2/h;->l:J\n', 1,
+     'Se recuerda el canal del vídeo consultado para usarlo como artista cuando el título no lo trae.'),
 ]
 
 if __name__ == '__main__':

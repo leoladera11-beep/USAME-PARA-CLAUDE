@@ -9,6 +9,8 @@ use tauri::{Manager, Emitter};
 pub struct Plan {
     url: String,
     title: String,
+    /// (título, artista) para la biblioteca de música; ver track_names.rs.
+    names: (String, String),
     created: u64,
     choices: HashMap<String, String>,
     direct: bool,
@@ -96,7 +98,7 @@ pub async fn inspect(app: tauri::AppHandle, store: tauri::State<'_, Store>, url:
     {
         return Ok(result);
     }
-    let mut choices = HashMap::new(); let mut formats = Vec::new(); let title; let duration;
+    let mut choices = HashMap::new(); let mut formats = Vec::new(); let title; let duration; let names;
     let mut audio = None;
     let mut audio_size = 0;
     let mut versions = HashMap::new();
@@ -104,6 +106,7 @@ pub async fn inspect(app: tauri::AppHandle, store: tauri::State<'_, Store>, url:
         let query = url.clone();
         let size = tauri::async_runtime::spawn_blocking(move || tauri::async_runtime::block_on(direct_response(&query, true, None)).map(|r| download_resume::header(&r, "content-length").parse::<u64>().unwrap_or(0))).await.map_err(|_| "No se pudo consultar el archivo.".to_string())??;
         title = reqwest::Url::parse(&url).unwrap().path_segments().and_then(|mut s| s.next_back()).unwrap_or("Video").to_string(); duration = 0;
+        names = crate::track_names::names(Path::new(&title).file_stem().and_then(|s| s.to_str()).unwrap_or(&title), None, None, None);
         choices.insert("original".into(), String::new());
         formats.push(json!({"id":"original", "label":"Calidad original", "codec":"Formato del archivo", "size":size, "compatible":true}));
     } else {
@@ -118,6 +121,8 @@ pub async fn inspect(app: tauri::AppHandle, store: tauri::State<'_, Store>, url:
         let info: Value = serde_json::from_slice(&output.stdout).map_err(|_| "El motor devolvió una respuesta no válida.".to_string())?;
         if info["is_live"].as_bool() == Some(true) || info["live_status"] == "is_upcoming" { return Err("Por ahora se descargan vídeos terminados; los directos aún no están disponibles.".into()); }
         title = info["title"].as_str().unwrap_or("Video").to_string(); duration = info["duration"].as_f64().unwrap_or(0.0) as u64;
+        names = crate::track_names::names(&title, info["track"].as_str(), info["artist"].as_str().or_else(|| info["creator"].as_str()),
+            info["channel"].as_str().or_else(|| info["uploader"].as_str()));
         let source = info["formats"].as_array().ok_or("No hay formatos descargables.")?;
         let score = |f: &&Value| (f["language_preference"].as_f64().unwrap_or(0.0) * 10000.0 + f["abr"].as_f64().unwrap_or(0.0) * if f["acodec"].as_str().unwrap_or("").starts_with("opus") { 1.25 } else { 1.0 }) as i64;
         let format_id = |f: &Value| f["format_id"].as_str().filter(|id| valid_format_id(id)).map(str::to_string);
@@ -167,7 +172,7 @@ pub async fn inspect(app: tauri::AppHandle, store: tauri::State<'_, Store>, url:
     }
     let inspection = json!({"inspectionId":id, "title":title, "duration":duration, "formats":formats,
         "audioAvailable":audio.is_some(), "audioSize":audio_size});
-    plans.insert(id, Plan { url, title, created: now(), choices, direct, audio, versions, inspection: inspection.clone() });
+    plans.insert(id, Plan { url, title, names, created: now(), choices, direct, audio, versions, inspection: inspection.clone() });
     Ok(inspection)
 }
 
@@ -331,9 +336,12 @@ fn run(app: tauri::AppHandle, store: Store, plan: Plan, selector: String, mode: 
         if let Some(audio) = audio { files.push((audio,"audio")); }
         if store.cancelled.load(Ordering::SeqCst) { return Err("Descarga cancelada.".into()); }
         publish(&app, &store, "exporting", &plan.title, 0, 0, None);
-        let total = commit_files(files,&root,&format!("{} - {}",safe_name(&plan.title),&suffix[..8]),
+        // El archivo se llama como el vídeo, sin sufijos; solo si ya existe uno igual se le añade «(2)».
+        let extensions: Vec<String> = files.iter().filter_map(|(path, _)| path.extension().and_then(|s| s.to_str()).map(str::to_string)).collect();
+        let stem = crate::track_names::free_stem(&root, &safe_name(&plan.title), &extensions);
+        let total = commit_files(files,&root,&stem,
             ||store.cancelled.load(Ordering::SeqCst),
-            |files|media::register_batch(&app,&store,files).map(|entries|entries.iter().map(|e|e.size).sum::<u64>()))?;
+            |files|media::register_batch(&app,&store,files,Some((&plan.names.0,&plan.names.1))).map(|entries|entries.iter().map(|e|e.size).sum::<u64>()))?;
         let value=json!({"status":"completed","title":plan.title,"output":mode.as_str(),"storage":destination,"fileCount":if mode==Output::Both {2} else {1},"downloadedBytes":total,"totalBytes":total});
         *store.state.lock().unwrap()=value.clone();let _=app.emit("brisa-download",value);
         Ok(total)

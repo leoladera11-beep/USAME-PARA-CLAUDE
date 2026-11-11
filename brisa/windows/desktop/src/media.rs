@@ -9,9 +9,10 @@ fn valid(path: &Path, kind: &str) -> bool {
     else { ["mp3", "m4a", "aac", "wav", "wave", "ogg", "oga", "opus", "flac", "amr", "aif", "aiff"].contains(&ext.as_str()) }
 }
 pub fn register(app: &tauri::AppHandle, store: &Store, path: PathBuf, kind: &str) -> Result<Entry, String> {
-    register_batch(app, store, &[(path, kind)]).map(|mut entries| entries.remove(0))
+    register_batch(app, store, &[(path, kind)], None).map(|mut entries| entries.remove(0))
 }
-pub fn register_batch(app: &tauri::AppHandle, store: &Store, files: &[(PathBuf, &str)]) -> Result<Vec<Entry>, String> {
+/// `names` es (título, artista) de una descarga: se guarda con la música para que la interfaz no dependa del nombre del archivo.
+pub fn register_batch(app: &tauri::AppHandle, store: &Store, files: &[(PathBuf, &str)], names: Option<(&str, &str)>) -> Result<Vec<Entry>, String> {
     let mut batch = Vec::new();
     for (path, kind) in files {
     let path = path.canonicalize().map_err(|_| "El archivo no está disponible.".to_string())?;
@@ -19,7 +20,8 @@ pub fn register_batch(app: &tauri::AppHandle, store: &Store, files: &[(PathBuf, 
     let meta = path.metadata().map_err(|_| "No se pudo leer el archivo.".to_string())?;
     if !meta.is_file() || meta.len() == 0 { return Err("El archivo está vacío o no es un archivo.".into()); }
     let text = path.to_string_lossy().to_string();
-    let entry = Entry { id: format!("{:x}", Sha256::digest(text.as_bytes())), name: path.file_name().unwrap().to_string_lossy().to_string(), path: text, size: meta.len(), added: now(), kind: (*kind).into(), storage: if crate::drive_storage::is_drive(store,&path) {"drive".into()}else{"local".into()}, drive_id: String::new() };
+    let entry = Entry { id: format!("{:x}", Sha256::digest(text.as_bytes())), name: path.file_name().unwrap().to_string_lossy().to_string(), path: text, size: meta.len(), added: now(), kind: (*kind).into(), storage: if crate::drive_storage::is_drive(store,&path) {"drive".into()}else{"local".into()}, drive_id: String::new(),
+        title: names.filter(|_| *kind == "audio").map(|n| n.0.to_string()).unwrap_or_default(), artist: names.filter(|_| *kind == "audio").map(|n| n.1.to_string()).unwrap_or_default() };
     app.asset_protocol_scope().allow_file(&path).map_err(|_| "No se obtuvo permiso para reproducir el archivo.".to_string())?;
     batch.push(entry);
     }

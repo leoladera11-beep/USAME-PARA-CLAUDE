@@ -113,3 +113,56 @@ Si algo falla, la 3.0.2 sigue instalada y funcionando. Dime qué paso falló y q
 Quedan por medir las descargas de YouTube real y el rendimiento con Wi-Fi, datos
 móviles o cambios de red. No se ejecutaron las APK en el A30 o el F8 Pro, ni el
 ejecutable en Windows. La medición local tampoco mide consumo de batería.
+
+## Validación de nombre y artista y de los botones de ±10 s
+
+**Comprobado**
+- La prueba que reproduce el fallo (`windows/tests/android/nombres.spec.js`, «editar título y artista
+  desde Letra y datos…») falló antes del arreglo: tras sincronizar, «Editada con letra» volvía a ser
+  «Vídeo oficial». Ahora pasa.
+- `tools/verificar-todo.sh` termina en «Todo correcto.» con la APK recién compilada. Pruebas nuevas:
+  7 de interfaz de Android (edición que sobrevive a la sincronización y a reabrir la app, M4A sin
+  extensión, título que no se vacía, aviso a la notificación sin recargar la canción, diálogo sin
+  letra, ±10 s sobre la fila principal a 360×780 y 412×915 con 44 px mínimos y sin desplazamiento
+  horizontal); 3 de interfaz de Windows (título y artista de la descarga, sesión multimedia del PC,
+  ±10 s en la fila de transporte y flechas activas); 6 de JavaScript (`mergeSynced`, sufijo de
+  descargas antiguas, M4A); 5 de Rust (`track_names.rs`: campos de yt-dlp, «Artista - Título», canal,
+  adornos y nombre de archivo sin sufijo) y 24 comprobaciones en JVM (`TrackNamesTest`).
+- Capturas reales antes y después del reproductor ampliado a 360×780 y 412×915, del menú ⋯, del
+  diálogo y de la barra del PC a 1280×820: nada cortado.
+- Las dos APK se construyen sin firmar y `verificar-apk.sh` no da avisos nuevos con los tres
+  enganches añadidos (`r.assets`, `DownloadService.g` y `m.b`). La app de Windows pasa `cargo check`
+  para `x86_64-pc-windows-gnullvm`; no se generó el `.exe` ni se actualizó `apps/`.
+
+**No comprobado**
+1. **Teléfono real.** No se ha visto la notificación ni la pantalla de bloqueo cambiar de nombre al
+   editar. `TrackNames.rename` modifica el registro del servicio por reflexión y vuelve a publicar el
+   estado; está revisado contra el código descompilado, no ejecutado.
+2. **Canal como artista en Android.** El canal se lee del extractor por reflexión
+   (`videoDetails.author`). Si la forma del extractor no es la esperada, el artista queda vacío y nada
+   más falla, pero no se ha visto funcionar con YouTube real.
+3. **Descarga real.** No se descargó nada de YouTube: los campos `track`, `artist` y `channel` de
+   yt-dlp se usan según su documentación y con datos simulados.
+4. **Windows.** No se ejecutó el programa: el nombre del archivo sin sufijo, «Nombre (2)» y el título
+   en los controles multimedia de Windows están probados en Rust puro y en Chromium, no en Windows 11.
+5. **Bibliotecas ya existentes.** La reparación de nombres antiguos («Título - a1b2c3d4», «Nombre.m4a»,
+   títulos vacíos) está probada con datos construidos a mano, no con la biblioteca real del usuario.
+   Lo editado antes de esta versión en el teléfono ya se había perdido y no se puede recuperar.
+6. **Teclado del teléfono** sobre el diálogo: probado en Chromium con pantalla táctil simulada, no con
+   el teclado real de Android.
+
+**Decisión pendiente del usuario.** Brisa sigue sin modificar ningún archivo. Escribir título y
+artista dentro del archivo (etiquetas) no se ha implementado: queda como opción, solo para archivos
+que Brisa descargó, si el usuario la quiere.
+
+## Apps publicadas en `apps/` (11 de noviembre de 2026)
+
+- Las dos APK se recompilaron con todos los cambios y se firmaron con la clave del propietario
+  (SHA-1 `7F:41:41:DE:F5:C6:A5:C7:98:28:9A:57:F4:55:05:53:DA:EC:C1:65`, esquemas v2 y v3). Paquete
+  `com.brisa.player`, código de versión 40100, API mínima 26 y los mismos permisos que la versión
+  anterior. `verificar-apk.sh` sobre la APK firmada: sin avisos nuevos.
+- La app de Windows se recompiló en modo release para x86_64 y el ZIP incluye el motor yt-dlp
+  2026.10.26 verificado por SHA-256, FFmpeg, FFprobe y QuickJS.
+- Las apps anteriores del repositorio se descargaban bien desde GitHub (HTTP 200 y SHA-256
+  correctos), pero eran la compilación previa a las descargas rápidas y a la edición de nombres.
+- Sigue sin probarse la instalación en el A30, el F8 Pro y Windows 11.

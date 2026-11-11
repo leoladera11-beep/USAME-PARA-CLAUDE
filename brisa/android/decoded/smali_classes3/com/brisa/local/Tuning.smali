@@ -28,7 +28,7 @@
 .method private static reply(Ljava/lang/String;Ljava/lang/Object;Ljava/lang/Throwable;)V
     .locals 5
 
-    .line 53
+    .line 59
     :try_start_0
     const-string v0, "com.brisa.local.h"
 
@@ -76,14 +76,14 @@
 
     goto :goto_0
 
-    .line 54
+    .line 60
     :catch_0
     move-exception p0
 
     :goto_0
     nop
 
-    .line 55
+    .line 61
     return-void
 .end method
 
@@ -94,12 +94,12 @@
     .annotation runtime Landroid/webkit/JavascriptInterface;
     .end annotation
 
-    .line 71
+    .line 77
     iget-object v0, p0, Lcom/brisa/local/Tuning;->context:Landroid/content/Context;
 
     invoke-static {v0}, Lcom/brisa/local/ManualAuth;->clear(Landroid/content/Context;)V
 
-    .line 72
+    .line 78
     return-void
 .end method
 
@@ -121,7 +121,7 @@
 .method synthetic lambda$manualToken$0$com-brisa-local-Tuning(Ljava/lang/String;Ljava/lang/String;)V
     .locals 3
 
-    .line 62
+    .line 68
     const/4 v0, 0x0
 
     :try_start_0
@@ -139,17 +139,17 @@
     :try_end_0
     .catch Ljava/lang/Exception; {:try_start_0 .. :try_end_0} :catch_0
 
-    .line 65
+    .line 71
     goto :goto_0
 
-    .line 63
+    .line 69
     :catch_0
     move-exception p2
 
-    .line 64
+    .line 70
     invoke-static {p1, v0, p2}, Lcom/brisa/local/Tuning;->reply(Ljava/lang/String;Ljava/lang/Object;Ljava/lang/Throwable;)V
 
-    .line 66
+    .line 72
     :goto_0
     return-void
 .end method
@@ -159,7 +159,7 @@
     .annotation runtime Landroid/webkit/JavascriptInterface;
     .end annotation
 
-    .line 60
+    .line 66
     new-instance v0, Ljava/lang/Thread;
 
     new-instance v1, Lcom/brisa/local/Tuning$$ExternalSyntheticLambda0;
@@ -170,10 +170,22 @@
 
     invoke-direct {v0, v1, p1}, Ljava/lang/Thread;-><init>(Ljava/lang/Runnable;Ljava/lang/String;)V
 
-    .line 66
+    .line 72
     invoke-virtual {v0}, Ljava/lang/Thread;->start()V
 
-    .line 67
+    .line 73
+    return-void
+.end method
+
+.method public rename(Ljava/lang/String;)V
+    .locals 0
+    .annotation runtime Landroid/webkit/JavascriptInterface;
+    .end annotation
+
+    .line 54
+    invoke-static {p1}, Lcom/brisa/local/TrackNames;->rename(Ljava/lang/String;)V
+
+    .line 55
     return-void
 .end method
 

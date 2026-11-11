@@ -106,3 +106,35 @@ conexiones. Ocho fragmentos de yt-dlp tomaron 1,72 s sin cortes y 1,69 s con cor
 el manifiesto de ocho fragmentos. Se eligieron cuatro para acotar las conexiones de descarga.
 El caso de recuperación de 6 MiB compara el mismo corte con reinicio manual y reanudación.
 La prueba local mide un límite por conexión, cuya presencia y efecto en YouTube siguen pendientes.
+
+## Nombre y artista de la música, y botones de ±10 s
+
+- **El fallo.** Al editar título y artista, el cambio se guardaba y la siguiente sincronización
+  (al abrir, tras cada descarga y con cada operación de Drive) lo sustituía por lo que entregaba
+  Android. Reproducido con una prueba antes de corregirlo. Además, cuando el archivo no traía
+  etiquetas, esa misma sincronización podía dejar el título vacío.
+- **El arreglo.** Lo que escribe el usuario se marca con `edited` y la sincronización no lo toca
+  nunca. Tamaño, ruta y estado sin conexión se siguen actualizando. Si el usuario no editó nada y
+  llega un nombre mejor, se aplica; un título vacío nunca sustituye al que había. La regla está en
+  `mergeSynced` (`common/music.js`).
+- **Editar es fácil de encontrar.** «Editar nombre y artista» en el menú ⋯ de cada canción y un
+  lápiz junto al corazón en el reproductor (ampliado en el teléfono, barra en el PC). El diálogo solo
+  pide Título y Artista. Brisa no modifica el archivo: el cambio vive en su biblioteca.
+- **Al momento.** Si es la canción que suena, Android actualiza notificación y sesión multimedia
+  (`BrisaTuning.rename` → `TrackNames.rename`) y el PC su sesión multimedia, sin recargar ni cortar la
+  música.
+- **Nombres desde la descarga.** Windows ya no añade ocho caracteres aleatorios al archivo: se
+  llama como el vídeo y, solo si ya existe uno igual, «Nombre (2)». Título y artista se guardan con
+  la entrada de la biblioteca (`Entry.title` y `Entry.artist`). Se usan los campos `track` y `artist`
+  de yt-dlp; si no existen, «Artista - Título» del título del vídeo; si no, el canal. Android hace lo
+  mismo con el título del vídeo y el canal que entrega el extractor. Se quitan adornos como
+  «(Official Video)» o «[HD]» solo cuando el paréntesis contiene exactamente uno de una lista cerrada;
+  «(Remix)», «(En vivo)» o «(feat. …)» se conservan. Las descargas antiguas de Windows se muestran sin
+  el sufijo si no se habían corregido a mano.
+- **M4A.** Una canción que solo está en Drive ya no muestra «Nombre.m4a» como título.
+- **±10 s arriba.** En el reproductor ampliado del teléfono, retroceder y adelantar 10 segundos están
+  ahora en la fila de los tiempos, justo debajo de la barra de progreso y encima de los controles
+  principales. Se eligió esa posición frente a una fila propia porque agrupa todo lo que mueve la
+  posición (barra, tiempos y saltos), no añade altura y deja la fila principal limpia. Miden 48×44 px.
+  El minirreproductor y la barra del PC no cambian. De paso se corrigió un desplazamiento horizontal
+  de 8 px que el reproductor ampliado tenía a 360 px de ancho.

@@ -5,7 +5,41 @@ const be=(b,p,n=4)=>b.subarray(p,p+n).reduce((v,x)=>v*256+x,0);
 const le=(b,p,n=4)=>{let v=0;for(let i=n-1;i>=0;i--)v=v*256+b[p+i];return v;};
 function text(b){if(!b.length)return '';let enc=b[0],data=b.subarray(1);let label=enc===0?'latin1':enc===2?'utf-16be':enc===1?'utf-16':'utf-8';try{return new TextDecoder(label).decode(data).replace(/\0/g,'').trim();}catch{return '';}}
 function lyricsFrame(b){if(b.length<5)return '';const enc=b[0];let p=4;if(enc===1||enc===2){while(p+1<b.length&&!(b[p]===0&&b[p+1]===0))p+=2;p+=2;}else{while(p<b.length&&b[p]!==0)p++;p++;}return text(Uint8Array.from([enc,...b.subarray(p)]));}
-export function filenameInfo(name){let base=name.replace(/\.[^.]+$/,'').replace(/_/g,' ').replace(/\s+/g,' ').trim();const parts=base.split(/\s[-–—]\s/);return parts.length>=2?{artist:parts.shift().trim(),title:parts.join(' - ').trim()}:{title:base,artist:''};}
+function splitName(base){const parts=base.split(/\s[-–—]\s/);return parts.length>=2?{artist:parts.shift().trim(),title:parts.join(' - ').trim()}:{title:base,artist:''};}
+const baseName=name=>String(name||'').replace(/\.[^.]+$/,'').replace(/_/g,' ').replace(/\s+/g,' ').trim();
+// Brisa para Windows guardaba las descargas como «Título - a1b2c3d4»: ese sufijo aleatorio no es parte del nombre.
+// Se exige alguna letra entre los ocho caracteres para no confundirlo con una fecha o un número.
+const downloadSuffix=/\s[-–—]\s(?=[0-9a-f]*[a-f])[0-9a-f]{8}$/;
+export function filenameInfo(name){const base=baseName(name);return splitName(base.replace(downloadSuffix,'').trim()||base);}
+const audioFile=/\.(mp3|m4a|aac|wav|wave|ogg|oga|opus|flac|webm|mp4|amr|aiff?)$/i;
+/** Nombre que Brisa pone por su cuenta: lo que manda la plataforma, las etiquetas del archivo o, si no, su nombre. */
+export function autoNames(entry,meta={}){
+ const file=filenameInfo(entry.name||'');
+ // Un «título» que en realidad es el nombre del archivo con su extensión se trata como tal.
+ if(entry.title&&audioFile.test(entry.title)){const named=filenameInfo(entry.title);return {title:named.title,artist:entry.artist||named.artist};}
+ if(entry.title)return {title:entry.title,artist:entry.artist||meta.artist||file.artist||''};
+ return {title:meta.title||file.title,artist:entry.artist||meta.artist||file.artist||''};
+}
+/**
+ * Actualiza una pista conocida con lo que entrega la sincronización (Android, Drive o Windows).
+ * Tamaño, ruta y estado sin conexión se actualizan siempre. Título y artista, nunca si el usuario
+ * los editó; si siguen siendo los que Brisa puso sola, se mejoran cuando llega un nombre mejor, y
+ * un título vacío nunca sustituye al que había.
+ */
+export function mergeSynced(previous,entry){
+ const {id,added,title,artist,...changes}=entry;Object.assign(previous,changes);
+ if(previous.edited)return previous;
+ const name=previous.name||entry.name||'',old=splitName(baseName(name)),source=previous.source;
+ const same=(a,b)=>(a.title||'')===(b.title||'')&&(a.artist||'')===(b.artist||'');
+ const broken=!previous.title||audioFile.test(previous.title)||(!source&&downloadSuffix.test(baseName(name))&&same(previous,old));
+ const untouched=broken||(source?same(previous,source):same(previous,old));
+ if(!untouched)return previous;
+ if(title&&!audioFile.test(title)){previous.title=title;previous.artist=artist||(broken?filenameInfo(name).artist:previous.artist)||'';}
+ else if(broken){const named=autoNames({name,title,artist});previous.title=named.title;previous.artist=named.artist;}
+ else if(artist)previous.artist=artist;
+ previous.source={title:previous.title,artist:previous.artist||''};
+ return previous;
+}
 export function parseLRC(raw){let lines=[],offset=0;const off=raw.match(/\[offset:([+-]?\d+)\]/i);if(off)offset=Number(off[1])/1000;for(const line of raw.split(/\r?\n/)){const tags=[...line.matchAll(/\[(\d+):(\d{2})(?:[.:](\d{1,3}))?\]/g)];const t=line.replace(/\[[^\]]*\]/g,'').trim();for(const m of tags){const seconds=Number(m[1])*60+Number(m[2])+Number('0.'+(m[3]||'0'));lines.push({time:Math.max(0,seconds+offset),text:t||'♪'});}}return lines.sort((a,b)=>a.time-b.time);}
 export function formatTime(s){if(!Number.isFinite(s)||s<0)return '0:00';return Math.floor(s/60)+':'+String(Math.floor(s%60)).padStart(2,'0');}
 export function qualityLabel(t){const fmt=(t.format||'audio').toUpperCase();if(t.lossless)return `${fmt} · sin pérdida${t.sampleRate?' · '+(t.sampleRate/1000).toFixed(t.sampleRate%1000?1:0)+' kHz':''}${t.bits?' / '+t.bits+' bit':''}`;return fmt+(t.bitrate?' · ~'+t.bitrate+' kbps':' · original');}
