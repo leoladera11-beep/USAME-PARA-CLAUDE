@@ -34,6 +34,8 @@ Dónde mirar según el síntoma:
 
 ## 3. Mejoras propuestas
 
+- **Editar nombre y artista de lo descargado y mover los botones de ±10 s arriba** (el usuario lo
+  pidió): prompt listo en `PROMPT-NOMBRES-Y-CONTROLES.md`, con la causa probable verificada en el código.
 - **Descargas más rápidas y con menos datos** (prioridad alta para el usuario): hay un prompt listo
   para un agente en `PROMPT-DESCARGAS-RAPIDAS.md`, con lo verificado en el código, lo que hay que
   medir y cómo.
