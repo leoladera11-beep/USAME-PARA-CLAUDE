@@ -34,6 +34,9 @@ Dónde mirar según el síntoma:
 
 ## 3. Mejoras propuestas
 
+- **Descargas más rápidas y con menos datos** (prioridad alta para el usuario): hay un prompt listo
+  para un agente en `PROMPT-DESCARGAS-RAPIDAS.md`, con lo verificado en el código, lo que hay que
+  medir y cómo.
 - Carátulas reales: leer la imagen incrustada en los archivos y usarla en tarjetas, reproductor y
   notificación. Hoy son degradados con el color de la canción.
 - Listas de reproducción propias, además de favoritas y cola.

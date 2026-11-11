@@ -49,7 +49,7 @@ genera las APK (sin firmar si no está `clave/`) y `tools/build-windows.sh` gene
 
 Lecturas obligadas según la tarea:
 - Tocar Android nativo: `documentacion/MAPA-ANDROID.md` (qué es cada clase ofuscada).
-- Decidir qué hacer a continuación: `documentacion/PENDIENTES.md`.
+- Decidir qué hacer a continuación: `documentacion/PENDIENTES.md`. Para mejorar las descargas: `documentacion/PROMPT-DESCARGAS-RAPIDAS.md`.
 - Saber qué está probado: `documentacion/VALIDACION-4.1.0.md`.
 - Explicar a una persona cómo usar la app o por qué falla algo: `documentacion/GUIA-DE-USO.md`.
 
@@ -84,7 +84,8 @@ Lecturas obligadas según la tarea:
    dos puentes (ya va incluido en `verificar-todo.sh`).
 5. Para cambios visuales: `node tools/capturas.cjs android/decoded/assets /tmp/c/brisa android` y
    mira las imágenes en los tres tamaños.
-6. Para publicar una versión: sube el número en `tools/build-android.sh`, `tools/empaquetar.sh`,
+6. Para publicar una versión (la entrega para el usuario, de menos de 50 MB, la arma
+   `bash tools/empaquetar-ligero.sh` a partir de `apps/`): sube el número en `tools/build-android.sh`, `tools/empaquetar.sh`,
    `android/decoded/apktool.yml` (`versionCode`), `windows/desktop/Cargo.toml`, `Cargo.lock`,
    `tauri.conf.json`, `windows/package.json` y la plantilla HTML; compila Android y Windows;
    ejecuta `bash tools/empaquetar.sh`; escribe `documentacion/CAMBIOS-X.Y.Z.md` y

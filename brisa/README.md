@@ -10,6 +10,7 @@ un enlace y Google Drive como almacenamiento. Parte de Brisa Local 3.0.2.
 - Qué está probado y qué no: [documentacion/VALIDACION-4.1.0.md](documentacion/VALIDACION-4.1.0.md)
 - Para agentes de IA que continúen el desarrollo: [AGENTS.md](AGENTS.md), [documentacion/MAPA-ANDROID.md](documentacion/MAPA-ANDROID.md) y [documentacion/PENDIENTES.md](documentacion/PENDIENTES.md)
 - Apps compiladas de esta versión: [`apps/`](apps/)
+- Entrega ligera (menos de 50 MB): `bash tools/empaquetar-ligero.sh`
 - Documentación de la versión anterior: `historial-3.0.2/`
 
 ## Organización
