@@ -6,7 +6,7 @@ export const activeStates = new Set(['starting', 'downloading', 'merging', 'expo
 
 export function formatBytes(value) {
   if (!(value > 0)) return 'Tamaño por determinar';
-  return value >= 1073741824 ? (value / 1073741824).toFixed(2) + ' GB' : (value / 1048576).toFixed(1) + ' MB';
+  return value >= 1_000_000_000 ? (value / 1_000_000_000).toFixed(2) + ' GB' : (value / 1_000_000).toFixed(1) + ' MB';
 }
 
 /** Texto y tamaño estimado de la música según el formato elegido. Función pura. */
@@ -23,12 +23,40 @@ export function audioChoice(format, duration = 0) {
   };
 }
 
+const heightOf = format => format.height || Number(/^(\d+)p/.exec(format.label)?.[1]) || 0;
+
+export function orderQualities(formats) {
+  const compatible = formats.filter(format => format.compatible !== false && heightOf(format) > 0);
+  const candidates = compatible.length ? compatible : formats.filter(format => heightOf(format) > 0);
+  const reasonable = candidates.filter(format => heightOf(format) <= 720);
+  const tie = (a, b) => (a.fps || 30) - (b.fps || 30) || (a.size || Infinity) - (b.size || Infinity);
+  const preferred = (reasonable.length ? reasonable.sort((a, b) => heightOf(b) - heightOf(a) || tie(a, b))
+    : candidates.sort((a, b) => heightOf(a) - heightOf(b) || tie(a, b)))[0]
+    || formats.find(format => format.recommended) || formats[0];
+  return preferred ? [preferred, ...formats.filter(format => format !== preferred)] : [];
+}
+
+export function estimateTransfer(info, format, output) {
+  if (output === 'mp3') return info.audioSize > 0 ? info.audioSize : audioChoice('original', info.duration).size;
+  if (format.size > 0) return format.size;
+  const height = heightOf(format);
+  if (!height || !(info.duration > 0)) return 0;
+  const kbps = height <= 360 ? 650 : height <= 480 ? 1100 : height <= 720 ? 2400 : height <= 1080 ? 4500 : height <= 1440 ? 9000 : 16000;
+  const video = kbps * (format.fps >= 50 ? 1.5 : 1);
+  return info.duration * (video * 125) + estimateTransfer(info, format, 'mp3');
+}
+
+export function shouldWarnMobile(network, size) {
+  return network === 'mobile' && size > 100_000_000;
+}
+
 const PREFS = 'brisa-download-prefs';
 
 export function setupDownloads({ parseVideoLink, refresh, notify, drive = null }) {
   const el = id => document.getElementById(id);
   const api = downloadsAPI();
   let revision = 0, timer, inspection, state = { status: 'idle' }, inspecting = false;
+  let inFlight = null, mobileChoice = null;
   const message = text => { el('videoLinkMessage').textContent = text; };
   const audioFormat = () => el('audioFormat')?.value === 'mp3' ? 'mp3' : 'original';
   const optionIds = ['downloadOutput', 'audioFormat', 'downloadDestination', 'downloadSubtitles', 'mp3Bitrate', 'configurePcDrive', 'choosePcDrive'];
@@ -44,6 +72,11 @@ export function setupDownloads({ parseVideoLink, refresh, notify, drive = null }
   const remember = () => {
     try { localStorage.setItem(PREFS, JSON.stringify({ output: el('downloadOutput').value, audioFormat: audioFormat(), destination: el('downloadDestination').value })); } catch { }
   };
+
+  function closeMobilePrompt() {
+    mobileChoice = null;
+    el('downloadMobilePrompt').hidden = true;
+  }
 
   function buttons() {
     const busy = activeStates.has(state.status);
@@ -96,18 +129,29 @@ export function setupDownloads({ parseVideoLink, refresh, notify, drive = null }
     }
   }
 
-  async function start(format) {
+  async function start(format, mobileConfirmed = false) {
     if (!inspection || activeStates.has(state.status)) return;
-    await update({ status: 'starting', title: inspection.title });
+    const info = inspection;
+    const output = el('downloadOutput').value;
+    const size = estimateTransfer(info, format, output);
+    if (!mobileConfirmed && shouldWarnMobile(window.BrisaTuning?.downloadNetwork?.(), size)) {
+      mobileChoice = format;
+      el('downloadMobileText').textContent = `Esta descarga usará aproximadamente ${formatBytes(size)} con datos móviles.`;
+      el('downloadMobilePrompt').hidden = false;
+      el('downloadWaitWifi').focus();
+      return;
+    }
+    closeMobilePrompt();
+    await update({ status: 'starting', title: info.title });
     try {
       const chosen = el('downloadDestination').value;
-      const options = { output: el('downloadOutput').value, destination: chosen === 'drive-only' ? 'drive' : chosen, bitrate: 320, audioFormat: audioFormat() };
+      const options = { output, destination: chosen === 'drive-only' ? 'drive' : chosen, bitrate: 320, audioFormat: audioFormat() };
       if (el('downloadSubtitles')) options.subtitles = el('downloadSubtitles').value;
       if (drive && options.destination !== 'local' && !(await drive.status())?.connected) throw new Error('Conecta tu cuenta desde Google Drive antes de descargar.');
       try { window.BrisaTuning?.setAudioFormat?.(options.audioFormat); } catch { }
       if (drive?.beginDriveOnly) drive.beginDriveOnly(chosen === 'drive-only');
       remember();
-      await api.start(inspection.inspectionId, format.id, options);
+      await api.start(info.inspectionId, format.id, options);
     } catch (error) { await update({ status: 'error', error: error.message }); }
   }
 
@@ -118,14 +162,21 @@ export function setupDownloads({ parseVideoLink, refresh, notify, drive = null }
     el('videoSourceInfo').textContent = info.duration > 0 ? `${Math.floor(info.duration / 60)}:${String(Math.floor(info.duration % 60)).padStart(2, '0')} · ${quality}` : quality;
     const list = el('videoFormats');
     list.replaceChildren();
-    for (const format of output === 'mp3' ? [{ id: 'audio', label: audio.button, codec: audio.detail, size: audio.size, compatible: true }] : info.formats) {
+    const formats = output === 'mp3'
+      ? (info.audioAvailable === false ? [] : [{ id: 'audio', label: audio.button, codec: audio.detail, compatible: true }])
+      : orderQualities(info.formats || []);
+    if (!formats.length) {
+      list.textContent = output === 'mp3' ? 'Este enlace no ofrece una pista de audio independiente.' : 'Este enlace solo ofrece audio.';
+    }
+    for (const [index, format] of formats.entries()) {
       const button = document.createElement('button');
       button.type = 'button'; button.className = 'video-format';
       const name = document.createElement('strong'); name.textContent = output === 'both' ? `${format.label} · MP4 + ${audioFormat() === 'mp3' ? 'MP3' : 'música'}` : format.label;
       const detail = document.createElement('span');
-      detail.textContent = [format.codec, format.fps > 0 ? `${format.fps} fps` : '', formatBytes(format.size)].filter(Boolean).join(' · ');
+      const size = estimateTransfer(info, format, output);
+      detail.textContent = [format.codec, format.fps > 0 ? `${format.fps} fps` : '', size > 0 ? `≈ ${formatBytes(size)} de descarga` : formatBytes(size)].filter(Boolean).join(' · ');
       const compatibility = document.createElement('small');
-      compatibility.textContent = output === 'mp3' ? 'La mejor pista de audio disponible' : format.compatible === false ? 'Puede no reproducirse en este equipo' : format.recommended ? 'Recomendada para este equipo' : 'Con el mejor audio disponible';
+      compatibility.textContent = output === 'mp3' ? 'La mejor pista de audio disponible' : format.compatible === false ? 'Puede no reproducirse en este equipo' : index === 0 ? 'Calidad recomendada' : 'Con el mejor audio disponible';
       button.append(name, detail, compatibility);
       button.addEventListener('click', () => start(format));
       list.append(button);
@@ -137,7 +188,7 @@ export function setupDownloads({ parseVideoLink, refresh, notify, drive = null }
   async function inspect(explicit = false) {
     const parsed = parseVideoLink(el('videoLink').value);
     const token = ++revision;
-    inspection = null; el('videoLinkResult').hidden = true;
+    closeMobilePrompt(); inspection = null; el('videoLinkResult').hidden = true;
     if (!parsed) {
       if (explicit) message('Pega un enlace HTTPS de YouTube o un archivo directo, como .mp4 o .webm.');
       return;
@@ -145,7 +196,20 @@ export function setupDownloads({ parseVideoLink, refresh, notify, drive = null }
     if (!api) { message('Abre la app de Brisa para descargar.'); return; }
     inspecting = true; buttons(); message('Consultando el vídeo y sus calidades…');
     try {
-      const info = await api.inspect(parsed.url);
+      // Una sola consulta nativa en curso. Si cambia el enlace, se espera a que termine
+      // y solo se consulta el último texto que el usuario dejó en el campo.
+      while (inFlight && inFlight.url !== parsed.url) {
+        await inFlight.result.catch(() => {});
+        if (token !== revision) return;
+      }
+      if (!inFlight) {
+        const request = { url: parsed.url };
+        request.result = Promise.resolve().then(() => api.inspect(request.url)).finally(() => {
+          if (inFlight === request) inFlight = null;
+        });
+        inFlight = request;
+      }
+      const info = await inFlight.result;
       if (token !== revision) return;
       if (!info.formats?.length && !info.audioAvailable) throw new Error('No hay formatos disponibles para este vídeo.');
       inspection = info; render(info); message('Elige una calidad para empezar la descarga.');
@@ -154,6 +218,7 @@ export function setupDownloads({ parseVideoLink, refresh, notify, drive = null }
   }
 
   function optionsChanged() {
+    closeMobilePrompt();
     const output = el('downloadOutput').value, destination = el('downloadDestination').value;
     if (el('mp3BitrateField')) el('mp3BitrateField').hidden = true;
     if (el('audioFormatField')) el('audioFormatField').hidden = output === 'mp4';
@@ -171,12 +236,19 @@ export function setupDownloads({ parseVideoLink, refresh, notify, drive = null }
   for (const id of ['downloadOutput', 'downloadDestination', 'audioFormat', 'mp3Bitrate']) el(id)?.addEventListener('change', optionsChanged);
   optionsChanged();
 
-  el('videoLink').addEventListener('input', () => {
-    clearTimeout(timer); revision++; inspecting = false; inspection = null;
+  el('videoLink').addEventListener('input', event => {
+    clearTimeout(timer); revision++; inspecting = false; inspection = null; closeMobilePrompt();
     el('videoLinkResult').hidden = true; message(''); buttons();
-    if (parseVideoLink(el('videoLink').value)) timer = setTimeout(() => inspect(), 700);
+    if (!parseVideoLink(el('videoLink').value)) return;
+    if (event.inputType === 'insertFromPaste') inspect();
+    else timer = setTimeout(() => { if (!document.hidden) inspect(); }, 180);
   });
   el('videoLinkForm').onsubmit = event => { event.preventDefault(); clearTimeout(timer); inspect(true); };
+  el('downloadWaitWifi').onclick = () => {
+    closeMobilePrompt();
+    message('Cuando tengas Wi-Fi, elige la calidad para iniciar la descarga.');
+  };
+  el('downloadUseMobile').onclick = () => { if (mobileChoice) start(mobileChoice, true); };
   el('cancelDownload').onclick = async () => {
     el('cancelDownload').disabled = true;
     try { await api.cancel(); } catch (error) { notify(error.message); el('cancelDownload').disabled = false; }

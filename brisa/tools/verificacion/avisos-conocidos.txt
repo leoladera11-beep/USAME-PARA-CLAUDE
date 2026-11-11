@@ -7,3 +7,4 @@ com.brisa.local.t -> VerifyError: (class: com/brisa/local/t, method: <init> sign
 com.brisa.local.u -> VerifyError: (class: com/brisa/local/u, method: z signature: (II)LP1/c;) Wrong return type in function
 com.brisa.local.v -> VerifyError: (class: com/brisa/local/v, method: k signature: (Ljava/lang/RuntimeException;)Lz1/w;) Incompatible object argument for function call
 com.brisa.local.x -> VerifyError: (class: com/brisa/local/x, method: <init> signature: (Ljava/io/File;LL0/e;I)V) Bad type in putfield/putstatic
+com.brisa.local.VideoPlaybackService -> VerifyError: (class: com/brisa/local/VideoPlaybackService, method: onStartCommand signature: (Landroid/content/Intent;II)I) Incompatible argument to function

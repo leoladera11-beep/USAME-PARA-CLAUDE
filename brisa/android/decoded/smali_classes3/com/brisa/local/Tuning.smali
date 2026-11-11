@@ -28,7 +28,7 @@
 .method private static reply(Ljava/lang/String;Ljava/lang/Object;Ljava/lang/Throwable;)V
     .locals 5
 
-    .line 48
+    .line 53
     :try_start_0
     const-string v0, "com.brisa.local.h"
 
@@ -76,14 +76,14 @@
 
     goto :goto_0
 
-    .line 49
+    .line 54
     :catch_0
     move-exception p0
 
     :goto_0
     nop
 
-    .line 50
+    .line 55
     return-void
 .end method
 
@@ -94,19 +94,34 @@
     .annotation runtime Landroid/webkit/JavascriptInterface;
     .end annotation
 
-    .line 66
+    .line 71
     iget-object v0, p0, Lcom/brisa/local/Tuning;->context:Landroid/content/Context;
 
     invoke-static {v0}, Lcom/brisa/local/ManualAuth;->clear(Landroid/content/Context;)V
 
-    .line 67
+    .line 72
     return-void
+.end method
+
+.method public downloadNetwork()Ljava/lang/String;
+    .locals 1
+    .annotation runtime Landroid/webkit/JavascriptInterface;
+    .end annotation
+
+    .line 32
+    iget-object v0, p0, Lcom/brisa/local/Tuning;->context:Landroid/content/Context;
+
+    invoke-static {v0}, Lcom/brisa/local/DriveStream;->network(Landroid/content/Context;)Ljava/lang/String;
+
+    move-result-object v0
+
+    return-object v0
 .end method
 
 .method synthetic lambda$manualToken$0$com-brisa-local-Tuning(Ljava/lang/String;Ljava/lang/String;)V
     .locals 3
 
-    .line 57
+    .line 62
     const/4 v0, 0x0
 
     :try_start_0
@@ -124,17 +139,17 @@
     :try_end_0
     .catch Ljava/lang/Exception; {:try_start_0 .. :try_end_0} :catch_0
 
-    .line 60
+    .line 65
     goto :goto_0
 
-    .line 58
+    .line 63
     :catch_0
     move-exception p2
 
-    .line 59
+    .line 64
     invoke-static {p1, v0, p2}, Lcom/brisa/local/Tuning;->reply(Ljava/lang/String;Ljava/lang/Object;Ljava/lang/Throwable;)V
 
-    .line 61
+    .line 66
     :goto_0
     return-void
 .end method
@@ -144,7 +159,7 @@
     .annotation runtime Landroid/webkit/JavascriptInterface;
     .end annotation
 
-    .line 55
+    .line 60
     new-instance v0, Ljava/lang/Thread;
 
     new-instance v1, Lcom/brisa/local/Tuning$$ExternalSyntheticLambda0;
@@ -155,10 +170,10 @@
 
     invoke-direct {v0, v1, p1}, Ljava/lang/Thread;-><init>(Ljava/lang/Runnable;Ljava/lang/String;)V
 
-    .line 61
+    .line 66
     invoke-virtual {v0}, Ljava/lang/Thread;->start()V
 
-    .line 62
+    .line 67
     return-void
 .end method
 
@@ -167,12 +182,12 @@
     .annotation runtime Landroid/webkit/JavascriptInterface;
     .end annotation
 
-    .line 43
+    .line 48
     iget-object v0, p0, Lcom/brisa/local/Tuning;->context:Landroid/content/Context;
 
     invoke-static {v0, p1}, Lcom/brisa/local/AudioExport;->setFormat(Landroid/content/Context;Ljava/lang/String;)V
 
-    .line 44
+    .line 49
     return-void
 .end method
 
@@ -181,12 +196,12 @@
     .annotation runtime Landroid/webkit/JavascriptInterface;
     .end annotation
 
-    .line 38
+    .line 43
     iget-object v0, p0, Lcom/brisa/local/Tuning;->context:Landroid/content/Context;
 
     invoke-static {v0, p1}, Lcom/brisa/local/DriveStream;->setMobileAllowed(Landroid/content/Context;Z)V
 
-    .line 39
+    .line 44
     return-void
 .end method
 
@@ -315,7 +330,7 @@
     .annotation runtime Landroid/webkit/JavascriptInterface;
     .end annotation
 
-    .line 33
+    .line 38
     iget-object v0, p0, Lcom/brisa/local/Tuning;->context:Landroid/content/Context;
 
     invoke-static {v0}, Lcom/brisa/local/DriveStream;->check(Landroid/content/Context;)Ljava/lang/String;

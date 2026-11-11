@@ -23,3 +23,36 @@ test('el puente nativo recibe el mismo color de canción que la interfaz',async(
  const result=await page.evaluate(async()=>{const {accentFor}=await import('./presentation.js');const t={id:'ui-song',nativeId:'native-song',title:'Prueba'};t.accentColor=accentFor(t);BrisaPlatform.audio.setTrack(t);return {expected:t.accentColor,actual:nativeCalls[0].accentColor,native:BrisaPlatform.nativePlayback};});
  expect(result.actual).toBe(result.expected);expect(result.native).toBe(true);
 });
+
+test('una descarga grande pide decisión en datos y permite esperar a Wi-Fi', async ({ page }) => {
+ await setup(page);
+ await page.evaluate(async () => {
+  window.calls = []; window.network = 'mobile';
+  window.BrisaTuning = { downloadNetwork: () => window.network };
+  window.BrisaDownloads = {
+   state: async () => ({ status: 'idle' }),
+   inspect: async () => ({ inspectionId: 'id', title: 'Vídeo', audioAvailable: false, formats: [
+    { id: '1080', label: '1080p', size: 190_000_000 },
+    { id: '720', label: '720p', size: 120_000_000 },
+   ] }),
+   start: async (...args) => calls.push(args),
+  };
+  const { setupDownloads } = await import('./downloads.js');
+  setupDownloads({ parseVideoLink: () => ({ url: 'https://youtu.be/abcdefghijk' }), refresh: async () => {}, notify: () => {} });
+ });
+ await page.locator('#videoLink').fill('https://youtu.be/abcdefghijk');
+ await expect(page.locator('#videoFormats button').first()).toContainText('720p');
+ await page.locator('#videoFormats button').first().evaluate(button => button.click());
+ await expect(page.locator('#downloadMobilePrompt')).toContainText('120.0 MB');
+ expect(await page.evaluate(() => window.calls)).toHaveLength(0);
+ await page.locator('#downloadWaitWifi').evaluate(button => button.click());
+ await expect(page.locator('#downloadMobilePrompt')).toBeHidden();
+ await expect(page.locator('#videoLinkMessage')).toContainText('Cuando tengas Wi-Fi');
+ await page.locator('#downloadOutput').selectOption('mp3');
+ await expect(page.locator('#videoFormats')).toContainText('audio independiente');
+ await expect(page.locator('#videoFormats button')).toHaveCount(0);
+ await page.locator('#downloadOutput').selectOption('mp4');
+ await page.evaluate(() => { window.network = 'wifi'; });
+ await page.locator('#videoFormats button').first().evaluate(button => button.click());
+ await expect.poll(() => page.evaluate(() => window.calls.map(call => call[1]))).toEqual(['720']);
+});

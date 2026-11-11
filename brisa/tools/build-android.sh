@@ -24,7 +24,7 @@ for file in "$API" "$D8_JAR" "$APKTOOL"; do
 done
 unset JAVA_TOOL_OPTIONS
 
-python3 tools/parches-4.0.0.py --comprobar
+python3 tools/parches-4.1.0.py --comprobar
 
 mkdir -p android/classes android/stub-classes android/dex logs dist
 find android/classes android/stub-classes android/dex -type f -delete

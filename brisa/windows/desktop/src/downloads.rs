@@ -1,11 +1,21 @@
 use crate::{Store, now, media, download_output::{Output, AudioFormat, commit_files}};
+use crate::download_resume::{self, YoutubeVersion};
 use serde_json::{Value, json};
 use sha2::{Sha256, Digest};
-use std::{collections::{HashMap, HashSet}, path::{Path, PathBuf}, process::{Command, Stdio}, sync::{atomic::Ordering, mpsc}, io::{Read, Write, BufRead, BufReader}, time::{Duration, Instant}, net::{IpAddr, ToSocketAddrs}};
+use std::{collections::{HashMap, HashSet}, path::{Path, PathBuf}, process::{Command, Stdio}, sync::{atomic::Ordering, mpsc}, io::{Read, BufRead, BufReader}, time::{Duration, Instant}, net::{IpAddr, ToSocketAddrs}};
 use tauri::{Manager, Emitter};
 
 #[derive(Clone)]
-pub struct Plan { url: String, title: String, created: u64, choices: HashMap<String, String>, direct: bool, audio: String }
+pub struct Plan {
+    url: String,
+    title: String,
+    created: u64,
+    choices: HashMap<String, String>,
+    direct: bool,
+    audio: Option<String>,
+    versions: HashMap<String, YoutubeVersion>,
+    inspection: Value,
+}
 fn canonical(text: &str) -> Result<(String, bool), String> {
     if text.len() > 8192 { return Err("El enlace es demasiado largo.".into()); }
     let u = reqwest::Url::parse(text.trim()).map_err(|_| "Enlace no válido.".to_string())?;
@@ -51,19 +61,26 @@ fn public(ip: IpAddr) -> bool {
     }
 }
 // Resolve once and pin the checked addresses. Every redirect is checked again.
-async fn direct_response(url: &str, head: bool) -> Result<reqwest::Response, String> {
+async fn direct_response(url: &str, head: bool, partial: Option<(String, u64)>) -> Result<reqwest::Response, String> {
     let mut url = reqwest::Url::parse(url).map_err(|_| "Enlace no válido.".to_string())?;
     for _ in 0..6 {
         if url.scheme() != "https" || !url.username().is_empty() || url.password().is_some() || url.port().is_some() { return Err("Redirección no segura.".into()); }
         let host = url.host_str().ok_or("Dominio no válido.")?;
         let addresses: Vec<_> = (host, 443).to_socket_addrs().map_err(|_| "No se pudo conectar. Comprueba Internet.".to_string())?.collect();
         if addresses.is_empty() || addresses.iter().any(|a| !public(a.ip())) { return Err("No se admiten direcciones de red privadas.".into()); }
-        let client = reqwest::Client::builder().no_proxy().redirect(reqwest::redirect::Policy::none()).resolve_to_addrs(host, &addresses).connect_timeout(Duration::from_secs(20)).read_timeout(Duration::from_secs(30)).build().map_err(|_| "No se pudo preparar la conexión.".to_string())?;
-        let response = (if head { client.head(url.clone()) } else { client.get(url.clone()) }).send().await.map_err(|_| "No se pudo conectar al archivo. Comprueba Internet.".to_string())?;
+        let client = reqwest::Client::builder().no_proxy().redirect(reqwest::redirect::Policy::none()).resolve_to_addrs(host, &addresses).connect_timeout(Duration::from_secs(20)).read_timeout(Duration::from_secs(35)).build().map_err(|_| "No se pudo preparar la conexión.".to_string())?;
+        let mut request = (if head { client.head(url.clone()) } else { client.get(url.clone()) })
+            .header(reqwest::header::ACCEPT_ENCODING, "identity");
+        if let Some((etag, offset)) = &partial {
+            request = request.header(reqwest::header::RANGE, format!("bytes={offset}-"))
+                .header(reqwest::header::IF_RANGE, etag);
+        }
+        let response = request.send().await.map_err(|_| "No se pudo conectar al archivo. Comprueba Internet.".to_string())?;
         if response.status().is_redirection() {
             let location = response.headers().get(reqwest::header::LOCATION).and_then(|v| v.to_str().ok()).ok_or("Redirección no válida.")?;
             url = url.join(location).map_err(|_| "Redirección no válida.".to_string())?; continue;
         }
+        if partial.is_some() && response.status().as_u16() == 416 { return Ok(response); }
         if !response.status().is_success() { return Err(format!("El servidor devolvió HTTP {}. Prueba otro enlace.", response.status().as_u16())); }
         return Ok(response);
     }
@@ -71,12 +88,21 @@ async fn direct_response(url: &str, head: bool) -> Result<reqwest::Response, Str
 }
 #[tauri::command]
 pub async fn inspect(app: tauri::AppHandle, store: tauri::State<'_, Store>, url: String) -> Result<Value, String> {
-    let _permit = store.inspecting.clone().try_acquire_owned().map_err(|_| "Hay otra consulta en curso. Espera un momento.".to_string())?;
     let (url, direct) = canonical(&url)?;
+    let _permit = store.inspecting.acquire().await.map_err(|_| "No se pudo iniciar la consulta.")?;
+    if let Some(result) = store.plans.lock().unwrap().values()
+        .find(|plan| plan.url == url && now().saturating_sub(plan.created) < 120_000)
+        .map(|plan| plan.inspection.clone())
+    {
+        return Ok(result);
+    }
     let mut choices = HashMap::new(); let mut formats = Vec::new(); let title; let duration;
+    let mut audio = None;
+    let mut audio_size = 0;
+    let mut versions = HashMap::new();
     if direct {
         let query = url.clone();
-        let size = tauri::async_runtime::spawn_blocking(move || tauri::async_runtime::block_on(direct_response(&query, true)).map(|r| r.content_length().unwrap_or(0))).await.map_err(|_| "No se pudo consultar el archivo.".to_string())??;
+        let size = tauri::async_runtime::spawn_blocking(move || tauri::async_runtime::block_on(direct_response(&query, true, None)).map(|r| download_resume::header(&r, "content-length").parse::<u64>().unwrap_or(0))).await.map_err(|_| "No se pudo consultar el archivo.".to_string())??;
         title = reqwest::Url::parse(&url).unwrap().path_segments().and_then(|mut s| s.next_back()).unwrap_or("Video").to_string(); duration = 0;
         choices.insert("original".into(), String::new());
         formats.push(json!({"id":"original", "label":"Calidad original", "codec":"Formato del archivo", "size":size, "compatible":true}));
@@ -94,34 +120,69 @@ pub async fn inspect(app: tauri::AppHandle, store: tauri::State<'_, Store>, url:
         title = info["title"].as_str().unwrap_or("Video").to_string(); duration = info["duration"].as_f64().unwrap_or(0.0) as u64;
         let source = info["formats"].as_array().ok_or("No hay formatos descargables.")?;
         let score = |f: &&Value| (f["language_preference"].as_f64().unwrap_or(0.0) * 10000.0 + f["abr"].as_f64().unwrap_or(0.0) * if f["acodec"].as_str().unwrap_or("").starts_with("opus") { 1.25 } else { 1.0 }) as i64;
-        let best_audio = source.iter().filter(|f| f["vcodec"] == "none" && f["acodec"] != "none" && f["has_drm"].as_bool() != Some(true)).max_by_key(score);
+        let format_id = |f: &Value| f["format_id"].as_str().filter(|id| valid_format_id(id)).map(str::to_string);
+        let best_audio = source.iter().filter(|f| f["vcodec"] == "none" && f["acodec"] != "none"
+            && f["has_drm"].as_bool() != Some(true) && format_id(f).is_some()).max_by_key(score);
+        if let Some(track) = best_audio {
+            audio = format_id(track);
+            audio_size = estimate(track, duration);
+        }
+        for track in source {
+            if let (Some(id), Some(version)) = (format_id(track),
+                track["url"].as_str().and_then(download_resume::youtube_version))
+            {
+                versions.insert(id, version);
+            }
+        }
         let mut videos: Vec<_> = source.iter().filter(|f| f["vcodec"].as_str().map(|s| s != "none").unwrap_or(false) && f["height"].as_u64().unwrap_or(0) > 0 && f["has_drm"].as_bool() != Some(true)).collect();
         videos.sort_by_key(|f| std::cmp::Reverse((f["height"].as_u64().unwrap_or(0), f["fps"].as_f64().unwrap_or(0.0) as u64, f["acodec"] == "none")));
         let mut seen = HashSet::new();
         for f in videos {
             let video_id = f["format_id"].as_str().unwrap_or("");
-            if video_id.is_empty() || !video_id.chars().all(|c| c.is_ascii_alphanumeric() || "._-".contains(c)) { continue; }
+            if !valid_format_id(video_id) { continue; }
             let codec = f["vcodec"].as_str().unwrap_or("");
             let label = if codec.starts_with("avc") { "H.264" } else if codec.starts_with("vp") { "VP9" } else if codec.starts_with("av01") { "AV1" } else { continue; };
             let height = f["height"].as_u64().unwrap_or(0); let fps = f["fps"].as_f64().unwrap_or(0.0);
             if !seen.insert((height, fps as u64, label)) { continue; }
-            let selector = if let Some(a) = best_audio {
-                let audio_id = a["format_id"].as_str().unwrap_or("");
-                if !audio_id.chars().all(|c| c.is_ascii_alphanumeric() || "._-".contains(c)) { continue; }
+            let separate = f["acodec"] == "none";
+            let selector = if separate {
+                let Some(audio_id) = &audio else { continue; };
                 format!("{video_id}+{audio_id}")
-            } else if f["acodec"] != "none" { video_id.to_string() } else { continue; };
+            } else { video_id.to_string() };
             let id = uuid::Uuid::new_v4().to_string(); choices.insert(id.clone(), selector);
-            let size = f["filesize"].as_u64().or(f["filesize_approx"].as_u64()).unwrap_or(0) + best_audio.and_then(|a| a["filesize"].as_u64().or(a["filesize_approx"].as_u64())).unwrap_or(0);
-            formats.push(json!({"id":id, "label":format!("{height}p"), "codec":label, "fps":fps, "size":size, "compatible": label == "H.264" && height <= 1080, "recommended":label == "H.264" && height == 1080}));
+            let video_size = estimate(f, duration);
+            let size = if separate && video_size > 0 && audio_size > 0 { video_size.saturating_add(audio_size) }
+                else if separate { 0 } else { video_size };
+            formats.push(json!({"id":id, "label":format!("{height}p"), "height":height, "codec":label, "fps":fps, "size":size, "compatible": label == "H.264" && height <= 1080}));
             if formats.len() >= 40 { break; }
         }
     }
-    if formats.is_empty() { return Err("No hay formatos descargables para este vídeo.".into()); }
+    if formats.is_empty() && audio.is_none() { return Err("No hay formatos descargables para este vídeo.".into()); }
     let id = uuid::Uuid::new_v4().to_string(); let mut plans = store.plans.lock().unwrap();
-    plans.retain(|_, p| now() - p.created < 600000); if plans.len() >= 4 { plans.clear(); }
-    plans.insert(id.clone(), Plan { url, title: title.clone(), created: now(), choices, direct, audio: "bestaudio/best".into() });
-    Ok(json!({"inspectionId":id, "title":title, "duration":duration, "formats":formats, "audioAvailable":true}))
+    plans.retain(|_, p| now().saturating_sub(p.created) < 600_000);
+    if plans.len() >= 4 {
+        if let Some(oldest) = plans.iter().min_by_key(|(_, plan)| plan.created).map(|(id, _)| id.clone()) {
+            plans.remove(&oldest);
+        }
+    }
+    let inspection = json!({"inspectionId":id, "title":title, "duration":duration, "formats":formats,
+        "audioAvailable":audio.is_some(), "audioSize":audio_size});
+    plans.insert(id, Plan { url, title, created: now(), choices, direct, audio, versions, inspection: inspection.clone() });
+    Ok(inspection)
 }
+
+fn valid_format_id(id: &str) -> bool {
+    !id.is_empty() && id.chars().all(|c| c.is_ascii_alphanumeric() || "._-".contains(c))
+}
+
+fn estimate(track: &Value, duration: u64) -> u64 {
+    track["filesize"].as_u64().or_else(|| track["filesize_approx"].as_u64()).filter(|n| *n > 0)
+        .unwrap_or_else(|| {
+            let bitrate = track["tbr"].as_f64().or_else(|| track["abr"].as_f64()).unwrap_or(0.0);
+            (duration as f64 * bitrate * 125.0) as u64
+        })
+}
+
 fn publish(app: &tauri::AppHandle, store: &Store, status: &str, title: &str, done: u64, total: u64, error: Option<&str>) {
     let mut value = json!({"status":status,"title":title,"downloadedBytes":done,"totalBytes":total});
     if let Some(error) = error { value["error"] = json!(error); }
@@ -167,29 +228,48 @@ fn export_audio(app: &tauri::AppHandle, store: &Store, input: &Path, temp: &Path
 }
 
 fn run(app: tauri::AppHandle, store: Store, plan: Plan, selector: String, mode: Output, audio_format: AudioFormat, root: PathBuf, destination: String) {
-    let suffix = uuid::Uuid::new_v4().to_string(); let temp = root.join(format!(".brisa-{suffix}"));
+    let suffix = uuid::Uuid::new_v4().to_string();
+    let temp = root.join(format!(".brisa-{suffix}"));
+    let mut cache = None;
     let result = (|| -> Result<PathBuf, String> {
         std::fs::create_dir_all(&temp).map_err(|_| "No se puede escribir en la carpeta de descargas. Elige otra ubicación.".to_string())?;
         if plan.direct {
-            let mut response = tauri::async_runtime::block_on(direct_response(&plan.url, false))?;
-            if response.headers().get("content-type").and_then(|v| v.to_str().ok()).map(|v| v.contains("text/html") || v.contains("json")).unwrap_or(false) { return Err("El enlace no devuelve un vídeo.".into()); }
-            let size = response.content_length().unwrap_or(0); let mut done = 0;
-            let url = reqwest::Url::parse(&plan.url).unwrap(); let ext = Path::new(url.path()).extension().and_then(|s| s.to_str()).unwrap_or("mp4");
-            let target = temp.join(format!("source.{ext}")); let mut file = std::fs::File::create(&target).map_err(|_| "No se pudo crear el archivo.".to_string())?;
-            let mut last = Instant::now();
-            loop {
+            let dir = download_resume::prepare(&store.root, &format!("direct:{}", plan.url))?;
+            cache = Some(dir.clone());
+            let source = tauri::async_runtime::block_on(async {
+                let cancelled = store.direct_cancel.notified();
                 if store.cancelled.load(Ordering::SeqCst) { return Err("Descarga cancelada.".into()); }
-                let chunk = tauri::async_runtime::block_on(async { tokio::time::timeout(Duration::from_millis(200), response.chunk()).await });
-                let chunk = match chunk { Err(_) => continue, Ok(Err(_)) => return Err("La conexión se interrumpió. Vuelve a intentarlo.".into()), Ok(Ok(None)) => break, Ok(Ok(Some(chunk))) => chunk };
-                file.write_all(&chunk).map_err(|_| "No se pudo guardar. Comprueba el espacio disponible.".to_string())?; done += chunk.len() as u64;
-                if last.elapsed() > Duration::from_millis(500) { publish(&app, &store, "downloading", &plan.title, done, size, None); last = Instant::now(); }
-            }
-            if done == 0 || size > 0 && done != size { return Err("La descarga quedó incompleta.".into()); } return Ok(target);
+                let mut last = Instant::now();
+                let transfer = download_resume::direct(&dir, |range| direct_response(&plan.url, false, range), |done, total| {
+                    if last.elapsed() > Duration::from_millis(500) && !store.cancelled.load(Ordering::SeqCst) {
+                        publish(&app, &store, "downloading", &plan.title, done, total, None);
+                        last = Instant::now();
+                    }
+                });
+                tokio::select! {
+                    biased;
+                    _ = cancelled => Err("Descarga cancelada.".into()),
+                    result = transfer => result,
+                }
+            })?;
+            let url = reqwest::Url::parse(&plan.url).unwrap();
+            let ext = Path::new(url.path()).extension().and_then(|s| s.to_str()).unwrap_or("mp4");
+            let target = temp.join(format!("source.{ext}"));
+            std::fs::copy(source, &target).map_err(|_| "No se pudo guardar el vídeo. Comprueba el espacio disponible.")?;
+            return Ok(target);
         }
+        let formats = selector.split('+').map(|id| plan.versions.get(id).map(|version| (id, version)))
+            .collect::<Option<Vec<_>>>();
+        let selector = if let Some(formats) = formats {
+            let versions: Vec<_> = formats.iter().map(|(_, version)| version.key()).collect();
+            cache = Some(download_resume::prepare(&store.root, &format!("youtube:{}:{selector}:{}", plan.url, versions.join("+")))?);
+            formats.iter().map(|(id, version)| version.selector(id)).collect::<Vec<_>>().join("+")
+        } else { selector };
+        let work = cache.as_deref().unwrap_or(&temp);
         let executable = engine(&app, "yt-dlp.exe")?; let qjs = engine(&app, "qjs.exe")?; let ffmpeg = engine(&app, "ffmpeg.exe")?;
-        let template = temp.join("source.%(ext)s");
+        let template = work.join("source.%(ext)s");
         let mut cmd = command(&executable);
-        cmd.args(base_args(&qjs)).args(["--newline", "--progress", "--no-mtime", "--concurrent-fragments", "1", "--buffer-size", "64K", "--no-resize-buffer"]);
+        cmd.args(base_args(&qjs)).args(["--newline", "--progress", "--no-mtime", "--concurrent-fragments", "4", "--socket-timeout", "35", "--retries", "4", "--fragment-retries", "4", "--abort-on-unavailable-fragments", "--continue", "--buffer-size", "64K", "--no-resize-buffer"]);
         if !mode.audio_only() { cmd.args(["--merge-output-format", "mp4", "--remux-video", "mp4"]); }
         cmd.args(["--format", &selector, "--ffmpeg-location"]).arg(ffmpeg.parent().unwrap()).arg("--output").arg(&template)
             .args(["--progress-template", "download:BRISA:%(progress.downloaded_bytes)s:%(progress.total_bytes,progress.total_bytes_estimate)s", "--progress-template", "postprocess:BRISA_MERGE", "--print", "after_move:BRISA_FILE:%(filepath)s", "--", &plan.url]);
@@ -227,7 +307,14 @@ fn run(app: tauri::AppHandle, store: Store, plan: Plan, selector: String, mode: 
         if store.cancelled.load(Ordering::SeqCst) { return Err("Descarga cancelada.".into()); }
         if !success { return Err("No se pudo descargar el vídeo. Revisa la conexión, el espacio libre o consulta de nuevo el enlace.".into()); }
         let output = output.ok_or("La descarga no devolvió un archivo terminado.")?.canonicalize().map_err(|_| "No se encontró el archivo terminado.".to_string())?;
-        if output.parent() != Some(temp.canonicalize().map_err(|_| "Carpeta temporal no válida.".to_string())?.as_path()) { return Err("El motor devolvió un destino no válido.".into()); }
+        if output.parent() != Some(work.canonicalize().map_err(|_| "Carpeta temporal no válida.".to_string())?.as_path()) {
+            return Err("El motor devolvió un destino no válido.".into());
+        }
+        if cache.is_some() {
+            let target = temp.join(output.file_name().ok_or("Archivo sin nombre.")?);
+            std::fs::copy(&output, &target).map_err(|_| "No se pudo guardar el archivo temporal. Comprueba el espacio disponible.")?;
+            return Ok(target);
+        }
         Ok(output)
     })().and_then(|output| {
         // En «Ambos» la música sale de la pista de audio del vídeo ya descargado: una sola descarga y el mismo sonido.
@@ -251,6 +338,10 @@ fn run(app: tauri::AppHandle, store: Store, plan: Plan, selector: String, mode: 
         *store.state.lock().unwrap()=value.clone();let _=app.emit("brisa-download",value);
         Ok(total)
     });
+    if let Some(dir) = cache {
+        if result.is_ok() { let _ = std::fs::remove_dir_all(&dir); }
+        else { download_resume::touch(&dir); }
+    }
     if let Err(error) = result { publish(&app, &store, if store.cancelled.load(Ordering::SeqCst) { "cancelled" } else { "error" }, &plan.title, 0, 0, Some(&error)); }
     if let Some(mut child) = store.child.lock().unwrap().take() { let _ = child.kill(); let _ = child.wait(); }
     let _ = std::fs::remove_dir_all(&temp); store.active.store(false, Ordering::SeqCst);
@@ -259,7 +350,7 @@ fn run(app: tauri::AppHandle, store: Store, plan: Plan, selector: String, mode: 
 #[tauri::command]
 pub fn start(app: tauri::AppHandle, store: tauri::State<'_, Store>, inspection_id: String, format_id: String, options: Option<serde_json::Value>) -> Result<(), String> {
     let plan = store.plans.lock().unwrap().get(&inspection_id).cloned().ok_or("Vuelve a consultar el enlace; la selección ha caducado.")?;
-    if now() - plan.created > 600000 { return Err("Vuelve a consultar el enlace; la selección ha caducado.".into()); }
+    if now().saturating_sub(plan.created) > 600_000 { return Err("Vuelve a consultar el enlace; la selección ha caducado.".into()); }
     let output = options.as_ref().and_then(|v| v["output"].as_str()).unwrap_or("mp4");
     let mode = Output::parse(output)?;
     let audio_format = AudioFormat::parse(options.as_ref().and_then(|v| v["audioFormat"].as_str()));
@@ -269,7 +360,7 @@ pub fn start(app: tauri::AppHandle, store: tauri::State<'_, Store>, inspection_i
         "drive"=>{let path=store.drive_folder.lock().unwrap().clone().ok_or("Configura primero tu carpeta de Google Drive para ordenadores.")?;if !path.is_dir(){return Err("La unidad de Drive no está disponible. Abre Google Drive para ordenadores y comprueba tu conexión.".into());}path},
         _=>return Err("Destino de descarga no válido.".into())
     };
-    let selector = if mode.audio_only() { plan.audio.clone() } else { plan.choices.get(&format_id).cloned().ok_or("Calidad no válida.")? };
+    let selector = if mode.audio_only() { plan.audio.clone().ok_or("El enlace no ofrece una pista de audio independiente.")? } else { plan.choices.get(&format_id).cloned().ok_or("Calidad no válida.")? };
     if store.active.compare_exchange(false, true, Ordering::SeqCst, Ordering::SeqCst).is_err() { return Err("Ya hay una descarga en curso.".into()); }
     store.cancelled.store(false, Ordering::SeqCst); publish(&app, &store, "starting", &plan.title, 0, 0, None);
     let shared = store.inner().clone(); tauri::async_runtime::spawn_blocking(move || run(app, shared, plan, selector, mode, audio_format, root, destination)); Ok(())
@@ -278,6 +369,7 @@ pub fn start(app: tauri::AppHandle, store: tauri::State<'_, Store>, inspection_i
 pub fn cancel(app: tauri::AppHandle, store: tauri::State<'_, Store>) {
     if !store.active.load(Ordering::SeqCst) { return; }
     store.cancelled.store(true, Ordering::SeqCst);
+    store.direct_cancel.notify_waiters();
     let title = store.state.lock().unwrap()["title"].as_str().unwrap_or("Vídeo").to_string(); publish(&app, &store, "cancelling", &title, 0, 0, None);
     if let Some(child) = store.child.lock().unwrap().as_mut() { let _ = child.kill(); }
 }

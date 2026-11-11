@@ -244,60 +244,9 @@
     iget-object v1, v5, Lcom/brisa/local/l;->e:Ljava/lang/String;
 
     :goto_4
-    invoke-virtual {v7}, LN/Y;->b()Z
+    invoke-static {v2, v5, v6, v7, v14}, Lcom/brisa/local/AndroidDownloads;->fetch(Lcom/brisa/local/DownloadService;Lcom/brisa/local/l;Lcom/brisa/local/k;LN/Y;Ljava/io/File;)Ljava/io/File;
 
-    move-result v9
-
-    if-eqz v9, :cond_4
-
-    iget-object v9, v6, Lcom/brisa/local/k;->b:Ljava/lang/String;
-
-    invoke-virtual {v2, v9, v14}, Lcom/brisa/local/DownloadService;->h(Ljava/lang/String;Ljava/io/File;)V
-
-    :cond_4
-    iget-object v9, v7, LN/Y;->b:Ljava/lang/Object;
-
-    check-cast v9, Ljava/lang/String;
-
-    invoke-virtual {v9, v0}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
-
-    move-result v9
-
-    if-eqz v9, :cond_5
-
-    invoke-virtual {v7}, LN/Y;->b()Z
-
-    move-result v9
-
-    if-eqz v9, :cond_8
-
-    iget-object v9, v6, Lcom/brisa/local/k;->c:Ljava/lang/String;
-
-    if-eqz v9, :cond_8
-
-    :cond_5
-    iget-boolean v9, v5, Lcom/brisa/local/l;->h:Z
-
-    if-eqz v9, :cond_7
-
-    invoke-virtual {v7}, LN/Y;->b()Z
-
-    move-result v9
-
-    if-nez v9, :cond_6
-
-    invoke-virtual {v2, v1, v14}, Lcom/brisa/local/DownloadService;->h(Ljava/lang/String;Ljava/io/File;)V
-
-    :cond_6
-    move-object v15, v14
-
-    goto :goto_5
-
-    :cond_7
-    invoke-virtual {v2, v1, v15}, Lcom/brisa/local/DownloadService;->h(Ljava/lang/String;Ljava/io/File;)V
-
-    :cond_8
-    :goto_5
+    move-result-object v15
     invoke-virtual {v7}, LN/Y;->b()Z
 
     move-result v1

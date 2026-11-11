@@ -152,11 +152,7 @@
     check-cast v2, Ljava/lang/String;
 
     :try_start_0
-    invoke-static {v2}, Lcom/brisa/local/m;->b(Ljava/lang/String;)Lcom/brisa/local/l;
-
-    move-result-object v2
-
-    invoke-virtual {v2}, Lcom/brisa/local/l;->a()Lorg/json/JSONObject;
+    invoke-static {v2}, Lcom/brisa/local/AndroidDownloads;->inspect(Ljava/lang/String;)Lorg/json/JSONObject;
 
     move-result-object v2
 

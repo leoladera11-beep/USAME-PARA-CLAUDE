@@ -4,6 +4,7 @@ mod job;
 mod media;
 mod downloads;
 mod download_output;
+mod download_resume;
 mod drive_storage;
 mod drive_token;
 mod drive_core;
@@ -31,6 +32,7 @@ pub struct Shared {
     pub state: Mutex<Value>,
     pub active: AtomicBool,
     pub cancelled: AtomicBool,
+    pub direct_cancel: tokio::sync::Notify,
     pub close_after_download: AtomicBool,
     pub child: Mutex<Option<Child>>,
     pub plans: Mutex<std::collections::HashMap<String, downloads::Plan>>,
@@ -66,7 +68,7 @@ fn main() {
             let drive_session: Option<drive_api::Session> = std::fs::read(root.join("drive-token.json")).ok().and_then(|b| serde_json::from_slice(&b).ok());
             let (drive_cache, drive_hidden) = (drive_api::load(&root, "drive-cache.json"), drive_api::load(&root, "drive-hidden.json"));
             app.manage(Arc::new(Shared { drive_session: Mutex::new(drive_session), drive_cache: Mutex::new(drive_cache), drive_hidden: Mutex::new(drive_hidden), root, persistence: Mutex::new(()), entries: Mutex::new(entries), folder: Mutex::new(folder), drive_folder: Mutex::new(drive_folder), state: Mutex::new(json!({"status":"idle"})),
-                active: AtomicBool::new(false), cancelled: AtomicBool::new(false), close_after_download: AtomicBool::new(false), child: Mutex::new(None), plans: Mutex::new(Default::default()), inspecting: Arc::new(tokio::sync::Semaphore::new(1)) }));
+                active: AtomicBool::new(false), cancelled: AtomicBool::new(false), direct_cancel: tokio::sync::Notify::new(), close_after_download: AtomicBool::new(false), child: Mutex::new(None), plans: Mutex::new(Default::default()), inspecting: Arc::new(tokio::sync::Semaphore::new(1)) }));
             Ok(())
         })
         .invoke_handler(tauri::generate_handler![media::pick_media, media::list_media, media::forget_media, media::save_text,

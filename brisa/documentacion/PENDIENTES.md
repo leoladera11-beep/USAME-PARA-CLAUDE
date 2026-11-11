@@ -48,6 +48,7 @@ Dónde mirar según el síntoma:
 - Windows: suspender WebView2 con la ventana minimizada y sin reproducción.
 - Integración continua en GitHub Actions que ejecute `tools/verificar-todo.sh`.
 - Medir batería de verdad en el A30 y el F8 Pro (Battery Historian) y ajustar con datos.
+- Medir las descargas de enlaces propios en YouTube con Wi-Fi y datos móviles en los dos teléfonos y Windows. Comparar tres intentos por versión y probar un cambio de red durante la descarga.
 
 ## 4. Deuda técnica
 

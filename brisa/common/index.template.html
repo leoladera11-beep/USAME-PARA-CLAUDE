@@ -117,7 +117,13 @@
   <p class="muted" id="pcStorageNote">Se guardará en tu carpeta local y podrás verlo sin conexión.</p><p id="mp3Note" class="muted" hidden></p>
 <!--@end-->
   <p class="video-status" id="videoLinkMessage" role="status" aria-live="polite"></p>
-  <div id="videoLinkResult" hidden><h3 id="videoSourceTitle"></h3><p id="videoSourceInfo" class="video-status"></p><div id="videoFormats" class="video-formats" aria-label="Calidades disponibles"></div></div>
+  <div id="videoLinkResult" hidden><h3 id="videoSourceTitle"></h3><p id="videoSourceInfo" class="video-status"></p><div id="videoFormats" class="video-formats" aria-label="Calidades disponibles"></div>
+    <div id="downloadMobilePrompt" class="download-job" hidden>
+      <p id="downloadMobileText" role="status"></p>
+      <button type="button" id="downloadWaitWifi" class="chip">Esperar a Wi-Fi</button>
+      <button type="button" id="downloadUseMobile" class="chip">Descargar con datos</button>
+    </div>
+  </div>
   <section id="downloadJob" class="download-job" aria-labelledby="downloadTitle" hidden>
    <div class="download-heading"><strong id="downloadTitle"></strong><button id="cancelDownload" class="secondary" type="button">Cancelar</button></div>
    <p id="downloadStatus" role="status" aria-live="polite"></p><progress id="downloadProgress" max="1" aria-label="Progreso de descarga"></progress><small id="downloadBytes"></small>

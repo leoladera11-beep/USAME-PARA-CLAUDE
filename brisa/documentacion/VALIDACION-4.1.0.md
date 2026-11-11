@@ -89,3 +89,27 @@ Lo que sigue está razonado y revisado, pero **no se ha ejecutado en un disposit
    y un vídeo de Drive.
 
 Si algo falla, la 3.0.2 sigue instalada y funcionando. Dime qué paso falló y qué mensaje aparece.
+
+## Validación de las mejoras de descarga
+
+- `tools/verificar-todo.sh` terminó en «Todo correcto.» con Chrome for Testing en Linux.
+  Pasaron las 21 pruebas de interfaz de Windows y las 16 de Android, las 15 pruebas
+  de JavaScript y las 12 reproducciones reales por los dos puentes de streaming.
+- Seis escenarios HTTP en JVM ejecutaron la transferencia de Android. Cubrieron pistas
+  simultáneas, rangos, dos cortes, un servidor que ignora Range, rangos inválidos,
+  reanudación en un nuevo intento, cancelación, cambio de origen y caducidad.
+- El código Rust de reanudación pasó tres comprobaciones unitarias y dos contra un
+  servidor HTTP local. Se verificó que pide únicamente los bytes pendientes y que
+  descarta un parcial cuando cambia el ETag. El banco HLS compara cuatro y ocho
+  fragmentos con el ajuste original y comprueba el SHA-256 del contenido.
+- Se construyeron las dos APK sin firmar y el ejecutable de Windows x64 por compilación
+  cruzada. La verificación de las APK no detectó avisos nuevos. El conversor dex2jar
+  puede señalar primero `o` u `onStartCommand` en `VideoPlaybackService`. Se reprodujo
+  el segundo aviso al aislar ese método en la APK base y se registró la firma exacta.
+- Se probó el aviso de datos móviles, el límite de 100 MB y la opción de esperar a
+  Wi-Fi con los puentes simulados. Las cifras antes y después están en
+  `CAMBIOS-4.1.0.md`.
+
+Quedan por medir las descargas de YouTube real y el rendimiento con Wi-Fi, datos
+móviles o cambios de red. No se ejecutaron las APK en el A30 o el F8 Pro, ni el
+ejecutable en Windows. La medición local tampoco mide consumo de batería.
