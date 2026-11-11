@@ -1,0 +1,53 @@
+BRISA LOCAL 3.0.2 — F8 PRO, GALAXY A30 Y WINDOWS 11
+
+ANDROID
+Instala la APK de tu teléfono encima de la versión anterior, sin desinstalar.
+Se conserva com.brisa.localplus y la firma original. Versión Android: 30002.
+En Guardar como está «Ambos · Vídeo MP4 + Música MP3».
+La pantalla completa del reproductor nativo oculta las barras de desplazamiento.
+
+CORRECCIÓN DE VÍDEOS IMPORTADOS DESDE DRIVE
+La importación anterior guardaba una referencia content:// con permiso de lectura,
+pero no copiaba el vídeo. La biblioteca podía mostrarlo como «Sin conexión» aunque
+Drive todavía tuviera que entregar los datos o una fuente que permitiera buscar.
+Ahora una selección desde un proveedor en la nube se copia por completo al espacio
+privado de Brisa, con progreso y servicio de importación activo solo durante la tarea.
+Se comprueba el tamaño cuando se conoce, se vacía el archivo a disco y se publica
+la copia terminada de forma atómica. Nunca se anuncia un parcial como disponible.
+Los vínculos antiguos aparecen como enlazados y permiten descargar la copia al abrir.
+Si el permiso antiguo ya no sirve, vuelve a elegir el vídeo desde Añadir vídeos.
+Necesitas conexión durante esa copia, salvo que Drive ya la tenga descargada.
+Esta modalidad sin conexión ocupa espacio en el celular. Quitar un vídeo importado
+elimina la copia privada de Brisa; el original de Drive se conserva.
+Guardar un archivo completo no vuelve compatible un códec que tu teléfono no admite.
+El reproductor ahora muestra un mensaje diferente para errores de códec y de lectura.
+
+WINDOWS: USAR DRIVE SIN OTRA COPIA PERMANENTE EN BRISA
+Extrae TODO el ZIP y abre Brisa Local.exe. Conserva las DLL y resources junto al EXE.
+Cierra Brisa antes de actualizar; la biblioteca permanece en los datos de la misma app.
+1. Abre Vídeos → Configurar Google Drive.
+2. Instala Google Drive para ordenadores desde el enlace oficial y entra con tu cuenta.
+3. En las preferencias de Drive elige «Ver archivos sin descargarlos», no «Replicar archivos».
+4. En Brisa pulsa Elegir mi carpeta de Drive y selecciona una carpeta de esa unidad.
+5. El destino Google Drive queda seleccionado. Las descargas se escriben allí y el
+   cliente de Google se encarga de sincronizarlas. Comprueba su estado en Google Drive.
+Para vídeos que ya tengas en Drive, usa Añadir vídeos y selecciónalos dentro de esa
+unidad. No es necesario descargarlos primero desde la web a otra carpeta.
+Brisa no conserva otra copia permanente de estos archivos en su propia carpeta local.
+Drive puede usar caché temporal, incluso de archivos completos al reproducirlos.
+La sesión de Drive del navegador no conecta automáticamente una app de Windows.
+Esta integración usa el cliente oficial, no una autorización OAuth incrustada en Brisa.
+Elegir una carpeta local normal no la convierte en Drive: selecciona la unidad real.
+Un archivo guardado en la carpeta de Drive puede tener la subida pendiente; Brisa no
+lo presenta como sincronizado ni como disponible sin conexión por ese solo hecho.
+
+CONEXIÓN Y CALIDAD
+Los archivos locales completos se reproducen sin conexión. Los archivos que solo
+están en Drive necesitan internet y su cliente abierto. No se puede conservar un
+archivo exclusivamente en la nube y abrirlo sin conexión en un equipo que no lo tenga.
+MP3 usa 320 kbps, pero sigue siendo conversión con pérdida y no recupera detalle de YouTube.
+
+PRUEBAS
+Compilación Android/Windows, firma original de ambas APK, copias completas/parciales,
+cancelación, selección Drive y pruebas de interfaz. No se dispone aquí de los teléfonos,
+Windows 11 ni tu cuenta de Drive para comprobar una transferencia y reproducción reales.

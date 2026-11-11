@@ -1,0 +1,21 @@
+(()=>{
+if(window.BrisaDesktop||!window.BrisaNative)return;
+const bridge=window.BrisaNative;
+class NativeAudio extends EventTarget{
+ constructor(){super();this._position=0;this._positionAt=performance.now();this._duration=0;this._paused=true;this._prepared=false;this._volume=1;this._rate=1;this._muted=false;this._src='';this.error=null;this.waitingFor=null;this.stopped=false;}
+ get currentTime(){return Math.max(0,Math.min(this.duration||Infinity,this._position+(!this._paused&&this._prepared?(performance.now()-this._positionAt)/1000*this._rate:0)));}
+ set currentTime(v){this._position=Math.max(0,Number(v)||0);this._positionAt=performance.now();bridge.seek(this._position);}
+ get duration(){return this._duration;}get paused(){return this._paused;}
+ get playbackRate(){return this._rate;}set playbackRate(v){this._rate=Number(v)||1;bridge.rate(this._rate);this.dispatchEvent(new Event('ratechange'));}
+ get volume(){return this._volume;}set volume(v){this._volume=Math.max(0,Math.min(1,Number(v)||0));bridge.volume(this._muted?0:this._volume);}
+ get muted(){return this._muted;}set muted(v){this._muted=!!v;bridge.volume(this._muted?0:this._volume);}
+ setTrack(t){this.waitingFor=t.id;this.stopped=false;this._prepared=false;this.error=null;this.attachTrack(t);this._position=0;this._positionAt=performance.now();this._duration=t.duration||0;bridge.load(JSON.stringify({id:t.id,nativeId:t.nativeId,title:t.title,artist:t.artist||'',accentColor:t.accentColor||'',duration:t.duration||0,key:t.queueKey||t.id}));}
+ attachTrack(t){this._src='brisa-native:'+t.id;this._trackId=t.id;}
+ getAttribute(name){return name==='src'?this._src:null;}removeAttribute(name){if(name==='src'){this.stopped=true;this._src='';this._position=0;this._duration=0;this._paused=true;bridge.stop();}}load(){}
+ canPlayType(){return 'probably';}// Tras diez minutos en pausa Android libera el servicio: si ya no conserva esta canción, se pide a la app que la recargue.
+ play(){if(this._trackId&&!this.waitingFor&&!this.stopped&&platform.onServiceLost){let live='';try{live=JSON.parse(bridge.snapshot()).id||'';}catch{}if(live!==this._trackId){platform.onServiceLost();return Promise.resolve();}}bridge.play();return Promise.resolve();}pause(){bridge.pause();}
+ receive(s){if(this.stopped)return;if(this.waitingFor&&s.id&&s.id!==this.waitingFor)return;if(this.waitingFor===s.id)this.waitingFor=null;const before=this._paused,wasPrepared=this._prepared;this._position=Number(s.position)||0;this._positionAt=performance.now();this._duration=Number(s.duration)||this._duration;this._paused=!s.playing;this._prepared=!!s.prepared;this._rate=Number(s.rate)||this._rate;platform.onState?.(s);if(s.error){this.error={code:4,message:s.error};this.dispatchEvent(new Event('error'));}if(!wasPrepared&&this._prepared)this.dispatchEvent(new Event('loadedmetadata'));if(before!==this._paused)this.dispatchEvent(new Event(this._paused?'pause':'play'));this.dispatchEvent(new Event('timeupdate'));}
+}
+const audio=new NativeAudio();const platform=window.BrisaPlatform={audio,nativePlayback:true,onState:null,onImport:null,onServiceLost:null,receive:s=>audio.receive(s),imported:p=>platform.onImport?.(p),resetQueueCycle:()=>bridge.resetQueueCycle(),next:()=>{audio.waitingFor=null;bridge.next();},previous:()=>{audio.waitingFor=null;bridge.previous();},pick:()=>bridge.pickAudio(),pickFolder:()=>bridge.pickFolder(),ackImport:id=>bridge.importAck(String(id)),cancelImport:()=>bridge.cancelImport(),getSnapshot:()=>{try{return JSON.parse(bridge.snapshot());}catch{return {}; }},setQueue:(tracks,options)=>bridge.queue(JSON.stringify({tracks,...options})),setSleep:value=>bridge.sleep(String(value)),saveText:(name,text)=>bridge.saveText(name,text),openUpdates:()=>bridge.openUpdates(),async readBlob(t){const r=await fetch(t.path);if(!r.ok)throw new Error('No se puede leer el archivo original. Vuelve a añadirlo.');return r.blob();},remoteFile(t){return{name:t.name,size:t.size,slice(a,b){const end=t.size>0?Math.min(b,t.size):b;return{async arrayBuffer(){if(a>=end)return new ArrayBuffer(0);const r=await fetch(t.path,{headers:{Range:`bytes=${a}-${end-1}`}});if(!r.ok)throw new Error('No se puede leer la cabecera');return r.arrayBuffer();}};}};}};
+document.getElementById('fileInput').click=platform.pick;
+})();

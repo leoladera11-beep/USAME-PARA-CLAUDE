@@ -32,3 +32,7 @@ Si el entorno del agente no tiene internet (no puede clonar ni descargar), desca
   - `manifest.json`, `instalar_skills.py`, `INSTALAR.md`, `MATRIZ_AUDITORIA_Y_COMPARATIVA.md` (auditoría, paridad entre plataformas y guías) y `QA_VERIFICACION_TECNICA.md` (resultado de las pruebas).
 - `instalar_skills.py` e `INSTALAR.md` en la raíz: el instalador y su guía.
 - `herramientas/construir_respaldo.py`: regenera y valida todo el paquete desde `herramientas/fuentes/` y al final ejecuta `herramientas/verificar_calidad.py`, el pipeline de pruebas deterministas (YAML, raya, léxico inflado, término vetado, emojis, XML, casos límite, integridad, instalador y sensibilidad).
+
+## Brisa, reproductor de música y vídeo
+
+Este repositorio guarda también la app **Brisa 4.0.0** para Galaxy A30, F8 Pro y Windows 11, en la carpeta [`brisa/`](brisa/README.md). Las apps listas para instalar están en [`brisa/apps/`](brisa/apps/), las instrucciones en [`brisa/documentacion/INSTALAR.md`](brisa/documentacion/INSTALAR.md) y los consejos de uso en [`brisa/documentacion/GUIA-DE-USO.md`](brisa/documentacion/GUIA-DE-USO.md). Para continuar su desarrollo con un agente de IA: [`brisa/AGENTS.md`](brisa/AGENTS.md).

@@ -1,0 +1,12 @@
+import { chromium } from '@playwright/test';
+import path from 'node:path';
+const browser=await chromium.launch({executablePath:'/usr/bin/chromium',args:['--no-sandbox','--disable-dev-shm-usage']});
+const page=await browser.newPage({viewport:{width:844,height:390}});
+await page.goto('http://127.0.0.1:4173');
+await page.evaluate(()=>document.getElementById('mobileVideosBtn').click());
+await page.locator('#videoInput').setInputFiles(path.resolve('tests/fixtures/h264.mp4'));
+await page.locator('[data-video-play]').first().click();
+await page.evaluate(()=>{document.getElementById('localVideo').loop=true;document.getElementById('localVideo').muted=true;});
+await page.getByRole('button',{name:'Pantalla completa',exact:true}).click();
+await page.screenshot({path:'/workspace/work/video-fullscreen-preview.png'});
+await browser.close();

@@ -1,0 +1,14 @@
+plugins { id 'java-library'; id 'com.google.protobuf' }
+java { sourceCompatibility = JavaVersion.VERSION_17; targetCompatibility = JavaVersion.VERSION_17 }
+dependencies {
+    implementation project(':nanojson')
+    implementation 'org.jsoup:jsoup:1.23.2'
+    implementation 'com.google.code.findbugs:jsr305:3.0.2'
+    implementation 'com.google.protobuf:protobuf-javalite:4.36.2'
+    implementation 'org.mozilla:rhino:1.8.1'
+    implementation 'org.mozilla:rhino-engine:1.8.1'
+}
+protobuf {
+    protoc { artifact = 'com.google.protobuf:protoc:4.36.2' }
+    generateProtoTasks { all().configureEach { builtins { java { option 'lite' } } } }
+}

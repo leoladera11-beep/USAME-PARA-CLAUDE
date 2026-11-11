@@ -1,0 +1,9 @@
+pluginManagement { repositories { google(); mavenCentral(); gradlePluginPortal() } }
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories { google(); mavenCentral() }
+}
+rootProject.name = 'Brisa'
+include ':app', ':extractor', ':nanojson'
+project(':extractor').projectDir = file('../vendor/newpipe')
+project(':nanojson').projectDir = file('../vendor/nanojson')

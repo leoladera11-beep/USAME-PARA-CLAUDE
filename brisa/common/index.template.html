@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="es" class="brisa-android" data-fx="lite"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#000000"><meta name="description" content="Brisa: tu música y tus vídeos, en tu dispositivo o en tu Drive."><title>Brisa</title><link rel="icon" href="icon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="icon-192.png"><link rel="stylesheet" href="brisa.css">
+<!--@windows-->
+<link rel="stylesheet" href="video-chrome.css">
+<!--@end-->
+</head>
+<body data-view="home">
+<svg class="sprite" aria-hidden="true"><defs>
+<symbol id="i-note" viewBox="0 0 24 24"><path d="M9 18V5l12-2v13M9 8l12-2"/><ellipse cx="6" cy="18" rx="3" ry="3"/><ellipse cx="18" cy="16" rx="3" ry="3"/></symbol>
+<symbol id="i-home" viewBox="0 0 24 24"><path d="m3 10 9-7 9 7v10H3zM9 20v-7h6v7"/></symbol>
+<symbol id="i-heart" viewBox="0 0 24 24"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8L12 21l8.8-8.6a5.5 5.5 0 0 0 0-7.8Z"/></symbol>
+<symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+<symbol id="i-play" viewBox="0 0 24 24"><path d="m8 4 13 8L8 20Z"/></symbol>
+<symbol id="i-pause" viewBox="0 0 24 24"><path d="M7 5v14M17 5v14" stroke-width="4"/></symbol>
+<symbol id="i-prev" viewBox="0 0 24 24"><path d="M5 5v14M19 5 7 12l12 7Z"/></symbol>
+<symbol id="i-next" viewBox="0 0 24 24"><path d="M19 5v14M5 5l12 7-12 7Z"/></symbol>
+<symbol id="i-search" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></symbol>
+<symbol id="i-shuffle" viewBox="0 0 24 24"><path d="M3 5h3l12 14h3M17 15l4 4-4 3M3 19h3l4-5M14 9l4-4h3M17 1l4 4-4 4"/></symbol>
+<symbol id="i-repeat" viewBox="0 0 24 24"><path d="M4 10V6h15l-3-3M20 14v4H5l3 3M19 6l-3 3M5 18l3-3"/></symbol>
+<symbol id="i-volume" viewBox="0 0 24 24"><path d="M3 9h4l5-4v14l-5-4H3zM16 8a6 6 0 0 1 0 8M19 4a11 11 0 0 1 0 16"/></symbol>
+<symbol id="i-list" viewBox="0 0 24 24"><path d="M8 6h13M8 12h13M8 18h9M3 6h.01M3 12h.01M3 18h.01"/></symbol>
+<symbol id="i-lyrics" viewBox="0 0 24 24"><path d="M4 4h16v13H9l-5 4zM8 8h8M8 12h5"/></symbol>
+<symbol id="i-leaf" viewBox="0 0 24 24"><path d="M20 3C9 1 1 9 6 16s17 4 14-13ZM4 21 16 9"/></symbol>
+<symbol id="i-moon" viewBox="0 0 24 24"><path d="M20 15A9 9 0 0 1 9 4a9 9 0 1 0 11 11Z"/></symbol>
+<symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7h.01"/></symbol>
+<symbol id="i-trash" viewBox="0 0 24 24"><path d="M3 6h18M9 6V3h6v3M6 6l1 15h10l1-15M10 10v7M14 10v7"/></symbol>
+<symbol id="i-back" viewBox="0 0 24 24"><path d="M3 10a9 9 0 1 1 2 9M3 4v6h6"/></symbol>
+<symbol id="i-close" viewBox="0 0 24 24"><path d="m6 6 12 12M6 18 18 6"/></symbol>
+<symbol id="i-download" viewBox="0 0 24 24"><path d="M12 3v12m-5-5 5 5 5-5M4 16v5h16v-5"/></symbol>
+<symbol id="i-video" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="m10 9 5 3-5 3Z"/></symbol>
+<symbol id="i-gear" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3m0 14v3M2 12h3m14 0h3M4.9 4.9 7 7m10 10 2.1 2.1M4.9 19.1 7 17M17 7l2.1-2.1"/></symbol>
+<symbol id="i-more" viewBox="0 0 24 24"><path d="M5 12h.01M12 12h.01M19 12h.01" stroke-width="3"/></symbol>
+<symbol id="i-down" viewBox="0 0 24 24"><path d="m5 9 7 7 7-7"/></symbol>
+<symbol id="i-cloud" viewBox="0 0 24 24"><path d="M7 18a4.5 4.5 0 0 1-.6-9A6 6 0 0 1 18 9.5a4.3 4.3 0 0 1-.5 8.5Z"/></symbol>
+</defs></svg>
+<div class="aurora" aria-hidden="true"><i></i><i></i><i></i></div>
+<div class="app-shell">
+<aside class="sidebar">
+ <a href="#" class="brand" aria-label="Brisa, inicio"><span class="brand-mark"><svg><use href="#i-note"/></svg></span>brisa<span class="brand-dot">.</span></a>
+ <nav aria-label="Secciones">
+  <button id="navHome" class="nav active"><svg aria-hidden="true"><use href="#i-home"/></svg>Inicio</button>
+  <button id="navSearch" class="nav"><svg aria-hidden="true"><use href="#i-search"/></svg>Buscar</button>
+  <button id="navVideos" class="nav" aria-pressed="false"><svg aria-hidden="true"><use href="#i-video"/></svg>Vídeos</button>
+ </nav>
+ <div class="side-label">Tu biblioteca<button class="icon-btn" data-add aria-label="Añadir música"><svg aria-hidden="true"><use href="#i-plus"/></svg></button></div>
+ <nav aria-label="Tu biblioteca">
+  <button id="navAll" class="nav"><svg aria-hidden="true"><use href="#i-note"/></svg>Canciones <span id="countAll">0</span></button>
+  <button id="navFav" class="nav"><svg aria-hidden="true"><use href="#i-heart"/></svg>Favoritas <span id="countFav">0</span></button>
+  <button id="navQueue" class="nav"><svg aria-hidden="true"><use href="#i-list"/></svg>Cola de reproducción</button>
+ </nav>
+ <div class="side-bottom">
+  <button class="nav" data-sound><svg aria-hidden="true"><use href="#i-volume"/></svg>Sonido</button>
+  <button class="nav" data-settings><svg aria-hidden="true"><use href="#i-gear"/></svg>Ajustes</button>
+  <button id="helpBtn" class="nav"><svg aria-hidden="true"><use href="#i-info"/></svg>Cómo funciona</button>
+  <span class="version">BRISA · v4.1.0</span>
+ </div>
+</aside>
+<main>
+<div id="musicView">
+ <header class="topbar">
+  <h1 id="greeting">Hola</h1><span class="view-title" id="viewTitle">Tu biblioteca</span><span class="breadcrumb"><b id="breadcrumb">Mi biblioteca</b></span>
+  <button id="offlineBtn" class="local-badge"><i></i><span id="offlineStatus">Preparando…</span></button>
+  <button class="icon-btn mobile-add" data-add aria-label="Añadir música"><svg aria-hidden="true"><use href="#i-plus"/></svg></button>
+  <button class="icon-btn" data-settings aria-label="Ajustes"><svg aria-hidden="true"><use href="#i-gear"/></svg></button>
+ </header>
+ <section id="homeView" aria-label="Inicio">
+  <section class="hero" id="welcome" hidden><h2>Todo empieza con <em>darle play.</em></h2><p>Añade tus canciones y vídeos. Se quedan en tu dispositivo o en tu Drive, sin anuncios y sin cuentas de terceros.</p><button class="primary" data-add><svg aria-hidden="true"><use href="#i-plus"/></svg>Añadir mi música</button><button id="folderImportBtn" class="text-btn">Importar una carpeta completa</button><span class="formats">MP3, M4A, WAV, OGG, OPUS y FLAC*</span></section>
+  <div class="tile-grid" aria-label="Accesos rápidos">
+   <button id="continueBtn" class="quick-card"><span class="quick-art continue-art"><svg aria-hidden="true"><use href="#i-play"/></svg></span><span><strong>Seguir escuchando</strong><small id="continueTitle">Tu siguiente momento</small></span></button>
+   <button id="shortcutFav" class="quick-card"><span class="quick-art liked-art"><svg aria-hidden="true"><use href="#i-heart"/></svg></span><span><strong>Tus favoritas</strong><small id="shortcutFavCount">Un lugar para tus canciones</small></span></button>
+   <button id="shortcutAll" class="quick-card"><span class="quick-art all-art"><svg aria-hidden="true"><use href="#i-note"/></svg></span><span><strong>Todas las canciones</strong><small id="shortcutAllCount">Tu biblioteca completa</small></span></button>
+   <button id="shortcutShuffle" class="quick-card"><span class="quick-art shuffle-art"><svg aria-hidden="true"><use href="#i-shuffle"/></svg></span><span><strong>Mezcla aleatoria</strong><small>Toda tu música, sin repetir</small></span></button>
+   <button id="shortcutLyrics" class="quick-card"><span class="quick-art lyrics-art"><svg aria-hidden="true"><use href="#i-lyrics"/></svg></span><span><strong>Letra y español</strong><small>Lee, traduce y sincroniza</small></span></button>
+   <button id="shortcutVideos" class="quick-card"><span class="quick-art video-art"><svg aria-hidden="true"><use href="#i-video"/></svg></span><span><strong>Vídeos y descargas</strong><small>Mira o guarda desde un enlace</small></span></button>
+  </div>
+  <section class="shelf" id="recentShelf" hidden aria-labelledby="recentTitle"><h2 id="recentTitle">Volver a escuchar</h2><div class="shelf-row" id="recentRow"></div></section>
+  <section class="shelf" id="artistShelf" hidden aria-labelledby="artistTitle"><h2 id="artistTitle">Tus artistas</h2><div class="shelf-row" id="artistRow"></div></section>
+  <section class="shelf" id="topShelf" hidden aria-labelledby="topTitle"><h2 id="topTitle">Lo que más suena</h2><div class="shelf-row" id="topRow"></div></section>
+  <section class="shelf" id="addedShelf" hidden aria-labelledby="addedTitle"><h2 id="addedTitle">Recién añadidas</h2><div class="shelf-row" id="addedRow"></div></section>
+ </section>
+ <section class="library" id="librarySection" aria-labelledby="libraryTitle">
+  <div class="section-head"><div><h2 id="libraryTitle">Mi biblioteca <span id="trackCount">0 canciones</span></h2><p id="librarySubtitle">Tus archivos, siempre a tu ritmo.</p></div><button id="playAll" class="play-all" aria-label="Escuchar todo"><svg aria-hidden="true"><use href="#i-play"/></svg>Escuchar todo</button></div>
+  <div id="importProgress" class="import-progress" role="status" hidden><span id="importProgressText"></span><button id="cancelImportBtn" class="secondary">Cancelar</button></div>
+  <div class="library-tools"><label class="search"><svg aria-hidden="true"><use href="#i-search"/></svg><input id="search" type="search" placeholder="Buscar canciones o artistas" aria-label="Buscar canciones o artistas"></label><div class="mobile-nav"><button id="mobileAll" class="chip on">Todas</button><button id="mobileFav" class="chip">Favoritas</button></div><select id="sort" aria-label="Ordenar canciones"><option value="added">Añadidas recientemente</option><option value="title">Título: A–Z</option><option value="artist">Artista: A–Z</option></select><button id="openLyricsBtn" class="secondary open-lyrics"><svg aria-hidden="true"><use href="#i-lyrics"/></svg>Letra</button></div>
+  <div class="table-head"><span>#</span><span>TÍTULO</span><span>LETRA</span><span>DURACIÓN</span><span></span></div>
+  <div id="trackList"></div>
+  <div id="empty" class="empty"><div class="empty-symbol"><svg aria-hidden="true"><use href="#i-note"/></svg></div><h3>Tu próxima canción empieza aquí</h3><p>Añade tu música para empezar.</p><button class="text-btn" data-add>Explorar mis archivos</button></div>
+  <button id="moreTracksBtn" class="secondary full" hidden>Mostrar más canciones</button>
+  <div class="library-foot"><span id="storageInfo">Biblioteca lista para empezar</span><span><i class="tiny-dot"></i>Tu audio no se sube a servidores de terceros</span></div>
+ </section>
+</div>
+<section id="videosPane" class="videos-pane" hidden aria-labelledby="videosTitle">
+ <header class="videos-hero"><div><div class="videos-kicker"><svg aria-hidden="true"><use href="#i-video"/></svg> BRISA · VÍDEOS</div><h1 id="videosTitle" tabindex="-1">Tus vídeos</h1><p>Míralos en su calidad original desde este dispositivo o directamente desde tu Drive.</p></div><button type="button" class="secondary" data-sound>Sonido</button><button class="primary" id="addVideosBtn"><svg aria-hidden="true"><use href="#i-plus"/></svg> Añadir vídeos</button></header>
+ <section class="video-link-box" aria-labelledby="videoLinkTitle">
+<!--@android-->
+  <div class="download-heading"><div><p class="videos-kicker">GUARDAR DESDE UN ENLACE</p><h2 id="videoLinkTitle">Descargar vídeo o música</h2></div><button id="openDrive" class="secondary" type="button"><svg aria-hidden="true"><use href="#i-cloud"/></svg>Google Drive</button><button id="downloadFolder" class="text-btn" type="button">Carpeta de descargas</button></div>
+  <p>Pega un enlace de YouTube. El audio se guarda tal como llega, sin recomprimir, para que suene igual en el vídeo y en la música.</p>
+  <form id="videoLinkForm"><label for="videoLink" class="video-label">Enlace</label><div class="video-link-fields"><input id="videoLink" type="url" inputmode="url" autocomplete="off" required maxlength="8192" placeholder="https://www.youtube.com/watch?v=…" aria-describedby="videoLinkMessage"><button id="inspectVideo" type="submit" class="secondary">Ver calidades</button></div></form>
+  <div class="download-options">
+   <label class="field-label">Guardar como<select id="downloadOutput"><option value="mp4">Vídeo · MP4</option><option value="mp3">Solo música</option><option value="both">Ambos · vídeo y música</option></select></label>
+   <label id="audioFormatField" class="field-label">Formato de la música<select id="audioFormat"><option value="original">Original · máxima calidad, sin recomprimir (M4A)</option><option value="mp3">MP3 320 kbps · compatible con equipos antiguos</option></select></label>
+   <label class="field-label">Dónde guardarlo<select id="downloadDestination"><option value="local">Este teléfono · mi carpeta</option><option value="drive-only">Solo Google Drive · sin ocupar espacio</option><option value="drive">Google Drive + copia sin conexión</option><option value="both">Google Drive y mi carpeta</option></select></label>
+   <label id="mp3BitrateField" class="field-label" hidden>Calidad MP3<select id="mp3Bitrate"><option value="320">320 kbps</option></select></label>
+   <label id="captionOptionField" class="field-label">Subtítulos<select id="downloadSubtitles"><option value="auto-es">Español · guardar pistas disponibles</option><option value="off">Sin subtítulos</option></select></label>
+  </div>
+  <p id="destinationNote" class="muted">Se guardará en tu carpeta y estará disponible sin conexión.</p><p id="mp3Note" class="muted" hidden></p>
+<!--@end-->
+<!--@windows-->
+  <div class="download-heading"><div><p class="videos-kicker">GUARDAR DESDE UN ENLACE</p><h2 id="videoLinkTitle">Descargar vídeo o música</h2></div><button type="button" class="secondary" id="configurePcDrive"><svg aria-hidden="true"><use href="#i-cloud"/></svg>Google Drive</button><button id="downloadFolder" class="text-btn" type="button">Carpeta de descargas</button></div>
+  <p>Pega un enlace de YouTube. El audio se guarda tal como llega, sin recomprimir, para que suene igual en el vídeo y en la música.</p>
+  <form id="videoLinkForm"><label for="videoLink" class="video-label">Enlace</label><div class="video-link-fields"><input id="videoLink" type="url" inputmode="url" autocomplete="off" required maxlength="8192" placeholder="https://www.youtube.com/watch?v=…" aria-describedby="videoLinkMessage"><button id="inspectVideo" type="submit" class="secondary">Ver calidades</button></div></form>
+  <div class="download-options">
+   <label class="field-label">Guardar como<select id="downloadOutput"><option value="mp4">Vídeo · MP4</option><option value="mp3">Solo música</option><option value="both">Ambos · vídeo y música</option></select></label>
+   <label id="audioFormatField" class="field-label">Formato de la música<select id="audioFormat"><option value="original">Original · máxima calidad, sin recomprimir</option><option value="mp3">MP3 320 kbps · compatible con equipos antiguos</option></select></label>
+   <label class="field-label">Dónde guardarlo<select id="downloadDestination"><option value="local">Este PC · carpeta local</option><option value="drive">Google Drive · sin ocupar espacio en el PC</option></select></label>
+  </div>
+  <p class="muted" id="pcStorageNote">Se guardará en tu carpeta local y podrás verlo sin conexión.</p><p id="mp3Note" class="muted" hidden></p>
+<!--@end-->
+  <p class="video-status" id="videoLinkMessage" role="status" aria-live="polite"></p>
+  <div id="videoLinkResult" hidden><h3 id="videoSourceTitle"></h3><p id="videoSourceInfo" class="video-status"></p><div id="videoFormats" class="video-formats" aria-label="Calidades disponibles"></div></div>
+  <section id="downloadJob" class="download-job" aria-labelledby="downloadTitle" hidden>
+   <div class="download-heading"><strong id="downloadTitle"></strong><button id="cancelDownload" class="secondary" type="button">Cancelar</button></div>
+   <p id="downloadStatus" role="status" aria-live="polite"></p><progress id="downloadProgress" max="1" aria-label="Progreso de descarga"></progress><small id="downloadBytes"></small>
+  </section>
+ </section>
+ <input id="videoInput" type="file" accept="video/*,.mp4,.m4v,.webm,.mov,.mkv,.3gp" multiple hidden>
+ <p id="videoImportStatus" class="video-status" role="status"></p>
+ <section id="videoViewer" class="video-viewer" hidden aria-label="Reproductor de vídeo">
+  <div class="video-viewer-head"><div><h2 id="videoNowTitle"></h2><p id="videoResolution"></p></div><button id="closeVideo" class="icon-btn" aria-label="Cerrar vídeo"><svg aria-hidden="true"><use href="#i-close"/></svg></button></div>
+<!--@android-->
+  <div class="video-stage"><video id="localVideo" controls playsinline preload="metadata" aria-label="Vídeo"></video><div id="videoCaptions" class="video-captions" aria-hidden="true"></div></div><div class="video-tools"><button id="videoFullscreen" class="secondary">Pantalla completa</button><button id="videoCompact" class="secondary">Ventana flotante</button><label for="videoCaptionTrack">Subtítulos</label><select id="videoCaptionTrack"><option value="off">Desactivados</option></select></div>
+<!--@end-->
+<!--@windows-->
+  <video id="localVideo" controls playsinline preload="metadata" aria-label="Vídeo"></video>
+<!--@end-->
+ </section>
+ <section class="videos-collection" aria-labelledby="videoLibraryTitle">
+  <div class="video-section-heading"><h2 id="videoLibraryTitle">Tu videoteca</h2><span id="videosCount">0 videos</span></div>
+  <div id="videosEmpty" class="videos-empty"><svg aria-hidden="true"><use href="#i-video"/></svg><p>Aún no hay vídeos</p><small>Añade archivos o descarga uno desde un enlace.</small></div>
+  <div id="videosList"></div><button id="videosMore" class="secondary full" hidden>Mostrar más vídeos</button>
+ </section>
+</section>
+</main>
+<aside class="right-panel" id="rightPanel" aria-label="Letra y cola">
+ <button id="closePanelBtn" class="secondary panel-close"><svg aria-hidden="true"><use href="#i-down"/></svg>Volver</button>
+ <div class="panel-tabs" role="tablist" aria-label="Panel de reproducción"><button id="lyricsTab" role="tab" aria-selected="true" class="selected">Letra</button><button id="queueTab" role="tab" aria-selected="false">Cola <span id="queueCount">0</span></button></div>
+ <div id="lyricsPane">
+  <div class="panel-eyebrow">LETRA</div><div class="lyric-art" aria-hidden="true"></div>
+  <h3 id="lyricsTitle">La música también<br>se lee.</h3><p id="lyricsStatus" class="panel-desc" aria-live="polite">Elige una canción para leer su letra.</p>
+  <div id="lyricControls" class="lyric-controls" hidden><select id="lyricView" aria-label="Idioma de la letra"><option value="original">Original</option><option value="both">Original + español</option><option value="es">Español</option></select><div class="offset-controls"><button id="offsetMinus" aria-label="Adelantar letra medio segundo">−</button><span id="offsetLabel" title="Ajuste de sincronización">0.0 s</span><button id="offsetPlus" aria-label="Retrasar letra medio segundo">+</button></div></div>
+  <div id="lyricsActions" hidden><button id="lookupBtn" class="secondary full"><svg aria-hidden="true"><use href="#i-lyrics"/></svg>Editar letra y datos</button><div class="lyric-file-row"><button id="importLyricsBtn" class="text-btn">Importar LRC / TXT</button><button id="exportLyricsBtn" class="text-btn">Exportar letra</button></div><div class="lyric-tool-row"><button id="syncBtn" class="secondary">Sincronizar</button><button id="aiBtn" class="secondary">Traducir / extraer</button></div></div>
+  <div id="lyricsLines" class="lyrics-lines"></div>
+  <div class="lyrics-note"></div>
+ </div>
+ <div id="queuePane" hidden><div class="panel-eyebrow">A CONTINUACIÓN</div><p class="panel-desc" id="queueHint">Añade canciones para crear tu cola.</p><div id="queueList"></div><button id="moreQueueBtn" class="secondary full" hidden>Mostrar más de la cola</button></div>
+</aside>
+</div>
+<footer class="player" aria-label="Reproductor"><output id="seekFeedback" class="seek-feedback" aria-live="off" hidden></output><button id="closePlayerBtn" class="close-player"><svg aria-hidden="true"><use href="#i-down"/></svg><span>Volver a mi música</span></button><p id="playModeLabel" class="player-mode">Tu biblioteca</p><div class="now-playing"><button id="miniArt" class="mini-art" aria-label="Ampliar reproductor" aria-expanded="false"><svg aria-hidden="true"><use href="#i-note"/></svg><span class="equalizer" aria-hidden="true"><i></i><i></i><i></i></span></button><button id="expandPlayerBtn" class="now-text" aria-label="Ampliar reproductor" aria-expanded="false"><strong id="nowTitle">Tu música te espera</strong><span id="nowArtist">Añade una canción para empezar</span><span id="repeatBadge" class="repeat-badge" hidden>Repite esta canción</span></button><button id="nowFav" class="icon-btn" aria-label="Añadir a favoritos" aria-pressed="false"><svg aria-hidden="true"><use href="#i-heart"/></svg></button></div><div class="transport"><div class="transport-buttons"><button id="shuffleBtn" class="icon-btn" aria-label="Activar aleatorio" aria-pressed="false"><svg aria-hidden="true"><use href="#i-shuffle"/></svg></button><button id="prevBtn" class="icon-btn" aria-label="Canción anterior"><svg aria-hidden="true"><use href="#i-prev"/></svg></button><button id="backBtn" class="icon-btn skip" aria-label="Retroceder 10 segundos"><svg aria-hidden="true"><use href="#i-back"/></svg><span>10</span></button><button id="playBtn" class="main-play" aria-label="Reproducir"><svg aria-hidden="true"><use href="#i-play"/></svg></button><button id="forwardBtn" class="icon-btn skip forward" aria-label="Adelantar 10 segundos"><svg aria-hidden="true"><use href="#i-back"/></svg><span>10</span></button><button id="nextBtn" class="icon-btn" aria-label="Siguiente canción"><svg aria-hidden="true"><use href="#i-next"/></svg></button><button id="repeatBtn" class="icon-btn" aria-label="Repetición: desactivada"><svg aria-hidden="true"><use href="#i-repeat"/></svg><small id="repeatOne" hidden>1</small></button></div><div class="progress-row"><span id="elapsed">0:00</span><input id="progress" type="range" min="0" max="100" step="0.1" value="0" aria-label="Posición de reproducción" aria-keyshortcuts="ArrowLeft ArrowRight" title="Flecha izquierda: retroceder 10 s. Flecha derecha: adelantar 10 s."><span id="duration">0:00</span></div></div><div class="player-extras"><select id="speed" aria-label="Velocidad"><option value="0.75">0.75×</option><option value="1" selected>1×</option><option value="1.25">1.25×</option><option value="1.5">1.5×</option><option value="2">2×</option></select><button class="icon-btn" data-sound aria-label="Sonido"><svg aria-hidden="true"><use href="#i-volume"/></svg><span class="panel-label">Sonido</span></button><button id="queueBtn" class="icon-btn" aria-label="Abrir la cola"><svg aria-hidden="true"><use href="#i-list"/></svg><span class="panel-label">Cola</span></button><button id="panelBtn" class="icon-btn" aria-label="Abrir letra, traducción y sincronización" aria-expanded="false"><svg aria-hidden="true"><use href="#i-lyrics"/></svg><span class="panel-label">Letra</span></button><button id="muteBtn" class="icon-btn" aria-label="Silenciar"><svg aria-hidden="true"><use href="#i-volume"/></svg></button><input id="volume" type="range" min="0" max="1" step="0.01" value="1" aria-label="Volumen"></div></footer>
+<nav class="bottom-nav" aria-label="Navegación principal"><button id="mobileHomeBtn" class="active" aria-pressed="true"><svg aria-hidden="true"><use href="#i-home"/></svg><span>Inicio</span></button><button id="mobileSearchBtn" aria-pressed="false"><svg aria-hidden="true"><use href="#i-search"/></svg><span>Buscar</span></button><button id="mobileLibraryBtn" aria-pressed="false"><svg aria-hidden="true"><use href="#i-list"/></svg><span>Tu biblioteca</span></button><button id="mobileVideosBtn" aria-pressed="false"><svg aria-hidden="true"><use href="#i-video"/></svg><span>Vídeos</span></button></nav>
+<input id="fileInput" type="file" accept="audio/*,.mp3,.m4a,.aac,.wav,.ogg,.opus,.flac,.webm" multiple hidden><input id="lrcInput" type="file" accept=".lrc,.txt" hidden><audio id="audio" preload="metadata" playsinline></audio><div id="dropOverlay" class="drop-overlay" hidden><svg aria-hidden="true"><use href="#i-plus"/></svg><h2>Suelta tu música aquí</h2><p>Hagamos espacio para tus canciones.</p></div><div id="toast" role="status" hidden></div>
+
+<dialog id="settingsDialog" aria-labelledby="settingsTitle"><form method="dialog" class="dialog-head"><h2 id="settingsTitle">Ajustes</h2><button class="icon-btn" aria-label="Cerrar ajustes generales"><svg aria-hidden="true"><use href="#i-close"/></svg></button></form>
+ <div class="settings-group"><h3>Reproducción</h3>
+  <label class="switch-row"><span><strong>Reproducción automática</strong><small>Al terminar una canción sigue con la cola</small></span><input id="autoplay" type="checkbox" checked role="switch"><span class="switch-ui"></span></label>
+  <label class="switch-row quality-switch"><span><strong>Preferir mejor calidad</strong><small>Entre versiones repetidas de un mismo tema elige la de más calidad</small></span><input id="bestQuality" type="checkbox" checked role="switch"><span class="switch-ui"></span></label>
+  <div id="qualityInfo" class="quality-info">Audio original · sin recomprimir</div>
+  <div class="sleep-row"><span><svg aria-hidden="true"><use href="#i-moon"/></svg>Temporizador de apagado</span><select id="sleep" aria-label="Temporizador de apagado"><option value="0">Desactivado</option><option value="15">15 min</option><option value="30">30 min</option><option value="60">60 min</option><option value="end">Al terminar la canción</option></select></div><span id="sleepStatus" class="muted"></span>
+  <button class="secondary full" data-sound>Sonido · original o ecualizador</button>
+ </div>
+<!--@android-->
+ <div class="settings-group"><h3>Google Drive</h3>
+  <label class="switch-row"><span><strong>Usar datos móviles para Drive</strong><small id="streamNote">Desactivado: la música y los vídeos que están solo en Drive se reproducen únicamente con Wi-Fi.</small></span><input id="streamMobile" type="checkbox" role="switch"><span class="switch-ui"></span></label>
+  <button class="secondary full" data-open-drive><svg aria-hidden="true"><use href="#i-cloud"/></svg>Cuenta y archivos de Drive</button>
+ </div>
+<!--@end-->
+ <div class="settings-group"><h3>Apariencia y batería</h3>
+  <label class="switch-row"><span><strong>Animaciones suaves</strong><small>Respuestas breves al tocar. No hay animación continua mientras suena la música.</small></span><input id="motionToggle" type="checkbox" checked role="switch"><span class="switch-ui"></span></label>
+  <label class="field-label" for="fxLevel">Efectos de cristal<select id="fxLevel"><option value="auto">Automático · según tu equipo</option><option value="full">Completo · cristal líquido y ambiente animado</option><option value="lite">Ligero · sin desenfoque, gasta menos</option></select></label>
+  <p class="muted">Brisa usa negro real para ahorrar en pantallas OLED y, con la música en pausa y la app cerrada, libera el reproductor a los diez minutos.</p>
+ </div>
+ <div class="settings-group"><h3>Almacenamiento</h3>
+  <button id="persistBtn" class="secondary full">Proteger los datos de la biblioteca</button><p id="persistStatus" class="muted"></p>
+  <button id="clearAIBtn" class="secondary full">Eliminar modelos opcionales de IA</button>
+ </div>
+ <div class="settings-group"><h3>Acerca de</h3><button class="secondary full" data-help>Cómo funciona Brisa</button><button id="installBtn" class="secondary full">Versión instalada</button></div>
+</dialog>
+
+<dialog id="trackSheet" aria-labelledby="sheetTitle"><div class="sheet-head"><span class="tile" id="sheetTile"><svg aria-hidden="true"><use href="#i-note"/></svg></span><span class="track-meta"><strong id="sheetTitle"></strong><small id="sheetArtist"></small></span><form method="dialog" style="margin-left:auto"><button class="icon-btn" aria-label="Cerrar opciones"><svg aria-hidden="true"><use href="#i-close"/></svg></button></form></div>
+ <div class="sheet-list">
+  <button data-sheet="next"><svg aria-hidden="true"><use href="#i-play"/></svg>Reproducir a continuación</button>
+  <button data-sheet="queue"><svg aria-hidden="true"><use href="#i-list"/></svg>Añadir al final de la cola</button>
+  <button data-sheet="fav"><svg aria-hidden="true"><use href="#i-heart"/></svg><span id="sheetFavLabel">Añadir a favoritas</span></button>
+  <button data-sheet="lyrics"><svg aria-hidden="true"><use href="#i-lyrics"/></svg>Ver letra</button>
+  <button data-sheet="offline" id="sheetOffline" hidden><svg aria-hidden="true"><use href="#i-download"/></svg><span id="sheetOfflineLabel">Guardar sin conexión</span></button>
+  <button data-sheet="remove" class="danger"><svg aria-hidden="true"><use href="#i-trash"/></svg>Quitar de Brisa</button>
+ </div>
+</dialog>
+
+<dialog id="lookupDialog"><form method="dialog" class="dialog-head"><h2>Letra y datos</h2><button class="icon-btn" aria-label="Cerrar"><svg aria-hidden="true"><use href="#i-close"/></svg></button></form><p class="muted">Se guardan en tu dispositivo. No se envía nada a internet.</p><form id="lookupForm"><label>Título<input id="lookupTitle" required></label><label>Artista<input id="lookupArtist" placeholder="Artista desconocido"></label><label>Letra (texto o formato LRC)<textarea id="lyricsEditor" rows="8" placeholder="Pega una letra o usa Importar LRC/TXT"></textarea></label><label>Versión en español (opcional, un verso por línea)<textarea id="spanishEditor" rows="4" placeholder="Mismo número de versos que la original"></textarea></label><button class="primary full" type="submit">Guardar cambios</button></form></dialog>
+
+<dialog id="helpDialog"><form method="dialog" class="dialog-head"><h2>Cómo funciona Brisa</h2><button class="icon-btn" aria-label="Cerrar"><svg aria-hidden="true"><use href="#i-close"/></svg></button></form><div class="help-content">
+ <h3>Añade y escucha</h3><p>Pulsa + para elegir canciones o importar una carpeta completa con sus subcarpetas. Inicio te muestra lo último que escuchaste, tus artistas y lo recién añadido. Toca una canción para reproducirla; la cola continúa sola. El aleatorio recorre todas las pendientes antes de repetir.</p>
+ <h3>Sonido</h3><p>Por defecto Brisa reproduce el audio original, sin ecualizar ni cambiar el volumen, igual en la música y en los vídeos. Si quieres ajustarlo, abre Sonido y activa el ecualizador: se aplica a los dos por igual.</p>
+ <h3>Descargas</h3><p>En Vídeos puedes guardar un enlace de YouTube como vídeo, como música o como ambos. La música se guarda con la pista de audio original, sin recomprimir: es la máxima calidad que entrega la fuente y ocupa menos que un MP3 de 320 kbps. El MP3 sigue disponible para equipos antiguos. Usa esta función solo con contenido que tengas derecho a guardar.</p>
+<!--@android-->
+ <h3>Google Drive sin ocupar espacio</h3><p>Con tu cuenta conectada puedes guardar las descargas solo en Drive. Esos archivos se reproducen por internet, con Wi-Fi por defecto, y no ocupan espacio en el teléfono. Desde el menú ⋯ de cada canción, o desde Google Drive, puedes guardar una copia sin conexión de lo que quieras llevar siempre contigo. Para conectar la cuenta puedes usar el botón de Google o pegar un token de acceso OAuth, que te reconoce al instante.</p>
+ <h3>En segundo plano</h3><p>La música sigue sonando con la pantalla apagada y se controla desde la notificación. Si la dejas en pausa y sales de la app, a los diez minutos Brisa libera el reproductor para no gastar batería; al volver continúa en el mismo segundo. Si tu teléfono corta la música al apagar la pantalla, quita a Brisa las restricciones de batería en los ajustes del sistema.</p>
+<!--@end-->
+<!--@windows-->
+ <h3>Google Drive sin ocupar espacio</h3><p>Instala Google Drive para ordenadores, elige «Ver archivos sin descargarlos» y selecciona en Brisa una carpeta de esa unidad. Las descargas se guardan allí y Google las sube a tu cuenta; al reproducirlas se leen desde la nube. Además, en ese mismo diálogo puedes pegar un token de acceso OAuth: Brisa reconoce tu cuenta al instante y la música y los vídeos de tu Drive aparecen en la biblioteca y se reproducen por internet sin descargarlos.</p>
+ <h3>Atajos</h3><p>Espacio: reproducir o pausar. Flechas izquierda y derecha: saltar 10 segundos. Los atajos no actúan mientras escribes.</p>
+<!--@end-->
+ <h3>Letras</h3><p>Brisa lee las letras incluidas en MP3 y FLAC, importa archivos LRC o TXT y permite pegarlas. Las letras con tiempos se resaltan al sonar. La traducción y la transcripción desde el audio son opcionales, se ejecutan en tu dispositivo y descargan sus modelos solo cuando las pides.</p>
+ <h3>Tus archivos</h3><p>Brisa no modifica tus canciones. Si mueves o borras un archivo tendrás que volver a añadirlo. Desinstalar la app o borrar sus datos elimina la biblioteca, no tus archivos.</p>
+ <p class="muted">* Los formatos compatibles dependen del sistema. La calidad final depende de la fuente, del dispositivo y de los auriculares.</p>
+</div></dialog>
+
+<dialog id="syncDialog" aria-labelledby="syncHeading"><form method="dialog" class="dialog-head"><h2 id="syncHeading">Pon tu letra a tiempo</h2><button class="icon-btn" aria-label="Cerrar sincronización"><svg aria-hidden="true"><use href="#i-close"/></svg></button></form>
+<p id="syncIntro" class="sync-intro"></p><div class="sync-choices"><button id="syncAuto" class="primary"><svg aria-hidden="true"><use href="#i-lyrics"/></svg>Sincronizar mi letra con el audio</button><button id="syncManualBtn" class="secondary">Marcar mientras escucho</button></div>
+<div id="syncAutoOptions" class="sync-auto" hidden><label class="field-label" for="syncLanguage">Idioma que se canta<select id="syncLanguage"><option value="auto">Detectar idioma</option><option value="es">Español</option><option value="pt">Portugués</option><option value="en">Inglés</option><option value="fr">Francés</option><option value="it">Italiano</option><option value="de">Alemán</option></select></label><p class="muted">Compara tu letra con la voz del archivo y propone los tiempos. Conserva tus palabras. Es aproximado: el canto y los instrumentos pueden causar errores.</p><p class="ai-download-note">Motor local opcional · descarga inicial de unos 80 MB. Después puede usarse sin internet si se conserva la caché. Pausa la música mientras procesa; máximo 8 minutos y 50 MB. No se sube tu audio.</p><button id="syncAutoStart" class="primary full">Analizar audio y proponer tiempos</button></div>
+<div id="syncJob" hidden aria-busy="false"><p id="syncStage" class="sync-step"></p><progress id="syncJobProgress" max="1" aria-label="Avance de la etapa actual"></progress><small id="syncElapsed"></small></div><p id="syncAutoStatus" class="sync-status" role="status" aria-live="polite"></p><button id="syncAutoCancel" class="secondary" hidden>Cancelar análisis</button>
+<section id="syncReview" hidden aria-labelledby="syncReviewTitle"><h3 id="syncReviewTitle">Escucha tu letra sincronizada</h3><p id="syncReviewSummary" class="muted"></p><div class="sync-transport"><button id="syncPreviewBack" class="secondary">−10 s</button><button id="syncPreviewToggle" class="primary">Escuchar desde el primer verso</button><b id="syncPreviewPosition">0:00</b></div><div id="syncPreview" class="lyrics-lines sync-preview" aria-label="Vista previa de los tiempos propuestos"></div><p class="muted">El verso resaltado es el que está sonando. Toca otro verso para escucharlo; al guardar se aplican estos tiempos a tu letra.</p></section>
+<section id="syncManual" hidden aria-label="Marcado guiado"><p id="syncStep" class="sync-step"></p><progress id="syncProgress" max="1" value="0" aria-label="Versos con tiempo"></progress><p id="syncCurrent" class="sync-current"></p><p id="syncNext" class="sync-next"></p><div class="sync-transport"><button id="syncBack" class="secondary">−10 s</button><button id="syncToggle" class="secondary">Reproducir</button><b id="syncPosition">0:00</b></div><button id="syncMark" class="primary full">Este verso empieza ahora</button><div class="sync-edit-actions"><button id="syncUndo" class="secondary">Deshacer marca</button><button id="syncRestart" class="secondary">Volver al inicio</button></div><p id="syncHint" class="muted" role="status"></p><details id="syncDetails"><summary>Ver todos los versos y corregir segundos</summary><div id="syncRows"></div></details></section>
+<button id="syncSave" class="primary full" disabled>Guardar y ver letra</button><p class="sync-footnote">Tu letra se conserva: solo se guardan sus tiempos cuando pulses Guardar. El marcado guiado no necesita internet ni modelos.</p></dialog>
+
+<dialog id="aiDialog"><form method="dialog" class="dialog-head"><h2>Entiende tu canción</h2><button class="icon-btn" aria-label="Cerrar"><svg aria-hidden="true"><use href="#i-close"/></svg></button></form><div class="ai-tabs"><button id="aiTranslateTab" class="chip on">Traducir al español</button><button id="aiTranscribeTab" class="chip">Desde el audio</button></div><p id="aiExplanation" class="muted"></p><label class="field-label">Idioma de la canción<select id="aiLanguage"><option value="pt">Portugués</option><option value="en">Inglés</option><option value="fr">Francés</option><option value="it">Italiano</option><option value="de">Alemán</option><option value="es">Español</option><option value="auto">Detectar (solo voz)</option></select></label><label id="aiEngineField" class="field-label">Motor de traducción<select id="aiEngine"><option value="native">Del navegador (si está disponible)</option><option value="local">Compatible · modelos opcionales</option></select></label><p id="aiDownloadNote" class="ai-download-note"></p><div class="ai-buttons"><button id="aiStart" class="primary">Traducir en mi dispositivo</button><button id="aiCancel" class="secondary" hidden>Cancelar y liberar memoria</button></div><p id="aiStatus" class="muted" role="status" aria-live="polite"></p><div id="aiOutput" hidden><label class="field-label">Revisa y corrige el resultado<textarea id="aiResult" rows="7"></textarea></label><button id="aiApply" class="primary full">Guardar resultado</button></div><p class="muted ai-privacy">Tu audio y tu letra no se envían a servicios externos. La IA solo trabaja cuando la pides y libera la memoria al terminar.</p></dialog>
+
+<dialog id="soundDialog" aria-labelledby="soundTitle"><form method="dialog" class="dialog-head"><h2 id="soundTitle">Tu sonido, a tu gusto</h2><button class="icon-btn" aria-label="Cerrar ajustes de sonido"><svg aria-hidden="true"><use href="#i-close"/></svg></button></form>
+<p class="muted">Se aplica por igual a la música y a los vídeos. Todo se procesa en tu dispositivo, sin modificar los archivos.</p>
+<label class="field-label" for="soundMode">Modo de escucha<select id="soundMode"><option value="original">Sonido original · máxima fidelidad</option><option value="gentle">Ecualizador · ajusta graves, medios y agudos</option></select></label>
+<div id="soundBands" class="sound-bands"><label for="soundBass">Graves <output id="soundBassValue">+2 dB</output><input id="soundBass" type="range" min="-6" max="6" step="1" value="2"></label><label for="soundMid">Medios <output id="soundMidValue">0 dB</output><input id="soundMid" type="range" min="-6" max="6" step="1" value="0"></label><label for="soundTreble">Agudos <output id="soundTrebleValue">+1 dB</output><input id="soundTreble" type="range" min="-6" max="6" step="1" value="1"></label></div>
+<button id="soundReset" class="secondary" type="button">Restablecer</button><p id="soundStatus" class="video-status" role="status"></p><p class="muted">El sonido original no altera nada: es lo más fiel al archivo. El ecualizador cambia el carácter del sonido y reserva un margen de volumen para no saturar; no recupera detalle que la fuente haya perdido.</p></dialog>
+
+<!--@android-->
+<dialog id="driveDialog" aria-labelledby="driveTitle"><form method="dialog" class="dialog-head"><h2 id="driveTitle">Tu Google Drive</h2><button class="icon-btn" aria-label="Cerrar Drive"><svg aria-hidden="true"><use href="#i-close"/></svg></button></form><p id="driveAccount" role="status">Sin cuenta conectada</p><p class="muted">Brisa solo ve los archivos que ella misma creó en tu Drive. Los que están solo en Drive se reproducen por internet y no ocupan espacio aquí; puedes guardar una copia sin conexión de los que quieras.</p><div class="video-tools"><button id="connectDrive" class="primary">Conectar cuenta</button><button id="refreshDrive" class="secondary">Actualizar biblioteca</button><button id="disconnectDrive" class="secondary">Desconectar</button></div><p id="driveMessage" role="status"></p><section class="token-box" aria-labelledby="tokenTitle"><h3 id="tokenTitle">Iniciar con un token de acceso</h3><p class="muted">Pega un token OAuth de Google con permiso de Drive y Brisa reconoce tu cuenta al instante, sin más configuración. Un token de acceso dura alrededor de una hora.</p><p id="tokenStatus" role="status">Sin sesión por token.</p><label class="field-label" for="tokenAccess">Token de acceso<textarea id="tokenAccess" class="secret" rows="2" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="ya29.…"></textarea></label><details id="tokenMore"><summary>Mantener la sesión sin que caduque (opcional)</summary><p class="muted">Con el token de actualización y los datos de tu cliente OAuth, Brisa renueva la sesión sola. Puedes dejar vacío el token de acceso.</p><label class="field-label" for="tokenRefresh">Token de actualización<input id="tokenRefresh" type="password" autocomplete="off" placeholder="1//…"></label><label class="field-label" for="tokenClientId">ID de cliente<input id="tokenClientId" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="….apps.googleusercontent.com"></label><label class="field-label" for="tokenClientSecret">Secreto del cliente<input id="tokenClientSecret" type="password" autocomplete="off"></label></details><div class="video-tools"><button id="tokenConnect" class="primary" type="button">Usar este token</button><button id="tokenDisconnect" class="secondary" type="button" hidden>Cerrar la sesión por token</button></div><p class="muted">Trata el token como una contraseña y no lo compartas. Se guarda solo en este dispositivo. Cómo obtenerlo: guía CONFIGURAR_GOOGLE_DRIVE.md.</p></section><div id="driveFiles"></div><details><summary>El botón Conectar cuenta falla o es la primera vez</summary><p>Google solo autoriza la app si existe un cliente OAuth de tipo Android con el paquete com.brisa.player y la huella SHA-1 de la firma de esta APK. Sigue la guía CONFIGURAR_GOOGLE_DRIVE.md incluida con Brisa: se hace una sola vez y es gratis. No compartas contraseñas ni tokens.</p></details></dialog>
+<!--@end-->
+<!--@windows-->
+<dialog id="pcDriveDialog" aria-labelledby="pcDriveTitle"><form method="dialog" class="dialog-head"><h2 id="pcDriveTitle">Usar tu almacenamiento de Drive</h2><button class="icon-btn" aria-label="Cerrar configuración de Drive"><svg aria-hidden="true"><use href="#i-close"/></svg></button></form><p>Tu sesión en la web de Drive no conecta por sí sola una app de Windows. Esta integración usa la unidad de Google Drive para ordenadores.</p><ol><li>Instala Google Drive para ordenadores e inicia sesión con tu cuenta.</li><li>En sus preferencias elige «Ver archivos sin descargarlos» (streaming).</li><li>Elige aquí una carpeta dentro de la unidad de Drive. Brisa guardará allí los vídeos y la música.</li></ol><p class="muted">Brisa no crea otra copia permanente en su carpeta local. Drive puede usar caché temporal al descargar o reproducir. Para abrir archivos que solo estén en la nube necesitas internet y Drive para ordenadores abierto. El modo «Replicar archivos» ocupa espacio local.</p><p id="pcDriveStatus" role="status"></p><button type="button" id="installPcDrive" class="secondary full">Instalar o abrir la descarga oficial de Drive</button><button type="button" id="choosePcDrive" class="primary full">Elegir mi carpeta de Drive</button><section class="token-box" aria-labelledby="tokenTitle"><h3 id="tokenTitle">Iniciar con un token de acceso</h3><p class="muted">Pega un token OAuth de Google con permiso de Drive y Brisa reconoce tu cuenta al instante, sin más configuración. Un token de acceso dura alrededor de una hora.</p><p id="tokenStatus" role="status">Sin sesión por token.</p><label class="field-label" for="tokenAccess">Token de acceso<textarea id="tokenAccess" class="secret" rows="2" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="ya29.…"></textarea></label><details id="tokenMore"><summary>Mantener la sesión sin que caduque (opcional)</summary><p class="muted">Con el token de actualización y los datos de tu cliente OAuth, Brisa renueva la sesión sola. Puedes dejar vacío el token de acceso.</p><label class="field-label" for="tokenRefresh">Token de actualización<input id="tokenRefresh" type="password" autocomplete="off" placeholder="1//…"></label><label class="field-label" for="tokenClientId">ID de cliente<input id="tokenClientId" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="….apps.googleusercontent.com"></label><label class="field-label" for="tokenClientSecret">Secreto del cliente<input id="tokenClientSecret" type="password" autocomplete="off"></label></details><div class="video-tools"><button id="tokenConnect" class="primary" type="button">Usar este token</button><button id="tokenDisconnect" class="secondary" type="button" hidden>Cerrar la sesión por token</button><button id="tokenRefreshList" class="secondary" type="button">Actualizar lista de Drive</button></div><p class="muted">Con la sesión por token, la música y los vídeos de tu Drive aparecen en la biblioteca y se reproducen por internet sin descargarlos. Trata el token como una contraseña y no lo compartas. Se guarda solo en este dispositivo. Cómo obtenerlo: guía CONFIGURAR_GOOGLE_DRIVE.md.</p></section></dialog>
+<!--@end-->
+<script src="desktop.js"></script><script src="platform.js"></script><script src="sound-desktop.js"></script><script type="module" src="app.js"></script>
+<!--@windows-->
+<script type="module" src="video-chrome.js"></script>
+<!--@end-->
+</body></html>

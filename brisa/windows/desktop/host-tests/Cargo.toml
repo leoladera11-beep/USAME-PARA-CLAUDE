@@ -1,0 +1,15 @@
+# Pruebas del código de Drive de Windows en cualquier sistema, sin Tauri ni Windows.
+# Compila drive_token.rs y drive_core.rs tal cual y los enfrenta a un Drive simulado por HTTP.
+#   cargo test --manifest-path windows/desktop/host-tests/Cargo.toml
+[package]
+name = "brisa-host-tests"
+version = "0.0.0"
+edition = "2021"
+publish = false
+
+[dependencies]
+reqwest = { version = "0.12", default-features = false, features = ["blocking", "rustls-tls-native-roots"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+
+[workspace]

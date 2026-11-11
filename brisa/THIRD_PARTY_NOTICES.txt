@@ -1,0 +1,47 @@
+EDICION LIGERA: consulta LEEME-LIGERO.md. yt-dlp.exe y el ZIP de fuentes FFmpeg se recuperan mediante python3 tools/descargar-dependencias.py; no estan dentro de este ZIP.
+
+Brisa Local 3.0.2
+
+Base: recursos y código recuperados de la APK Brisa 2.5.0 suministrada por el usuario.
+
+NewPipeExtractor v0.27.0 — GPL-3.0-or-later
+https://github.com/TeamNewPipe/NewPipeExtractor/tree/v0.27.0
+Fuente incluida en vendor/newpipe; licencia en vendor/newpipe/LICENSE.
+
+TeamNewPipe/nanojson e9d656ddb49a412a5a0a5d5ef20ca7ef09549996 — Apache-2.0
+https://github.com/TeamNewPipe/nanojson/tree/e9d656ddb49a412a5a0a5d5ef20ca7ef09549996
+Fuente y licencia original en vendor/nanojson.
+
+AndroidX Media3 1.11.1 — Apache-2.0
+https://github.com/androidx/media
+Fuentes publicadas: https://dl.google.com/dl/android/maven2/androidx/media3/
+OkHttp 4.12.0 — Apache-2.0; https://github.com/square/okhttp/tree/parent-4.12.0
+Jsoup 1.23.2 — MIT; https://github.com/jhy/jsoup
+Mozilla Rhino 1.8.1 — MPL-2.0; https://github.com/mozilla/rhino/tree/Rhino1_8_1_Release
+Protobuf Java Lite 4.36.2 — BSD-3-Clause; https://github.com/protocolbuffers/protobuf
+Core library desugaring 2.1.5 — Apache-2.0 with OpenJDK exceptions; https://github.com/google/desugar_jdk_libs
+
+Tauri 2.12.5 y bibliotecas Rust: licencias por paquete, mayoritariamente MIT/Apache-2.0.
+Versiones exactas en windows/desktop/Cargo.lock; https://github.com/tauri-apps/tauri
+
+yt-dlp 2026.10.26 — Unlicense y licencias de sus dependencias incluidas en windows/desktop/resources/licenses.
+https://github.com/yt-dlp/yt-dlp/releases/tag/2026.10.26
+QuickJS-ng 0.18.0 — MIT; licencia incluida en windows/desktop/resources/licenses.
+https://github.com/quickjs-ng/quickjs/releases/tag/v0.18.0
+FFmpeg n8.1 — LGPL-2.1-or-later, compilación reducida sin GPL, con codificador MP3 libmp3lame.
+https://github.com/FFmpeg/FFmpeg/tree/n8.1
+Fuente correspondiente incluida en windows/third-party/ffmpeg-n8.1-source.zip con scripts de compilación.
+
+LAME 3.100 — LGPL-2.0-or-later; fuente incluida en windows/third-party/lame-3.100.tar.gz.
+https://lame.sourceforge.io/
+
+WebView2Loader.dll — Microsoft WebView2 SDK redistributable; licencia del SDK Microsoft.
+https://www.nuget.org/packages/Microsoft.Web.WebView2
+libunwind.dll — LLVM, Apache-2.0 with LLVM exceptions; licencia LLVM incluida en el paquete Windows.
+https://github.com/llvm/llvm-project
+
+Los componentes se distribuyen según sus respectivas licencias; no se modificaron sus fuentes salvo la configuración de compilación de los módulos vendorizados.
+
+El paquete para compartir añade vendor/newpipe y vendor/nanojson del código suministrado.
+La reconstrucción Android actual está en android/decoded; las fuentes Android 2.6.0
+se conservan solo como referencia. Consulta LIMITES-DE-LAS-FUENTES.md sobre la JNI original.
