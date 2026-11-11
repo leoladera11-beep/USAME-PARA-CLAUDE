@@ -18,5 +18,11 @@ cada uno verificado por SHA-256 al usarlo.
 
 `SHA256SUMS.txt` permite comprobar la integridad: `sha256sum -c SHA256SUMS.txt`.
 
+Contenido: esta compilación (11 de noviembre de 2026) incluye las descargas más rápidas y con
+reanudación, editar nombre y artista desde el menú ⋯ o el reproductor sin que la sincronización lo
+borre, los nombres limpios al descargar y los botones de ±10 s encima de los controles principales.
+Mantiene el número de versión 4.1.0 (código 40100): Android la instala encima de la 4.1.0 anterior
+sin desinstalar porque está firmada con la misma clave.
+
 Estado: compiladas y con todas las pruebas automáticas en verde, pero sin ejecutar todavía en un
 teléfono ni en Windows. Detalle en [../documentacion/VALIDACION-4.1.0.md](../documentacion/VALIDACION-4.1.0.md).

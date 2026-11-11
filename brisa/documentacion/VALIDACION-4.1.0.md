@@ -154,3 +154,15 @@ ejecutable en Windows. La medición local tampoco mide consumo de batería.
 **Decisión pendiente del usuario.** Brisa sigue sin modificar ningún archivo. Escribir título y
 artista dentro del archivo (etiquetas) no se ha implementado: queda como opción, solo para archivos
 que Brisa descargó, si el usuario la quiere.
+
+## Apps publicadas en `apps/` (11 de noviembre de 2026)
+
+- Las dos APK se recompilaron con todos los cambios y se firmaron con la clave del propietario
+  (SHA-1 `7F:41:41:DE:F5:C6:A5:C7:98:28:9A:57:F4:55:05:53:DA:EC:C1:65`, esquemas v2 y v3). Paquete
+  `com.brisa.player`, código de versión 40100, API mínima 26 y los mismos permisos que la versión
+  anterior. `verificar-apk.sh` sobre la APK firmada: sin avisos nuevos.
+- La app de Windows se recompiló en modo release para x86_64 y el ZIP incluye el motor yt-dlp
+  2026.10.26 verificado por SHA-256, FFmpeg, FFprobe y QuickJS.
+- Las apps anteriores del repositorio se descargaban bien desde GitHub (HTTP 200 y SHA-256
+  correctos), pero eran la compilación previa a las descargas rápidas y a la edición de nombres.
+- Sigue sin probarse la instalación en el A30, el F8 Pro y Windows 11.
