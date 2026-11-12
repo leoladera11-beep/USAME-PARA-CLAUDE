@@ -1,0 +1,38 @@
+:root {
+  color-scheme: dark;
+  --fondo: #101719;
+  --texto: #f2f7f5;
+  --suave: #bdceca;
+  --acento: #96e6cf;
+  --linea: #38504b;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--fondo);
+  color: var(--texto);
+  font: 1.0625rem/1.65 "Instrument Sans", system-ui, sans-serif;
+}
+a { color: var(--acento); text-underline-offset: .22em; }
+a:focus-visible { outline: 2px solid var(--acento); outline-offset: 5px; }
+.top, main, footer { width: min(70rem, calc(100% - 2.5rem)); margin-inline: auto; }
+.top, footer { display: flex; justify-content: space-between; align-items: baseline; gap: .65rem 2rem; flex-wrap: wrap; }
+.top { padding-block: 1.2rem; border-bottom: 1px solid var(--linea); }
+.brand { font-weight: 750; color: var(--texto); text-decoration: none; }
+nav { display: flex; flex-wrap: wrap; gap: .4rem 1.15rem; font-size: .95rem; }
+nav a { color: var(--suave); text-decoration: none; }
+nav a:hover, nav a[aria-current="page"] { color: var(--acento); text-decoration: underline; }
+.hero { padding-block: clamp(3rem, 9vw, 7rem) clamp(2.5rem, 6vw, 4rem); }
+.hero h1, .document h1 { margin: 0; line-height: 1.03; font-weight: 680; letter-spacing: -.055em; }
+.hero h1 { font-size: clamp(3.2rem, 10vw, 7.6rem); color: var(--acento); }
+.hero p { max-width: 32rem; font-size: clamp(1.15rem, 3vw, 1.55rem); color: var(--suave); }
+.details { padding: 1.5rem 0 3.5rem; border-top: 1px solid var(--linea); max-width: 49rem; }
+.details h2, .document h2 { margin: 0 0 .55rem; line-height: 1.3; }
+.details p, .document p { color: var(--suave); }
+.button { display: inline-block; margin-top: .6rem; border: 1px solid var(--linea); padding: .55rem 1rem; border-radius: .5rem; }
+.document { max-width: 48rem; padding-block: clamp(2.75rem, 7vw, 5rem); }
+.document h1 { font-size: clamp(2.3rem, 6vw, 4rem); margin-bottom: 1.4rem; }
+.document h2 { margin-top: 2rem; font-size: 1.25rem; }
+.document p { margin-block: .65rem 1rem; }
+footer { border-top: 1px solid var(--linea); padding-block: 1.2rem 2.5rem; color: var(--suave); }
+footer p { margin: 0; font-size: .95rem; }

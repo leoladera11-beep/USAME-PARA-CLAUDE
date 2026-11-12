@@ -1,6 +1,0 @@
-interface:
-  display_name: "Identidad de marca"
-  short_description: "Territorios de logo y prompts de imagen"
-  default_prompt: "Necesito conceptos de logo para [marca]"
-policy:
-  allow_implicit_invocation: true
